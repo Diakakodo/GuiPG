@@ -1,0 +1,132 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper,11pt,french]{article}
+
+%Import des packages utilisés pour le document
+\usepackage[latin1]{inputenc}
+\usepackage[french]{babel}
+\usepackage{chngpage}
+\usepackage{hyperref}
+\usepackage{fontspec,xltxtra,xunicode,color}
+\usepackage{tabularx, longtable}
+\usepackage[table]{xcolor}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\definecolor{gris}{rgb}{0.95, 0.95, 0.95}
+
+%Redéfinition des marges
+\addtolength{\hoffset}{-2cm}
+\addtolength{\textwidth}{4cm}
+\addtolength{\topmargin}{-2cm}
+\addtolength{\textheight}{1cm}
+\addtolength{\headsep}{0.8cm} 
+\addtolength{\footskip}{1cm}
+
+
+%Import page de garde et structures pour la gestion de projet
+\usepackage{res/structures} 
+
+%Variables
+\def\matiere{Conduite de Projet}
+\def\filiere{Master 1 GIL}
+\def\projectDesc{Salle de jeu virtuelle}
+\def\projectName{\emph{Agora}~}
+\def\completeName{\projectDesc ~- \projectName}
+\def\docType{Plan De Développement}
+\def\docDate{\today}
+\def\version{1.0}
+\def\author{Prénom \textsc{Nom}}
+\def\checked{Prénom \textsc{Nom}}
+\def\approved{Prénom \textsc{Nom}}
+
+
+
+
+
+% -- Début du document -- %
+\begin{document}
+%Page de garde
+\makeFirstPage
+\clearpage
+
+%Tableau de mises à jour
+\vspace*{1cm}
+\begin{center}
+\textbf{\huge{MISES À JOUR}}\\
+\vspace*{3cm}
+	\begin{tabularx}{16cm}{|c|c|X|}
+	\hline
+	\bfseries{Version} & \bfseries{Date} & \bfseries{Modifications réalisées}\\
+	\hline
+	0.1 & 21/11/2011 & Création\\
+	\hline
+	0.2 & 15/12/2011 & Ajout du planning\\
+	\hline
+	 1.0 & 14/11/2012 & Suppression de tout le document pour vous laisser travailler ;-)\\
+	\hline
+	&&\\
+	\hline
+	&&\\
+	\hline
+	\end{tabularx}
+\end{center}
+
+%La table des matières
+\clearpage
+\tableofcontents
+\clearpage
+
+\section{Structures fournies}
+\subsection{Exemple de cas d'utilisation}
+
+
+\fiche
+	{Accès à \projectName au travers de sa page web } %nom
+	{\emph{Visiteur}} %acteurs concernés
+	{Le \emph{Visiteur} se connecte en tapant l'url du site \projectName} %description
+	{Site web opérationnel} %préconditions
+	{} % événements déclenchants
+	{Page d'accueil affichée} %conditions d'arret
+	{\begin{itemize}  %flot d'événements (acteurs)
+		\item [1.] Ouvre le navigateur et entre l'url du site
+		\item[]
+		\item [3.]  Cligne des yeux d'émerveillement
+	 \end{itemize}
+	} 
+	{\begin{itemize}  %flot d'événements (systeme)
+		\item []
+		\item [2.] Renvoie la page d'accueil du site
+	 \end{itemize}
+	 }
+	{Si le site web n'est pas opérationnel, un message est affiché} %Flots d'exceptions
+
+
+\subsection{Exemple exigences fonctionnelles}
+
+\newcounter{accede} %défini un compteur à incrémenter avant chaque nouvelle exigence
+\label{accede} %permet de définir les numéros d'exigences fonctionnelles à partir du numéro de sous section dans lequel on se trouve (pas forcément pertinent selon le plan utilisé pour construire vos documents)
+
+\begin{longtable}{|p{3cm}|p{9cm}|p{2.5cm}|}
+\headerExigence %entetes
+	\hline
+	\addtocounter{accede}{10}
+	F-FN-\ref{accede}.\arabic{accede} & La Salle de Jeu est accessible au travers d'une page web & \cellcolor{green!50}Indispensable \\
+	\hline
+	\addtocounter{accede}{10}
+	F-FN-\ref{accede}.\arabic{accede} & Les pages publiques du site permettent de visionner quels jeux sont disponibles mais ne donnent pas accès aux jeux sans authentification & \cellcolor{green!50}Indispensable \\
+	\hline
+\end{longtable}
+
+\section{Conclusion}
+May the force be with you ;-)
+
+\end{document}
+
+
+
+
+
+
+
