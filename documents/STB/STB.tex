@@ -1,0 +1,187 @@
+\documentclass[a4paper,11pt,french]{article}
+
+%Import des packages utilisés pour le document
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{chngpage}
+\usepackage{hyperref}
+\usepackage{fontspec,xltxtra,xunicode,color}
+\usepackage{tabularx, longtable}
+\usepackage[table]{xcolor}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\definecolor{gris}{rgb}{0.95, 0.95, 0.95}
+
+%Redéfinition des marges
+\addtolength{\hoffset}{-2cm}
+\addtolength{\textwidth}{4cm}
+\addtolength{\topmargin}{-2cm}
+\addtolength{\textheight}{1cm}
+\addtolength{\headsep}{0.8cm} 
+\addtolength{\footskip}{1cm}
+
+
+%Import page de garde et structures pour la gestion de projet
+\usepackage{res/structures
+}
+
+%Variables
+\def\matiere{Conduite de Projet}
+\def\filiere{Master 1 SSI}
+\def\projectDesc{Interface graphique GPG}
+\def\projectName{\emph{GPG}~}
+\def\completeName{\projectDesc ~- \projectName}
+\def\docType{Spécification Technique du Besoin}
+\def\docDate{\today}
+\def\version{1.0}
+\def\author{Matthieu \textsc{Fin}}
+\def\checked{Olivier \textsc{Thibault}}
+\def\approved{Magalie \textsc{Bardet}}
+
+
+
+% -- Début du document -- %
+\begin{document}
+%Page de garde
+\makeFirstPage
+\clearpage
+
+%Tableau de mises à jour
+\vspace*{1cm}
+\begin{center}
+\textbf{\huge{MISES À JOUR}}\\
+\vspace*{3cm}
+	\begin{tabularx}{16cm}{|c|c|X|}
+	\hline
+	\bfseries{Version} & \bfseries{Date} & \bfseries{Modifications réalisées}\\
+	\hline
+	0.1 & 30/10/2014 & Création\\
+	\hline
+	 & &\\
+	\hline
+	 & & \\
+	\hline
+	&&\\
+	\hline
+	&&\\
+	\hline
+	\end{tabularx}
+\end{center}
+
+%La table des matières
+\clearpage
+\tableofcontents
+\clearpage
+
+\section{Objet}
+\textcolor{blue}{
+  Présenter succinctement le sujet et les hypothèses de travail:
+  \begin{itemize}
+  \item Besoin opérationnel et contexte d'exploitation (unité du logiciel)
+  \item Ojectifs techniques
+  \item Contraintes et recommandations
+  \item Résultats attendus
+  \end{itemize}
+}
+
+\section{Documents applicables et de référence}
+\textcolor{blue}{
+  Lister
+  \begin{itemize}
+  \item Les références des documents qui définissent formellement les principes
+    directeurs et les hypothèses de travail prise en compte pour l’établissement de la spécification.
+  \item Les références des documents cités dans la STB au titre d’explication ou de justification
+  \end{itemize}
+}
+
+\section{Terminologie et sigles utilisés}
+\textcolor{blue}{
+  \begin{temize}
+  \item Glossaire ou dictionnaire
+  \item Abréviations
+  \item Formalisme utilisé
+  \item Légendes et conventions de représentation
+  \end{itemize}
+}
+
+\section{Exigences fonctionnelles}
+\subsection{Présentation de la mission du produit logiciel}
+\textcolor{blue}{
+  Exprimer le besoin fonctionnel:
+  \begin{itemize}
+  \item Décrire l’environnement d’exploitation 
+    (acteurs, positionnement dans le système, profils des utilisateurs, etc.)
+  \item Recenser les cas d’utilisation et dresser une liste des scénarios de mise en œuvre du système.
+  \end{itemize}
+  Ce chapitre pourra être illustré par des diagrammes de cas d’utilisation UML.\\
+  La liste des cas d’utilisation pourra être présentée dans un tableau 
+  (voir exemple  proposé ci-après)
+}
+\begin{tabular}{|>{\centering}p{1cm}|>{\centering}p{7cm}|>{\centering}p{3.5cm}|>{\centering}p{3cm}|}
+  \hline
+  \color{white}\cellcolor{blue}\bfseries{Id}&
+  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
+  \color{white}\cellcolor{blue}\bfseries{Acteur(s)}&
+  \color{white}\cellcolor{blue}\bfseries{Priorité}&
+  \hline
+  1&
+  Création d'un nouveau compte&
+  Administrateur&
+  Indispensable&
+  \hline
+  2&
+  Consultation de statistiques&
+  Manager&
+  Important&
+  \hline
+  3&
+  Récapitulatif général&
+  Manager&
+  Secondaire&
+  \hline
+  &
+  &
+  &
+  &
+  \hline
+\end{tabular}\\
+\textcolor{blue}{pour chaque cas d'utilisation identifié.}
+\clearpage
+
+\subsection{Cas d'utilisation C1}
+
+\textcolor{blue}{
+  Chaque cas devra faire l’objet d’un paragraphe contenant une description détaillée 
+  sous forme de fiche servant de référence pour le projet. Les fiches pourront être 
+  complétées et mises à jour pendant le développement en fonction des exigences 
+  nouvelles ou des évolutions demandées par le client.
+}
+
+\section{Exigences opérationnelles}
+
+\textcolor{blue}{
+  Fournir la liste des exigences de mise en œuvre ou de performance et les identifier par un numéro.
+}
+
+\section{Exigences opérationnelles d'interface}
+
+\textcolor{blue}{
+  Fournir la liste des exigences d’interface avec d’autres logiciels ou avec des matériels 
+  spécifiques et les identifier par un numéro.
+}
+
+\section{Exigences de qualité}
+
+\textcolor{blue}{
+  Fournir la liste des exigences particulières de qualité et les identifier par un numéro.
+}
+
+\section{Exigences de réalisation}
+
+\textcolor{blue}{
+  Fournir la liste des exigences techniques de réalisation et les identifier par un numéro.
+}
+
+\end{document}
+
