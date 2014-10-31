@@ -6,3 +6,6 @@
 documents/STB/auto/*
 \#*\#
 .\#*
+*.synctex.gz
+*.tex~
+*.swp
