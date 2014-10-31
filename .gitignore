@@ -8,4 +8,6 @@ documents/STB/auto/*
 .\#*
 *.synctex.gz
 *.tex~
+*.sty~
+*.cls~
 *.swp
