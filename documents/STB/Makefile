@@ -10,5 +10,5 @@ $(doc).pdf: $(doc).tex ../res/structures.sty ../res/univ-projet.cls
 clean:
 	$(RM) *.aux *.log *.out *.toc
 cleanAll: clean
-	$(RM) $(doc).pdf
+	$(RM) $(doc).synctex.gz $(doc).pdf
 
