@@ -6,9 +6,8 @@ all: $(doc).pdf
 
 $(doc).pdf: $(doc).tex
 	$(CC) $<
+	$(CC) $<
 
 clean:
-	$(RM) *.aux *.log *.out *.toc
-cleanAll: clean
-	$(RM) $(doc).pdf
+	$(RM) *.aux *.log *.out *.toc $(doc).pdf
 
