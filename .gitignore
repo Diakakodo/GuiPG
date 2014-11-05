@@ -11,3 +11,4 @@
 *.sty~
 *.cls~
 *.swp
+.~lock.*\#
