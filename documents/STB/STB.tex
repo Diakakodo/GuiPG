@@ -1,4 +1,4 @@
-\documentclass{"../res/univ-projet"}
+\documentclass{univ-projet}
 
 %Import des packages utilisés pour le document
 \usepackage[utf8x]{inputenc}
@@ -23,12 +23,12 @@
 
 
 %Import page de garde et structures pour la gestion de projet
-%\usepackage{res/structures}
+%\usepackage{structures}
 
 %Variables
-\logo{../res/logo_univ.png}
-\title{Spécification Technique des Besoins}
-\author{Matthieu \bsc{Fin}}
+\logo{logo_univ.png}
+\title{Spécification Technique de Besoin}
+\author{Ibrahima-Sory \bsc{Barry}, Bertille \bsc{Bouillie}}
 \projet{GPG}
 \projdesc{Interface Graphique GPG}
 \filiere{M1SSI - Conduite de Projet}
@@ -37,7 +37,7 @@
 \signataire{Magali \bsc{Bardet}}
 \date{\today}
 
-\histentry{1.0}{31/10/2014}{Version initiale.}
+\histentry{0.1}{31/10/2014}{Version initiale.}
 
 % -- Début du document -- %
 \begin{document}
@@ -52,16 +52,34 @@
 \section{Objet}
 
 % Présentation succinte du sujet et hyp de travail.
+Ce document est la Spécification Technique du Besoin de la réalisation d'une interface graphique pour le logiciel GnuPG.
 Réalisation d'une interface graphique permettant d'utiliser complètement l'outil OpenPGP
 de façon intuitive et pédagogique.
 
+\subsection{Besoins opérationnels}
 \begin{itemize}
-\item L'application doit fonctionner sur le systeme d'exploitation GNU/Linux
-  sous les environnement GNOME et KDE.
-\item TODO Objectifs techniques%TODO
-\item TODO Contraintes et recommandations %TODO
-\item TODO Résultats attendus %TODO
+ \item L'application doit fonctionner sur le système d'exploitation GNU/Linux.
 \end{itemize}
+
+\subsection{Objectifs techniques}
+\begin{itemize}
+ \item Gestion fine des clés.
+ \item Gestion et aperçu de la toile de confiance.
+ \item Chiffrement et déchiffrement pour le webmailing.
+\end{itemize}
+
+\subsection{Contraintes et recommandations}
+\begin{itemize}
+ \item L'application doit respecter les normes RFC.
+ \item L'application doit être pédagogique et précise.
+ \item Chaque action devra être accompagnée d'une visualisation de la ligne de commande GnuPG équivalente.
+\end{itemize}
+
+\subsection{Résultats attendus}
+\begin{itemize}
+ \item 
+\end{itemize}
+
 
 
 \section{Documents applicables et de référence}
@@ -94,19 +112,8 @@ Différents documents de référence :
 
 \section{Exigences fonctionnelles}
 \subsection{Présentation de la mission du produit logiciel}
-\textcolor{blue}{
-  Exprimer le besoin fonctionnel:
-  \begin{itemize}
-  \item Décrire l’environnement d’exploitation 
-    (acteurs, positionnement dans le système, profils des utilisateurs, etc.)
-  \item Recenser les cas d’utilisation et dresser une liste des scénarios de mise en œuvre du système.
-  \end{itemize}
-  Ce chapitre pourra être illustré par des diagrammes de cas d’utilisation UML.\\
-  La liste des cas d’utilisation pourra être présentée dans un tableau 
-  (voir exemple  proposé ci-après)
-}
 
-\begin{tabular}{|>{\centering}p{1cm}|>{\centering}p{7cm}|>{\centering}p{3.5cm}|>{\centering}p{3cm}|}
+\begin{tabular}{|>{\centering}p{1cm}|>{\centering}p{7cm}|>{\centering}p{2.5cm}|>{\centering}p{3cm}|}
   \hline
   \color{white}\cellcolor{blue}\bfseries{Id}&
   \color{white}\cellcolor{blue}\bfseries{Intitulé}&
@@ -115,49 +122,146 @@ Différents documents de référence :
   \cr
   \hline
   1&
-  Création d'un nouveau compte&
-  Administrateur&
-  Indispensable\\
+  Génération d'une nouvelle paire de clés&
+  Utilisateur&
+  Indispensable
   \cr
   \hline
   2&
-  Consultation de statistiques&
-  Manager&
-  Important\\
+  Exportation d'une nouvelle clé&
+  Utilisateur&
+  Indispensable
   \cr
   \hline
   3&
-  Récapitulatif général&
-  Manager&
-  Secondaire\\
+  Importation d'une nouvelle clé&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  4&
+  Génération d'un certificat de révocation&
+  Utilisateur&
+  Important
+  \cr
+  \hline
+  5&
+  Révocation d'une clé&
+  Utilisateur&
+  Important
+  \cr
+  \hline
+  6&
+  Chiffrement ou déchiffrement d'un document&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  7&
+  Gestion de la toile de confiance&
+  Utilisateur&
+  Indispensable
   \cr
   \hline
 \end{tabular}\\
-\textcolor{blue}{pour chaque cas d'utilisation identifié.}
 
 \newpage
 
-\subsection{Cas d'utilisation C1}
+%Cas d'utilisation
+\subsection{Cas d'utilisation 1}
+\fiche{Génération d'une nouvelle paire de clés}{Utilisateur}{Génération d'une nouvelle paire de clés}{}{}{Nouvelle paire de clés créée}
+{1. Demande la création de clés
+3. Choix de l'algorithme
+5. Choix de la taille}
+{2. Demande du type d'algorithme
+4. Demande de la taille des clés
+6. Création des clés}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
 
-\textcolor{blue}{
-  Chaque cas devra faire l’objet d’un paragraphe contenant une description détaillée 
-  sous forme de fiche servant de référence pour le projet. Les fiches pourront être 
-  complétées et mises à jour pendant le développement en fonction des exigences 
-  nouvelles ou des évolutions demandées par le client.
-}
+\subsection{Cas d'utilisation 2}
+\fiche{Exportation d’une nouvelle clé}{Utilisateur}{Exportation d’une nouvelle clé}{}{}{Clé exportée}
+{1.}
+{2.}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
+
+\subsection{Cas d'utilisation 3}
+\fiche{Importation d’une nouvelle clé}{Utilisateur}{Importation d’une nouvelle clé}{}{}{Clé importée et éventuellement signée}
+{1.}
+{2.}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
+
+\subsection{Cas d'utilisation 4}
+\fiche{Génération d’un certificat de révocation}{Utilisateur}{Génération d’un certificat de révocation}{}{}{Certificat de révocation créé}
+{1.}
+{2.}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
+
+\subsection{Cas d'utilisation 5}
+\fiche{Révocation d’une clé}{Utilisateur}{Révocation d’une clé}{}{}{Clé révoquée}
+{1.}
+{2.}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
+
+\subsection{Cas d'utilisation 6}
+\fiche{Chiffrement ou déchiffrement d’un document}{Utilisateur}{Chiffrement ou déchiffrement d’un document}{}{}{Document chiffré ou déchiffré}
+{1.}
+{2.}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
+
+\subsection{Cas d'utilisation 7}
+\fiche{Gestion de la toile de confiance}{Utilisateur}{Gestion de la toile de confiance}{}{}{}
+{1.}
+{2.}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
+
+
+
 
 \section{Exigences opérationnelles}
 
-\textcolor{blue}{
-  Fournir la liste des exigences de mise en œuvre ou de performance et les identifier par un numéro.
-}
+\begin{tabular}{|>{\centering}p{1,5cm}|>{\centering}p{10cm}|>{\centering}p{3cm}|}
+  \hline
+  \color{white}\cellcolor{blue}\bfseries{Id}&
+  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
+  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+  \cr
+  \hline
+  EO1&
+  &
+  Indispensable
+  \cr
+  \hline
+\end{tabular}\\
+
 
 \section{Exigences opérationnelles d'interface}
 
-\textcolor{blue}{
-  Fournir la liste des exigences d’interface avec d’autres logiciels ou avec des matériels 
-  spécifiques et les identifier par un numéro.
-}
+\begin{tabular}{|>{\centering}p{1,5cm}|>{\centering}p{10cm}|>{\centering}p{3cm}|}
+  \hline
+  \color{white}\cellcolor{blue}\bfseries{Id}&
+  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
+  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+  \cr
+  \hline
+  EI1&
+  KDE&
+  Indispensable
+  \cr
+  \hline
+  EI2&
+  Gnome&
+  Indispensable
+  \cr
+  \hline
+\end{tabular}\\
+
 
 \section{Exigences de qualité}
 
