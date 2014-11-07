@@ -7,6 +7,7 @@
 \LoadClass[10pt]{article}
 
 % utilisation des convention française
+\usepackage[utf8x]{inputenc}
 \usepackage[francais]{babel}
 
 %Macro outil, ne devrait pas être utiliser en dehors de ce fichier.
