@@ -1,0 +1,279 @@
+\documentclass{../res/univ-projet}
+
+%Import des packages utilisés pour le document
+\usepackage[utf8x]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+%\usepackage{array}
+%\usepackage{hyperref}
+%\usepackage{tabularx, longtable}
+%\usepackage[table]{xcolor}
+%\usepackage{fancyhdr}
+%\usepackage{lastpage}
+
+\definecolor{gris}{rgb}{0.95, 0.95, 0.95}
+
+%Redéfinition des marges
+%\addtolength{\hoffset}{-2cm}
+%\addtolength{\textwidth}{4cm}
+\addtolength{\topmargin}{-1cm}
+\addtolength{\textheight}{1cm}
+\addtolength{\headsep}{0.8cm} 
+\addtolength{\footskip}{-0.2cm}
+
+
+%Import page de garde et structures pour la gestion de projet
+%\usepackage{structures}
+
+%Variables
+\logo{../res/logo_univ.png}
+\title{Cahier des Recettes}
+\author{Pierre \bsc{Balmelle}, Lucas \bsc{Barbay}}
+\projet{GPG}
+\projdesc{Interface Graphique GPG}
+\filiere{M1SSI - Conduite de Projet}
+\version{0.1}
+\relecteur{Olivier \bsc{Thibault}}
+\signataire{Magali \bsc{Bardet}}
+\date{\today}
+
+\histentry{0.1}{31/10/2014}{Version initiale.}
+
+% -- Début du document -- %
+\begin{document}
+
+%Page de garde
+\maketitle
+\newpage
+%La table des matières
+\tableofcontents
+\newpage
+
+\section{Objet}
+
+% Présentation succinte du sujet et hyp de travail.
+Ce document est la Spécification Technique du Besoin de la réalisation d'une interface graphique pour le logiciel GnuPG.
+Réalisation d'une interface graphique permettant d'utiliser complètement l'outil OpenPGP
+de façon intuitive et pédagogique.
+
+\subsection{Besoins opérationnels}
+\begin{itemize}
+ \item L'application doit fonctionner sur le système d'exploitation GNU/Linux.
+\end{itemize}
+
+\subsection{Objectifs techniques}
+\begin{itemize}
+ \item Gestion fine des clés.
+ \item Gestion et aperçu de la toile de confiance.
+ \item Chiffrement et déchiffrement pour le webmailing.
+\end{itemize}
+
+\subsection{Contraintes et recommandations}
+\begin{itemize}
+ \item L'application doit respecter les normes RFC.
+ \item L'application doit être pédagogique et précise.
+ \item Chaque action devra être accompagnée d'une visualisation de la ligne de commande GnuPG équivalente.
+\end{itemize}
+
+\subsection{Résultats attendus}
+\begin{itemize}
+ \item 
+\end{itemize}
+
+
+
+\section{Documents applicables et de référence}
+% Liste des
+% - Références des documents quidefinissent formellement les principes
+%   directeurs et le hypothèse de travail prise en compte pour l'établissement de la spécification.
+% - Références des documents cités dans la STB au titre d'explication ou de justification.
+Différents documents de référence :
+\begin{itemize}
+\item Définitions du standard OpenPGP \href{file:../../ressources/openPGP/rfc4880-en.pdf}{RFC 4880}
+  et \href{file:../../ressources/openPGP/rfc2440-fr.pdf}{RFC 2440}
+\item Le logiciel \href{https://www.gnupg.org/}{GnuPG} (GNU Privacy Guard) implantation Open Source
+  de OpenPGP.
+\item La \href{https://www.gnupg.org/gph/fr/manual.html#AEN541}{toile de confiance} de GnuPG
+\item Editeurs graphiques existant 
+  (\href{http://www.gnupg.org/related_software/frontends.en.html}{KGpg, GPA, Seahorse})
+\item Exemple de visualisation d'une toile de confiance sur le site de 
+  \href{https://www.archlinux.org/master-keys/#visualization}{archlinux}.
+\end{itemize}
+
+\section{Terminologie et sigles utilisés}
+\textcolor{blue}{
+  \begin{itemize}
+  \item Glossaire ou dictionnaire
+  \item Abréviations
+  \item Formalisme utilisé
+  \item Légendes et conventions de représentation
+  \end{itemize}
+}
+
+\section{Exigences fonctionnelles}
+\subsection{Présentation de la mission du produit logiciel}
+
+\begin{tabular}{|>{\centering}p{1cm}|>{\centering}p{7cm}|>{\centering}p{2.5cm}|>{\centering}p{3cm}|}
+  \hline
+  \color{white}\cellcolor{blue}\bfseries{Id}&
+  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
+  \color{white}\cellcolor{blue}\bfseries{Acteur(s)}&
+  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+  \cr
+  \hline
+  1&
+  Génération d'une nouvelle paire de clés&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  2&
+  Exportation d'une nouvelle clé&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  3&
+  Importation d'une nouvelle clé&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  4&
+  Génération d'un certificat de révocation&
+  Utilisateur&
+  Important
+  \cr
+  \hline
+  5&
+  Révocation d'une clé&
+  Utilisateur&
+  Important
+  \cr
+  \hline
+  6&
+  Chiffrement ou déchiffrement d'un document&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  7&
+  Gestion de la toile de confiance&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+\end{tabular}\\
+
+\newpage
+
+%Cas d'utilisation
+\subsection{Cas d'utilisation 1}
+\fiche{Génération d'une nouvelle paire de clés}{Utilisateur}{Génération d'une nouvelle paire de clés}{}{}{Nouvelle paire de clés créée}
+{1. Demande la création de clés
+3. Choix de l'algorithme
+5. Choix de la taille}
+{2. Demande du type d'algorithme
+4. Demande de la taille des clés
+6. Création des clés}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
+
+\subsection{Cas d'utilisation 2}
+\fiche{Exportation d’une nouvelle clé}{Utilisateur}{Exportation d’une nouvelle clé}{}{}{Clé exportée}
+{1.}
+{2.}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
+
+\subsection{Cas d'utilisation 3}
+\fiche{Importation d’une nouvelle clé}{Utilisateur}{Importation d’une nouvelle clé}{}{}{Clé importée et éventuellement signée}
+{1.}
+{2.}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
+
+\subsection{Cas d'utilisation 4}
+\fiche{Génération d’un certificat de révocation}{Utilisateur}{Génération d’un certificat de révocation}{}{}{Certificat de révocation créé}
+{1.}
+{2.}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
+
+\subsection{Cas d'utilisation 5}
+\fiche{Révocation d’une clé}{Utilisateur}{Révocation d’une clé}{}{}{Clé révoquée}
+{1.}
+{2.}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
+
+\subsection{Cas d'utilisation 6}
+\fiche{Chiffrement ou déchiffrement d’un document}{Utilisateur}{Chiffrement ou déchiffrement d’un document}{}{}{Document chiffré ou déchiffré}
+{1.}
+{2.}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
+
+\subsection{Cas d'utilisation 7}
+\fiche{Gestion de la toile de confiance}{Utilisateur}{Gestion de la toile de confiance}{}{}{}
+{1.}
+{2.}
+{Abandon de l'utilisateur}
+\vspace{0.5cm}
+
+
+
+
+\section{Exigences opérationnelles}
+
+\begin{tabular}{|>{\centering}p{1,5cm}|>{\centering}p{10cm}|>{\centering}p{3cm}|}
+  \hline
+  \color{white}\cellcolor{blue}\bfseries{Id}&
+  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
+  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+  \cr
+  \hline
+  EO1&
+  &
+  Indispensable
+  \cr
+  \hline
+\end{tabular}\\
+
+
+\section{Exigences opérationnelles d'interface}
+
+\begin{tabular}{|>{\centering}p{1,5cm}|>{\centering}p{10cm}|>{\centering}p{3cm}|}
+  \hline
+  \color{white}\cellcolor{blue}\bfseries{Id}&
+  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
+  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+  \cr
+  \hline
+  EI1&
+  KDE&
+  Indispensable
+  \cr
+  \hline
+  EI2&
+  Gnome&
+  Indispensable
+  \cr
+  \hline
+\end{tabular}\\
+
+
+\section{Exigences de qualité}
+
+\textcolor{blue}{
+  Fournir la liste des exigences particulières de qualité et les identifier par un numéro.
+}
+
+\section{Exigences de réalisation}
+
+\textcolor{blue}{
+  Fournir la liste des exigences techniques de réalisation et les identifier par un numéro.
+}
+
+\end{document}
+
