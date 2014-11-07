@@ -1,0 +1,14 @@
+*.aux
+*.toc
+*.log
+*.out
+*.pdf
+*.el
+\#*\#
+.\#*
+*.synctex.gz
+*.tex~
+*.sty~
+*.cls~
+*.swp
+.~lock.*\#
