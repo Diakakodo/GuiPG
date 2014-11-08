@@ -138,7 +138,8 @@
 \hline
 \multicolumn{5}{|>{\columncolor[gray]{.7}}l|}{\bfseries{\bfseries{Description du flot d'\'{e}v\`{e}nements principal:}}}\\
 \hline
-\multicolumn{5}{|l|}{\bfseries{\bfseries{\includegraphics[scale=0.4]{#7}}}}\\
+\multicolumn{5}{|c|}{}\\
+\multicolumn{5}{|c|}{\bfseries{\bfseries{\includegraphics[scale=0.6]{#7}}}}\\
 \hline
 \bfseries{Flots d'exceptions:} & \multicolumn{4}{|p{11.5cm}|}{#8}\\
 \hline
