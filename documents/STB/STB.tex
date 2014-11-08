@@ -122,7 +122,7 @@ Différents documents de référence :
   \cr
   \hline
   1&
-  Génération d'une nouvelle paire de clés&
+  Actions GPG&
   Utilisateur&
   Indispensable
   \cr
@@ -169,14 +169,24 @@ Différents documents de référence :
 
 %Cas d'utilisation
 \subsection{Cas d'utilisation 1}
-\fiche{Génération d'une nouvelle paire de clés}{Utilisateur}{Génération d'une nouvelle paire de clés}{}{}{Nouvelle paire de clés créée}
-{1. Demande la création de clés
-3. Choix de l'algorithme
-5. Choix de la taille}
-{2. Demande du type d'algorithme
-4. Demande de la taille des clés
-6. Création des clés}
-{Abandon de l'utilisateur}
+\ficheGraphic
+{Actions GPG}                                    % Nom du cas d'utilisation
+{Utilisateur}                                    % Acteurs concernés
+{                                                % Description
+  Fonctionnement du système pour chaques actions
+  necessitant l'intervention de GPG.
+}
+{}                                               % Préconditions
+{}                                               % Evénements déclenchants
+{Action terminée}                                % Conditions d'arrêt
+{0.6}{../res/graphics/Diag_Seq_Actions_GPG.jpeg} % Diagramme
+{                                                % Flots d'exceptions
+  \begin{itemize}
+  \item Abandon de l'utilisateur.
+  \item Erreurs GPG.
+  \end{itemize}
+}
+% Fin de la fiche du cas d'utilisation 1.
 \vspace{0.5cm}
 
 \subsection{Cas d'utilisation 2}
