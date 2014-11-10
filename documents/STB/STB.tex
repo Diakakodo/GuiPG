@@ -37,6 +37,7 @@
 \signataire{Magali \bsc{Bardet}}
 \date{\today}
 
+\histentry{0.2}{09/11/2014}{Ajout des exigences}
 \histentry{0.1}{31/10/2014}{Version initiale.}
 
 % -- Début du document -- %
@@ -53,31 +54,32 @@
 
 % Présentation succinte du sujet et hyp de travail.
 Ce document est la Spécification Technique du Besoin de la réalisation d'une interface graphique pour le logiciel GnuPG.
-Réalisation d'une interface graphique permettant d'utiliser complètement l'outil OpenPGP
-de façon intuitive et pédagogique.
 
 \subsection{Besoins opérationnels}
 \begin{itemize}
- \item L'application doit fonctionner sur le système d'exploitation GNU/Linux.
+ \item Accès à toutes les fonctionnalités de GnuPG.
+ \item Utilisation pédagogique et précise : l'interface doit permettre à toute personne novice en sécurité d'utiliser l'application, et une aide doit être donnée pour chaque action.
 \end{itemize}
 
 \subsection{Objectifs techniques}
 \begin{itemize}
- \item Gestion fine des clés.
+ \item Gestion fine des clés : choix de la taille, de l'algrithme de chiffrement symétrique.
  \item Gestion et aperçu de la toile de confiance.
  \item Chiffrement et déchiffrement pour le webmailing.
+ \item Visualisation de la ou des lignes de commande GnuPG équivalentes pour chaque action lancée.
 \end{itemize}
 
 \subsection{Contraintes et recommandations}
 \begin{itemize}
- \item L'application doit respecter les normes RFC.
- \item L'application doit être pédagogique et précise.
- \item Chaque action devra être accompagnée d'une visualisation de la ligne de commande GnuPG équivalente.
+ \item L'application doit fonctionner sur le système d'exploitation GNU/Linux, en particulier, sous les environnements KDE et Gnome.
 \end{itemize}
 
 \subsection{Résultats attendus}
 \begin{itemize}
- \item 
+ \item Rapport complet de l'étude de GnuPG : liste de toutes les fonctionnalités.
+ \item Implémentation d'une interface graphique pour toutes les fonctionnalités de GnuPG.
+ \item Document d'explications et de recommandations à l'utilisation de l'interface graphique.
+ \item Document d'analyse des limites cryptographiques de PGP, composé d'un rapport d'une implémentation de l'attaque sur les KeyId.
 \end{itemize}
 
 
@@ -121,46 +123,28 @@ Différents documents de référence :
   \color{white}\cellcolor{blue}\bfseries{Priorité}\\
   \cr
   \hline
-  1&
+  EF\_1&
   Actions GPG&
   Utilisateur&
   Indispensable
   \cr
   \hline
-  2&
-  Exportation d'une nouvelle clé&
+  EF\_2&
+  Chiffrement et déchiffrement&
   Utilisateur&
   Indispensable
   \cr
   \hline
-  3&
-  Importation d'une nouvelle clé&
+  EF\_3&
+  Affichage des commandes&
   Utilisateur&
   Indispensable
   \cr
   \hline
-  4&
-  Génération d'un certificat de révocation&
+  EF\_4&
+  Modification de paramètres&
   Utilisateur&
   Important
-  \cr
-  \hline
-  5&
-  Révocation d'une clé&
-  Utilisateur&
-  Important
-  \cr
-  \hline
-  6&
-  Chiffrement ou déchiffrement d'un document&
-  Utilisateur&
-  Indispensable
-  \cr
-  \hline
-  7&
-  Gestion de la toile de confiance&
-  Utilisateur&
-  Indispensable
   \cr
   \hline
 \end{tabular}\\
@@ -194,47 +178,68 @@ Différents documents de référence :
 \vspace{0.5cm}
 
 \subsection{Cas d'utilisation 2}
-\fiche{Exportation d’une nouvelle clé}{Utilisateur}{Exportation d’une nouvelle clé}{}{}{Clé exportée}
-{1.}
-{2.}
-{Abandon de l'utilisateur}
+\ficheGraphic
+{Chiffrement et déchiffrement}                   % Nom du cas d'utilisation
+{Utilisateur}                                    % Acteurs concernés
+{                                                % Description
+  Chiffrement ou déchiffrement du ou des fichiers sélectionnés, ou du texte copié dans l'éditeur de l'interface, selon le choix de l'utilisateur.
+}
+{                                                % Préconditions
+  Pour un chiffrement, l'utilisateur possède une clé.
+}                                               
+{}                                               % Evénements déclenchants
+{Action terminée}                                % Conditions d'arrêt
+{0.3}{../res/graphics/Diag_Seq_Chiff_Dechiff} % Diagramme
+{                                                % Flots d'exceptions
+  \begin{itemize}
+  \item Abandon de l'utilisateur.
+  \item Erreurs GPG.
+  \end{itemize}
+}
+% Fin de la fiche du cas d'utilisation 2.
 \vspace{0.5cm}
 
 \subsection{Cas d'utilisation 3}
-\fiche{Importation d’une nouvelle clé}{Utilisateur}{Importation d’une nouvelle clé}{}{}{Clé importée et éventuellement signée}
-{1.}
-{2.}
-{Abandon de l'utilisateur}
+\ficheGraphic
+{Affichage des commandes}                        % Nom du cas d'utilisation
+{Utilisateur}                                    % Acteurs concernés
+{                                                % Description
+  Lors d'une ou plusieurs actions GPG exécutées, les lignes de commandes équivalentes sont affichées via l'interface.
+}
+{}                                               % Préconditions
+{}                                               % Evénements déclenchants
+{Actions GPG terminée}                           % Conditions d'arrêt
+{0.3}{../res/graphics/Diag_Seq_Affichage_Commandes} % Diagramme
+{                                                % Flots d'exceptions
+  Erreurs GPG.
+}
+% Fin de la fiche du cas d'utilisation 3.
 \vspace{0.5cm}
 
 \subsection{Cas d'utilisation 4}
-\fiche{Génération d’un certificat de révocation}{Utilisateur}{Génération d’un certificat de révocation}{}{}{Certificat de révocation créé}
-{1.}
-{2.}
-{Abandon de l'utilisateur}
+\ficheGraphic
+{Modification de paramètres}                     % Nom du cas d'utilisation
+{Utilisateur}                                    % Acteurs concernés
+{                                                % Description
+  L'utilisateur peut modifier :
+  \begin{itemize}
+   \item l'ordre de préférence d'utilisation des algorithmes de chiffrement symétrique,
+   \item le fichier de configuration GPG.
+   \item la Toile de confiance, par un changement de niveau de confiance ou l'ajout d'un nouveau membre.
+  \end{itemize}
+}
+{}                                               % Préconditions
+{}                                               % Evénements déclenchants
+{Actions GPG terminées}                          % Conditions d'arrêt
+{0.3}{../res/graphics/Diag_Seq_Modif_Param} % Diagramme
+{                                                % Flots d'exceptions
+  \begin{itemize}
+  \item Abandon de l'utilisateur.
+  \item Erreurs GPG.
+  \end{itemize}
+}
+% Fin de la fiche du cas d'utilisation 4.
 \vspace{0.5cm}
-
-\subsection{Cas d'utilisation 5}
-\fiche{Révocation d’une clé}{Utilisateur}{Révocation d’une clé}{}{}{Clé révoquée}
-{1.}
-{2.}
-{Abandon de l'utilisateur}
-\vspace{0.5cm}
-
-\subsection{Cas d'utilisation 6}
-\fiche{Chiffrement ou déchiffrement d’un document}{Utilisateur}{Chiffrement ou déchiffrement d’un document}{}{}{Document chiffré ou déchiffré}
-{1.}
-{2.}
-{Abandon de l'utilisateur}
-\vspace{0.5cm}
-
-\subsection{Cas d'utilisation 7}
-\fiche{Gestion de la toile de confiance}{Utilisateur}{Gestion de la toile de confiance}{}{}{}
-{1.}
-{2.}
-{Abandon de l'utilisateur}
-\vspace{0.5cm}
-
 
 
 
@@ -247,8 +252,8 @@ Différents documents de référence :
   \color{white}\cellcolor{blue}\bfseries{Priorité}\\
   \cr
   \hline
-  EO1&
-  &
+  EO\_1&
+  Accès à toutes les fonctionnalités de GnuPG&
   Indispensable
   \cr
   \hline
@@ -264,30 +269,40 @@ Différents documents de référence :
   \color{white}\cellcolor{blue}\bfseries{Priorité}\\
   \cr
   \hline
-  EI1&
-  KDE&
-  Indispensable
-  \cr
-  \hline
-  EI2&
-  Gnome&
-  Indispensable
-  \cr
-  \hline
 \end{tabular}\\
 
 
 \section{Exigences de qualité}
 
-\textcolor{blue}{
-  Fournir la liste des exigences particulières de qualité et les identifier par un numéro.
-}
+\begin{tabular}{|>{\centering}p{1,5cm}|>{\centering}p{10cm}|>{\centering}p{3cm}|}
+  \hline
+  \color{white}\cellcolor{blue}\bfseries{Id}&
+  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
+  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+  \cr
+  \hline
+  EQ\_1&
+  Représentation des niveaux de confiance par couleurs sur la Toile&
+  Important
+  \cr
+  \hline
+\end{tabular}\\
 
 \section{Exigences de réalisation}
 
-\textcolor{blue}{
-  Fournir la liste des exigences techniques de réalisation et les identifier par un numéro.
-}
+\begin{tabular}{|>{\centering}p{1,5cm}|>{\centering}p{10cm}|>{\centering}p{3cm}|}
+  \hline
+  \color{white}\cellcolor{blue}\bfseries{Id}&
+  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
+  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+  \cr
+  \hline
+  ER\_1&
+  Fonctionnement sous KDE et Gnome&
+  Indispensable
+  \cr
+  \hline
+\end{tabular}\\
 
 \end{document}
 
