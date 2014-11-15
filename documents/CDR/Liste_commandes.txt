@@ -1,0 +1,114 @@
+-s, –sign
+
+–clearsign
+
+-b, –detach-sign
+
+-e, –encrypt
+
+-c, –symmetric
+
+–store
+
+–decrypt [=file=]
+
+–verify [[=sigfile=] [=signed-files=]]
+
+–verify-files [=files=]
+
+–list-keys [=names=], –list-public-keys [=names=]
+
+–list-secret-keys [=names=]
+
+–list-sigs [=names=]
+
+–check-sigs [=names=]
+
+–fingerprint [=names=]
+
+–list-packets
+
+–gen-key
+
+–edit-key name
+
+    sign
+        
+    lsign
+        
+    revsig
+        
+    trust
+        
+    disable, enable
+        
+    adduid
+        
+    deluid
+        
+    addkey
+        
+    delkey
+        
+    revkey
+        
+    expire
+        
+    passwd
+        
+    uid n
+        
+    key n
+         
+    check
+        
+    pref
+        
+    toggle
+        
+    save
+        
+    quit
+        
+
+–sign-key name
+
+–lsign-key name
+
+–trusted-key long key ID
+
+–delete-key name
+
+–delete-secret-key name
+
+–gen-revoke
+
+–export [=names=]
+
+–send-keys [=names=]
+
+–export-all [=names=]
+
+	–export-secret-keys [=names=], –export-secret-subkeys [=names=]
+
+–import [=files=], –fast-import [=files=]
+
+–recv-keys key IDs
+
+–export-ownertrust
+
+–import-ownertrust [=files=]
+
+–print-md algo [=files=]
+
+–gen-random 0|1|2 [=count=]
+
+–gen-prime mode bits [=qbits=]
+
+–version
+
+–warranty
+
+-h, –help
+
+
