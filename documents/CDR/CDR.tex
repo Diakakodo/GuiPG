@@ -34,7 +34,7 @@
 \filiere{M1SSI - Conduite de Projet}
 \version{0.1}
 \relecteur{Olivier \bsc{Thibault}}
-\signataire{Magali \bsc{Bardet}}
+\signataire{}
 \date{\today}
 
 \histentry{0.1}{31/10/2014}{Version initiale.}
@@ -49,33 +49,31 @@
 \tableofcontents
 \newpage
 
-\section{Objet}
+\section{Introduction}
 
 % Présentation succinte du sujet et hyp de travail.
-Ce document est la Spécification Technique du Besoin de la réalisation d'une interface graphique pour le logiciel GnuPG.
+Ce document est le Cahier de Recette (CDR) de la réalisation d'une interface graphique pour le logiciel GnuPG.
 Réalisation d'une interface graphique permettant d'utiliser complètement l'outil OpenPGP
 de façon intuitive et pédagogique.
 
-\subsection{Besoins opérationnels}
+\subsection{Fonctionnalités du logiciel}
 \begin{itemize}
- \item L'application doit fonctionner sur le système d'exploitation GNU/Linux.
+ \item Le logiciel est une interface graphique pour le logiel GnuPG.
 \end{itemize}
 
-\subsection{Objectifs techniques}
+\subsection{Liste des objets à tester}
 \begin{itemize}
- \item Gestion fine des clés.
- \item Gestion et aperçu de la toile de confiance.
- \item Chiffrement et déchiffrement pour le webmailing.
+ \item L'interface graphique des fonctions GnuPG.
+ \item La visualisation de la toile de confiance.
+ \item L'implémentation de l'attaque sur les KeyID. 
 \end{itemize}
 
-\subsection{Contraintes et recommandations}
+\subsection{Contexte d'exécution des tests}
 \begin{itemize}
- \item L'application doit respecter les normes RFC.
- \item L'application doit être pédagogique et précise.
- \item Chaque action devra être accompagnée d'une visualisation de la ligne de commande GnuPG équivalente.
+ \item
 \end{itemize}
 
-\subsection{Résultats attendus}
+\subsection{Choix technologiques et dispositions particulières}
 \begin{itemize}
  \item 
 \end{itemize}
@@ -110,170 +108,76 @@ Différents documents de référence :
   \end{itemize}
 }
 
-\section{Exigences fonctionnelles}
-\subsection{Présentation de la mission du produit logiciel}
+\section{Environnement de test}
+\subsection{Sites de réalisation des tests}
 
-\begin{tabular}{|>{\centering}p{1cm}|>{\centering}p{7cm}|>{\centering}p{2.5cm}|>{\centering}p{3cm}|}
-  \hline
-  \color{white}\cellcolor{blue}\bfseries{Id}&
-  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
-  \color{white}\cellcolor{blue}\bfseries{Acteur(s)}&
-  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
-  \cr
-  \hline
-  1&
-  Génération d'une nouvelle paire de clés&
-  Utilisateur&
-  Indispensable
-  \cr
-  \hline
-  2&
-  Exportation d'une nouvelle clé&
-  Utilisateur&
-  Indispensable
-  \cr
-  \hline
-  3&
-  Importation d'une nouvelle clé&
-  Utilisateur&
-  Indispensable
-  \cr
-  \hline
-  4&
-  Génération d'un certificat de révocation&
-  Utilisateur&
-  Important
-  \cr
-  \hline
-  5&
-  Révocation d'une clé&
-  Utilisateur&
-  Important
-  \cr
-  \hline
-  6&
-  Chiffrement ou déchiffrement d'un document&
-  Utilisateur&
-  Indispensable
-  \cr
-  \hline
-  7&
-  Gestion de la toile de confiance&
-  Utilisateur&
-  Indispensable
-  \cr
-  \hline
-\end{tabular}\\
 
-\newpage
+\subsection{Configurations matérielles utilisées}
+\begin{itemize}
+ \item PC n°1 : Debian avec Gnome
+ \item i5-3210M @ 2.50GHz
+ \item 6Go RAM
 
-%Cas d'utilisation
-\subsection{Cas d'utilisation 1}
-\fiche{Génération d'une nouvelle paire de clés}{Utilisateur}{Génération d'une nouvelle paire de clés}{}{}{Nouvelle paire de clés créée}
-{1. Demande la création de clés
-3. Choix de l'algorithme
-5. Choix de la taille}
-{2. Demande du type d'algorithme
-4. Demande de la taille des clés
-6. Création des clés}
-{Abandon de l'utilisateur}
-\vspace{0.5cm}
+\end{itemize}
 
-\subsection{Cas d'utilisation 2}
-\fiche{Exportation d’une nouvelle clé}{Utilisateur}{Exportation d’une nouvelle clé}{}{}{Clé exportée}
-{1.}
-{2.}
-{Abandon de l'utilisateur}
-\vspace{0.5cm}
+\subsection{Outils de tests mis en oeuvre}
+\begin{itemize}
+ \item 
+\end{itemize}
 
-\subsection{Cas d'utilisation 3}
-\fiche{Importation d’une nouvelle clé}{Utilisateur}{Importation d’une nouvelle clé}{}{}{Clé importée et éventuellement signée}
-{1.}
-{2.}
-{Abandon de l'utilisateur}
-\vspace{0.5cm}
+\subsection{Jeux de données/Bases de données}
+\begin{itemize}
+ \item 
+\end{itemize}
 
-\subsection{Cas d'utilisation 4}
-\fiche{Génération d’un certificat de révocation}{Utilisateur}{Génération d’un certificat de révocation}{}{}{Certificat de révocation créé}
-{1.}
-{2.}
-{Abandon de l'utilisateur}
-\vspace{0.5cm}
-
-\subsection{Cas d'utilisation 5}
-\fiche{Révocation d’une clé}{Utilisateur}{Révocation d’une clé}{}{}{Clé révoquée}
-{1.}
-{2.}
-{Abandon de l'utilisateur}
-\vspace{0.5cm}
-
-\subsection{Cas d'utilisation 6}
-\fiche{Chiffrement ou déchiffrement d’un document}{Utilisateur}{Chiffrement ou déchiffrement d’un document}{}{}{Document chiffré ou déchiffré}
-{1.}
-{2.}
-{Abandon de l'utilisateur}
-\vspace{0.5cm}
-
-\subsection{Cas d'utilisation 7}
-\fiche{Gestion de la toile de confiance}{Utilisateur}{Gestion de la toile de confiance}{}{}{}
-{1.}
-{2.}
-{Abandon de l'utilisateur}
-\vspace{0.5cm}
+\subsection{Contraintes à prendre en compte}
+\begin{itemize}
+ \item 
+\end{itemize}
 
 
 
 
-\section{Exigences opérationnelles}
+\section{Responsabilités}
 
-\begin{tabular}{|>{\centering}p{1,5cm}|>{\centering}p{10cm}|>{\centering}p{3cm}|}
-  \hline
-  \color{white}\cellcolor{blue}\bfseries{Id}&
-  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
-  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
-  \cr
-  \hline
-  EO1&
-  &
-  Indispensable
-  \cr
-  \hline
-\end{tabular}\\
+\begin{itemize}
+ \item 
+\end{itemize}
 
 
-\section{Exigences opérationnelles d'interface}
+\section{Stratégies de tests}
 
-\begin{tabular}{|>{\centering}p{1,5cm}|>{\centering}p{10cm}|>{\centering}p{3cm}|}
-  \hline
-  \color{white}\cellcolor{blue}\bfseries{Id}&
-  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
-  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
-  \cr
-  \hline
-  EI1&
-  KDE&
-  Indispensable
-  \cr
-  \hline
-  EI2&
-  Gnome&
-  Indispensable
-  \cr
-  \hline
-\end{tabular}\\
+\subsection{Description de l'approche et des phases de test}
+\begin{itemize}
+ \item 
+\end{itemize}
+
+\subsection{Campagne de test}
+\begin{itemize}
+ \item 
+\end{itemize}
+
+\subsection{Ordre d'exécution des tests}
+\begin{itemize}
+ \item 
+\end{itemize}
+
+\subsection{Critères d'arrêt des tests}
+\begin{itemize}
+ \item 
+\end{itemize}
 
 
-\section{Exigences de qualité}
+\section{Gestion des anomalies}
 
-\textcolor{blue}{
-  Fournir la liste des exigences particulières de qualité et les identifier par un numéro.
-}
 
-\section{Exigences de réalisation}
 
-\textcolor{blue}{
-  Fournir la liste des exigences techniques de réalisation et les identifier par un numéro.
-}
+\section{Procédures de test}
 
+
+
+\section{Jeux de données de test}
+
+\section{Couverture de test}
 \end{document}
 
