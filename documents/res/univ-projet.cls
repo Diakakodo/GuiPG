@@ -120,7 +120,7 @@
 
 % Mecanique de fiche avec une image pour la partie
 % Description du flot d ’événements principal.
-\newcommand{\ficheGraphic}[8] {
+\newcommand{\ficheGraphic}[9] {
 	\noindent
 \begin{tabular}{|p{3.5cm}| p{1cm} | p{3cm} | p{.5cm} | p{7cm}|} 
 \hline
@@ -138,9 +138,10 @@
 \hline
 \multicolumn{5}{|>{\columncolor[gray]{.7}}l|}{\bfseries{\bfseries{Description du flot d'\'{e}v\`{e}nements principal:}}}\\
 \hline
-\multicolumn{5}{|l|}{\bfseries{\bfseries{\includegraphics[scale=0.4]{#7}}}}\\
+\multicolumn{5}{|c|}{}\\
+\multicolumn{5}{|c|}{\bfseries{\bfseries{\includegraphics[scale=#7]{#8}}}}\\
 \hline
-\bfseries{Flots d'exceptions:} & \multicolumn{4}{|p{11.5cm}|}{#8}\\
+\bfseries{Flots d'exceptions:} & \multicolumn{4}{|p{11.5cm}|}{#9}\\
 \hline
 \end{tabular}
 \\
