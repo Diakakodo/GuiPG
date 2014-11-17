@@ -1,0 +1,188 @@
+-a, –armor
+
+-o, –output file
+
+-u, –local-user name
+
+–default-key name
+
+-r, –recipient name,
+
+–default-recipient name
+
+–default-recipient-self
+
+–no-default-recipient
+
+–encrypt-to name
+
+–no-encrypt-to
+
+-v, –verbose
+
+-q, –quiet
+
+-z n
+
+-t, –textmode
+
+-n, –dry-run
+
+-i, –interactive
+
+–batch
+
+–no-tty
+
+–no-batch
+
+–yes
+
+–no
+
+–always-trust
+
+–keyserver name
+
+–no-auto-key-retrieve
+
+–honor-http-proxy
+
+–keyring file
+
+–secret-keyring file
+
+–homedir directory
+
+–charset name
+
+    iso-8859-1
+       
+    iso-8859-2
+       
+    koi8-r
+        
+
+–utf8-strings, –no-utf8-strings
+
+–options file
+
+–no-options
+
+–load-extension name
+
+–debug flags
+
+–debug-all
+
+–status-fd n
+
+–logger-fd n
+
+–no-comment
+
+–comment string
+
+–default-comment
+
+–no-version
+
+–emit-version
+
+-N, –notation-data name=value
+
+–set-policy-url string
+
+–set-filename string
+
+–use-embedded-filename
+
+–completes-needed n
+
+–marginals-needed n
+
+–max-cert-depth n
+
+–cipher-algo name
+
+–digest-algo name
+
+–s2k-cipher-algo name
+
+–s2k-digest-algo name
+
+–s2k-mode n
+
+–compress-algo n
+
+–disable-cipher-algo name
+
+–disable-pubkey-algo name
+
+–throw-keyid
+
+–not-dash-escaped
+
+–escape-from-lines
+
+–passphrase-fd n
+
+–command-fd n
+
+–rfc1991
+
+–openpgp
+
+–force-v3-sigs
+
+–force-mdc
+
+–allow-non-selfsigned-uid
+
+–allow-freeform-uid
+
+–ignore-time-conflict
+
+–lock-once
+
+–lock-multiple
+
+–lock-never
+
+–no-random-seed-file
+
+–no-verbose
+
+–no-greeting
+
+–no-secmem-warning
+
+–no-armor
+
+–no-default-keyring
+
+–skip-verify
+
+–with-colons
+
+–with-key-data
+
+–with-fingerprint
+
+–fast-list-mode
+
+–list-only
+
+–no-literal
+
+–set-filesize
+
+–emulate-md-encode-bug
+
+–show-session-key
+
+–override-session-key string
+
+–merge-only
+
+–try-all-secrets

@@ -1,0 +1,234 @@
+\documentclass{../res/univ-projet}
+
+%Import des packages utilisés pour le document
+\usepackage[utf8x]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+%\usepackage{array}
+%\usepackage{hyperref}
+%\usepackage{tabularx, longtable}
+%\usepackage[table]{xcolor}
+%\usepackage{fancyhdr}
+%\usepackage{lastpage}
+
+\definecolor{gris}{rgb}{0.95, 0.95, 0.95}
+
+%Redéfinition des marges
+%\addtolength{\hoffset}{-2cm}
+%\addtolength{\textwidth}{4cm}
+\addtolength{\topmargin}{-1cm}
+\addtolength{\textheight}{1cm}
+\addtolength{\headsep}{0.8cm} 
+\addtolength{\footskip}{-0.2cm}
+
+
+%Import page de garde et structures pour la gestion de projet
+%\usepackage{structures}
+
+%Variables
+\logo{../res/logo_univ.png}
+\title{Cahier des Recettes}
+\author{Pierre \bsc{Balmelle}, Lucas \bsc{Barbay}}
+\projet{GPG}
+\projdesc{Interface Graphique GPG}
+\filiere{M1SSI - Conduite de Projet}
+\version{0.1}
+\relecteur{Olivier \bsc{Thibault}}
+\signataire{}
+\date{\today}
+
+\histentry{0.1}{31/10/2014}{Version initiale.}
+
+% -- Début du document -- %
+\begin{document}
+
+%Page de garde
+\maketitle
+\newpage
+%La table des matières
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+% Présentation succinte du sujet et hyp de travail.
+Ce document est le Cahier de Recette (CDR) de la réalisation d'une interface graphique pour le logiciel GnuPG.
+Réalisation d'une interface graphique permettant d'utiliser complètement l'outil OpenPGP
+de façon intuitive et pédagogique.
+
+\subsection{Fonctionnalités du logiciel}
+\begin{itemize}
+ \item Le logiciel est une interface graphique pour le logiel GnuPG.
+\end{itemize}
+
+\subsection{Liste des objets à tester}
+\begin{itemize}
+ \item L'interface graphique des fonctions GnuPG.
+ \item La visualisation de la toile de confiance.
+ \item L'implémentation de l'attaque sur les KeyID. 
+\end{itemize}
+
+\subsection{Contexte d'exécution des tests}
+\begin{itemize}
+ \item
+\end{itemize}
+
+\subsection{Choix technologiques et dispositions particulières}
+\begin{itemize}
+ \item 
+\end{itemize}
+
+
+
+\section{Documents applicables et de référence}
+% Liste des
+% - Références des documents quidefinissent formellement les principes
+%   directeurs et le hypothèse de travail prise en compte pour l'établissement de la spécification.
+% - Références des documents cités dans la STB au titre d'explication ou de justification.
+Différents documents de référence :
+\begin{itemize}
+\item Définitions du standard OpenPGP \href{file:../../ressources/openPGP/rfc4880-en.pdf}{RFC 4880}
+  et \href{file:../../ressources/openPGP/rfc2440-fr.pdf}{RFC 2440}
+\item Le logiciel \href{https://www.gnupg.org/}{GnuPG} (GNU Privacy Guard) implantation Open Source
+  de OpenPGP.
+\item La \href{https://www.gnupg.org/gph/fr/manual.html#AEN541}{toile de confiance} de GnuPG
+\item Editeurs graphiques existant 
+  (\href{http://www.gnupg.org/related_software/frontends.en.html}{KGpg, GPA, Seahorse})
+\item Exemple de visualisation d'une toile de confiance sur le site de 
+  \href{https://www.archlinux.org/master-keys/#visualization}{archlinux}.
+\end{itemize}
+
+\section{Terminologie et sigles utilisés}
+\textcolor{blue}{
+  \begin{itemize}
+  \item Glossaire ou dictionnaire
+  \item Abréviations
+  \item Formalisme utilisé
+  \item Légendes et conventions de représentation
+  \end{itemize}
+}
+
+\section{Environnement de test}
+\subsection{Sites de réalisation des tests}
+
+
+\subsection{Configurations matérielles utilisées}
+\begin{itemize}
+ \item PC n°1 : Un ordinateur portable équipé de Kali Linux 1.0(Debian) 64 bits sous Gnome avec un processeur Intel i5-3210M @ 2.50GHz et 6Go de RAM.
+
+\end{itemize}
+
+\subsection{Outils de tests mis en oeuvre}
+\begin{itemize}
+ \item 
+\end{itemize}
+
+\subsection{Jeux de données/Bases de données}
+\begin{itemize}
+ \item 
+\end{itemize}
+
+\subsection{Contraintes à prendre en compte}
+\begin{itemize}
+ \item 
+\end{itemize}
+
+
+
+
+\section{Responsabilités}
+
+\begin{itemize}
+ \item 
+\end{itemize}
+
+
+\section{Stratégies de tests}
+
+\subsection{Description de l'approche et des phases de test}
+\begin{itemize}
+ \item 
+\end{itemize}
+
+\subsection{Campagne de test}
+\begin{itemize}
+ \item 
+\end{itemize}
+
+\subsection{Ordre d'exécution des tests}
+\begin{itemize}
+ \item 
+\end{itemize}
+
+\subsection{Critères d'arrêt des tests}
+\begin{itemize}
+ \item 
+\end{itemize}
+
+
+\section{Gestion des anomalies}
+
+Quand des anomalies seront détectées, la procédure suivante devra être respectée:
+  \begin{itemize}
+   \item Création d'un mémo précisant l'anomalie rencontrée ainsi que les conditions de reproduction de l'anomalie si disponibles et l'état du système lors de l'apparition de l'anomalie.  
+   Un identifiant unique lui sera attribué.
+   \item Ajout d'une entrée au journal de test précisant la date du test, la référence du mémo, le nom ainsi que la référence de l'exigence de 
+   qualité non respectée.
+   \item Diffusion de la note à l'équipe de développement.
+   \item Une personne est désignée pour corriger l'anomalie.
+   \item Cette personne vérifie la gravité de l'anomalie, puis la corrige.
+   \item Une deuxième personne s'assure que l'anomalie est bien corrigée.
+   \item Une fois la vérification effectuée, la personne ayant corrigé l'anomalie établit un contre-mémo portant le même identifiant et précisant les raisons supposées 
+   de l'anomalie ainsi que les corrections mises en place.
+  \end{itemize}
+  
+
+  Dans la pratique, la gestions des anomalies sera faite à l'aide de l'outil \emph{issue tracker} de
+  la plate-forme d'hébergement Gitlab. Cet outil permet la création de files de discussion associées à un bug
+  de l'application. Il laisse aussi la possibilité aux collaborateurs du projet de prendre en charge 
+  une \emph{issue} particulière. L'ensemble des \emph{issues} ouvertes est conservé par Gitlab ainsi
+  que les files de discussion associés permettant de parcourir l'historique des bugs du projet.
+
+
+\section{Procédures de test}
+
+\begin{center}
+    %---------------------------------------Test N° 1------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : } & \multicolumn{2}{c|}{Version : }\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° 1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 &  &  &  & \\
+      2 &  &  &  & \\
+      3 &  &  &  & \\ \hline
+    \end{tabular}
+    \vfill
+\end{center}
+
+\section{Jeux de données de test}
+
+\section{Couverture de test}
+
+\begin{center}
+    \begin{tabular}{|p{2.8cm}|p{4.2cm}|p{3cm}|p{5cm}|}
+      \hline
+      Id Exigence STB & Méthode de vérification & Procédure utilisée & Commentaire\\ \hline
+      EF\_01 & Vérifier si la commande de génération de clé a été exécutée avec les bons paramètres. &  & \\ \hline
+      EF\_02 & Vérifier si la commande d'exportVérifier si la commande de génération d'un certificat de révocation a été exécutée.ation de clé a été exécutée avec les bons paramètres. &  & \\ \hline
+      EF\_03 & Vérifier si la commande d'importation de clé a été exécutée avec les bons paramètres. &  & \\ \hline
+      EF\_04 & Vérifier si la commande de génération d'un certificat de révocation a été exécutée. &  & \\ \hline
+      EF\_05 & Vérifier si la commande de révocation d'une clé a été exécutée. &  & \\ \hline
+      EF\_06 & Vérifier si la commande de chiffrement a été exécutée avec les bons paramètres. &  & \\ \hline
+      EF\_06 & Vérifier si la commande de déchiffrement a été exécutée avec les bons paramètres. &  & \\ \hline
+      EF\_07 & Vérifier si l'affichage de la toile de confiance correspond à la réalité. &  & \\ \hline
+      EI\_01 & Effectuer tous les tests sous l'interface KDE. &  & \\ \hline
+      EI\_02 & Effectuer tous les tests sous l'interface Gnome. &  & \\ \hline
+    \end{tabular}  
+\end{center}
+
+
+\end{document}
+
