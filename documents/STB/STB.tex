@@ -37,7 +37,8 @@
 \signataire{Magali \bsc{Bardet}}
 \date{\today}
 
-\histentry{0.2}{09/11/2014}{Ajout des exigences}
+\histentry{0.3}{17/11/2014}{Ajout des modifications demandées par le client.}
+\histentry{0.2}{09/11/2014}{Ajout des exigences.}
 \histentry{0.1}{31/10/2014}{Version initiale.}
 
 % -- Début du document -- %
@@ -130,21 +131,33 @@ Différents documents de référence :
   \cr
   \hline
   EF\_2&
-  Chiffrement et déchiffrement&
+  Chiffrement/déchiffrement, signature/vérification&
   Utilisateur&
   Indispensable
   \cr
   \hline
   EF\_3&
-  Affichage des commandes&
+  Affichage des commandes et des erreurs&
   Utilisateur&
   Indispensable
   \cr
   \hline
   EF\_4&
-  Modification de paramètres&
+  Choix du fichier de configuration&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  EF\_5&
+  Toile de confiance : modifications&
   Utilisateur&
   Important
+  \cr
+  \hline
+  EF\_5&
+  Attaque sur les KeyId&
+  Utilisateur&
+  Indispensable
   \cr
   \hline
 \end{tabular}\\
@@ -154,9 +167,12 @@ Différents documents de référence :
 %Cas d'utilisation
 \subsection{Cas d'utilisation 1}
 \ficheGraphic
-{Actions GPG}                                    % Nom du cas d'utilisation
-{Utilisateur}                                    % Acteurs concernés
-{                                                % Description
+% Nom du cas d'utilisation
+{Actions GPG}
+% Acteurs concernés
+{Utilisateur}
+% Description
+{
   Fonctionnement du système pour chaques actions
   necessitant l'intervention de GPG.
   Toutes ces actions sont spécifiée dans les
@@ -164,11 +180,16 @@ Différents documents de référence :
   \href{file:../../ressources/openPGP/rfc4880-en.pdf}{RFC 4880}
   et \href{file:../../ressources/openPGP/rfc2440-fr.pdf}{RFC 2440}
 }
-{}                                               % Préconditions
-{}                                               % Evénements déclenchants
-{Action terminée}                                % Conditions d'arrêt
-{0.6}{../res/graphics/Diag_Seq_Actions_GPG.jpeg} % Diagramme
-{                                                % Flots d'exceptions
+% Préconditions
+{}
+% Evénements déclenchants
+{Demande d'action GPG}
+% Conditions d'arrêt
+{Action terminée}
+% Diagramme
+{0.5}{../res/graphics/Diag_Seq_Actions_GPG_v2}
+% Flots d'exceptions
+{
   \begin{itemize}
   \item Abandon de l'utilisateur.
   \item Erreurs GPG.
@@ -179,68 +200,109 @@ Différents documents de référence :
 
 \subsection{Cas d'utilisation 2}
 \ficheGraphic
-{Chiffrement et déchiffrement}                   % Nom du cas d'utilisation
-{Utilisateur}                                    % Acteurs concernés
-{                                                % Description
-  Chiffrement ou déchiffrement du ou des fichiers sélectionnés, ou du texte copié dans l'éditeur de l'interface, selon le choix de l'utilisateur.
-}
-{                                                % Préconditions
-  Pour un chiffrement, l'utilisateur possède une clé.
-}                                               
-{}                                               % Evénements déclenchants
-{Action terminée}                                % Conditions d'arrêt
-{0.3}{../res/graphics/Diag_Seq_Chiff_Dechiff} % Diagramme
-{                                                % Flots d'exceptions
-  \begin{itemize}
-  \item Abandon de l'utilisateur.
-  \item Erreurs GPG.
-  \end{itemize}
-}
+% Nom du cas d'utilisation
+{Chiffrement/déchiffrement, signature/vérification}
+% Acteurs concernés
+{Utilisateur}
+% Description
+{Chiffrement ou déchiffrement du ou des fichiers sélectionnés, ou du texte copié dans l'éditeur de l'interface, selon le choix de l'utilisateur. Signature ou vérification d'un document.}
+% Préconditions
+{Pour un chiffrement et une signature, l'utilisateur possède une clé. Pour un déchiffrement et une vérification, l'utilisateur possède la clé public dans son trousseau.}
+% Evénements déclenchants
+{Demande de chiffrement, déchiffrement, signature ou vérification.}
+% Conditions d'arrêt
+{}
+% Diagramme
+{0.5}{../res/graphics/Diag_Seq_Chiff_Dechiff_v2}
+% Flots d'exceptions
+{Abandon de l'utilisateur.}
 % Fin de la fiche du cas d'utilisation 2.
 \vspace{0.5cm}
 
 \subsection{Cas d'utilisation 3}
 \ficheGraphic
-{Affichage des commandes}                        % Nom du cas d'utilisation
-{Utilisateur}                                    % Acteurs concernés
-{                                                % Description
-  Lors d'une ou plusieurs actions GPG exécutées, les lignes de commandes équivalentes sont affichées via l'interface.
-}
-{}                                               % Préconditions
-{}                                               % Evénements déclenchants
-{Actions GPG terminée}                           % Conditions d'arrêt
-{0.3}{../res/graphics/Diag_Seq_Affichage_Commandes} % Diagramme
-{                                                % Flots d'exceptions
-  Erreurs GPG.
-}
+% Nom du cas d'utilisation
+{Affichage des commandes et des erreurs}
+% Acteurs concernés
+{Utilisateur}
+% Description
+{Lors d'une ou plusieurs actions GPG exécutées, les lignes de commandes équivalentes sont affichées via l'interface, ainsi que les erreurs.}
+% Préconditions
+{}
+% Evénements déclenchants
+{Demandes d'action GPG.}
+% Conditions d'arrêt
+{Actions GPG terminées.}
+% Diagramme
+{0.5}{../res/graphics/Diag_Seq_Affichage_Commandes_v2}
+% Flots d'exceptions
+{}   
 % Fin de la fiche du cas d'utilisation 3.
 \vspace{0.5cm}
 
 \subsection{Cas d'utilisation 4}
 \ficheGraphic
-{Modification de paramètres}                     % Nom du cas d'utilisation
-{Utilisateur}                                    % Acteurs concernés
-{                                                % Description
-  L'utilisateur peut modifier :
-  \begin{itemize}
-   \item l'ordre de préférence d'utilisation des algorithmes de chiffrement symétrique,
-   \item le fichier de configuration GPG.
-   \item la Toile de confiance, par un changement de niveau de confiance ou l'ajout d'un nouveau membre.
-  \end{itemize}
-}
-{}                                               % Préconditions
-{}                                               % Evénements déclenchants
-{Actions GPG terminées}                          % Conditions d'arrêt
-{0.3}{../res/graphics/Diag_Seq_Modif_Param} % Diagramme
-{                                                % Flots d'exceptions
-  \begin{itemize}
-  \item Abandon de l'utilisateur.
-  \item Erreurs GPG.
-  \end{itemize}
-}
+% Nom du cas d'utilisation
+{Choix du fichier de configuration}
+% Acteurs concernés
+{Utilisateur}
+% Description
+{L'utilisateur peut modifier le fichier de configuration GPG.}
+% Préconditions
+{}
+% Evénements déclenchants
+{Demande de modification du fichier de configuration.}
+% Conditions d'arrêt
+{Sauvegarde terminée.}
+% Diagramme
+{0.5}{../res/graphics/Diag_Seq_Config}
+% Flots d'exceptions
+{Abandon de l'utilisateur.}
 % Fin de la fiche du cas d'utilisation 4.
 \vspace{0.5cm}
 
+\subsection{Cas d'utilisation 5}
+\ficheGraphic
+% Nom du cas d'utilisation
+{Toile de confiance : modifications}         
+% Acteurs concernés
+{Utilisateur}
+% Description
+{Modification de la Toile de confiance, par un changement de niveau de confiance ou l'ajout d'un nouveau membre, via la représentation graphique de la toile.}
+% Préconditions
+{La représentation de la toile de confiance doit apparaître à l'écran.}
+% Evénements déclenchants
+{Demande de modifications par l'utilisateur.}
+% Conditions d'arrêt
+{Sauvegarde et mise à jour de l'affichage terminées.}
+% Diagramme
+{0.5}{../res/graphics/Diag_Seq_Toile}
+% Flots d'exceptions
+{Abandon de l'utilisateur.}                      
+% Fin de la fiche du cas d'utilisation 5.
+\vspace{0.5cm}
+  
+\subsection{Cas d'utilisation 6}
+\ficheGraphic
+% Nom du cas d'utilisation
+{Attaque sur les KeyId}
+% Acteurs concernés
+{Utilisateur}        
+% Description
+{Création d'une clé d'attaque à partir d'une clé publique.}
+% Préconditions
+{L'utilisateur doit être en possession d'une clé publique.}
+% Evénements déclenchants
+{Demande de création de clé d'attaque.}
+% Conditions d'arrêt
+{Clé d'attaque créée.}
+% Diagramme
+{0.5}{../res/graphics/Diag_Seq_Attaque}
+% Flots d'exceptions
+{}
+% Fin de la fiche du cas d'utilisation 6.
+\vspace{0.5cm}
+  
 
 
 \section{Exigences opérationnelles}
@@ -253,11 +315,27 @@ Différents documents de référence :
   \cr
   \hline
   EO\_1&
-  Accès à toutes les fonctionnalités de GnuPG&
+  Fonctionnement sous KDE et Gnome&
   Indispensable
   \cr
   \hline
+  EO\_2&
+  Représentation graphique de la Toile de confiance&
+  Indispensable
+  \cr
+  \hline
+  E0\_3&
+  Ouverture de deux interfaces avec des fichiers de configuration différents sur une même session&
+  Important
+  \cr
+  \hline
+  EO\_4&
+  SSH : Authentification par clé signée par GPG&
+  Optionnel
+  \cr
+  \hline
 \end{tabular}\\
+
 
 
 \section{Exigences opérationnelles d'interface}
@@ -267,6 +345,16 @@ Différents documents de référence :
   \color{white}\cellcolor{blue}\bfseries{Id}&
   \color{white}\cellcolor{blue}\bfseries{Intitulé}&
   \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+  \cr
+  \hline
+  EI\_1&
+  Implémentation GnuPG 2.0.*&
+  Indispensable
+  \cr
+  \hline
+  EI\_2&
+  Implémentation GnuPG 1.0.*&
+  Optionnel
   \cr
   \hline
 \end{tabular}\\
@@ -286,23 +374,28 @@ Différents documents de référence :
   Important
   \cr
   \hline
-\end{tabular}\\
-
-\section{Exigences de réalisation}
-
-\begin{tabular}{|>{\centering}p{1,5cm}|>{\centering}p{10cm}|>{\centering}p{3cm}|}
-  \hline
-  \color{white}\cellcolor{blue}\bfseries{Id}&
-  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
-  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+  EQ\_2&
+  Temps de réponse et fluidité de l'interface&
+  Optionnel
   \cr
   \hline
-  ER\_1&
-  Fonctionnement sous KDE et Gnome&
-  Indispensable
+  EQ\_3&
+  Interface livrée sous forme de paquet&
+  Optionnel
   \cr
   \hline
 \end{tabular}\\
+
+%\section{Exigences de réalisation}
+
+%\begin{tabular}{|>{\centering}p{1,5cm}|>{\centering}p{10cm}|>{\centering}p{3cm}|}
+%  \hline
+%  \color{white}\cellcolor{blue}\bfseries{Id}&
+%  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
+%  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+%  \cr
+%  \hline
+%\end{tabular}\\
 
 \end{document}
 
