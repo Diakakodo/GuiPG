@@ -80,7 +80,8 @@ Ce document est la Spécification Technique du Besoin de la réalisation d'une i
  \item Rapport complet de l'étude de GnuPG : liste de toutes les fonctionnalités.
  \item Implémentation d'une interface graphique pour toutes les fonctionnalités de GnuPG.
  \item Document d'explications et de recommandations à l'utilisation de l'interface graphique.
- \item Document d'analyse des limites cryptographiques de PGP, composé d'un rapport d'une implémentation de l'attaque sur les KeyId.
+ \item Document d'analyse des limites cryptographiques de PGP.
+ \item Implémentation de l'attaque sur les KeyId décite dans l'article «Surveillance généralisée : aux limites de PGP» du numéro 75 du magazine MISC.
 \end{itemize}
 
 
@@ -137,13 +138,13 @@ Différents documents de référence :
   \cr
   \hline
   EF\_3&
-  Affichage des commandes et des erreurs&
+  Affichage des commandes, des retours et des erreurs&
   Utilisateur&
   Indispensable
   \cr
   \hline
   EF\_4&
-  Choix du fichier de configuration&
+  Choix du profil&
   Utilisateur&
   Indispensable
   \cr
@@ -165,7 +166,10 @@ Différents documents de référence :
 \newpage
 
 %Cas d'utilisation
-\subsection{Cas d'utilisation 1}
+\subsection{Interface graphique}
+
+\includegraphics[scale=0.5]{../res/graphics/Diag_utilisation}
+  \subsubsection{Cas d'utilisation 1}
 \ficheGraphic
 % Nom du cas d'utilisation
 {Actions GPG}
@@ -198,7 +202,7 @@ Différents documents de référence :
 % Fin de la fiche du cas d'utilisation 1.
 \vspace{0.5cm}
 
-\subsection{Cas d'utilisation 2}
+  \subsubsection{Cas d'utilisation 2}
 \ficheGraphic
 % Nom du cas d'utilisation
 {Chiffrement/déchiffrement, signature/vérification}
@@ -219,20 +223,20 @@ Différents documents de référence :
 % Fin de la fiche du cas d'utilisation 2.
 \vspace{0.5cm}
 
-\subsection{Cas d'utilisation 3}
+  \subsubsection{Cas d'utilisation 3}
 \ficheGraphic
 % Nom du cas d'utilisation
-{Affichage des commandes et des erreurs}
+{Affichage des commandes, des retours et des erreurs}
 % Acteurs concernés
 {Utilisateur}
 % Description
-{Lors d'une ou plusieurs actions GPG exécutées, les lignes de commandes équivalentes sont affichées via l'interface, ainsi que les erreurs.}
+{L'utilisateur peut choisir d'afficher ou non les commandes, les retours et les erreurs, associées à chaque action GPG.}
 % Préconditions
 {}
 % Evénements déclenchants
-{Demandes d'action GPG.}
+{Demande de modification de l'affichage.}
 % Conditions d'arrêt
-{Actions GPG terminées.}
+{}
 % Diagramme
 {0.5}{../res/graphics/Diag_Seq_Affichage_Commandes_v2}
 % Flots d'exceptions
@@ -240,20 +244,20 @@ Différents documents de référence :
 % Fin de la fiche du cas d'utilisation 3.
 \vspace{0.5cm}
 
-\subsection{Cas d'utilisation 4}
+  \subsubsection{Cas d'utilisation 4}
 \ficheGraphic
 % Nom du cas d'utilisation
-{Choix du fichier de configuration}
+{Choix du profil}
 % Acteurs concernés
 {Utilisateur}
 % Description
-{L'utilisateur peut modifier le fichier de configuration GPG.}
+{L'utilisateur peut modifier le profil à l'ouverture grâce à l'option -P, ou à tout autre moment. Si au démarrage, l'option -P n'est pas précisée, et qu'aucun profil par défaut n'est défini, l'utilisateur doit choisir un profil.}
 % Préconditions
 {}
 % Evénements déclenchants
-{Demande de modification du fichier de configuration.}
+{Ouverture avec l'option -P, ouverture sans profil par défaut, ou demande de modification du profil par l'utilisateur.}
 % Conditions d'arrêt
-{Sauvegarde terminée.}
+{}
 % Diagramme
 {0.5}{../res/graphics/Diag_Seq_Config}
 % Flots d'exceptions
@@ -261,7 +265,11 @@ Différents documents de référence :
 % Fin de la fiche du cas d'utilisation 4.
 \vspace{0.5cm}
 
-\subsection{Cas d'utilisation 5}
+Le fichier de configuration de l'interface contient les différents profils, ainsi que le profil par défaut. Chaque profil possède un répertoire GPG.
+
+
+
+  \subsubsection{Cas d'utilisation 5}
 \ficheGraphic
 % Nom du cas d'utilisation
 {Toile de confiance : modifications}         
@@ -282,14 +290,17 @@ Différents documents de référence :
 % Fin de la fiche du cas d'utilisation 5.
 \vspace{0.5cm}
   
-\subsection{Cas d'utilisation 6}
+
+\subsection{Implémentation de l'attaque sur les KeyId}
+  
+  \subsubsection{Cas d'utilisation 6}
 \ficheGraphic
 % Nom du cas d'utilisation
 {Attaque sur les KeyId}
 % Acteurs concernés
-{Utilisateur}        
+{Utilisateur}
 % Description
-{Création d'une clé d'attaque à partir d'une clé publique.}
+{Création d'une clé d'attaque à partir d'une clé publique, selon la méthode décrite dans le numéro 75 du MISC.}
 % Préconditions
 {L'utilisateur doit être en possession d'une clé publique.}
 % Evénements déclenchants
@@ -303,7 +314,7 @@ Différents documents de référence :
 % Fin de la fiche du cas d'utilisation 6.
 \vspace{0.5cm}
   
-
+\newpage
 
 \section{Exigences opérationnelles}
 
@@ -315,21 +326,31 @@ Différents documents de référence :
   \cr
   \hline
   EO\_1&
-  Fonctionnement sous KDE et Gnome&
+  Fonctionnement sous KDE&
   Indispensable
   \cr
   \hline
   EO\_2&
+  Fonctionnement sous Gnome&
+  Important
+  \cr
+  \hline
+  EO\_3&
+  Fonctionnement sous Windows&
+  Optionnel
+  \cr
+  \hline
+  EO\_4&
   Représentation graphique de la Toile de confiance&
   Indispensable
   \cr
   \hline
-  E0\_3&
-  Ouverture de deux interfaces avec des fichiers de configuration différents sur une même session&
+  E0\_5&
+  Ouverture de deux interfaces avec des profils différents sur une même session&
   Important
   \cr
   \hline
-  EO\_4&
+  EO\_6&
   SSH : Authentification par clé signée par GPG&
   Optionnel
   \cr
@@ -348,12 +369,12 @@ Différents documents de référence :
   \cr
   \hline
   EI\_1&
-  Implémentation GnuPG 2.0.*&
+  Implémentation GnuPG 2.0.26&
   Indispensable
   \cr
   \hline
   EI\_2&
-  Implémentation GnuPG 1.0.*&
+  Implémentation GnuPG 1.4.18&
   Optionnel
   \cr
   \hline
@@ -370,17 +391,17 @@ Différents documents de référence :
   \cr
   \hline
   EQ\_1&
-  Représentation des niveaux de confiance par couleurs sur la Toile&
+  Représentation des niveaux de confiance par couleurs sur la liste des clés&
   Important
   \cr
   \hline
   EQ\_2&
   Temps de réponse et fluidité de l'interface&
-  Optionnel
+  Indispensable
   \cr
   \hline
   EQ\_3&
-  Interface livrée sous forme de paquet&
+  Interface livrée sous forme de paquet Ubuntu&
   Optionnel
   \cr
   \hline
