@@ -57,8 +57,15 @@ Réalisation d'une interface graphique permettant d'utiliser complètement l'out
 de façon intuitive et pédagogique.
 
 \subsection{Fonctionnalités du logiciel}
+Le logiciel est une interface graphique pour le GnuPG (implémentation GNU du standart OpenPGP).
+Les différents cas d'utilisations :
 \begin{itemize}
- \item Le logiciel est une interface graphique pour le logiel GnuPG.
+ \item Faire une action GPG
+ \item Chiffrement/déchiffrement, signature/vérification
+ \item Affichage des commandes et des erreurs
+ \item Choix du fichier de configuration
+ \item Modifications de la toile de confiance
+ \item Attaque sur les KeyId
 \end{itemize}
 
 \subsection{Liste des objets à tester}
@@ -112,26 +119,23 @@ Différents documents de référence :
 \subsection{Sites de réalisation des tests}
 
 
+
 \subsection{Configurations matérielles utilisées}
 \begin{itemize}
  \item PC n°1 : Un ordinateur portable équipé de Kali Linux 1.0(Debian) 64 bits sous Gnome avec un processeur Intel i5-3210M @ 2.50GHz et 6Go de RAM.
+ \item PC n°2 : Un ordinateur portable équipé de Xubuntu 64 bits avec un processeur Intel i7-2630QM
+ @ 2.00 GHz et 6Go de RAM.
 
 \end{itemize}
 
 \subsection{Outils de tests mis en oeuvre}
-\begin{itemize}
- \item Le module Qt Test de Qt.
-\end{itemize}
+Le module Qt Test de Qt.
+
 
 \subsection{Jeux de données/Bases de données}
-\begin{itemize}
- \item 
-\end{itemize}
 
 \subsection{Contraintes à prendre en compte}
-\begin{itemize}
- \item Chaque procédure de test devra être réalisée sous Gnome et sous KDE.
-\end{itemize}
+Chaque procédure de test devra être réalisée sous Gnome et sous KDE. La compatibilité Windows est optionnelle.
 
 
 
