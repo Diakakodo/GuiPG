@@ -50,6 +50,12 @@
 % gestion des references
 \usepackage{varioref}
 \usepackage{hyperref}
+\hypersetup{      % Configuration du style des liens.
+  filecolor=cyan, % couleur des liens vers un fichier.
+  urlcolor=blue,  % couleur des liens vers une url.
+  linkcolor=black,% couleur des liens interne (Table of content).
+  colorlinks=true % affichage des couleurs et non du cadre par default.
+}
 
 % gestion des figures
 \usepackage{graphicx}
