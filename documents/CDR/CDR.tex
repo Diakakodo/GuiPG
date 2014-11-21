@@ -130,13 +130,13 @@ Différents documents de référence :
 
 \subsection{Outils de tests mis en oeuvre}
 Le module Qt Test de Qt.
-
+Si Python est utilisé pour réaliser l'interface, les modules unittest et pytest pourront être utilisés.
 
 \subsection{Jeux de données/Bases de données}
 
 \subsection{Contraintes à prendre en compte}
 Chaque procédure de test devra être réalisée sous Gnome et sous KDE. La compatibilité Windows est optionnelle.
-
+Chaque procédure de test sera si possible réalisée à l'aide de l'api Qt (automatiquement), et à l'aide de l'interface (manuellement).
 
 
 
@@ -156,7 +156,7 @@ des tests à une autre personne/groupe afin que celle-ci travaille à la répara
 
 \subsection{Description de l'approche et des phases de test}
 \begin{itemize}
- \item 
+ \item Chaque composant à tester devra être testé dès que chaque étape d'un ou des tests correspondants sera réalisable. Tous les tests correspondants devront ensuite être appliqués à chaque nouvelle version du composant.
 \end{itemize}
 
 \subsection{Campagne de test}
@@ -171,7 +171,7 @@ des tests à une autre personne/groupe afin que celle-ci travaille à la répara
 
 \subsection{Critères d'arrêt des tests}
 \begin{itemize}
- \item 
+ \item Un test est considéré comme échoué dès qu'une de ses étapes échoue, produit un résultat non attendu ou est irréalisable.
 \end{itemize}
 
 
@@ -205,9 +205,57 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     %---------------------------------------Test N° 1------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Création de clé}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° 1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Créer une clé & commande lancée : gpg --gen-key &  & \\
+      2 &  &  &  & \\
+      3 &  &  &  & \\ \hline
+    \end{tabular}
+    \vfill
+
+
+
+ %---------------------------------------Test N° 2------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Toile de confiance} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Tout changement de confiance est répercuté sur la toile de confiance.}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° 2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Changer la confiance d'une clé & La représentation de cette clé a changé de couleur &  & \\
+      2 &  &  &  & \\
+      3 &  &  &  & \\ \hline
+    \end{tabular}
+    \vfill
+
+
+
+ %---------------------------------------Test N° 3------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Attaque KeyID} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : La clé produite a le même KeyID que celle donnée.}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° 3} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Donner une clé publique au programme d'attaque & Le programme renvoie une clé d'attaque &  & \\
+      2 & Comparer la clé d'attaque avec la clé donnée & Les deux clés ont le même KeyID &  & \\
+      3 &  &  &  & \\ \hline
+    \end{tabular}
+    \vfill
+
+
+
+ %---------------------------------------Test N° 4------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
       \multicolumn{3}{|l|}{Objet testé : } & \multicolumn{2}{c|}{Version : }\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : }\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° 4} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 &  &  &  & \\
@@ -225,17 +273,22 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \begin{tabular}{|p{2.8cm}|p{4.2cm}|p{3cm}|p{5cm}|}
       \hline
       Id Exigence STB & Méthode de vérification & Procédure utilisée & Commentaire\\ \hline
-      EF\_01 & Vérifier si la commande de génération de clé a été exécutée avec les bons paramètres. &  & \\ \hline
-      EF\_02 & Vérifier si la commande d'exportVérifier si la commande de génération d'un certificat de révocation a été exécutée.ation de clé a été exécutée avec les bons paramètres. &  & \\ \hline
-      EF\_03 & Vérifier si la commande d'importation de clé a été exécutée avec les bons paramètres. &  & \\ \hline
-      EF\_04 & Vérifier si la commande de génération d'un certificat de révocation a été exécutée. &  & \\ \hline
-      EF\_05 & Vérifier si la commande de révocation d'une clé a été exécutée. &  & \\ \hline
-      EF\_06 & Vérifier si la commande de chiffrement a été exécutée avec les bons paramètres. &  & \\ \hline
-      EF\_06 & Vérifier si la commande de déchiffrement a été exécutée avec les bons paramètres. &  & \\ \hline
-      EF\_07 & Vérifier si l'affichage de la toile de confiance correspond à la réalité. &  & \\ \hline
-      EI\_01 & Effectuer tous les tests sous l'interface KDE. &  & \\ \hline
-      EI\_02 & Effectuer tous les tests sous l'interface Gnome. &  & \\ \hline
-    \end{tabular}  
+      EF\_01 & La commande demandée a été exécutée avec les bons paramètres. &  & \\ \hline
+      EF\_02 & Le chiffrement - déchiffrement - signature - vérification a été exécuté avec les bons paramètres. &  & \\ \hline
+      EF\_03 & Chaque commande effectuée est affichée, avec retours et erreurs. &  & \\ \hline
+      EF\_04 & Le formulaire de sélection de profil fonctionne. &  & \\ \hline
+      EF\_05 & Tout changement de confiance est répercuté sur la toile de confiance. &  & \\ \hline
+      EF\_06 & La clé produite a le même KeyID que celle donnée &  & \\ \hline
+      EO\_01 & Effectuer tous les tests sous l'interface KDE. &  & \\ \hline
+      EO\_02 & Effectuer tous les tests sous l'interface Gnome. &  & \\ \hline
+      EO\_03 & Effectuer tous les tests sous Windows. &  & \\ \hline
+      EO\_05 & Ouvrir deux interfaces avec deux profils différents &  & \\ \hline
+      EO\_06 & Tester si on peut s'authentifier en SSH par clé PGP. &  & \\ \hline
+      EI\_01 & Effectuer tous les tests avec GnuPG 2.0.26. &  & \\ \hline 
+      EI\_02 & Effectuer tous les tests avec GnuPG 2.0.26. &  & \\ \hline
+      EQ\_01 & Chaque niveau de confiance est représenté par une couleur. &  & \\ \hline
+      EQ\_03 & Effectuer tous les tests avec le paquet fourni. &  & \\ \hline
+  \end{tabular}  
 \end{center}
 
 
