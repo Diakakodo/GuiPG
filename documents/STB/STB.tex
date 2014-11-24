@@ -126,7 +126,7 @@ Différents documents de référence :
   \cr
   \hline
   EF\_1&
-  Actions GPG&
+  Exécution d'actions GPG&
   Utilisateur&
   Indispensable
   \cr
@@ -150,13 +150,13 @@ Différents documents de référence :
   \cr
   \hline
   EF\_5&
-  Toile de confiance : modifications&
+  Modification de la toile de confiance graphique&
   Utilisateur&
   Important
   \cr
   \hline
-  EF\_5&
-  Attaque sur les KeyId&
+  EF\_6&
+  Création de clé d'attaque sur les KeyId&
   Utilisateur&
   Indispensable
   \cr
@@ -172,7 +172,7 @@ Différents documents de référence :
   \subsubsection{Cas d'utilisation 1}
 \ficheGraphic
 % Nom du cas d'utilisation
-{Actions GPG}
+{Exécution d'actions GPG}
 % Acteurs concernés
 {Utilisateur}
 % Description
@@ -272,7 +272,7 @@ Le fichier de configuration de l'interface contient les différents profils, ain
   \subsubsection{Cas d'utilisation 5}
 \ficheGraphic
 % Nom du cas d'utilisation
-{Toile de confiance : modifications}         
+{Modification de la toile de confiance graphique}         
 % Acteurs concernés
 {Utilisateur}
 % Description
@@ -296,7 +296,7 @@ Le fichier de configuration de l'interface contient les différents profils, ain
   \subsubsection{Cas d'utilisation 6}
 \ficheGraphic
 % Nom du cas d'utilisation
-{Attaque sur les KeyId}
+{Création de clé d'attaque sur les KeyId}
 % Acteurs concernés
 {Utilisateur}
 % Description
@@ -326,32 +326,42 @@ Le fichier de configuration de l'interface contient les différents profils, ain
   \cr
   \hline
   EO\_1&
-  Fonctionnement sous KDE&
+  Implémentation GnuPG 2.0.*&
   Indispensable
   \cr
   \hline
   EO\_2&
-  Fonctionnement sous Gnome&
-  Important
-  \cr
-  \hline
-  EO\_3&
-  Fonctionnement sous Windows&
+  Implémentation GnuPG 1.4.*&
   Optionnel
   \cr
   \hline
+  EO\_3&
+  Fonctionnement sous KDE 4.*&
+  Indispensable
+  \cr
+  \hline
   EO\_4&
+  Fonctionnement sous Gnome 3.*&
+  Important
+  \cr
+  \hline
+  EO\_5&
+  Fonctionnement sous Windows 7 et 8&
+  Optionnel
+  \cr
+  \hline
+  EO\_6&
   Représentation graphique de la Toile de confiance&
   Indispensable
   \cr
   \hline
-  E0\_5&
+  E0\_7&
   Ouverture de deux interfaces avec des profils différents sur une même session&
   Important
   \cr
   \hline
-  EO\_6&
-  SSH : Authentification par clé signée par GPG&
+  EO\_8&
+  Connexion SSH : Authentification par clé signée par GPG&
   Optionnel
   \cr
   \hline
@@ -361,24 +371,7 @@ Le fichier de configuration de l'interface contient les différents profils, ain
 
 \section{Exigences opérationnelles d'interface}
 
-\begin{tabular}{|>{\centering}p{1,5cm}|>{\centering}p{10cm}|>{\centering}p{3cm}|}
-  \hline
-  \color{white}\cellcolor{blue}\bfseries{Id}&
-  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
-  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
-  \cr
-  \hline
-  EI\_1&
-  Implémentation GnuPG 2.0.26&
-  Indispensable
-  \cr
-  \hline
-  EI\_2&
-  Implémentation GnuPG 1.4.18&
-  Optionnel
-  \cr
-  \hline
-\end{tabular}\\
+Le client n'a aucune exigence opérationnelle d'interface.
 
 
 \section{Exigences de qualité}
@@ -407,7 +400,9 @@ Le fichier de configuration de l'interface contient les différents profils, ain
   \hline
 \end{tabular}\\
 
-%\section{Exigences de réalisation}
+\section{Exigences de réalisation}
+
+Le client n'a aucune exigence de réalisation.
 
 %\begin{tabular}{|>{\centering}p{1,5cm}|>{\centering}p{10cm}|>{\centering}p{3cm}|}
 %  \hline
