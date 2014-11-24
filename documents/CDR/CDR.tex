@@ -32,12 +32,13 @@
 \projet{GPG}
 \projdesc{Interface Graphique GPG}
 \filiere{M1SSI - Conduite de Projet}
-\version{0.1}
+\version{0.3}
 \relecteur{Olivier \bsc{Thibault}}
 \signataire{}
 \date{\today}
 
 \histentry{0.1}{31/10/2014}{Version initiale.}
+\histentry{0.3}{24/11/2014}{Respect de la STB v0.3.}
 
 % -- Début du document -- %
 \begin{document}
@@ -135,7 +136,13 @@ Si Python est utilisé pour réaliser l'interface, les modules unittest et pytes
 \subsection{Jeux de données/Bases de données}
 
 \subsection{Contraintes à prendre en compte}
-Chaque procédure de test devra être réalisée sous Gnome et sous KDE. La compatibilité Windows est optionnelle.
+Chaque procédure de test devra être réalisée :
+\begin{itemize}
+ \item Sous KDE
+ \item Avec deux interfaces graphiques ouvertes avec des profils différents
+ \item Optionnellement sous Gnome
+ \item Optionnellement sous Windows
+\end{itemize}
 Chaque procédure de test sera si possible réalisée à l'aide de l'api Qt (automatiquement), et à l'aide de l'interface (manuellement).
 
 
@@ -210,11 +217,11 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° 1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une clé & commande lancée : gpg --gen-key &  & \\
+      1 & Créer une clé & commande lancée : "gpg --gen-key" &  & \\
       2 &  &  &  & \\
       3 &  &  &  & \\ \hline
     \end{tabular}
-    \vfill
+    \vskip 2.2cm
 
 
 
@@ -230,7 +237,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       2 &  &  &  & \\
       3 &  &  &  & \\ \hline
     \end{tabular}
-    \vfill
+    \vskip 2.2cm
 
 
 
@@ -246,16 +253,112 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       2 & Comparer la clé d'attaque avec la clé donnée & Les deux clés ont le même KeyID &  & \\
       3 &  &  &  & \\ \hline
     \end{tabular}
-    \vfill
+    \vskip 2.2cm
 
 
 
  %---------------------------------------Test N° 4------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
+      \multicolumn{3}{|l|}{Objet testé : Editeur de texte de l'interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Test de la zone de copier/coller}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° 4} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Coller du texte dans la zone de texte & Le texte s'affiche dans la zone de texte &  & \\
+      2 & Cliquer sur "Chiffrer et signer" & La commande exécutée est "gpg -es <texte>" &  & \\
+      3 &  &  &  & \\ \hline
+    \end{tabular}
+    \vskip 2.2cm
+
+
+
+ %---------------------------------------Test N° 5------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Editeur de texte de l'interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Test de la zone de copier/coller}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° 5} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Coller du texte chiffré et signé dans la zone de texte & Le texte s'affiche dans la zone de texte &  & \\
+      2 & Cliquer sur "Déchiffrer et vérifier" & La commande exécutée est "gpg -dv <texte>" &  & \\
+      3 &  &  &  & \\ \hline
+    \end{tabular}
+    \vskip 2.2cm
+
+
+
+ %---------------------------------------Test N° 6------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Affichage des commandes et retours gpg}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° 6} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Activer l'affichage des commandes gpg dans l'interface graphique &  &  & \\
+      2 & Lancer une commande gpg via l'interface graphique & La commande et les retours sont affichés &  & \\
+      3 &  &  &  & \\ \hline
+    \end{tabular}
+    \vskip 2.2cm
+
+
+
+ %---------------------------------------Test N° 7------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Tester la sélection du profil}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° 7} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Lancer l'interface graphique en ligne de commande avec l'option -P & On peut choisir son profil, et en créer un si besoin &  & \\
+      2 & Choisir un profil & L'interface graphique s'affiche &  & \\
+      3 & Cliquer sur le bouton "Changer de profil" & On peut choisir son profil, et en créer un si besoin &  & \\ \hline
+    \end{tabular}
+    \vskip 2.2cm
+
+
+
+ %---------------------------------------Test N° 8------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Toile de confiance} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Affichage couleurs de la toile de confiance}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° 8} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Ouvrir la toile de confiance & Toile de confiance affichée &  & \\
+      2 & Vérifier que chaque niveau de confiance est représenté par une couleur & Chaque niveau de confiance est représenté par une couleur différente &  & \\
+      3 &  &  &  & \\ \hline
+    \end{tabular}
+    \vskip 2.2cm
+
+
+
+ %---------------------------------------Test N° 9------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé :  } & \multicolumn{2}{c|}{Version : }\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° 9} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 &  &  &  & \\
+      2 &  &  &  & \\
+      3 &  &  &  & \\ \hline
+    \end{tabular}
+    \vskip 2.2cm
+
+
+
+ %---------------------------------------Test N° 10------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
       \multicolumn{3}{|l|}{Objet testé : } & \multicolumn{2}{c|}{Version : }\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : }\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 4} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° 10} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 &  &  &  & \\
@@ -263,6 +366,9 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       3 &  &  &  & \\ \hline
     \end{tabular}
     \vfill
+
+
+
 \end{center}
 
 \section{Jeux de données de test}
@@ -273,21 +379,21 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \begin{tabular}{|p{2.8cm}|p{4.2cm}|p{3cm}|p{5cm}|}
       \hline
       Id Exigence STB & Méthode de vérification & Procédure utilisée & Commentaire\\ \hline
-      EF\_01 & La commande demandée a été exécutée avec les bons paramètres. &  & \\ \hline
-      EF\_02 & Le chiffrement - déchiffrement - signature - vérification a été exécuté avec les bons paramètres. &  & \\ \hline
-      EF\_03 & Chaque commande effectuée est affichée, avec retours et erreurs. &  & \\ \hline
-      EF\_04 & Le formulaire de sélection de profil fonctionne. &  & \\ \hline
-      EF\_05 & Tout changement de confiance est répercuté sur la toile de confiance. &  & \\ \hline
-      EF\_06 & La clé produite a le même KeyID que celle donnée &  & \\ \hline
-      EO\_01 & Effectuer tous les tests sous l'interface KDE. &  & \\ \hline
-      EO\_02 & Effectuer tous les tests sous l'interface Gnome. &  & \\ \hline
-      EO\_03 & Effectuer tous les tests sous Windows. &  & \\ \hline
-      EO\_05 & Ouvrir deux interfaces avec deux profils différents &  & \\ \hline
+      EF\_01 & La commande demandée a été exécutée avec les bons paramètres. & 1 & \\ \hline
+      EF\_02 & Le chiffrement - déchiffrement - signature - vérification a été exécuté avec les bons paramètres. & 4,5 & \\ \hline
+      EF\_03 & Chaque commande effectuée est affichée, avec retours et erreurs. & 6 & \\ \hline
+      EF\_04 & Le formulaire de sélection de profil fonctionne. & 7 & \\ \hline
+      EF\_05 & Tout changement de confiance est répercuté sur la toile de confiance. & 2 & \\ \hline
+      EF\_06 & La clé produite a le même KeyID que celle donnée & 3 & \\ \hline
+      EO\_01 & Effectuer tous les tests sous l'interface KDE. & Toutes & \\ \hline
+      EO\_02 & Effectuer tous les tests sous l'interface Gnome. & Toutes & \\ \hline
+      EO\_03 & Effectuer tous les tests sous Windows. & Toutes & \\ \hline
+      EO\_05 & Ouvrir deux interfaces avec deux profils différents & Toutes & \\ \hline
       EO\_06 & Tester si on peut s'authentifier en SSH par clé PGP. &  & \\ \hline
-      EI\_01 & Effectuer tous les tests avec GnuPG 2.0.26. &  & \\ \hline 
-      EI\_02 & Effectuer tous les tests avec GnuPG 2.0.26. &  & \\ \hline
-      EQ\_01 & Chaque niveau de confiance est représenté par une couleur. &  & \\ \hline
-      EQ\_03 & Effectuer tous les tests avec le paquet fourni. &  & \\ \hline
+      EI\_01 & Effectuer tous les tests avec GnuPG 2.0.26. & Toutes & \\ \hline 
+      EI\_02 & Effectuer tous les tests avec GnuPG 1.4.18. & Toutes & \\ \hline
+      EQ\_01 & Chaque niveau de confiance est représenté par une couleur. & 8 & \\ \hline
+      EQ\_03 & Effectuer tous les tests avec le paquet fourni. & Toutes & \\ \hline
   \end{tabular}  
 \end{center}
 
