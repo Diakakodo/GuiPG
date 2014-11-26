@@ -54,8 +54,8 @@
 
 % Présentation succinte du sujet et hyp de travail.
 Ce document est le Cahier de Recette (CDR) de la réalisation d'une interface graphique pour le logiciel GnuPG.
-Réalisation d'une interface graphique permettant d'utiliser complètement l'outil OpenPGP
-de façon intuitive et pédagogique.
+Cette interface permettra d'utiliser complètement l'outil OpenPGP de façon intuitive et pédagogique de façon 
+à être accessible même par des personne limité dans le domaine de l'informatique. 
 
 \subsection{Fonctionnalités du logiciel}
 Le logiciel est une interface graphique pour le GnuPG (implémentation GNU du standart OpenPGP).
@@ -70,11 +70,20 @@ Les différents cas d'utilisations :
 \end{itemize}
 
 \subsection{Liste des objets à tester}
+Nous avons dégagé 3 objets à tester : 
 \begin{itemize}
  \item L'interface graphique des fonctions GnuPG.
  \item La visualisation de la toile de confiance.
  \item L'implémentation de l'attaque sur les KeyID. 
 \end{itemize}
+
+L'interface graphique permettra d'utiliser chaques commandes et options de GPG et ce de façon le plus intuitif possible. Nous
+devrons tester le résultat des commandes ainsi que le temps d'exécution pour satisfaire le client en terme de fluidité de l'interface.
+
+La toile de confiance réprésentera un schéma des différentes personnes d'un réseau qui seront liées par des clés.
+Les clés seront de couleurs différentes en fonction de la confiance accordée à chacuns.
+
+Enfin, il nous faudra tester l'implémentation de l'attaque. 
 
 \subsection{Contexte d'exécution des tests}
 \begin{itemize}
@@ -82,9 +91,7 @@ Les différents cas d'utilisations :
 \end{itemize}
 
 \subsection{Choix technologiques et dispositions particulières}
-\begin{itemize}
- \item 
-\end{itemize}
+Les choix et dispositions sont actuellement en attendes du document d'architecture logiciel.
 
 
 
@@ -108,40 +115,40 @@ Différents documents de référence :
 
 \section{Terminologie et sigles utilisés}
 \textcolor{blue}{
-  \begin{itemize}
-  \item Glossaire ou dictionnaire
-  \item Abréviations
-  \item Formalisme utilisé
-  \item Légendes et conventions de représentation
-  \end{itemize}
+  Le glossaire est dans un fichier à part, il est commun aux autres documents de gestion de projet.
 }
 
 \section{Environnement de test}
 \subsection{Sites de réalisation des tests}
+Les test seront réalisés soit sur le site de l'université soit au domicile des deux testeurs sur leur machine personnelle.
 
 
 
 \subsection{Configurations matérielles utilisées}
+Voici la configuration des machines personnelles des deux testeurs :
 \begin{itemize}
  \item PC n°1 : Un ordinateur portable équipé de Kali Linux 1.0(Debian) 64 bits sous Gnome avec un processeur Intel i5-3210M @ 2.50GHz et 6Go de RAM.
- \item PC n°2 : Un ordinateur portable équipé de Xubuntu 64 bits avec un processeur Intel i7-2630QM
+ \item PC n°2 : Un ordinateur portable équipé de Xubuntu 64 bits avec un processeur Intel i7-2630QM.
  @ 2.00 GHz et 6Go de RAM.
-
 \end{itemize}
+Il sera également utilisée des machines virtuelles pour répondre aux besoin du client sur la compatibilité de l'interface (KDE et GNOME obligatoire,
+WINDOWS optionnel).
 
 \subsection{Outils de tests mis en oeuvre}
 Le module Qt Test de Qt.
 Si Python est utilisé pour réaliser l'interface, les modules unittest et pytest pourront être utilisés.
 
 \subsection{Jeux de données/Bases de données}
+Nous auront comme base de données les différentes clés contenues dans le trousseau de test.
+
 
 \subsection{Contraintes à prendre en compte}
 Chaque procédure de test devra être réalisée :
 \begin{itemize}
  \item Sous KDE
- \item Avec deux interfaces graphiques ouvertes avec des profils différents
- \item Optionnellement sous Gnome
+ \item Sous GNOME
  \item Optionnellement sous Windows
+ \item Avec deux interfaces graphiques ouvertes avec des profils différents
 \end{itemize}
 Chaque procédure de test sera si possible réalisée à l'aide de l'api Qt (automatiquement), et à l'aide de l'interface (manuellement).
 
@@ -152,7 +159,7 @@ Chaque procédure de test sera si possible réalisée à l'aide de l'api Qt (aut
   La création et la gestion des procédures de test sera effectuée par les responsables qualité de l'équipe. Chaque équipe travaillant au développement d'un composant est chargée de tester celui-ci continuellement et de publier les résultats des tests.
   
   Afin d'assurer la compréhension générale du code source, toute l'équipe peut et est encouragée à signaler une anomalie détectée au cours du développement : soit elle est résolue par la même personne/groupe, soit cette personne/ce groupe transmet les résultats 
-des tests à une autre personne/groupe afin que celle-ci travaille à la réparation de l'anomalie.
+  des tests à une autre personne/groupe afin que celle-ci travaille à la réparation de l'anomalie.
   
   À tout moment une équipe peut reporter des anomalies dans une procédure de test. Dans ce cas, les responsables techniques concernés travailleront à améliorer la procédure incriminée et diffuseront les mises à jour à l'ensemble de l'équipe.
 
@@ -162,24 +169,20 @@ des tests à une autre personne/groupe afin que celle-ci travaille à la répara
 \section{Stratégies de tests}
 
 \subsection{Description de l'approche et des phases de test}
-\begin{itemize}
- \item Chaque composant à tester devra être testé dès que chaque étape d'un ou des tests correspondants sera réalisable. Tous les tests correspondants devront ensuite être appliqués à chaque nouvelle version du composant.
-\end{itemize}
+Dès qu'un test oour un composant sera réalisable, il sera fait. Ces tests devront être appliqués à chaque nouvelle version du composant.
+
 
 \subsection{Campagne de test}
-\begin{itemize}
- \item 
-\end{itemize}
+
+Les différentes campagnes de tests correspondront aux livrables envoyés au client.
 
 \subsection{Ordre d'exécution des tests}
-\begin{itemize}
- \item 
-\end{itemize}
+
+L'ordre d'exécution des tests dépendra du plan de développement.
 
 \subsection{Critères d'arrêt des tests}
-\begin{itemize}
- \item Un test est considéré comme échoué dès qu'une de ses étapes échoue, produit un résultat non attendu ou est irréalisable.
-\end{itemize}
+
+Un test est considéré comme échoué dès qu'une de ses étapes échoue, produit un résultat non attendu ou est irréalisable.
 
 
 \section{Gestion des anomalies}
