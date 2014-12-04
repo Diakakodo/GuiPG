@@ -1,3 +1,6 @@
+
+Indispensable :
+
 -a, –armor
 
 -o, –output file
@@ -8,31 +11,58 @@
 
 -r, –recipient name,
 
-–default-recipient name
+------------En rapport avec le fichier de config de gpg-----------------
 
-–default-recipient-self
+–default-recipient name (2nd) A tester est sensé géré le destinataire avec le fichier de config
 
-–no-default-recipient
+–default-recipient-self (2nd) A tester est sensé géré le destinataire avec le fichier de config
+
+–no-default-recipient (2nd) A tester est sensé géré le destinataire avec le fichier de config
 
 –encrypt-to name
 
-–no-encrypt-to
+----------------------------------------------------------------------
+
+--hidden-recipient
 
 -v, –verbose
 
 -q, –quiet
 
--z n
+--personal-cipher-preferences string
 
--t, –textmode
+--personal-digest-preferences string
+
+--personal-compress-preferences string
+
+
+Optionnal :
+
+–no-encrypt-to
+
+-z n (niveau de compression)
+
+-t, –textmode (TODO : tester si pas de pb de compatibilité windows/linux 
+              (CRLF) si ca pause pb => indispenssable)
 
 -n, –dry-run
 
+–no-tty
+
 -i, –interactive
 
-–batch
+Virer tout ce qui est dans la section "Doing things one usually doesn't want to do." du man.
 
-–no-tty
+
+
+
+
+
+
+
+
+
+–batch
 
 –no-batch
 
