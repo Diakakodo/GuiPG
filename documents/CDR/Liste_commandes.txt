@@ -1,46 +1,49 @@
--s, –sign
 
-–clearsign
+Indispenssable :
 
--b, –detach-sign
+-s, â€“sign
 
--e, –encrypt
+â€“clearsign
 
--c, –symmetric
+-b, â€“detach-sign
 
-–store
+-e, â€“encrypt
 
-–decrypt [=file=]
+-c, â€“symmetric
 
-–verify [[=sigfile=] [=signed-files=]]
+â€“decrypt [=file=]
 
-–verify-files [=files=]
+â€“verify [[=sigfile=] [=signed-files=]]
 
-–list-keys [=names=], –list-public-keys [=names=]
+â€“verify-files [=files=]
 
-–list-secret-keys [=names=]
+â€“list-keys [=names=], â€“list-public-keys [=names=]
 
-–list-sigs [=names=]
+â€“list-secret-keys [=names=]
 
-–check-sigs [=names=]
+â€“list-sigs [=names=]
 
-–fingerprint [=names=]
+â€“check-sigs [=names=]
 
-–list-packets
+â€“fingerprint [=names=]
 
-–gen-key
+â€“gen-key
 
-–edit-key name
+â€“edit-key name
 
     sign
         
-    lsign
+    lsign (2nd)
         
+    tsign (2nd)
+
     revsig
         
     trust
         
-    disable, enable
+    nrsign (2nd)
+
+    disable, enable (2nd)
         
     adduid
         
@@ -50,9 +53,9 @@
         
     delkey
         
-    revkey
+    revkey 
         
-    expire
+    expire (2nd, A tester : Est ce que ca supprime les signatures ?)
         
     passwd
         
@@ -69,46 +72,62 @@
     save
         
     quit
+
+â€“sign-key name
+
+â€“lsign-key name
+
+â€“trusted-key long key ID
+
+â€“delete-key name
+
+â€“delete-secret-key name
+
+â€“gen-revoke
+
+â€“export [=names=]
+
+â€“send-keys [=names=]
+
+â€“export-all [=names=]
+
+	â€“export-secret-keys [=names=], â€“export-secret-subkeys [=names=]
+
+â€“import [=files=], â€“fast-import [=files=]
+
+â€“recv-keys key IDs
+
+â€“export-ownertrust
+
+â€“import-ownertrust [=files=]
+
+â€“print-md algo [=files=] (2nd)
+
+â€“version
+
+-h, â€“help
+
+â€“warranty
+
+Optionnal :
+
+â€“store
+
+â€“list-packets
+
+â€“gen-random 0|1|2 [=count=]
+
+â€“gen-prime mode bits [=qbits=]
+
         
 
-–sign-key name
 
-–lsign-key name
 
-–trusted-key long key ID
 
-–delete-key name
 
-–delete-secret-key name
 
-–gen-revoke
 
-–export [=names=]
 
-–send-keys [=names=]
 
-–export-all [=names=]
-
-	–export-secret-keys [=names=], –export-secret-subkeys [=names=]
-
-–import [=files=], –fast-import [=files=]
-
-–recv-keys key IDs
-
-–export-ownertrust
-
-–import-ownertrust [=files=]
-
-–print-md algo [=files=]
-
-–gen-random 0|1|2 [=count=]
-
-–gen-prime mode bits [=qbits=]
-
-–version
-
-–warranty
-
--h, –help
 
 
