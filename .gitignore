@@ -2,7 +2,9 @@
 *.toc
 *.log
 *.out
-*.pdf
+*STB.pdf
+*CDR.pdf
+*DAL.pdf
 *.el
 \#*\#
 .\#*
