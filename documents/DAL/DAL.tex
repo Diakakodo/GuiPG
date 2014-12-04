@@ -37,56 +37,57 @@
 \newpage
 
 \section{Objet}
-  \textcolor{blue}{
-    TODO : i\\
-    Définir les objectifs du document et présenter son contenu en rappelant le
-    besoin en quelques phrases. Mettre en exergue les exigences les plus importantes.
-  }
-
+  Ce document permet d'établir une vue globale de l'architecture logicielle envisagée pour la conception d'une interface graphique reposant sur le logiciel GnuPG de façon à simpliciter son utilisation pour un utilisateur débutant mais toutefois en laissant apparaitre les fonctionnalités avancées pour un utilisateur expérimenté. Il décrit comment concevoir cette interface pour répondre aux spécifications du client ainsi qu'une conception détaillée des différents modules nécessaires à son bon fonctionnement. 
 
 \section{Documents applicables et de référence}
-  \textcolor{blue}{
-    TODO : \\
-    Lister \\
-    {\begin{itemize}
-      \item Les références des documents de spécification.
-      \item Les références des documents cités par la suite au titre d'explication ou de 
-      justification.
-    \end{itemize}}
-  }
+  \begin{itemize}
+    \item La spécification technique des besoins
+  \end{itemize}
 
 \section{Terminologie et sigles utilisés}
-  \textcolor{blue}{
-    TODO : \\
-    {\begin{itemize}
-      \item Glossaire ou dictionnaire.
-      \item Abréviations.
-      \item Formalisme utilisé.
-      \item Légendes et conventions de représentation.
-    \end{itemize}}
-  }
+  \subsection{Acronymes}
+    \begin{itemize}
+      \item GNOME GNU Network Object Model Environment
+      \item GNU GNU's Not UNIX
+      \item IETF Internet Engineering Task Force
+      \item KDE K Desktop Environment
+      \item MVC Model View Controller
+      \item PGP Pretty Good Privacy
+      \item RFC Request For Comments
+    \end{itemize}
 
-\section{Configuration et sigles utilisés}
-  \textcolor{blue}{
-    TODO : \\
-    Décrire les caractéristiques de la plate-forme cible. \\
-    {\begin{itemize}
-      \item Performances du calculateur.
-      \item Périphériques et matériels spécifiques.
-      \item système d'exploitation (type et version).
-      \item Liste ou tableau des poduits logiciels nécessaires (noms, origines, type et versions).
-    \end{itemize}}
-  }
+  \subsection{Glossaire}
+    \begin{itemize}
+      \item C++\\
+        Langage de programmation compilé.
+      \item Environement de bureau\\
+        Ensemble de programmes qui permettent de manipuler le système à travers une interface graphique.
+      \item MVC\\
+        Patron de conception répondant aux besoins des applications intéractives en séparant les problèmatiques en trois parties :
+        \begin{itemize}
+          \item Le modèle\\
+            Il représente les données manipulées par l'application et est responsable de leur intégrité.
+          \item La vue\\
+            Ce avec quoi l'utilisateur interagit. Sa fonction principale est d'afficher les données envoyées par le modèle.
+          \item Le controller\\
+            Il traite les évenements et met à jour la vue ou le modèle selon l'action effectuée.
+        \end{itemize}
+      \item Qt\\
+        Interface de programmation orientée objet développée en C++ permettant la conception simple d'interface graphique compatible GNU Linux / Windows / Mac OS X.
+    \end{itemize}
+
+\section{Configuration requise}
+  \subsection{Système d'exploitation}
+    GNU Linux
+  \subsection{Logiciels}
+    Environement de bureau KDE (v4.0 ou ultérieure) ou GNOME (v3.0 ou ultérieure)\\
+    GnuPG (v1.4 ou ultérieure)
+  \subsection{Matériel}
+    Aucune configuration minimale n'est demandée.
 
 \section{Architecture statique}
   \subsection{Structure} % (fold)
-    \includegraphics[scale=0.5]{diagramme_archi.jpg}
-    %\textcolor{blue}{
-    %  TODO : \\
-    %  Identifier les principaux constituants du logiciel à développer et présenter la structure statique dans laquelle ils s’intègrent sous la forme d’une « carte de l’architecture » (schéma descriptif faisant apparaître les constituants et leurs interdépendances)
-    %}
-
-  % subsection structure (end)
+    \includegraphics[scale=0.5]{graphics/diagramme_archi.png}
   \subsection{Description du constituant "X"} % (fold)
     \textcolor{blue}{
       TODO : \\
