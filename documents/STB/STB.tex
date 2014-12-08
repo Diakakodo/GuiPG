@@ -37,6 +37,7 @@
 \signataire{Magali \bsc{Bardet}}
 \date{\today}
 
+\histentry{0.4}{08/12/2014}{Complétion de la section ``Objet`` + ajout des modifications demandées par le client.}
 \histentry{0.3}{17/11/2014}{Ajout des modifications demandées par le client.}
 \histentry{0.2}{09/11/2014}{Ajout des exigences.}
 \histentry{0.1}{31/10/2014}{Version initiale.}
@@ -54,17 +55,33 @@
 \section{Objet}
 
 % Présentation succinte du sujet et hyp de travail.
-Ce document est la Spécification Technique du Besoin pour le projet PGP.
+Le document présent est la spécification technique de besoin d'une étude et implantation d'un outil graphique de gestion de clés PGP. 
+Le projet sera réaliser par une équipe de sept étudiants du master SSI de Rouen, pour le compte de madame Magali BARDET responsable 
+de ce même master. 
+
+L'objectif du projet est de réaliser une étude complète d'OpenPGP et du logiciel GnuPG, d'en comprendre le fonctionnement détaillé et 
+de rédiger un rapport illustrant toutes les fonctionnalités.
+
+Il est ensuite demandé de proposer une interface graphique pour GnuPG, accompagnée d'un document d'explications et de recommandations pour 
+l'utilisation.
+%Il est ensuite demandé de proposer une interface graphique permettant à un utilisateur novice en PGP, mais averti en sécurité, de faire 
+%facilement des réglages techniques sur ses clefs et de pouvoir mettre en place sa toile de confiance (et la visualiser graphiquement). 
+%L'interface devra donc être à a fois pédagogique et précise (un document d'explications et de recommandations pour l'utilisation devra 
+%être joint). Le logiciel devra fonctionner sous Linux en environnement KDE et Gnome.
+
+Enfin, il est demandé d'effectuer des recherches sur les limites cryptographiques de PGP et de produire un document d'analyse de ces limites.
+A l'issue de ces recherches une implantation de l'attaque sur les KeyID sera à fournir.
 
 \subsection{Besoins opérationnels}
-Les besoins opérationnels de l'interface graphique du logiciel GnuPG sont :
-\begin{itemize}
- \item Accès à toutes les fonctionnalités de GnuPG.
- \item Utilisation pédagogique et précise : l'interface doit permettre à toute personne novice en sécurité d'utiliser l'application, et une aide doit être donnée pour chaque action.
-\end{itemize}
+L'interface graphique doit proposer l'accès à un maximum de commandes GPG. Le but étant de pouvoir se passer totalement de la ligne de commande 
+GPG dans un terminal. De plus, elle doit permettre à un utilisateur novice en PGP, mais averti en sécurité, de faire facilement des réglages 
+techniques sur ses clefs ainsi que mettre en place sa toile de confiance et la visualiser graphiquement. L'interface devra donc être à 
+la fois pédagogique et précise, nottament en ce qui concerne la partie toile de confiance, où le but est de faire comprendre un concept 
+essentiel de PGP.
 
 \subsection{Objectifs techniques}
-Les objectifs techniques de l'interface graphique du logiciel GnuPG sont :
+
+Les objectifs techniques de l'interface graphique pour GnuPG sont :
 \begin{itemize}
  \item Gestion fine des clés : choix de la taille, de l'algorithme de chiffrement symétrique.
  \item Gestion et aperçu de la toile de confiance.
@@ -73,16 +90,18 @@ Les objectifs techniques de l'interface graphique du logiciel GnuPG sont :
 \end{itemize}
 
 \subsection{Contraintes et recommandations}
-L'application doit fonctionner sur le système d'exploitation GNU/Linux, en particulier, sous les environnements KDE et Gnome.
+L'application doit fonctionner sur le système d'exploitation GNU/Linux, en particulier sous les environnements KDE et Gnome. Optionnellement, 
+elle pourra être compatbile Windows.
 
 \subsection{Résultats attendus}
 Les livrables attendus pour ce projet sont :
 \begin{itemize}
- \item Rapport complet de l'étude de GnuPG : liste de toutes les fonctionnalités.
- \item Implémentation d'une interface graphique pour toutes les fonctionnalités de GnuPG.
- \item Document d'explications et de recommandations à l'utilisation de l'interface graphique.
- \item Document d'analyse des limites cryptographiques de PGP.
- \item Implémentation de l'attaque sur les KeyId décite dans l'article «Surveillance généralisée : aux limites de PGP» du numéro 75 du magazine MISC.
+ \item Un Rapport complet sur GnuPG et OpenPGP illustrant toutes les fonctionnalités.
+ \item Une Interface graphique pour GnuPG.
+ \item Un document d'explications et de recommandations à l'utilisation de l'interface graphique.
+ \item Un rapport d'étude des limites cryptographiques de PGP.
+ \item Une Implémentation de l'attaque sur les KeyId telle que celle décrite dans l'article «Surveillance généralisée : aux limites de PGP» du 
+	numéro 75 du magazine MISC.
 \end{itemize}
 
 
@@ -157,7 +176,7 @@ Différents documents de référence :
   \cr
   \hline
   EF\_6&
-  Création de clé d'attaque sur les KeyId&
+  Calcule d'une seconde pré-image pour un KeyId donné&
   Utilisateur&
   Indispensable
   \cr
@@ -170,7 +189,7 @@ Différents documents de référence :
 \subsection{Interface graphique}
 
 \includegraphics[scale=0.8]{../res/graphics/Diag_utilisations}
-  \subsubsection{Cas d'utilisation 1}
+\subsubsection{Cas d'utilisation 1}
 \ficheGraphic
 % Nom du cas d'utilisation
 {Exécution d'actions GPG}
@@ -194,25 +213,25 @@ Différents documents de référence :
 % Diagramme
 {0.5}{../res/graphics/Diag_Seq_Actions_GPG_v2}
 % Flots d'exceptions
-{
-  \begin{itemize}
-  \item Abandon de l'utilisateur.
-  \item Erreurs GPG.
-  \end{itemize}
-}
+{Abandon de l'utilisateur.}
 % Fin de la fiche du cas d'utilisation 1.
 \vspace{0.5cm}
 
   \subsubsection{Cas d'utilisation 2}
 \ficheGraphic
 % Nom du cas d'utilisation
-{Chiffrement/déchiffrement, signature/vérification}
+{Chiffrer/déchiffrer/Signer/Vérifier}
 % Acteurs concernés
 {Utilisateur}
 % Description
-{Chiffrement ou déchiffrement du ou des fichiers sélectionnés, ou du texte copié dans l'éditeur de l'interface, selon le choix de l'utilisateur. Signature ou vérification d'un document.}
+{Chiffrer ou déchiffrer ou signer ou vérifier un message copié dans l'éditeur de l'interface.}
 % Préconditions
-{Pour un chiffrement et une signature, l'utilisateur possède une clé. Pour un déchiffrement et une vérification, l'utilisateur possède la clé public dans son trousseau.}
+{\begin{itemize}
+ \item Pour déchiffrer ou signer, l'utilisateur possède sa clé privée.
+ \item Pour chiffrer, l'utilisateur possède la clé public du destinataire.
+ \item Pour vérifier, l'utilisateur possède la clé public de l'emetteur.
+ \end{itemize}
+}
 % Evénements déclenchants
 {Demande de chiffrement, déchiffrement, signature ou vérification.}
 % Conditions d'arrêt
@@ -227,7 +246,7 @@ Différents documents de référence :
   \subsubsection{Cas d'utilisation 3}
 \ficheGraphic
 % Nom du cas d'utilisation
-{Affichage des commandes, des retours et des erreurs}
+{Affichage des commandes, des retours et des erreurs GPG}
 % Acteurs concernés
 {Utilisateur}
 % Description
@@ -241,34 +260,32 @@ Différents documents de référence :
 % Diagramme
 {0.5}{../res/graphics/Diag_Seq_Affichage_Commandes_v2}
 % Flots d'exceptions
-{}   
+{Aucun.}   
 % Fin de la fiche du cas d'utilisation 3.
 \vspace{0.5cm}
 
-  \subsubsection{Cas d'utilisation 4}
+\subsubsection{Cas d'utilisation 4}
 \ficheGraphic
 % Nom du cas d'utilisation
-{Choix du profil}
+{Choix du profil utilisateur}
 % Acteurs concernés
 {Utilisateur}
 % Description
-{L'utilisateur peut modifier le profil à l'ouverture grâce à l'option -P, ou à tout autre moment. Si au démarrage, l'option -P n'est pas précisée, et qu'aucun profil par défaut n'est défini, l'utilisateur doit choisir un profil.}
+{L'utilisateur peut choisir son profil au lancement de l'interface via une option, ou en cours d'utilisation. Si au lancement l'option n'est pas précisée, 
+et qu'aucun profil par défaut n'est défini, l'utilisateur doit choisir un profil.}
 % Préconditions
-{}
+{Un fichier de configuration de l'interface doit contenir les différents profils, ainsi que le profil par défaut. 
+Chaque profil possède un trousseau de clé qui lui est propre.}
 % Evénements déclenchants
-{Ouverture avec l'option -P, ouverture sans profil par défaut, ou demande de modification du profil par l'utilisateur.}
+{Ouverture avec option spécifiée, ouverture sans profil par défaut, ou demande de modification du profil par l'utilisateur.}
 % Conditions d'arrêt
-{}
+{Profil chargé}
 % Diagramme
-{0.5}{../res/graphics/Diag_Seq_Config}
+{0.4}{../res/graphics/Diag_Seq_Config}
 % Flots d'exceptions
 {Abandon de l'utilisateur.}
 % Fin de la fiche du cas d'utilisation 4.
 \vspace{0.5cm}
-
-Le fichier de configuration de l'interface contient les différents profils, ainsi que le profil par défaut. Chaque profil possède un répertoire GPG.
-
-
 
   \subsubsection{Cas d'utilisation 5}
 \ficheGraphic
@@ -277,7 +294,7 @@ Le fichier de configuration de l'interface contient les différents profils, ain
 % Acteurs concernés
 {Utilisateur}
 % Description
-{Modification de la Toile de confiance, par un changement de niveau de confiance ou l'ajout d'un nouveau membre, via la représentation graphique de la toile.}
+{Modification de la Toile de confiance, par un changement de niveau de confiance ou l'ajout d'une nouvelle clé, via la représentation graphique de la toile.}
 % Préconditions
 {La représentation de la toile de confiance doit apparaître à l'écran.}
 % Evénements déclenchants
@@ -292,22 +309,22 @@ Le fichier de configuration de l'interface contient les différents profils, ain
 \vspace{0.5cm}
   
 
-\subsection{Implémentation de l'attaque sur les KeyId}
+\subsection{Attaque des KeyId}
   
   \subsubsection{Cas d'utilisation 6}
 \ficheGraphic
 % Nom du cas d'utilisation
-{Création de clé d'attaque sur les KeyId}
+{Attaque sur KeyID}
 % Acteurs concernés
 {Utilisateur}
 % Description
-{Création d'une clé d'attaque à partir d'une clé publique, selon la méthode décrite dans le numéro 75 du MISC.}
+{Calcule d'une d'une seconde pré-image, selon la méthode décrite dans le numéro 75 du MISC.}
 % Préconditions
-{L'utilisateur doit être en possession d'une clé publique.}
+{Fixer un KeyID.}
 % Evénements déclenchants
-{Demande de création de clé d'attaque.}
+{Lancement du calcule.}
 % Conditions d'arrêt
-{Clé d'attaque créée.}
+{Seconde pré-image trouvée.}
 % Diagramme
 {0.5}{../res/graphics/Diag_Seq_Attaque}
 % Flots d'exceptions
@@ -327,13 +344,13 @@ Le fichier de configuration de l'interface contient les différents profils, ain
   \cr
   \hline
   EO\_1&
-  Implémentation GnuPG 2.0.*&
+  Compatibilité GnuPG 2.0.*&
   Indispensable
   \cr
   \hline
   EO\_2&
-  Implémentation GnuPG 1.4.*&
-  Optionnel
+  Compatibilité GnuPG 1.4.*&
+  Secondaire
   \cr
   \hline
   EO\_3&
@@ -348,7 +365,7 @@ Le fichier de configuration de l'interface contient les différents profils, ain
   \hline
   EO\_5&
   Fonctionnement sous Windows 7 et 8&
-  Optionnel
+  Secondaire
   \cr
   \hline
   EO\_6&
@@ -356,14 +373,14 @@ Le fichier de configuration de l'interface contient les différents profils, ain
   Indispensable
   \cr
   \hline
-  E0\_7&
+  EO\_7&
   Ouverture de deux interfaces avec des profils différents sur une même session&
   Important
   \cr
   \hline
   EO\_8&
-  Connexion SSH : Authentification par clé signée par GPG&
-  Optionnel
+  Connexion SSH : Authentification via une clé signée par GPG&
+  Secondaire
   \cr
   \hline
 \end{tabular}\\
@@ -385,18 +402,18 @@ Le client n'a aucune exigence opérationnelle d'interface.
   \cr
   \hline
   EQ\_1&
-  Représentation des niveaux de confiance par couleurs sur la liste des clés&
-  Important
+  Représentation des niveaux de confiance et validité par couleurs&
+  Indispensable
   \cr
   \hline
   EQ\_2&
-  Temps de réponse et fluidité de l'interface&
+  Fluidité de l'interface&
   Indispensable
   \cr
   \hline
   EQ\_3&
   Interface livrée sous forme de paquet Ubuntu&
-  Optionnel
+  Important
   \cr
   \hline
 \end{tabular}\\
