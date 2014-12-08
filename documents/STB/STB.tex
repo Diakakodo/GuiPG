@@ -270,12 +270,12 @@ Différents documents de référence :
 {Utilisateur}
 % Description
 {L'utilisateur peut choisir son profil au lancement de l'interface via une option, ou en cours d'utilisation. Si au lancement l'option n'est pas précisée, 
-et qu'aucun profil par défaut n'est défini, l'utilisateur doit choisir un profil.}
+et qu'aucun profil par défaut n'est défini, l'utilisateur doit choisir un profil. Lors de l'installation, un profil par défaut est créé.}
 % Préconditions
-{Un fichier de configuration de l'interface doit contenir les différents profils, ainsi que le profil par défaut. 
+{Un fichier de configuration de l'interface doit contenir les différents profils, ainsi que l'éventuel profil par défaut. 
 Chaque profil possède un trousseau de clé qui lui est propre.}
 % Evénements déclenchants
-{Ouverture avec option spécifiée, ouverture sans profil par défaut, ou demande de modification du profil par l'utilisateur.}
+{Ouverture avec option spécifiée, ouverture sans profil par défaut, ou changement de profil en cours d'utilisation.}
 % Conditions d'arrêt
 {Profil chargé}
 % Diagramme
@@ -352,7 +352,7 @@ Chaque profil possède un trousseau de clé qui lui est propre.}
   \cr
   \hline
   EO\_3&
-  Fonctionnement sous KDE 4.*&
+  Fonctionnement sous KDE 4.* et 5&
   Indispensable
   \cr
   \hline
@@ -362,7 +362,7 @@ Chaque profil possède un trousseau de clé qui lui est propre.}
   \cr
   \hline
   EO\_5&
-  Fonctionnement sous Windows 7 et 8&
+  Fonctionnement sous Windows&
   Secondaire
   \cr
   \hline
