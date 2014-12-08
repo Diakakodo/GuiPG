@@ -61,7 +61,7 @@ Le projet sera réalisé par une équipe de sept étudiants du master SSI de Rou
 
 L'objectif du projet est de réaliser une étude complète d'OpenPGP et du logiciel GnuPG, d'en comprendre le fonctionnement détaillé et de rédiger un rapport illustrant toutes les fonctionnalités.
 
-Il est ensuite demandé de proposer une interface graphique pour GnuPG, accompagnée d'un document d'explications et de recommandations pour l'utilisation.
+Il est ensuite demandé de proposer une interface graphique pour GnuPG, accompagnée d'un document d'explications et de recommandations pour l'utilisateur.
 %Il est ensuite demandé de proposer une interface graphique permettant à un utilisateur novice en PGP, mais averti en sécurité, de faire 
 %facilement des réglages techniques sur ses clefs et de pouvoir mettre en place sa toile de confiance (et la visualiser graphiquement). 
 %L'interface devra donc être à a fois pédagogique et précise (un document d'explications et de recommandations pour l'utilisation devra 
@@ -97,11 +97,11 @@ L'application doit fonctionner sur le système d'exploitation GNU/Linux, en part
 \subsection{Résultats attendus}
 Les livrables attendus pour ce projet sont :
 \begin{itemize}
- \item Un Rapport complet sur GnuPG et OpenPGP illustrant toutes les fonctionnalités.
- \item Une Interface graphique pour GnuPG.
+ \item Un rapport complet sur GnuPG et OpenPGP illustrant toutes les fonctionnalités.
+ \item Une interface graphique pour GnuPG.
  \item Un document d'explications et de recommandations à l'utilisation de l'interface graphique.
  \item Un rapport d'étude des limites cryptographiques de PGP.
- \item Une Implémentation de l'attaque sur les KeyId telle que celle décrite dans l'article «Surveillance généralisée : aux limites de PGP» du numéro 75 du magazine MISC.
+ \item Une implémentation de l'attaque sur les KeyId telle que celle décrite dans l'article «Surveillance généralisée : aux limites de PGP» du numéro 75 du magazine MISC.
 \end{itemize}
 
 \section{Documents applicables et de référence}
@@ -112,12 +112,12 @@ Les livrables attendus pour ce projet sont :
 Différents documents de référence :
 \begin{itemize}
 \item Définitions du standard OpenPGP \href{http://tools.ietf.org/html/rfc4880}{RFC 4880}
-  et \href{http://abcdrfc.free.fr/rfc-vf/pdf/rfc2440.pdf}{RFC 2440}
+  et \href{http://abcdrfc.free.fr/rfc-vf/pdf/rfc2440.pdf}{RFC 2440}.
 \item Le logiciel \href{https://www.gnupg.org/}{GnuPG} (GNU Privacy Guard) implantation Open Source
   de OpenPGP.
-\item La \href{https://www.gnupg.org/gph/fr/manual.html#AEN541}{toile de confiance} de GnuPG
-\item Editeurs graphiques existant 
-  (\href{http://www.gnupg.org/related_software/frontends.en.html}{KGpg, GPA, Seahorse})
+\item La \href{https://www.gnupg.org/gph/fr/manual.html#AEN541}{toile de confiance} de GnuPG.
+\item Editeurs graphiques existants 
+  (\href{http://www.gnupg.org/related_software/frontends.en.html}{KGpg, GPA, Seahorse}).
 \item Exemple de visualisation d'une toile de confiance sur le site de 
   \href{https://www.archlinux.org/master-keys/#visualization}{archlinux}.
 \end{itemize}
@@ -201,7 +201,7 @@ Différents documents de référence :
 {
   
   Fonctionnement du système pour chaque action nécessitant l'intervention de GPG.
-  Toutes ces actions sont spécifiée dans les
+  Toutes ces actions sont spécifiées dans les
   \newline
   \href{http://tools.ietf.org/html/rfc4880}{RFC 4880}
   et \href{http://tools.ietf.org/html/rfc2440}{RFC 2440}
@@ -232,8 +232,8 @@ Différents documents de référence :
   Il y existe plusieurs préconditions :
   \begin{itemize}
     \item Pour déchiffrer ou signer, l'utilisateur possède sa clé privée.
-    \item Pour chiffrer, l'utilisateur possède la clé public du destinataire.
-    \item Pour vérifier, l'utilisateur possède la clé public de l'émetteur.
+    \item Pour chiffrer, l'utilisateur possède la clé publique du destinataire.
+    \item Pour vérifier, l'utilisateur possède la clé publique de l'émetteur.
   \end{itemize}
 }
 % Evénements déclenchants
@@ -323,18 +323,18 @@ Chaque profil possède un trousseau de clé qui lui est propre.}
 \vspace{0.5cm}
   
 
-\subsection{Attaque des KeyId}
+\subsection{Calcul d'une seonde pré-image pour une clé donnée}
   
 \subsubsection{Cas d'utilisation 6}
 \ficheGraphic
 % Nom du cas d'utilisation
-{Calcul d'une seconde pré-image pour un KeyId donné}
+{Calcul d'une seconde pré-image pour une clé donnée}
 % Acteurs concernés
 {Utilisateur}
 % Description
-{Calcul d'une d'une seconde pré-image, selon la méthode décrite dans le numéro 75 du MISC.}
+{Calcul d'une seconde pré-image, selon la méthode décrite dans le numéro 75 du MISC.}
 % Préconditions
-{Fixer un KeyID.}
+{Fixer une clé.}
 % Evénements déclenchants
 {Lancement du calcul.}
 % Conditions d'arrêt
