@@ -38,7 +38,11 @@
 \date{\today}
 
 \histentry{0.1}{31/10/2014}{Version initiale.}
+\histentry{0.2}{15/11/2014}{Ajout des parties Introduction, Documents applicables et de référence, Environnement de test, Responsabilités,
+Stratégie de tests, Gestion des anomalies.}
 \histentry{0.3}{24/11/2014}{Respect de la STB v0.3.}
+\histentry{0.4}{05/12/2014}{Ajout de toutes les procédures liées aux commandes GPG.}
+
 
 % -- Début du document -- %
 \begin{document}
@@ -338,25 +342,562 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \end{tabular}
     \vskip 2.2cm
 
-
-
  %---------------------------------------Test N° 9------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé :  } & \multicolumn{2}{c|}{Version : }\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : }\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 9} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 &  &  &  & \\
-      2 &  &  &  & \\
-      3 &  &  &  & \\ \hline
-    \end{tabular}
-    \vskip 2.2cm
-
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande -s(, –sign)}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 9} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande -s(, –sign) & Commande lancée: \texttt{'gpg -s(, –sign)'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
 
 
  %---------------------------------------Test N° 10------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –clearsign}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 10} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –clearsign & Commande lancée: \texttt{'gpg –clearsign'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 11------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande -b(, –detach-sign)}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 11} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande -b(, –detach-sign) & Commande lancée: \texttt{'gpg -b(, –detach-sign)'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 12------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande -e(, –encrypt)}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 12} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande -e(, –encrypt) & Commande lancée: \texttt{'gpg -e(, –encrypt)'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 13------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande -c(, –symmetric)}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 13} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande -c(, –symmetric) & Commande lancée: \texttt{'gpg -c(, –symmetric)'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 14------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –store}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 14} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –store & Commande lancée: \texttt{'gpg –store'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 15------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –decrypt [=file=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 15} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –decrypt [=file=] & Commande lancée: \texttt{'gpg –decrypt [=file=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 16------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –verify [[=sigfile=] [=signed-files=]]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 16} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –verify [[=sigfile=] [=signed-files=]] & Commande lancée: \texttt{'gpg –verify [[=sigfile=] [=signed-files=]]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 17------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –verify-files [=files=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 17} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –verify-files [=files=] & Commande lancée: \texttt{'gpg –verify-files [=files=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 18------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –list-keys [=names=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 18} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –list-keys [=names=] & Commande lancée: \texttt{'gpg –list-keys [=names=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 19------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –list-secret-keys [=names=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 19} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –list-secret-keys [=names=] & Commande lancée: \texttt{'gpg –list-secret-keys [=names=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 20------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –list-sigs [=names=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 20} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –list-sigs [=names=] & Commande lancée: \texttt{'gpg –list-sigs [=names=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 21------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –check-sigs [=names=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 21} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –check-sigs [=names=] & Commande lancée: \texttt{'gpg –check-sigs [=names=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 22------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –fingerprint [=names=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 22} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –fingerprint [=names=] & Commande lancée: \texttt{'gpg –fingerprint [=names=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 23------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –list-packets}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 23} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –list-packets & Commande lancée: \texttt{'gpg –list-packets'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 24------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –gen-key}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 24} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –gen-key & Commande lancée: \texttt{'gpg –gen-key'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 25------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –edit-key name}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 25} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –edit-key name & Commande lancée: \texttt{'gpg –edit-key name'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 26------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –sign-key name}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 26} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –sign-key name & Commande lancée: \texttt{'gpg –sign-key name'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 27------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –lsign-key name}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 27} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –lsign-key name & Commande lancée: \texttt{'gpg –lsign-key name'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 28------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –trusted-key long key ID}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 28} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –trusted-key long key ID & Commande lancée: \texttt{'gpg –trusted-key long key ID'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 29------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –delete-key name}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 29} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –delete-key name & Commande lancée: \texttt{'gpg –delete-key name'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 30------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –delete-secret-key name}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 30} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –delete-secret-key name & Commande lancée: \texttt{'gpg –delete-secret-key name'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 31------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –gen-revoke}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 31} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –gen-revoke & Commande lancée: \texttt{'gpg –gen-revoke'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 32------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –export [=names=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 32} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –export [=names=] & Commande lancée: \texttt{'gpg –export [=names=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 33------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –send-keys [=names=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 33} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –send-keys [=names=] & Commande lancée: \texttt{'gpg –send-keys [=names=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 34------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –export-all [=names=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 34} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –export-all [=names=] & Commande lancée: \texttt{'gpg –export-all [=names=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 35------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –export-secret-keys [=names=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 35} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –export-secret-keys [=names=] & Commande lancée: \texttt{'gpg –export-secret-keys [=names=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 36------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –import [=files=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 36} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –import [=files=] & Commande lancée: \texttt{'gpg –import [=files=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 37------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –recv-keys key IDs}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 37} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –recv-keys key IDs & Commande lancée: \texttt{'gpg –recv-keys key IDs'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 38------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –export-ownertrust}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 38} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –export-ownertrust & Commande lancée: \texttt{'gpg –export-ownertrust'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 39------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –import-ownertrust [=files=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 39} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –import-ownertrust [=files=] & Commande lancée: \texttt{'gpg –import-ownertrust [=files=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 40------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –print-md algo [=files=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 40} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –print-md algo [=files=] & Commande lancée: \texttt{'gpg –print-md algo [=files=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 41------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –gen-random 0|1|2 [=count=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 41} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –gen-random 0|1|2 [=count=] & Commande lancée: \texttt{'gpg –gen-random 0|1|2 [=count=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 42------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –gen-prime mode bits [=qbits=]}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 42} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –gen-prime mode bits [=qbits=] & Commande lancée: \texttt{'gpg –gen-prime mode bits [=qbits=]'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 43------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –version}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 43} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –version & Commande lancée: \texttt{'gpg –version'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 44------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande –warranty}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 44} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande –warranty & Commande lancée: \texttt{'gpg –warranty'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 45------------------------------------------------------------------------------
+\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+\multicolumn{5}{|l|}{Objectif de test : Test de la commande -h(, –help)}\\ \hline
+\multicolumn{3}{|l|}{Procédure n° 45} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+1 & Cliquer sur le bouton correspondant à la commande -h(, –help) & Commande lancée: \texttt{'gpg -h(, –help)'} &  & \\
+2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
+3 &  &  &  & \\ \hline
+\end{tabular}
+\vskip 2.2cm
+
+
+ %---------------------------------------Test N° 46------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : } & \multicolumn{2}{c|}{Version : }\\ \hline
