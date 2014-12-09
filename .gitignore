@@ -17,3 +17,5 @@
 *.dia.autosave
 *~
 *.autosave
+*.o
+*.pro.user
