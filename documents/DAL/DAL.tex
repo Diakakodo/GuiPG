@@ -26,26 +26,29 @@
 
 \histentry{0.1}{23/11/2014}{Version initiale.}
 
+% definition d'un bleu un peu moins criard que celui par defaut ...
+\definecolor{blue_saphir}{rgb}{0,.19,.71}
+
 % Commande permettant de créer un tableau entrées / sortie / pré-post conditions pour les méthodes
 \newcommand{\methode}[6]{
   \begin{tabular}{|>{\centering}p{2.5cm}|>{\centering}p{7cm}|}
     \hline
-    \color{white}\cellcolor{blue}\bfseries{Nom}&
+    \color{white}\cellcolor{blue_saphir}\bfseries{Nom}&
     #1 \cr
     \hline
-    \color{white}\cellcolor{blue}\bfseries{Entrée}&
+    \color{white}\cellcolor{blue_saphir}\bfseries{Entrée}&
     #2 \cr
     \hline
-    \color{white}\cellcolor{blue}\bfseries{Préconditions}&
+    \color{white}\cellcolor{blue_saphir}\bfseries{Préconditions}&
     #3 \cr
     \hline
-    \color{white}\cellcolor{blue}\bfseries{Sortie}&
+    \color{white}\cellcolor{blue_saphir}\bfseries{Sortie}&
     #4 \cr
     \hline
-    \color{white}\cellcolor{blue}\bfseries{Postconditions}&
+    \color{white}\cellcolor{blue_saphir}\bfseries{Postconditions}&
     #5 \cr
     \hline
-    \color{white}\cellcolor{blue}\bfseries{Description}&
+    \color{white}\cellcolor{blue_saphir}\bfseries{Description}&
     #6 \cr
     \hline
   \end{tabular}\\
