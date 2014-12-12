@@ -26,6 +26,31 @@
 
 \histentry{0.1}{23/11/2014}{Version initiale.}
 
+% Commande permettant de créer un tableau entrées / sortie / pré-post conditions pour les méthodes
+\newcommand{\methode}[6]{
+  \begin{tabular}{|>{\centering}p{1cm}|>{\centering}p{7cm}|}
+    \hline
+    \color{white}\cellcolor{blue}\bfseries{Nom}&
+    #1&
+    \hline
+    \color{white}\cellcolor{blue}\bfseries{Entrée}&
+    #2&
+    \hline
+    \color{white}\cellcolor{blue}\bfseries{Préconditions}&
+    #3&
+    \hline
+    \color{white}\cellcolor{blue}\bfseries{Sortie}&
+    #4&
+    \hline
+    \color{white}\cellcolor{blue}\bfseries{Postconditions}&
+    #5&
+    \hline
+    \color{white}\cellcolor{blue}\bfseries{Description}&
+    #6&
+    \hline
+  \end{tabular}\\
+}
+
 % -- Début du document -- %
 \begin{document}
 
@@ -37,6 +62,7 @@
 \newpage
 
 \section{Objet}
+  \methode{Test}{Paramètres}{Paramètres != NULL}{Miaou}{Miaou = 6}{Ceci est un test}
   Ce document permet d'établir une vue globale de l'architecture logicielle envisagée pour la conception d'une interface graphique reposant sur le logiciel GnuPG de façon à simpliciter son utilisation pour un utilisateur débutant mais toutefois en laissant apparaitre les fonctionnalités avancées pour un utilisateur expérimenté. Il décrit comment concevoir cette interface pour répondre aux spécifications du client ainsi qu'une conception détaillée des différents modules nécessaires à son bon fonctionnement. 
 
 \section{Documents applicables et de référence}
