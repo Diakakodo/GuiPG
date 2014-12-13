@@ -26,33 +26,78 @@
 
 \histentry{0.1}{23/11/2014}{Version initiale.}
 
-% definition d'un bleu un peu moins criard que celui par defaut ...
-\definecolor{blue_saphir}{rgb}{0,.19,.71}
+% Definition de couleurs :
+% Couleur de fond des nom de classes
+\definecolor{classColor}{rgb}{.20,.42,.57}
+% Couleur de fond des noms de methode
+\definecolor{methodeColor}{rgb}{.38,.62,.81}
+% Couleur de fond des legends (Nom, Entrée, precondtion, sortie, postcondition, description)
+\definecolor{legendColor}{rgb}{.45,.58,.67}
+
+
 
 % Commande permettant de créer un tableau entrées / sortie / pré-post conditions pour les méthodes
+%\newcommand{\methode}[6]{
+%  \begin{tabular}{|>{\centering}p{2.5cm}|>{\centering}p{7cm}|}
+%    \hline
+%    \color{white}\cellcolor{legendColor}\bfseries{Nom}&
+%    #1 \cr
+%    \hline
+%    \color{white}\cellcolor{legendColor}\bfseries{Entrée}&
+%    #2 \cr
+%    \hline
+%    \color{white}\cellcolor{legendColor}\bfseries{Préconditions}&
+%    #3 \cr
+%    \hline
+%    \color{white}\cellcolor{legendColor}\bfseries{Sortie}&
+%    #4 \cr
+%    \hline
+%    \color{white}\cellcolor{legendColor}\bfseries{Postconditions}&
+%    #5 \cr
+%    \hline
+%    \color{white}\cellcolor{legendColor}\bfseries{Description}&
+%    #6 \cr
+%    \hline
+%  \end{tabular}\\
+%}
+
+
+% Commande permettant de créer un tableau entrées / sortie / pré-post conditions pour les méthodes
+% N'affiche pas les champs vide...
 \newcommand{\methode}[6]{
-  \begin{tabular}{|>{\centering}p{2.5cm}|>{\centering}p{7cm}|}
+  \def\vide{} \def\tempa{#1} \def\tempb{#2} \def\tempc{#3} \def\tempd{#4} \def\tempe{#5} \def\tempf{#6}
+  \def\casa{\ifx\empty\tempa \else \hline \color{white}\cellcolor{legendColor}\bfseries{Nom}            & #1 \cr \fi }
+  \def\casb{\ifx\empty\tempb \else \hline \color{white}\cellcolor{legendColor}\bfseries{Entrée}         & #2 \cr \fi }
+  \def\casc{\ifx\empty\tempc \else \hline \color{white}\cellcolor{legendColor}\bfseries{Préconditions}  & #3 \cr \fi }
+  \def\casd{\ifx\empty\tempd \else \hline \color{white}\cellcolor{legendColor}\bfseries{Sortie}         & #4 \cr \fi }
+  \def\case{\ifx\empty\tempe \else \hline \color{white}\cellcolor{legendColor}\bfseries{Postconditions} & #5 \cr \fi }
+  \def\casf{\ifx\empty\tempf \else \hline \color{white}\cellcolor{legendColor}\bfseries{Description}    & #6 \cr \fi }
+  %\begin{tabular}{|>{\centering}p{2.5cm}|>{\centering}p{7cm}|}
+  \begin{tabular}{|>{\centering}p{2.5cm}|>{\centering}p{9cm}|}
+    \casa \casb \casc \casd \case \casf
     \hline
-    \color{white}\cellcolor{blue_saphir}\bfseries{Nom}&
-    #1 \cr
-    \hline
-    \color{white}\cellcolor{blue_saphir}\bfseries{Entrée}&
-    #2 \cr
-    \hline
-    \color{white}\cellcolor{blue_saphir}\bfseries{Préconditions}&
-    #3 \cr
-    \hline
-    \color{white}\cellcolor{blue_saphir}\bfseries{Sortie}&
-    #4 \cr
-    \hline
-    \color{white}\cellcolor{blue_saphir}\bfseries{Postconditions}&
-    #5 \cr
-    \hline
-    \color{white}\cellcolor{blue_saphir}\bfseries{Description}&
-    #6 \cr
-    \hline
-  \end{tabular}\\
+  \end{tabular}
 }
+
+% Commande pour definir une methode dans une \class
+\newcommand{\methodeclass}[6]{
+  & \color{white}\cellcolor{methodeColor}\bfseries{#1} & \cr
+  & \methode{}{#2}{#3}{#4}{#5}{#6} & \cr
+  & & \cr
+}
+
+% Commande permettant de regrouper des methode dans un tableau portant le nom de la classe.
+\newcommand{\class}[2]{%
+  \begin{tabular}{|c c c|}
+    \hline
+    \multicolumn{3}{|>{\color{white}\columncolor{classColor}}c|}{\bfseries{#1}} \cr
+    \hline
+    & & \cr
+    #2
+    \hline
+  \end{tabular}\\  
+}
+
 
 % -- Début du document -- %
 \begin{document}
@@ -118,37 +163,69 @@
     \includegraphics[scale=0.5]{graphics/diagramme_archi.png}
   \subsection{Description des classes} % (fold)
       \subsubsection{Profile}
-        \methode
-        {getID}
-        {}
-        {}
-        {Entier représentant l'identifiant unique du profil}
-        {}
-        {Renvoie l'identifiant unique du profil}
-        
-        \methode
-        {getName}
-        {}
-        {}
-        {QString représentant le nom du profil}
-        {}
-        {Renvoie le nom du profil}
-        
-        \methode
-        {getPath}
-        {}
-        {}
-        {QString représentant le chemin absolu vers le dossier de configuration de GPG}
-        {}
-        {Renvoie le chemin absolu vers le dossier de configuration}
-        
-        \methode
-        {setPath}
-        {path : QString}
-        {path référence un dossier de configuration de GPG valide}
-        {}
-        {QString représentant le chemin vers le dossier de configuration de GPG du profil est changé}
-        {Change le dossier de configuration de GPG du profil}
+        \class{Profile}{
+          \methodeclass
+            {getID}
+            {}
+            {}
+            {Entier représentant l'identifiant unique du profil}
+            {}
+            {Renvoie l'identifiant unique du profil}
+          \methodeclass
+            {getName}
+            {}
+            {}
+            {QString représentant le nom du profil}
+            {}
+            {Renvoie le nom du profil}
+          \methodeclass
+            {getPath}
+            {}
+            {}
+            {QString représentant le chemin absolu vers le dossier de configuration de GPG}
+            {}
+            {Renvoie le chemin absolu vers le dossier de configuration}
+          \methodeclass
+            {setPath}
+            {path : QString}
+            {path référence un dossier de configuration de GPG valide}
+            {}
+            {QString représentant le chemin vers le dossier de configuration de GPG du profil est changé}
+            {Change le dossier de configuration de GPG du profil}
+        }
+
+%        \methode
+%        {getID}
+%        {}
+%        {}
+%        {Entier représentant l'identifiant unique du profil}
+%        {}
+%        {Renvoie l'identifiant unique du profil}
+%        
+%        \methode
+%        {getName}
+%        {}
+%        {}
+%        {QString représentant le nom du profil}
+%        {}
+%        {Renvoie le nom du profil}
+%        
+%        \methode
+%        {getPath}
+%        {}
+%        {}
+%        {QString représentant le chemin absolu vers le dossier de configuration de GPG}
+%        {}
+%        {Renvoie le chemin absolu vers le dossier de configuration}
+%        
+%        \methode
+%        {setPath}
+%        {path : QString}
+%        {path référence un dossier de configuration de GPG valide}
+%        {}
+%        {QString représentant le chemin vers le dossier de configuration de GPG du profil est changé}
+%        {Change le dossier de configuration de GPG du profil}
+
       \subsubsection{ProfileManager}
         \methode
         {getPath}
