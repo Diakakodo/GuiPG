@@ -65,7 +65,6 @@
 \newpage
 
 \section{Objet}
-  \methode{Test}{Paramètres}{Paramètres != NULL}{Miaou}{Miaou = 6}{Ceci est un test}
   Ce document permet d'établir une vue globale de l'architecture logicielle envisagée pour la conception d'une interface graphique reposant sur le logiciel GnuPG de façon à simpliciter son utilisation pour un utilisateur débutant mais toutefois en laissant apparaitre les fonctionnalités avancées pour un utilisateur expérimenté. Il décrit comment concevoir cette interface pour répondre aux spécifications du client ainsi qu'une conception détaillée des différents modules nécessaires à son bon fonctionnement. 
 
 \section{Documents applicables et de référence}
@@ -117,26 +116,25 @@
 \section{Architecture statique}
   \subsection{Structure} % (fold)
     \includegraphics[scale=0.5]{graphics/diagramme_archi.png}
-  \subsection{Description du constituant "X"} % (fold)
-    \textcolor{blue}{
-      TODO : \\
-      {\begin{itemize}
-        \item Rôle.
-        \item Propriétés et attributs de caractérisation.
-        \item Services offert (interfaces)
-        \item Dépendances avec d'autres constituants (service utilisés,
-        composants "sur étagère" utilisés)
-        \item Langage de programmation
-        \item Procédé de développement (techniques, méthodes et/ou outils)
-        \item Taille et complexité.
-      \end{itemize}}
-    }
-  % subsection Description du constituant "X" (end)
-  \subsection{Justification techniques} % (fold)
-    \textcolor{blue}{
-      TODO : \\
-      Fournir une rapide justification des choix technique originaux.
-    }
+  \subsection{Description des classes} % (fold)
+      \subsubsection{Profile}
+        \methode{getID}{}{}{L'identifiant unique du profil}{L'identifiant renvoyé est positif ou nul}{Renvoie l'identifiant unique du profil}
+        \methode{getName}{}{}{Le nom du profil}{Le nom renvoyé n'est pas vide}{Renvoie le nom du profil}
+        \methode{getPath}{}{}{Le chemin absolu vers le dossier de configuration de GPG}{Le chemin référence un dossier de configuration de GPG valide}{Renvoie le chemin absolu vers le dossier de configuration}
+        \methode{setPath}{path : QString}{path référence un dossier de configuration de GPG valide}{}{Le chemin vers le dossier de configuration de GPG du profil est changé}{Change le dossier de configuration de GPG du profil}
+      \subsubsection{ProfileManager}
+        
+        \methode{getPath}{}{}{Le chemin absolu vers le fichier de configuration de l'application}{Le chemin référencé par ce chemin est valide}{Renvoie le chemin absolu vers le fichier de configuration de l'application}
+        
+        \methode{profileAvailable}{p : Profile}{}{Un booléen ayant pour valeur vrai si p est libre d'utilisation, faux sinon}{Vrai si p n'est utilisé par aucune autre instance de l'application}{Renvoie vrai si p est libre, faux sinon}
+        \methode{getProfiles}{}{}{La liste de tous les profils}{La liste n'est pas vide et contient tous les profils dans le fichier de configuration de l'application}{La liste de tous les profils présents dans le fichier de configuration de l'application}
+        \methode{save}{}{}{}{La liste des profils est sauvegardée dans le fichier de configuration de l'application}{Sauvegarde la liste des profils dans le fichier de configuration de l'application}
+        \methode{runProfile}{id : Entier}{id est positif ou nul, il correspond à un identifiant de profil et ce profil doit être libre d'utilisation}{}{Une nouvelle fenêtre est ouverte avec le profil ayant pour identifiant id}{Ouvre une nouvelle fenêtre avec le profil donné}
+        \methode{load}{}{}{}{Les profils présents dans le fichier de configuration de l'application sont chargés}{Charge les profils présents dans le fichier de configuration de l'application}
+        \methode{createProfile}{name : QString\\path : QString}{name n'est pas vide\\path référence un dossier de configuration de GPG valide}{}{Un objet Profile est créé et il est ajouté à la liste des profils}{Crée un profil, l'ajoute à la liste des profils et retourne l'objet Profil créé}
+        \methode{setProfilePath}{p : Profile\\path : QString}{path est un chemin absolu référençant un dossier de configuration de GPG valide}{}{Le chemin de p est changé}{Change le dossier de configuration lié à p}
+        \methode{changeProfile}{p : Profile}{p est un profil libre d'utilisation}{}{Le profil de la fenêtre courante est changé}{Change le profil associé à la fenêtre courante}
+      \subsubsection{Action}
   % subsection justification_techniques (end)
 \section{Fonctionnement dynamique} % (fold)
 \label{sec:fonctionnement_dynamique}
