@@ -118,22 +118,28 @@
     \includegraphics[scale=0.5]{graphics/diagramme_archi.png}
   \subsection{Description des classes} % (fold)
       \subsubsection{Profile}
-        \methode{getID}{}{}{L'identifiant unique du profil}{L'identifiant renvoyé est positif ou nul}{Renvoie l'identifiant unique du profil}
+        \methode
+        {getID}
+        {}
+        {}
+        {Entier représentant l'identifiant unique du profil}
+        {}
+        {Renvoie l'identifiant unique du profil}
         
         \methode
         {getName}
         {}
         {}
-        {Le nom du profil}
-        {Le nom renvoyé n'est pas vide}
+        {QString représentant le nom du profil}
+        {}
         {Renvoie le nom du profil}
         
         \methode
         {getPath}
         {}
         {}
-        {Le chemin absolu vers le dossier de configuration de GPG}
-        {Le chemin référence un dossier de configuration de GPG valide}
+        {QString représentant le chemin absolu vers le dossier de configuration de GPG}
+        {}
         {Renvoie le chemin absolu vers le dossier de configuration}
         
         \methode
@@ -141,23 +147,23 @@
         {path : QString}
         {path référence un dossier de configuration de GPG valide}
         {}
-        {Le chemin vers le dossier de configuration de GPG du profil est changé}
+        {QString représentant le chemin vers le dossier de configuration de GPG du profil est changé}
         {Change le dossier de configuration de GPG du profil}
       \subsubsection{ProfileManager}
         \methode
         {getPath}
         {}
         {}
-        {Le chemin absolu vers le fichier de configuration de l'application}
-        {Le chemin référencé par ce chemin est valide}
+        {QString représentant le chemin absolu vers le fichier de configuration de l'application}
+        {}
         {Renvoie le chemin absolu vers le fichier de configuration de l'application}
         
         \methode
         {profileAvailable}
         {p : Profile}
         {}
-        {Un booléen ayant pour valeur vrai si p est libre d'utilisation, faux sinon}
-        {Vrai si p n'est utilisé par aucune autre instance de l'application}
+        {Booléen ayant pour valeur vrai si p est libre d'utilisation, faux sinon}
+        {Vrai si p n'est utilisé par aucune autre fenêtre de l'application}
         {Renvoie vrai si p est libre, faux sinon}
         
         \methode
@@ -165,7 +171,7 @@
         {}
         {}
         {La liste de tous les profils}
-        {La liste n'est pas vide et contient tous les profils dans le fichier de configuration de l'application}
+        {QList<Profile> contenant tous les profils présents dans le fichier de configuration de l'application}
         {La liste de tous les profils présents dans le fichier de configuration de l'application}
         
         \methode
@@ -196,7 +202,7 @@
         {createProfile}
         {name : QString\\path : QString}
         {name n'est pas vide\\path référence un dossier de configuration de GPG valide}
-        {}
+        {Profile représentant le profil créé}
         {Un objet Profile est créé et il est ajouté à la liste des profils}
         {Crée un profil, l'ajoute à la liste des profils et retourne l'objet Profil créé}
         
@@ -205,10 +211,214 @@
         {p : Profile\\path : QString}
         {path est un chemin absolu référençant un dossier de configuration de GPG valide}
         {}
-        {Le chemin de p est changé}{Change le dossier de configuration lié à p}
+        {Le chemin de p est changé}
+        {Change le dossier de configuration lié à p}
         
-        \methode{changeProfile}{p : Profile}{p est un profil libre d'utilisation}{}{Le profil de la fenêtre courante est changé}{Change le profil associé à la fenêtre courante}
+        \methode
+        {changeProfile}
+        {p : Profile}
+        {p est un profil libre d'utilisation}
+        {}
+        {Le profil de la fenêtre courante est changé}
+        {Change le profil associé à la fenêtre courante}
       \subsubsection{Action}
+        
+        \methode
+        {getCmd}
+        {}
+        {}
+        {QString représentant le nom de la commande GPG}
+        {}
+        {Retourne le nom de la commande GPG}
+        
+        \methode
+        {getOptions}
+        {}
+        {}
+        {QStringList contenant les options de la commande GPG}
+        {}
+        {Retourne la liste des options de la commande GPG}
+        
+        \methode
+        {getInteractions}
+        {}
+        {}
+        {QStringList contenant les intéractions utilisateur durant l'exécution de la commande}
+        {}
+        {Retourne la liste des intéractions utilisateur durant l'exécution de la commande}
+        
+        \methode
+        {getArgs}
+        {}
+        {}
+        {QStringList content les arguments de la commande GPG}
+        {}
+        {Retourne la liste des arguments de la commande GPG}
+        
+        \methode
+        {hasInteraction}
+        {}
+        {}
+        {Booleen ayant pour valeur vrai s'il reste des interactions utilisateur}
+        {}
+        {Retourne vrai s'il reste des interactions utilisateur}
+        
+        \methode
+        {nextInteraction}
+        {}
+        {hasInteraction()}
+        {QString représentant l'interaction utilisateur courante}
+        {L'interaction utilisateur courante devient l'interaction utilisateur suivante}
+        {Retourne l'interaction utilisateur suivante}
+        
+        \subsubsection{QuestionType}
+        Énumération des différents types de questions :
+        \begin{itemize}
+          \item NO\_QUESTION
+          \item CLOSED\_QUESTION
+          \item OPENED\_QUESTION
+        \end{itemize}
+        
+        \subsubsection{GPGManager}
+          \methode
+          {isRunning}
+          {}
+          {}
+          {Boolean ayant pour valeur vrai si l'exécution de l'action par GPG est en cours}
+          {}
+          {Retourne vrai si l'exécution de l'action par GPG est en cours}
+          
+          \methode
+          {getQuestionType}
+          {}
+          {isRunning()}
+          {QuestionType représentant le type de la dernière question posée par GPG}
+          {}
+          {Retourne le type de a dernière question posée par GPG}
+          
+          \methode
+          {getAction}
+          {}
+          {}
+          {Action représentant l'action à exécuter par GPG}
+          {}
+          {Retourne l'action à exécuter par GPG}
+          
+          \methode
+          {execute}
+          {}
+          {!isRunning()}
+          {}
+          {GPG a exécuté l'action associée au manager}
+          {Exécute l'action associé au manager}
+          
+          \methode
+          {setAction}
+          {a : Action}
+          {!isRunning()}
+          {}
+          {L'action associée au manager a été changé}
+          {Change l'action à exécuter par GPG associée au manager}
+        
+          \methode
+          {getOutput}
+          {}
+          {!isRunning()}
+          {QString représentant la sortie de GPG}
+          {Contient la sortie de GPG}
+          {Retourne la sortie de GPG}
+        
+        \subsubsection{Instance}
+          \methode
+          {getProfile}
+          {}
+          {}
+          {Profile}
+          {}
+          {Retourne le profil associé à l'instance}
+          
+        \subsubsection{GPGKeyLevel}
+          \methode
+          {getName}
+          {}
+          {}
+          {QString représentant le nom du niveau}
+          {}
+          {Retourne le nom du niveau}
+          
+          \methode
+          {getLevel}
+          {}
+          {}
+          {Entier représentant le niveau}
+          {}
+          {Retourne le niveau}
+          
+        \subsubsection{GPGKey}
+          \methode
+          {getSubKeys}
+          {}
+          {}
+          {QList<GPGKey> contenant les sous clés de cette clé}
+          {}
+          {Retourne la liste des sous clés de cette clé}
+          
+          \methode
+          {getEmail}
+          {}
+          {}
+          {QString représentant l'email associé à la clé}
+          {}
+          {Retourne l'email associé à la clé}
+          
+          \methode
+          {getName}
+          {}
+          {}
+          {QString représentant le nom du propriétaire de la clé}
+          {}
+          {Retourne le nom du propriétaire de la clé}
+          
+          \methode
+          {getCreationDate}
+          {}
+          {}
+          {QDate représentant la date de création de la clé}
+          {}
+          {Retourne la date de création de la date}
+          
+          \methode
+          {getID}
+          {}
+          {}
+          {QString représentant l'ID de la clé}
+          {}
+          {Retourne l'ID de la clé}
+          
+          \methode
+          {getComments}
+          {}
+          {}
+          {QString représentant les commentaires de la clé}
+          {}
+          {Retourne les commentaires de la clé}
+          
+          \methode
+          {getTrust}
+          {}
+          {}
+          {GPGKeyLevel représentant le niveau de confiance de la clé}
+          {}
+          {Retourne le niveau de confiance de la clé}
+          
+          \methode
+          {getValidity}
+          {}
+          {}
+          {GPGKeyLevel représentant le niveau de validité de la clé}
+          {}
+          {Retourne le niveaude validité de la clé}
+           
   % subsection justification_techniques (end)
 \section{Fonctionnement dynamique} % (fold)
 \label{sec:fonctionnement_dynamique}
