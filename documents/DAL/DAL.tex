@@ -5,6 +5,8 @@
 \usepackage[francais]{babel}
 \usepackage[T1]{fontenc}
 
+\usepackage{longtable}
+
 %Redéfinition des marges
 \addtolength{\topmargin}{-1cm}
 \addtolength{\textheight}{1cm}
@@ -34,34 +36,6 @@
 % Couleur de fond des legends (Nom, Entrée, precondtion, sortie, postcondition, description)
 \definecolor{legendColor}{rgb}{.45,.58,.67}
 
-
-
-% Commande permettant de créer un tableau entrées / sortie / pré-post conditions pour les méthodes
-%\newcommand{\methode}[6]{
-%  \begin{tabular}{|>{\centering}p{2.5cm}|>{\centering}p{7cm}|}
-%    \hline
-%    \color{white}\cellcolor{legendColor}\bfseries{Nom}&
-%    #1 \cr
-%    \hline
-%    \color{white}\cellcolor{legendColor}\bfseries{Entrée}&
-%    #2 \cr
-%    \hline
-%    \color{white}\cellcolor{legendColor}\bfseries{Préconditions}&
-%    #3 \cr
-%    \hline
-%    \color{white}\cellcolor{legendColor}\bfseries{Sortie}&
-%    #4 \cr
-%    \hline
-%    \color{white}\cellcolor{legendColor}\bfseries{Postconditions}&
-%    #5 \cr
-%    \hline
-%    \color{white}\cellcolor{legendColor}\bfseries{Description}&
-%    #6 \cr
-%    \hline
-%  \end{tabular}\\
-%}
-
-
 % Commande permettant de créer un tableau entrées / sortie / pré-post conditions pour les méthodes
 % N'affiche pas les champs vide...
 \newcommand{\methode}[6]{
@@ -73,7 +47,8 @@
   \def\case{\ifx\empty\tempe \else \hline \color{white}\cellcolor{legendColor}\bfseries{Postconditions} & #5 \cr \fi }
   \def\casf{\ifx\empty\tempf \else \hline \color{white}\cellcolor{legendColor}\bfseries{Description}    & #6 \cr \fi }
   %\begin{tabular}{|>{\centering}p{2.5cm}|>{\centering}p{7cm}|}
-  \begin{tabular}{|>{\centering}p{2.5cm}|>{\centering}p{9cm}|}
+  %\begin{tabular}{|>{\centering}p{2.5cm}|>{\centering}p{9cm}|}
+  \begin{tabular}{|>{\centering}p{2.5cm}|>{\centering}p{10.5cm}|}
     \casa \casb \casc \casd \case \casf
     \hline
   \end{tabular}
@@ -88,14 +63,24 @@
 
 % Commande permettant de regrouper des methode dans un tableau portant le nom de la classe.
 \newcommand{\class}[2]{%
-  \begin{tabular}{|c c c|}
+  \begin{longtable}{|c c c|}
     \hline
-    \multicolumn{3}{|>{\color{white}\columncolor{classColor}}c|}{\bfseries{#1}} \cr
+    \multicolumn{3}{|>{\centering\color{white}\columncolor{classColor}}p{\linewidth}|}{\bfseries{#1}} \endfirsthead%\cr
     \hline
+    \multicolumn{3}{|>{\color{white}\columncolor{classColor}}c|}{\bfseries{#1} (suite ...)}\\
+    & & \\
+    \endhead
+    \hline 
+    \multicolumn{3}{|p{\linewidth}|}{Suite page suivante}
+    \\ \hline \endfoot 
+    %\hline
+    \multicolumn{3}{|p{\linewidth}|}{Fin de la class #1} \\
+    \hline
+    \endlastfoot \hline
     & & \cr
     #2
     \hline
-  \end{tabular}\\  
+  \end{longtable}
 }
 
 
@@ -162,7 +147,9 @@
   \subsection{Structure} % (fold)
     \includegraphics[scale=0.5]{graphics/diagramme_archi.png}
   \subsection{Description des classes} % (fold)
+      
       \subsubsection{Profile}
+      
         \class{Profile}{
           \methodeclass
             {getID}
@@ -193,38 +180,6 @@
             {QString représentant le chemin vers le dossier de configuration de GPG du profil est changé}
             {Change le dossier de configuration de GPG du profil}
         }
-
-%        \methode
-%        {getID}
-%        {}
-%        {}
-%        {Entier représentant l'identifiant unique du profil}
-%        {}
-%        {Renvoie l'identifiant unique du profil}
-%        
-%        \methode
-%        {getName}
-%        {}
-%        {}
-%        {QString représentant le nom du profil}
-%        {}
-%        {Renvoie le nom du profil}
-%        
-%        \methode
-%        {getPath}
-%        {}
-%        {}
-%        {QString représentant le chemin absolu vers le dossier de configuration de GPG}
-%        {}
-%        {Renvoie le chemin absolu vers le dossier de configuration}
-%        
-%        \methode
-%        {setPath}
-%        {path : QString}
-%        {path référence un dossier de configuration de GPG valide}
-%        {}
-%        {QString représentant le chemin vers le dossier de configuration de GPG du profil est changé}
-%        {Change le dossier de configuration de GPG du profil}
 
       \subsubsection{ProfileManager}
         \class{ProfileManager}{
@@ -267,7 +222,7 @@
           {}
           {Une nouvelle fenêtre est ouverte avec le profil ayant pour identifiant id}
           {Ouvre une nouvelle fenêtre avec le profil donné}
-          
+
           \methodeclass
           {load}
           {}
@@ -489,7 +444,7 @@
           {QString représentant les commentaires de la clé}
           {}
           {Retourne les commentaires de la clé}
-          
+          &&\\
           \methodeclass
           {getTrust}
           {}
