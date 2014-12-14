@@ -74,7 +74,7 @@
     \multicolumn{3}{|p{\linewidth}|}{Suite page suivante}
     \\ \hline \endfoot 
     %\hline
-    \multicolumn{3}{|p{\linewidth}|}{Fin de la class #1} \\
+    \multicolumn{3}{|p{\linewidth}|}{Fin de la classe #1} \\
     \hline
     \endlastfoot \hline
     & & \cr
@@ -132,6 +132,19 @@
         \end{itemize}
       \item Qt\\
         Interface de programmation orientée objet développée en C++ permettant la conception simple d'interface graphique compatible GNU Linux / Windows / Mac OS X.
+      \item Sémaphore : Un sémaphore est une variable (ou un type de donnée abstrait)
+            et constitue la méthode utilisée couramment pour restreindre l'accès à des
+            ressources partagées (par exemple un espace de stockage) dans un environnement
+            de programmation concurrente.\\
+            Sur un sémaphore trois action sont possibles :
+            \begin{itemize}
+               \item INIT(sem, val), qui initialise le sémaphore sem a la valeur val.
+               \item P(sem) que l'on peut assimiler a la notion de prendre une ressource.
+               \item V(sem) sue l'on peut assimiler a la notion de libérer une ressource.
+             \end{itemize} 
+      \item SHM : Shared Memory en français : Mémoire Partagée,
+            est un moyen de partager des données entre différents processus :
+            une même zone de la mémoire vive est accessible par plusieurs processus.
     \end{itemize}
 
 \section{Configuration requise}
@@ -146,8 +159,48 @@
 \section{Architecture statique}
   \subsection{Structure} % (fold)
     \includegraphics[scale=0.5]{graphics/diagramme_archi.png}
+  \newpage
   \subsection{Description des classes} % (fold)
       
+      \subsubsection{Launcher}
+
+        Cette classe est le point d'entré de l'application son unique rôle est de lancer des instances de l'application
+        graphique en s'assurant qu'il n'y ai pas deux instances graphiques avec un profil utilisateur
+        identique.
+        
+        Pour assurer l'uniciter du processus gérant les instances graphiques, nous utilisont un SHM,
+        sa présence permettant de signaler qu'un processus pour l'application est présent et attend
+        d'y lire des données.
+        
+        Le SHM sera composé de deux sémaphore noté semW (pour les ecrivains) et semR (pour le lecteur)
+        voici le fonctionnement synthétisé du démarage de l'application :
+
+        \includegraphics[scale=0.65]{graphics/launcherSequence.jpeg}
+
+        \class{Launcher}{
+          \methodeclass
+            {start} % Nom
+            {} % Entrée
+            {} % Préconditions
+            {} % Sortie
+            {} % Postconditions
+            {
+            Permet de lancer l'application.\\
+            Si elle est déja lancée, cette methode permet de signifier au processus qu'une nouvelle instance
+            de l'application est demandé.
+            } % Description
+            \methodeclass
+              {alreadyRun} % Nom
+              {} % Entrée
+              {} % Préconditions
+              {Booléen indiquant si un autre processus s'occupe déja de lancer des instances graphiques ou non.} % Sortie
+              {} % Postconditions
+              {
+                Permet de savoir si un processus gère les instances graphiques.\\
+                Et si on doit ecrire dans le SHM le profil a lancer ou le creer.
+              } % Description
+        }
+
       \subsubsection{Profile}
       
         \class{Profile}{
