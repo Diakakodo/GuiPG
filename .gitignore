@@ -20,3 +20,4 @@
 *.autosave
 *.o
 *.pro.user
+*.DS_Store
