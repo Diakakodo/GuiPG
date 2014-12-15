@@ -32,7 +32,7 @@
 \projet{GPG}
 \projdesc{Interface Graphique GPG}
 \filiere{M1SSI - Conduite de Projet}
-\version{0.3}
+\version{0.5}
 \relecteur{Olivier \bsc{Thibault}}
 \signataire{}
 \date{\today}
@@ -42,6 +42,7 @@
 Stratégie de tests, Gestion des anomalies.}
 \histentry{0.3}{24/11/2014}{Respect de la STB v0.3.}
 \histentry{0.4}{05/12/2014}{Ajout de toutes les procédures liées aux commandes GPG.}
+\histentry{0.5}{15/12/2014}{Respect de la STB 0.4 et ajout des données de test.}
 
 
 % -- Début du document -- %
@@ -135,12 +136,12 @@ Voici la configuration des machines personnelles des deux testeurs :
  \item PC n°2 : Un ordinateur portable équipé de Xubuntu 64 bits avec un processeur Intel i7-2630QM.
  @ 2.00 GHz et 6Go de RAM.
 \end{itemize}
-Il sera également utilisée des machines virtuelles pour répondre aux besoin du client sur la compatibilité de l'interface (KDE et GNOME obligatoire,
+Seront également utilisées des machines virtuelles pour répondre aux besoins du client sur la compatibilité de l'interface (KDE et GNOME obligatoire,
 WINDOWS optionnel).
 
 \subsection{Outils de tests mis en oeuvre}
 Le module Qt Test de Qt.
-Si Python est utilisé pour réaliser l'interface, les modules unittest et pytest pourront être utilisés.
+Les modules CxxTest et CppUnit pourront être utilisés.
 
 \subsection{Jeux de données/Bases de données}
 Nous auront comme base de données les différentes clés contenues dans le trousseau de test.
@@ -341,575 +342,23 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       3 &  &  &  & \\ \hline
     \end{tabular}
     \vskip 2.2cm
-
+    
+    
  %---------------------------------------Test N° 9------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande -s(, –sign)}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 9} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande -s(, –sign) & Commande lancée: \texttt{'gpg -s(, –sign)'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 10------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –clearsign}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 10} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –clearsign & Commande lancée: \texttt{'gpg –clearsign'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 11------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande -b(, –detach-sign)}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 11} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande -b(, –detach-sign) & Commande lancée: \texttt{'gpg -b(, –detach-sign)'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 12------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande -e(, –encrypt)}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 12} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande -e(, –encrypt) & Commande lancée: \texttt{'gpg -e(, –encrypt)'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 13------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande -c(, –symmetric)}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 13} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande -c(, –symmetric) & Commande lancée: \texttt{'gpg -c(, –symmetric)'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 14------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –store}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 14} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –store & Commande lancée: \texttt{'gpg –store'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 15------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –decrypt [=file=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 15} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –decrypt [=file=] & Commande lancée: \texttt{'gpg –decrypt [=file=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 16------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –verify [[=sigfile=] [=signed-files=]]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 16} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –verify [[=sigfile=] [=signed-files=]] & Commande lancée: \texttt{'gpg –verify [[=sigfile=] [=signed-files=]]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 17------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –verify-files [=files=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 17} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –verify-files [=files=] & Commande lancée: \texttt{'gpg –verify-files [=files=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 18------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –list-keys [=names=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 18} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –list-keys [=names=] & Commande lancée: \texttt{'gpg –list-keys [=names=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 19------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –list-secret-keys [=names=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 19} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –list-secret-keys [=names=] & Commande lancée: \texttt{'gpg –list-secret-keys [=names=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 20------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –list-sigs [=names=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 20} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –list-sigs [=names=] & Commande lancée: \texttt{'gpg –list-sigs [=names=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 21------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –check-sigs [=names=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 21} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –check-sigs [=names=] & Commande lancée: \texttt{'gpg –check-sigs [=names=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 22------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –fingerprint [=names=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 22} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –fingerprint [=names=] & Commande lancée: \texttt{'gpg –fingerprint [=names=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 23------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –list-packets}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 23} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –list-packets & Commande lancée: \texttt{'gpg –list-packets'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 24------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –gen-key}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 24} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –gen-key & Commande lancée: \texttt{'gpg –gen-key'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 25------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –edit-key name}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 25} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –edit-key name & Commande lancée: \texttt{'gpg –edit-key name'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 26------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –sign-key name}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 26} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –sign-key name & Commande lancée: \texttt{'gpg –sign-key name'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 27------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –lsign-key name}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 27} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –lsign-key name & Commande lancée: \texttt{'gpg –lsign-key name'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 28------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –trusted-key long key ID}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 28} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –trusted-key long key ID & Commande lancée: \texttt{'gpg –trusted-key long key ID'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 29------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –delete-key name}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 29} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –delete-key name & Commande lancée: \texttt{'gpg –delete-key name'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 30------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –delete-secret-key name}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 30} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –delete-secret-key name & Commande lancée: \texttt{'gpg –delete-secret-key name'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 31------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –gen-revoke}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 31} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –gen-revoke & Commande lancée: \texttt{'gpg –gen-revoke'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 32------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –export [=names=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 32} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –export [=names=] & Commande lancée: \texttt{'gpg –export [=names=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 33------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –send-keys [=names=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 33} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –send-keys [=names=] & Commande lancée: \texttt{'gpg –send-keys [=names=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 34------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –export-all [=names=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 34} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –export-all [=names=] & Commande lancée: \texttt{'gpg –export-all [=names=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 35------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –export-secret-keys [=names=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 35} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –export-secret-keys [=names=] & Commande lancée: \texttt{'gpg –export-secret-keys [=names=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 36------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –import [=files=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 36} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –import [=files=] & Commande lancée: \texttt{'gpg –import [=files=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 37------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –recv-keys key IDs}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 37} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –recv-keys key IDs & Commande lancée: \texttt{'gpg –recv-keys key IDs'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 38------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –export-ownertrust}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 38} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –export-ownertrust & Commande lancée: \texttt{'gpg –export-ownertrust'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 39------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –import-ownertrust [=files=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 39} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –import-ownertrust [=files=] & Commande lancée: \texttt{'gpg –import-ownertrust [=files=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 40------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –print-md algo [=files=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 40} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –print-md algo [=files=] & Commande lancée: \texttt{'gpg –print-md algo [=files=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 41------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –gen-random 0|1|2 [=count=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 41} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –gen-random 0|1|2 [=count=] & Commande lancée: \texttt{'gpg –gen-random 0|1|2 [=count=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 42------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –gen-prime mode bits [=qbits=]}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 42} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –gen-prime mode bits [=qbits=] & Commande lancée: \texttt{'gpg –gen-prime mode bits [=qbits=]'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 43------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –version}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 43} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –version & Commande lancée: \texttt{'gpg –version'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 44------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande –warranty}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 44} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande –warranty & Commande lancée: \texttt{'gpg –warranty'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 45------------------------------------------------------------------------------
-\begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-\multicolumn{5}{|l|}{Objectif de test : Test de la commande -h(, –help)}\\ \hline
-\multicolumn{3}{|l|}{Procédure n° 45} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-\multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-\multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-1 & Cliquer sur le bouton correspondant à la commande -h(, –help) & Commande lancée: \texttt{'gpg -h(, –help)'} &  & \\
-2 & Vérifier que la commande s'est terminée correctement & La commande s'est terminée correctement &  & \\
-3 &  &  &  & \\ \hline
-\end{tabular}
-\vskip 2.2cm
-
-
- %---------------------------------------Test N° 46------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
-      \multicolumn{3}{|l|}{Objet testé : } & \multicolumn{2}{c|}{Version : }\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : }\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 10} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Objet testé : Editeur de texte de l'interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Vérification de la fonction chiffrement/déchiffrement}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° 9} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 &  &  &  & \\
-      2 &  &  &  & \\
-      3 &  &  &  & \\ \hline
+      1 & Coller du texte dans la zone de texte & Le texte collé s'affiche dans la zone de texte &  & \\
+      2 & Cliquer sur "Chiffrer" & Le texte chiffré s'affiche dans la zone de texte &  & \\
+      3 & Cliquer sur "Déchiffrer" & Le texte collé original s'affiche dans la zone de texte &  & 
+    \\ \hline
     \end{tabular}
-    \vfill
+    \vskip 2.2cm
+
 
 
 
@@ -917,25 +366,293 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
 
 \section{Jeux de données de test}
 
+Voici les clés qui pourront être utilisées pour les tests.
+
+Clé Publique 1 :
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+mQGiBFSPNpwRBACTDoU52Krhu2ikzchx/TP5or2NIRiwji1NO7NBG+W3EOFa4T47
+cRuRCNQsd0qHg+BbMZpFErB1l6NBTrhD1vSKJ4r5/lLSW8bf+xdf4dOVuDfcB7AY
+bw77xS1cGkOjMj0x8n5xskTXOWB12+vOQw2pYb//XsHQW6cMIetAO6xLwwCg+eX2
+MAo9EIXH4+p2dT9JHTSMxM8D/32J/xRw5mYTOxBY4VbVCL2UUH21ZuF4AgKo3Ivc
+QYXQVg69V++7RpzjZX5wdkFdCLO28wgMMbWdvGeM+RjeSouWZQQAruK76nrep+4J
+b8ppgyRnqt/fpmh29LmZ2ZinzJTIxLmGseeRGcWIkMYBjsGAMuR89oMMEqDezj8V
+z2hVA/99tked+UF3iu3ZP90t1qS7iJs5hfhZtJfpWOhMCRfDtRLl5r9mikzvHxrd
+TU3CWHV2nF2UvCwFMKe4UbxiIZr3sy4W9FxhSAku1+X3ELnOYUYQyy0KHGo9npa/
+xL4K5hH8EfIV2Mjq+ercoX6joU9uYJdIduRM2J40HJ6/Y8qh5rQSdGVzdDEgPHRl
+c3QxQHRlc3Q+iGIEExECACIFAlSPNpwCGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4B
+AheAAAoJEHbgnLKGKpGD/hAAn1sMDKXCYoc+jeLYE50AYrA1m1hzAKDO3K3Mhwc1
+kZ/8HrGpLD04Z36gF7kBDQRUjzacEAQAktLz/Z123OQdJqYWdjLZDwKBx9PZ6Vw5
+vjyn14poMuTZpCWxYVfebM5cGq/m9BpgGPPBJKV8gsRHfUmStarKmqtn36QSOoCu
+VZEY55EQFNZ7rE8wN2rqqzdYaCvmWR21M66V7YOQwmgobJwQMQ/fq7CTjx3A50jW
+XqgKQ0JF9CMAAwYEAJIA2db57+tDDc6SqwUSNh357rSTHz8OiHk4lLaMDLKewDCj
+7I3Hu3zSVmYV2OWMik7SVNRY0bNlcfruRYoxjfBLO/TzkROPMJGX44Z/YQc6ATT6
+GWRoEji/RYzp83fG+MAiC2sXvsChLqDxoVCV73Vh63am5JBKGqsQHOvfVB/XiEkE
+GBECAAkFAlSPNpwCGwwACgkQduCcsoYqkYOaBwCgpueK1CF9Gnsrkd6Owof5Snmb
+s2wAoO3ql5rHJqUUnpJKisoZJEHpHuje
+=rLrF
+-----END PGP PUBLIC KEY BLOCK-----
+
+
+Clé Publique 2 :
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+mQENBFSPN0EBCADann5+AyeKQHDrAiTYKLqk2hRtp1B7Z1Nwwf6DoBsoOXFzpcAA
+Le6clk4cuBsXeDmf95NEB4LCALcpEahl6Yu02RUMchOyraCRRvQUkOsOl8ftPKdp
+5pK4xiL9Wb1QFIALVk7eQBg3Axf4bmDP2xL+LfcJTgW3UVyIDw8QrA3d0NnrEyHO
+gOIH21iu7miNTua1mL2wz3dustO3+U4l5BXRywsjNXl4vx2k2cfBJQNSq6tE37zx
+ZBwEAOYD8Ey3OdAaB96mcLwDOPtT4wML2LmkC+LvH2BzVSejXe5td55dEoFPMbsd
+ffpC5COAskjIbDs5UxJ9OluTwmoktS6/XlkjABEBAAG0EnRlc3QyIDx0ZXN0MkB0
+ZXN0PokBOAQTAQIAIgUCVI83QQIbAwYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AA
+CgkQbWnbLAHIjut0KggAvmcN5nRblUuoBbD5ZDyciP+Uj+girZwwaKbuJ0UIz/Hr
+sgkLi3eboDT1UHdNIVgjdcI8jZBgk/Z9dN/frLwqXvD3k0b6dpeQiumv9ETgbuDp
+Hw1pleG/ECZVuACmb+gim+AqZJWJEGY9a2wo4pyDZTH6idLVNntBL72lzIEzM7uS
+J88rgwse7SSUUOELzJUyTm+aj64bmNOOawELhBeMjpO97xYAGeq26daxUgYsVOxC
+y7QJ0U77SHDrfr2xaGCXE4kDBzPRZplS0D7svH6qM1Sn4NKoco8TM/fbd/nGiEkB
+2Fz9Hjg0vryMhz0RUymNMTGQG2oC4Hhov/Y0p0brMLkBDQRUjzdBAQgAysaCu6QH
+hvW8JFk8dM3de7j49OSde1N3B0lXrJokLdSL161icPx+wdeveAdT1cAKJv0JbtNd
+gyFhlPzJv4362YM+q4gss2D2N3o/9C7s0Oeh75RJiWxIji84MUBY5v1ujrGbxKTv
+JZY1doQWBg2gwi5O3XX6GYXZYoAw17tyIQvIDNmucb5ThjM2hnOCfNYpqO3+zNv5
++U/zwDhMBZaE6VWg2IJloAKj61NQtLgW9v8+eIBTH3dBL4ak2pBu8PsHCtsfUa8V
+z0otYkrl2WkNlFh+bsjdjMuu50nvNNRKcsq0Ku83hHfdnKvP5ZoH2S3iNiIzpBKx
+dUwbOc8U2ebRMwARAQABiQEfBBgBAgAJBQJUjzdBAhsMAAoJEG1p2ywByI7rWh8I
+ALgSfQdsptE81yihAdLsUYlz9D+59WvIqnotdpTNyPiZ6ZL5gg3xoe9EgZOkIn16
+eqjFnsIzbgIMoX9Ov/PK7sD5H/GHsFyAhOsLuThS67iIKgc3n+qdGZNpN6kFjPIi
+GGpFkm8ZW6HOUv0vfqGh6d3jHn7GsiVd5Nixys1h1ab9RYcmauf9iSGlSmXto5/a
+IU0rzDwxEaSjv/eLr84QIXVYSCXSzj31/VeaNYcIc8JrgshHTue/NxzlinymsQCJ
+87tCTvQrtQYyXkfaVbjSzWnmjBTI4RNZO7sqefXW1fNFZKk6OspcmYy2CE/R+DqU
+adJF4W+ZCjwUPa8Cz0nkPtg=
+=tsEG
+-----END PGP PUBLIC KEY BLOCK-----
+
+
+Clé Publique 3 :
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+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
+as/Gpf5HvaVq2/9lEXBk+YWRPrk=
+=RhHC
+-----END PGP PUBLIC KEY BLOCK-----
+
+
+Clé Secrète 1 :
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+lQG7BFSPNpwRBACTDoU52Krhu2ikzchx/TP5or2NIRiwji1NO7NBG+W3EOFa4T47
+cRuRCNQsd0qHg+BbMZpFErB1l6NBTrhD1vSKJ4r5/lLSW8bf+xdf4dOVuDfcB7AY
+bw77xS1cGkOjMj0x8n5xskTXOWB12+vOQw2pYb//XsHQW6cMIetAO6xLwwCg+eX2
+MAo9EIXH4+p2dT9JHTSMxM8D/32J/xRw5mYTOxBY4VbVCL2UUH21ZuF4AgKo3Ivc
+QYXQVg69V++7RpzjZX5wdkFdCLO28wgMMbWdvGeM+RjeSouWZQQAruK76nrep+4J
+b8ppgyRnqt/fpmh29LmZ2ZinzJTIxLmGseeRGcWIkMYBjsGAMuR89oMMEqDezj8V
+z2hVA/99tked+UF3iu3ZP90t1qS7iJs5hfhZtJfpWOhMCRfDtRLl5r9mikzvHxrd
+TU3CWHV2nF2UvCwFMKe4UbxiIZr3sy4W9FxhSAku1+X3ELnOYUYQyy0KHGo9npa/
+xL4K5hH8EfIV2Mjq+ercoX6joU9uYJdIduRM2J40HJ6/Y8qh5gAAoI7KNfUaVRIp
+jwz+iMvRQt9R5N/kC6K0EnRlc3QxIDx0ZXN0MUB0ZXN0PohiBBMRAgAiBQJUjzac
+AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRB24JyyhiqRg/4QAJ9bDAyl
+wmKHPo3i2BOdAGKwNZtYcwCgztytzIcHNZGf/B6xqSw9OGd+oBedATEEVI82nBAE
+AJLS8/2ddtzkHSamFnYy2Q8CgcfT2elcOb48p9eKaDLk2aQlsWFX3mzOXBqv5vQa
+YBjzwSSlfILER31JkrWqypqrZ9+kEjqArlWRGOeREBTWe6xPMDdq6qs3WGgr5lkd
+tTOule2DkMJoKGycEDEP36uwk48dwOdI1l6oCkNCRfQjAAMGBACSANnW+e/rQw3O
+kqsFEjYd+e60kx8/Doh5OJS2jAyynsAwo+yNx7t80lZmFdjljIpO0lTUWNGzZXH6
+7kWKMY3wSzv085ETjzCRl+OGf2EHOgE0+hlkaBI4v0WM6fN3xvjAIgtrF77AoS6g
+8aFQle91Yet2puSQShqrEBzr31Qf1wAA9RlcQWNsmoSxDj4qE8Z+uoGBRc5CDRAw
+JBSgY5dFG78MZYhJBBgRAgAJBQJUjzacAhsMAAoJEHbgnLKGKpGDmgcAmwbf/19X
+F6p0r6klL/z+ettNrcsuAJsGs6nkV9cRMmJEZbqprGUlOa54GA==
+=kk9N
+-----END PGP PRIVATE KEY BLOCK-----
+
+
+
+Clé Secrète 2 :
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+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
+CE/R+DqUadJF4W+ZCjwUPa8Cz0nkPtg=
+=XRmK
+-----END PGP PRIVATE KEY BLOCK-----
+
+
+
+Clé secrète 3 :
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+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
+ntnUvMJPmCuF41wT7fmmao0=
+=DOaS
+-----END PGP PRIVATE KEY BLOCK-----
+
+
+
+
 \section{Couverture de test}
 
 \begin{center}
     \begin{tabular}{|p{2.8cm}|p{4.2cm}|p{3cm}|p{5cm}|}
       \hline
-      Id Exigence STB & Méthode de vérification & Procédure utilisée & Commentaire\\ \hline
+      Id Exigence STB & Méthode de vérification & Procédure(s) utilisée(s) & Commentaire\\ \hline
       EF\_01 & La commande demandée a été exécutée avec les bons paramètres. & 1 & \\ \hline
-      EF\_02 & Le chiffrement - déchiffrement - signature - vérification a été exécuté avec les bons paramètres. & 4,5 & \\ \hline
+      EF\_02 & Le chiffrement - déchiffrement - signature - vérification a été exécuté avec les bons paramètres. Un texte chiffré puis déchiffré doit être identique au texte de base. & 4,5,9 & \\ \hline
       EF\_03 & Chaque commande effectuée est affichée, avec retours et erreurs. & 6 & \\ \hline
-      EF\_04 & Le formulaire de sélection de profil fonctionne. & 7 & \\ \hline
+      EF\_04 & Il doit y avoir au démarrage de l'application et à tout moment, la possibilité de changer de profil & 7 & \\ \hline
       EF\_05 & Tout changement de confiance est répercuté sur la toile de confiance. & 2 & \\ \hline
-      EF\_06 & La clé produite a le même KeyID que celle donnée & 3 & \\ \hline
-      EO\_01 & Effectuer tous les tests sous l'interface KDE. & Toutes & \\ \hline
-      EO\_02 & Effectuer tous les tests sous l'interface Gnome. & Toutes & \\ \hline
-      EO\_03 & Effectuer tous les tests sous Windows. & Toutes & \\ \hline
-      EO\_05 & Ouvrir deux interfaces avec deux profils différents & Toutes & \\ \hline
-      EO\_06 & Tester si on peut s'authentifier en SSH par clé PGP. &  & \\ \hline
-      EI\_01 & Effectuer tous les tests avec GnuPG 2.0.26. & Toutes & \\ \hline 
-      EI\_02 & Effectuer tous les tests avec GnuPG 1.4.18. & Toutes & \\ \hline
+      EF\_06 & Pour une clé pgp donnée, on peut produire une autre clé ayant la même KeyID. & 3 & \\ \hline
+      EO\_01 & Effectuer tous les tests avec GnuPG 2.0.* & Toutes & \\ \hline
+      EO\_02 & Effectuer tous les tests avec GnuPG 1.4.* & Toutes & \\ \hline
+      EO\_03 & Effectuer tous les tests avec KDE 4.* et 5 & Toutes & \\ \hline
+      EO\_04 & Effectuer tous les tests avec Gnome 3.* & Toutes & \\ \hline
+      EO\_05 & Effectuer tous les tests sous Windows. & Toutes & \\ \hline
+      EO\_06 & Vérifier que la toile de confiance s'affiche et représente correctement les niveaux de confiance. & 8 & \\ \hline
+      EO\_07 & Ouvrir deux interfaces avec des profils différents sur la même session. & Toutes & \\ \hline
+      EO\_08 & Vérifier que l'on peut s'authentifier en SSH via une clé signée par GPG. &  & \\ \hline
+      EO\_09 & Rechercher des clés en local. &  & \\ \hline
       EQ\_01 & Chaque niveau de confiance est représenté par une couleur. & 8 & \\ \hline
       EQ\_03 & Effectuer tous les tests avec le paquet fourni. & Toutes & \\ \hline
   \end{tabular}  
