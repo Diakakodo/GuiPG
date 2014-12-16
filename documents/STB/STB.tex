@@ -57,16 +57,11 @@
 % Présentation succinte du sujet et hyp de travail.
 Le document présent est la spécification technique de besoin d'une étude et implantation d'un outil graphique de gestion de clés PGP.
 
-Le projet sera réalisé par une équipe de sept étudiants du master SSI de Rouen, pour le compte de madame Magali BARDET responsable de ce même master. 
+Le projet sera réalisé par une équipe de sept étudiants du master SSI de Rouen, pour le compte de Madame Magali BARDET responsable de ce même master. 
 
 L'objectif du projet est de réaliser une étude complète d'OpenPGP et du logiciel GnuPG, d'en comprendre le fonctionnement détaillé et de rédiger un rapport illustrant toutes les fonctionnalités.
 
 Il est ensuite demandé de proposer une interface graphique pour GnuPG, accompagnée d'un document d'explications et de recommandations pour l'utilisateur.
-%Il est ensuite demandé de proposer une interface graphique permettant à un utilisateur novice en PGP, mais averti en sécurité, de faire 
-%facilement des réglages techniques sur ses clefs et de pouvoir mettre en place sa toile de confiance (et la visualiser graphiquement). 
-%L'interface devra donc être à a fois pédagogique et précise (un document d'explications et de recommandations pour l'utilisation devra 
-%être joint). Le logiciel devra fonctionner sous Linux en environnement KDE et Gnome.
-
 
 Enfin, il est demandé d'effectuer des recherches sur les limites cryptographiques de PGP et de produire un document d'analyse de ces limites. \`{A} l'issue de ces recherches, une implantation de l'attaque sur les KeyID sera à fournir.
 
@@ -74,11 +69,6 @@ Enfin, il est demandé d'effectuer des recherches sur les limites cryptographiqu
 L'interface graphique doit proposer l'accès à un maximum de commandes GPG. Le but étant de pouvoir se passer totalement de la ligne de commande GPG dans un terminal. De plus, elle doit permettre à un utilisateur novice en PGP, mais averti en sécurité, de faire facilement des réglages techniques sur ses clefs ainsi que mettre en place sa toile de confiance et la visualiser graphiquement.
 
 L'interface devra donc être à la fois pédagogique et précise, notamment en ce qui concerne la partie toile de confiance, où le but est de faire comprendre un concept essentiel de PGP.
-
-\subsection{Besoins opérationnels}
-L'interface graphique doit proposer l'accès à un maximum de commandes GPG. Le but étant de pouvoir se passer totalement de la ligne de commande GPG dans un terminal.
-
-De plus, elle doit permettre à un utilisateur novice en PGP, mais averti en sécurité, de faire facilement des réglages techniques sur ses clefs ainsi que mettre en place sa toile de confiance et la visualiser graphiquement. L'interface devra donc être à la fois pédagogique et précise, notamment en ce qui concerne la partie toile de confiance, où le but est de faire comprendre un concept essentiel de PGP.
 
 \subsection{Objectifs techniques}
 
@@ -122,15 +112,7 @@ Différents documents de référence :
   \href{https://www.archlinux.org/master-keys/#visualization}{archlinux}.
 \end{itemize}
 
-%\section{Terminologie et sigles utilisés}
-%\textcolor{blue}{
- % \begin{itemize}
-  %\item Glossaire ou dictionnaire
-  %\item Abréviations
-  %\item Formalisme utilisé
-  %\item Légendes et conventions de représentation
-  %\end{itemize}
-%}
+
 
 \section{Exigences fonctionnelles}
 \subsection{Présentation de la mission du produit logiciel}
@@ -162,7 +144,7 @@ Différents documents de référence :
   \cr
   \hline
   EF\_4&
-  Choix du profil&
+  Choix du profil utilisateur&
   Utilisateur&
   Indispensable
   \cr
@@ -174,7 +156,7 @@ Différents documents de référence :
   \cr
   \hline
   EF\_6&
-  Calcul d'une seconde pré-image pour un KeyId donné&
+  Calcul d'une seconde pré-image pour une clé donnée&
   Utilisateur&
   Indispensable
   \cr
@@ -199,7 +181,6 @@ Différents documents de référence :
 {Utilisateur}
 % Description
 {
-  
   Fonctionnement du système pour chaque action nécessitant l'intervention de GPG.
   Toutes ces actions sont spécifiées dans les
   \newline
@@ -272,7 +253,7 @@ L'affichage sortie comporte les informations des retours GPG, tels que le destin
 % Fin de la fiche du cas d'utilisation 3.
 \vspace{0.5cm}
 
-Seule l'affichage de la dernière action doit être consultable, c'est-à-dire toutes les commandes GPG, ainsi que leurs retours et les erreurs, qui lui sont relatives.
+Seul l'affichage de la dernière action doit être consultable, c'est-à-dire toutes les commandes GPG, ainsi que leurs retours et les erreurs, qui lui sont relatives.
 
 \`{A} tout moment, la dernière commande doit être consultable, même si au moment de son exécution, l'affichage de la commande n'était pas activé.
 
@@ -284,8 +265,7 @@ Seule l'affichage de la dernière action doit être consultable, c'est-à-dire t
 % Acteurs concernés
 {Utilisateur}
 % Description
-{L'utilisateur peut choisir son profil au lancement de l'interface via une option, ou en cours d'utilisation. Si au lancement l'option n'est pas précisée, 
-et qu'aucun profil par défaut n'est défini, l'utilisateur doit choisir un profil. Lors de l'installation, un profil par défaut est créé.}
+{L'utilisateur peut choisir son profil au lancement de l'interface via une option, ou en cours d'utilisation. Si au lancement l'option n'est pas précisée, et qu'aucun profil par défaut n'est défini, l'utilisateur doit choisir un profil. Lors de l'installation, un profil par défaut est créé.}
 % Préconditions
 {Un fichier de configuration de l'interface doit contenir les différents profils, ainsi que l'éventuel profil par défaut. 
 Chaque profil possède un trousseau de clé qui lui est propre.}
@@ -323,7 +303,7 @@ Chaque profil possède un trousseau de clé qui lui est propre.}
 \vspace{0.5cm}
   
 
-\subsection{Calcul d'une seonde pré-image pour une clé donnée}
+\subsection{Calcul d'une seconde pré-image pour une clé donnée}
   
 \subsubsection{Cas d'utilisation 6}
 \ficheGraphic
@@ -332,7 +312,7 @@ Chaque profil possède un trousseau de clé qui lui est propre.}
 % Acteurs concernés
 {Utilisateur}
 % Description
-{Calcul d'une seconde pré-image, selon la méthode décrite dans le numéro 75 du MISC.}
+{Calcul d'une seconde pré-image sur 4 octets, selon la méthode décrite dans le numéro 75 du MISC, dans l'article à propos de l'attaque sur les KeyId.}
 % Préconditions
 {Fixer une clé.}
 % Evénements déclenchants
@@ -385,41 +365,46 @@ Dans le document d'analyse des limites cryptographiques de PGP doivent figurer l
   \cr
   \hline
   EO\_3&
+  Compatibilité GnuPG 2.1.0&
+  Secondaire
+  \cr
+  \hline
+  EO\_4&
   Fonctionnement sous KDE 4.* et 5&
   Indispensable
   \cr
   \hline
-  EO\_4&
+  EO\_5&
   Fonctionnement sous Gnome 3.*&
   Important
   \cr
   \hline
-  EO\_5&
+  EO\_6&
   Fonctionnement sous Windows&
   Secondaire
   \cr
   \hline
-  EO\_6&
+  EO\_7&
   Visualisation graphique de la Toile de confiance&
   Indispensable
   \cr
   \hline
-  EO\_7&
+  EO\_8&
   Ouverture de deux interfaces avec des profils différents sur une même session&
   Important
   \cr
   \hline
-  EO\_8&
+  EO\_9&
   Connexion SSH : Authentification via une clé signée par GPG&
   Secondaire
   \cr
   \hline
-  EO\_9&
+  EO\_10&
   Recherche des clés en local&
   Important
   \cr
   \hline
-  EO\_10&
+  EO\_11&
   Choix du logiciel comme logiciel par défaut pour PGP&
   Secondaire
   \cr
@@ -455,6 +440,11 @@ Le client n'a aucune exigence opérationnelle d'interface.
   EQ\_3&
   Interface livrée sous forme de paquet Ubuntu&
   Important
+  \cr
+  \hline
+  EQ\_4&
+  Les pass phrases ne sont jamais affichées en clair&
+  Indispensable
   \cr
   \hline
 \end{tabular}\\
