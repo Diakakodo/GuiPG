@@ -71,7 +71,7 @@ Les différents cas d'utilisations :
  \item Affichage des commandes et des erreurs
  \item Choix du fichier de configuration
  \item Modifications de la toile de confiance
- \item Attaque sur les KeyId
+ \item Attaque sur la seconde pré-image
 \end{itemize}
 
 \subsection{Liste des objets à tester}
@@ -79,7 +79,7 @@ Nous avons dégagé 3 objets à tester :
 \begin{itemize}
  \item L'interface graphique des fonctions GnuPG.
  \item La visualisation de la toile de confiance.
- \item L'implémentation de l'attaque sur les KeyID. 
+ \item L'implémentation de l'attaque sur les secondes pré-images. 
 \end{itemize}
 
 L'interface graphique permettra d'utiliser chaques commandes et options de GPG et ce de façon le plus intuitif possible. Nous
@@ -252,13 +252,13 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
  %---------------------------------------Test N° 3------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
-      \multicolumn{3}{|l|}{Objet testé : Attaque KeyID} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : La clé produite a le même KeyID que celle donnée.}\\ \hline
+      \multicolumn{3}{|l|}{Objet testé : Attaque seconde pré-image} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : La clé produite a la même seconde pré-image que celle donnée.}\\ \hline
       \multicolumn{3}{|l|}{Procédure n° 3} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Donner une clé publique au programme d'attaque & Le programme renvoie une clé d'attaque &  & \\
-      2 & Comparer la clé d'attaque avec la clé donnée & Les deux clés ont le même KeyID &  & \\
+      2 & Comparer la clé produite avec la clé initiale & Les deux clés ont la même seconde pré-image &  & \\
       3 &  &  &  & \\ \hline
     \end{tabular}
     \vskip 2.2cm
@@ -643,7 +643,7 @@ ntnUvMJPmCuF41wT7fmmao0=
       EF\_03 & Chaque commande effectuée est affichée, avec retours et erreurs. & 6 & \\ \hline
       EF\_04 & Il doit y avoir au démarrage de l'application et à tout moment, la possibilité de changer de profil & 7 & \\ \hline
       EF\_05 & Tout changement de confiance est répercuté sur la toile de confiance. & 2 & \\ \hline
-      EF\_06 & Pour une clé pgp donnée, on peut produire une autre clé ayant la même KeyID. & 3 & \\ \hline
+      EF\_06 & Pour une clé pgp donnée, on peut produire une autre clé ayant la même seconde pré-image. & 3 & \\ \hline
       EO\_01 & Effectuer tous les tests avec GnuPG 2.0.* & Toutes & \\ \hline
       EO\_02 & Effectuer tous les tests avec GnuPG 1.4.* & Toutes & \\ \hline
       EO\_03 & Effectuer tous les tests avec KDE 4.* et 5 & Toutes & \\ \hline
