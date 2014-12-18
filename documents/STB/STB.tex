@@ -117,6 +117,8 @@ Différents documents de référence :
 \section{Exigences fonctionnelles}
 \subsection{Présentation de la mission du produit logiciel}
 
+\subsubsection{Interface graphique}
+
 \begin{tabular}{|>{\centering}p{1cm}|>{}p{8,5cm}|>{\centering}p{2cm}|>{\centering}p{2cm}|}
   \hline
   \color{white}\cellcolor{blue}\bfseries{Id}&
@@ -155,6 +157,17 @@ Différents documents de référence :
   Important
   \cr
   \hline
+\end{tabular}\\
+
+\subsubsection{Calcul d'une seconde pré-image pour une clé donnée}
+\begin{tabular}{|>{\centering}p{1cm}|>{}p{8,5cm}|>{\centering}p{2cm}|>{\centering}p{2cm}|}
+  \hline
+  \color{white}\cellcolor{blue}\bfseries{Id}&
+  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
+  \color{white}\cellcolor{blue}\bfseries{Acteur(s)}&
+  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+  \cr
+  \hline
   EF\_6&
   Calcul d'une seconde pré-image pour une clé donnée&
   Utilisateur&
@@ -162,7 +175,6 @@ Différents documents de référence :
   \cr
   \hline
 \end{tabular}\\
-
 \newpage
 
 \begin{figure}[hb]
@@ -239,7 +251,7 @@ L'affichage sortie comporte les informations des retours GPG, tels que le destin
 % Acteurs concernés
 {Utilisateur}
 % Description
-{L'utilisateur peut choisir d'afficher ou non les commandes, les retours et les erreurs, associées à chaque action GPG.}
+{L'utilisateur peut choisir d'afficher ou non les commandes, les retours et les erreurs, associées à chaque action GPG. L'affichage des commandes et l'affichage des retours/erreurs peuvent être activés séparément.}
 % Préconditions
 {}
 % Evénements déclenchants
@@ -253,9 +265,9 @@ L'affichage sortie comporte les informations des retours GPG, tels que le destin
 % Fin de la fiche du cas d'utilisation 3.
 \vspace{0.5cm}
 
-Seul l'affichage de la dernière action doit être consultable, c'est-à-dire toutes les commandes GPG, ainsi que leurs retours et les erreurs, qui lui sont relatives.
+Seul l'affichage de la dernière action doit être consultable, c'est-à-dire toutes les commandes GPG, et/ou leurs retours et les erreurs, qui lui sont relatives.
 
-\`{A} tout moment, la dernière commande doit être consultable, même si au moment de son exécution, l'affichage de la commande n'était pas activé.
+\`{A} tout moment, les informations relatives à la dernière action doivent être consultables par activation de l'affichage des commandes et l'affichage des retours/erreurs, même si ces derniers n'étaient pas activés.
 
 
 \subsubsection{Cas d'utilisation 4}
@@ -288,7 +300,7 @@ Chaque profil possède un trousseau de clé qui lui est propre.}
 % Acteurs concernés
 {Utilisateur}
 % Description
-{Modification de la Toile de confiance, par un changement de niveau de confiance ou l'ajout d'une nouvelle clé, via la représentation graphique de la toile.}
+{Modification de la Toile de confiance, par un changement de niveau de confiance, l'ajout d'une nouvelle clé ou la modification d'une clé, via la représentation graphique de la toile.}
 % Préconditions
 {La représentation de la toile de confiance doit apparaître à l'écran.}
 % Evénements déclenchants
