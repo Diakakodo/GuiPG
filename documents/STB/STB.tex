@@ -219,10 +219,10 @@ Différents documents de référence :
 % Acteurs concernés
 {Utilisateur}
 % Description
-{Chiffrer ou déchiffrer ou signer ou vérifier un message copié dans l'éditeur de l'interface.}
+{Chiffrer ou déchiffrer ou signer ou vérifier un message copié dans l'éditeur de l'interface. Il est possible d'exporter le résultat dans un fichier, ou d'importer un fichier. Dans ce dernier cas, le résultat est affiché via l'interface.}
 % Préconditions
 {
-  Il y existe plusieurs préconditions :
+  Il existe plusieurs préconditions :
   \begin{itemize}
     \item Pour déchiffrer ou signer, l'utilisateur possède sa clé privée.
     \item Pour chiffrer, l'utilisateur possède la clé publique du destinataire.
@@ -240,9 +240,11 @@ Différents documents de référence :
 % Fin de la fiche du cas d'utilisation 2.
 \vspace{0.5cm}
 
+Au moment de la demande de clé et de l'entrée/sortie, l'utilisateur doit saisir la clé, et éventuellement un fichier pour l'entrée, s'il désire une autre entrée que l'éditeur de l'interface, ou la sortie, s'il désire rediriger la sortie vers ce fichier.
+
 Le cadre optionnel permet, lors d'une signature détachée, à l'utilisateur de pouvoir préciser le fichier pour la signature.
 
-L'affichage sortie comporte les informations des retours GPG, tels que le destinataire, l'UI de celui qui a signé, la date, etc., ainsi que le texte une fois chiffré, déchiffré, signé ou vérifié.
+L'affichage sortie comporte les informations des retours GPG, tels que le destinataire, l'UI de celui qui a signé, la date, etc., ainsi que le texte une fois chiffré, déchiffré, signé ou vérifié si la sortie n'a pas été redirigée vers un fichier.
 
 \subsubsection{Cas d'utilisation 3}
 \ficheGraphic
