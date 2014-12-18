@@ -10,6 +10,11 @@
 %\usepackage[table]{xcolor}
 %\usepackage{fancyhdr}
 %\usepackage{lastpage}
+\usepackage{../res/tikz-uml}
+\usepackage{tikz}
+\usepackage{calc}
+\usepackage{xstring}
+\usepackage{pgfopts}
 
 \definecolor{gris}{rgb}{0.95, 0.95, 0.95}
 
@@ -117,6 +122,33 @@ Différents documents de référence :
 \section{Exigences fonctionnelles}
 \subsection{Présentation de la mission du produit logiciel}
 
+\subsubsection{Diagramme des cas d'utilisation}
+
+\begin{tikzpicture}
+
+\umlactor[x=6]{Utilisateur}
+
+\begin{umlsystem}[fill=red!10]{Interface graphique}
+ \umlusecase[y=4, width=3cm]{Exécution d'actions GPG}
+ \umlusecase[y=2, width=3cm]{Chiffrer/déchiffrer Signer/Vérifier}
+ \umlusecase[y=0, width=3cm]{Affichage des commandes, des retours et des erreurs}
+ \umlusecase[y=-2, width=3cm]{Choix du profil utilisateur}
+ \umlusecase[y=-4, width=3cm]{Modification de la toile de confiance graphique}
+\end{umlsystem}
+
+\begin{umlsystem}[x=10, fill=red!10]{Attaque sur les KeyId}
+ \umlusecase[width=3cm]{Calcul d'une seconde pré-image pour une clé donnée}
+\end{umlsystem}
+
+\umlassoc{Utilisateur}{usecase-1}
+\umlassoc{Utilisateur}{usecase-2}
+\umlassoc{Utilisateur}{usecase-3}
+\umlassoc{Utilisateur}{usecase-4}
+\umlassoc{Utilisateur}{usecase-5}
+\umlassoc{Utilisateur}{usecase-6}
+
+\end{tikzpicture}
+
 \subsubsection{Interface graphique}
 
 \begin{tabular}{|>{\centering}p{1cm}|>{}p{8,5cm}|>{\centering}p{2cm}|>{\centering}p{2cm}|}
@@ -159,7 +191,7 @@ Différents documents de référence :
   \hline
 \end{tabular}\\
 
-\subsubsection{Calcul d'une seconde pré-image pour une clé donnée}
+\subsubsection{Attaque sur les KeyId}
 \begin{tabular}{|>{\centering}p{1cm}|>{}p{8,5cm}|>{\centering}p{2cm}|>{\centering}p{2cm}|}
   \hline
   \color{white}\cellcolor{blue}\bfseries{Id}&
@@ -176,11 +208,6 @@ Différents documents de référence :
   \hline
 \end{tabular}\\
 \newpage
-
-\begin{figure}[hb]
- \includegraphics[scale=0.8]{../res/graphics/Diag_utilisations}
- \caption{Diagramme d'utilisation}
-\end{figure}
 
 %Cas d'utilisation
 \subsection{Interface graphique}
