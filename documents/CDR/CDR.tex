@@ -37,12 +37,13 @@
 \signataire{}
 \date{\today}
 
-\histentry{0.1}{31/10/2014}{Version initiale.}
+
+\histentry{0.5}{15/12/2014}{Respect de la STB v0.4 et ajout des données de test.}
+\histentry{0.4}{05/12/2014}{Ajout de toutes les procédures liées aux commandes GPG.}
+\histentry{0.3}{24/11/2014}{Respect de la STB v0.3.}
 \histentry{0.2}{15/11/2014}{Ajout des parties Introduction, Documents applicables et de référence, Environnement de test, Responsabilités,
 Stratégie de tests, Gestion des anomalies.}
-\histentry{0.3}{24/11/2014}{Respect de la STB v0.3.}
-\histentry{0.4}{05/12/2014}{Ajout de toutes les procédures liées aux commandes GPG.}
-\histentry{0.5}{15/12/2014}{Respect de la STB 0.4 et ajout des données de test.}
+\histentry{0.1}{31/10/2014}{Version initiale.}
 
 
 % -- Début du document -- %
@@ -60,13 +61,13 @@ Stratégie de tests, Gestion des anomalies.}
 % Présentation succinte du sujet et hyp de travail.
 Ce document est le Cahier de Recette (CDR) de la réalisation d'une interface graphique pour le logiciel GnuPG.
 Cette interface permettra d'utiliser complètement l'outil OpenPGP de façon intuitive et pédagogique de façon 
-à être accessible même par des personne limité dans le domaine de l'informatique. 
+à être accessible même par des personne ayant des connaissances limitées dans le domaine de l'informatique. 
 
 \subsection{Fonctionnalités du logiciel}
 Le logiciel est une interface graphique pour le GnuPG (implémentation GNU du standart OpenPGP).
 Les différents cas d'utilisations :
 \begin{itemize}
- \item Faire une action GPG
+ \item Exécuter une action GPG
  \item Chiffrement/déchiffrement, signature/vérification
  \item Affichage des commandes et des erreurs
  \item Choix du fichier de configuration
@@ -96,7 +97,7 @@ Enfin, il nous faudra tester l'implémentation de l'attaque.
 \end{itemize}
 
 \subsection{Choix technologiques et dispositions particulières}
-Les choix et dispositions sont actuellement en attendes du document d'architecture logiciel.
+Les choix et dispositions sont actuellement en attente du document d'architecture logiciel.
 
 
 
@@ -144,7 +145,7 @@ Le module Qt Test de Qt.
 Les modules CxxTest et CppUnit pourront être utilisés.
 
 \subsection{Jeux de données/Bases de données}
-Nous auront comme base de données les différentes clés contenues dans le trousseau de test.
+Nous aurons comme jeu de données les différentes clés contenues dans le trousseau de test.
 
 
 \subsection{Contraintes à prendre en compte}
@@ -174,7 +175,7 @@ Chaque procédure de test sera si possible réalisée à l'aide de l'api Qt (aut
 \section{Stratégies de tests}
 
 \subsection{Description de l'approche et des phases de test}
-Dès qu'un test oour un composant sera réalisable, il sera fait. Ces tests devront être appliqués à chaque nouvelle version du composant.
+Dès qu'un test pour un composant sera réalisable, il sera fait. Ces tests devront être appliqués à chaque nouvelle version du composant.
 
 
 \subsection{Campagne de test}
