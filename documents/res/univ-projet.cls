@@ -1,7 +1,7 @@
 % univ-doc.cls
 % Cette classe latex doit soit se trouver dans le repertoire
 % courant ainsi que le logo soit être dans votre path latex
-\ProvidesClass{univ-projet}
+\ProvidesClass{../res/univ-projet}
 
 % Utilisation de la classe article comme base
 \LoadClass[10pt]{article}
@@ -21,6 +21,7 @@
     \newcommand{\projet}[1]{\def \@projet {#1}}
     \newcommand{\projdesc}[1]{\def \@projdesc {#1}}
     \newcommand{\filiere}[1]{\def \@filiere {#1}}
+    \newcommand{\matiere}[1]{\def \@matiere {#1}}
     \newcommand{\version}[1]{\def \@version {#1}}
     \newcommand{\relecteur}[1]{\def \@relecteur {#1}}
     \newcommand{\signataire}[1]{\def \@signataire {#1}}
@@ -73,21 +74,18 @@
 \makeatletter
     \usepackage{fancyhdr}
     \pagestyle{fancy}
-    \setlength{\headheight}{14pt}
+    \setlength{\headheight}{35pt}
     \renewcommand{\footrulewidth}{\headrulewidth}
     \fancyhf{}
 
-    \fancyhead[L]{\@filiere \\
-\@projdesc}
-    \fancyhead[C]{\@projet\\\@title - \@version}
+    \fancyhead[L]{\@filiere - \@matiere\\\@projet\\\@title}
     \fancyhead[R]{
       \ifx \@logo \@empty
       \else
-      \includegraphics[width=0.15\textwidth]{\@logo}
-      \fi
+      \includegraphics[width=0.20\textwidth]{\@logo}
+      \fi      
     }
 
-    \fancyfoot[L]{\@author}
     \fancyfoot[R]{\thepage / \pageref{LastPage}}
 \makeatother
 
@@ -157,26 +155,26 @@
 \makeatletter
 \def \maketitle{%
     \begin{titlepage}
-        \ifx \@logo \@empty
-            \hfill
-        \else
-            \includegraphics[width=0.33\textwidth]{\@logo}
-        \fi
-        \ifx \@projet \@empty
+	\ifx \@projet \@empty
             \relax
         \else
             \ifx \@projdesc \@empty
             \parbox[b][4em][b]{0.66\textwidth}{
-                    \flushright
+                    \flushleft
                     {\Huge {\bfseries \@projet}}
                 }
             \else
                 \parbox[b][4em][b]{0.66\textwidth}{
-                    \flushright
+                    \flushleft
                     {\Huge {\bfseries \@projet}}
                     \newline {\Large \@projdesc} 
                 }
             \fi
+        \fi
+        \ifx \@logo \@empty
+            \hfill
+        \else
+            \includegraphics[width=0.33\textwidth]{\@logo}
         \fi
         
         ~\vfill
