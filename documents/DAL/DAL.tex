@@ -21,7 +21,7 @@
 \projdesc{Interface Graphique GPG}
 \filiere{M1SSI - Conduite de Projet}
 \version{0.1}
-\relecteur{}
+\relecteur{Pierre \bsc{Balmelle}}
 \signataire{Magali \bsc{Bardet}}
 \date{\today}
 
@@ -31,13 +31,13 @@
 % Definition de couleurs :
 % Couleur de fond des nom de classes
 \definecolor{classColor}{rgb}{.20,.42,.57}
-% Couleur de fond des noms de methode
+% Couleur de fond des noms de méthode
 \definecolor{methodeColor}{rgb}{.38,.62,.81}
 % Couleur de fond des legends (Nom, Entrée, precondtion, sortie, postcondition, description)
 \definecolor{legendColor}{rgb}{.45,.58,.67}
 
 % Commande permettant de créer un tableau entrées / sortie / pré-post conditions pour les méthodes
-% N'affiche pas les champs vide...
+% N'affiche pas les champs vides...
 \newcommand{\methode}[6]{
   \def\vide{} \def\tempa{#1} \def\tempb{#2} \def\tempc{#3} \def\tempd{#4} \def\tempe{#5} \def\tempf{#6}
   \def\casa{\ifx\empty\tempa \else \hline \color{white}\cellcolor{legendColor}\bfseries{Nom}            & #1 \cr \fi }
@@ -95,7 +95,7 @@
 \newpage
 
 \section{Objet}
-  Ce document permet d'établir une vue globale de l'architecture logicielle envisagée pour la conception d'une interface graphique reposant sur le logiciel GnuPG de façon à simpliciter son utilisation pour un utilisateur débutant mais toutefois en laissant apparaitre les fonctionnalités avancées pour un utilisateur expérimenté. Il décrit comment concevoir cette interface pour répondre aux spécifications du client ainsi qu'une conception détaillée des différents modules nécessaires à son bon fonctionnement. 
+  Ce document permet d'établir une vue globale de l'architecture logicielle envisagée pour la conception d'une interface graphique reposant sur le logiciel GnuPG de façon à simpliciter son utilisation pour un utilisateur débutant, mais toutefois en laissant apparaitre les fonctionnalités avancées pour un utilisateur expérimenté. Il décrit comment concevoir cette interface pour répondre aux spécifications du client ainsi qu'une conception détaillée des différents modules nécessaires à son bon fonctionnement. 
 
 \section{Documents applicables et de référence}
   \begin{itemize}
@@ -121,14 +121,14 @@
       \item Environement de bureau\\
         Ensemble de programmes qui permettent de manipuler le système à travers une interface graphique.
       \item MVC\\
-        Patron de conception répondant aux besoins des applications intéractives en séparant les problèmatiques en trois parties :
+        Patron de conception répondant aux besoins des applications interactives en séparant les problématiques en trois parties :
         \begin{itemize}
           \item Le modèle\\
             Il représente les données manipulées par l'application et est responsable de leur intégrité.
           \item La vue\\
             Ce avec quoi l'utilisateur interagit. Sa fonction principale est d'afficher les données envoyées par le modèle.
           \item Le controller\\
-            Il traite les évenements et met à jour la vue ou le modèle selon l'action effectuée.
+            Il traite les évènements et met à jour la vue ou le modèle selon l'action effectuée.
         \end{itemize}
       \item Qt\\
         Interface de programmation orientée objet développée en C++ permettant la conception simple d'interface graphique compatible GNU Linux / Windows / Mac OS X.
@@ -151,7 +151,7 @@
   \subsection{Système d'exploitation}
     GNU Linux
   \subsection{Logiciels}
-    Environement de bureau KDE (v4.0 ou ultérieure) ou GNOME (v3.0 ou ultérieure)\\
+    Environnement de bureau KDE (v4.0 ou ultérieure) ou GNOME (v3.0 ou ultérieure)\\
     GnuPG (v1.4 ou ultérieure)
   \subsection{Matériel}
     Aucune configuration minimale n'est demandée.
@@ -164,16 +164,16 @@
       
       \subsubsection{Launcher}
 
-        Cette classe est le point d'entré de l'application son unique rôle est de lancer des instances de l'application
-        graphique en s'assurant qu'il n'y ai pas deux instances graphiques avec un profil utilisateur
+        Cette classe est le point d'entrée de l'application, son unique rôle est de lancer des instances de l'application
+        graphique en s'assurant qu'il n'y ait pas deux instances graphiques avec un profil utilisateur
         identique.
         
-        Pour assurer l'uniciter du processus gérant les instances graphiques, nous utilisont un SHM,
+        Pour assurer l'unicité du processus gérant les instances graphiques, nous utilisons un SHM,
         sa présence permettant de signaler qu'un processus pour l'application est présent et attend
         d'y lire des données.
         
-        Le SHM sera composé de deux sémaphore noté semW (pour les ecrivains) et semR (pour le lecteur)
-        voici le fonctionnement synthétisé du démarage de l'application :
+        Le SHM sera composé de deux sémaphores noté semW (pour les écrivains) et semR (pour le lecteur)
+        voici le fonctionnement synthétisé du démarrage de l'application :
 
         \includegraphics[scale=0.65]{graphics/launcherSequence.jpeg}
 
@@ -186,18 +186,18 @@
             {} % Postconditions
             {
             Permet de lancer l'application.\\
-            Si elle est déja lancée, cette methode permet de signifier au processus qu'une nouvelle instance
-            de l'application est demandé.
+            Si elle est déja lancée, cette méthode permet de signifier au processus qu'une nouvelle instance
+            de l'application est demandée.
             } % Description
             \methodeclass
               {alreadyRun} % Nom
               {} % Entrée
               {} % Préconditions
-              {Booléen indiquant si un autre processus s'occupe déja de lancer des instances graphiques ou non.} % Sortie
+              {Booléen indiquant si un autre processus s'occupe déjà de lancer des instances graphiques ou non.} % Sortie
               {} % Postconditions
               {
                 Permet de savoir si un processus gère les instances graphiques.\\
-                Et si on doit ecrire dans le SHM le profil a lancer ou le creer.
+                Et si on doit écrire dans le SHM le profil à lancer ou le créer.
               } % Description
         }
 
@@ -383,7 +383,7 @@
           {isRunning()}
           {QuestionType représentant le type de la dernière question posée par GPG}
           {}
-          {Retourne le type de a dernière question posée par GPG}
+          {Retourne le type de la dernière question posée par GPG}
           
           \methodeclass
           {getAction}
@@ -512,7 +512,7 @@
           {}
           {GPGKeyLevel représentant le niveau de validité de la clé}
           {}
-          {Retourne le niveaude validité de la clé}
+          {Retourne le niveau de validité de la clé}
           
           \methodeclass
           {addSubKey}
@@ -577,7 +577,7 @@
       \item Liste des composants mis en jeu.
       \item Description du processus de mise en oeuvre sous la forme d'une
       séquence d'appels aux services offerts par les différents composants et en faisant
-      clairement apparaître
+      clairement apparaître :
       \begin{itemize}
         \item la logique et le flux des événements traités
         \item les interactions du logiciels avec les acteurs

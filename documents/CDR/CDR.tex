@@ -91,15 +91,6 @@ Les clés seront de couleurs différentes en fonction de la confiance accordée 
 
 Enfin, il nous faudra tester l'implémentation de l'attaque. 
 
-\subsection{Contexte d'exécution des tests}
-\begin{itemize}
- \item
-\end{itemize}
-
-\subsection{Choix technologiques et dispositions particulières}
-Les choix et dispositions sont actuellement en attente du document d'architecture logiciel.
-
-
 
 \section{Documents applicables et de référence}
 % Liste des
@@ -153,7 +144,6 @@ Chaque procédure de test devra être réalisée :
 \begin{itemize}
  \item Sous KDE
  \item Sous GNOME
- \item Optionnellement sous Windows
  \item Avec deux interfaces graphiques ouvertes avec des profils différents
 \end{itemize}
 Chaque procédure de test sera si possible réalisée à l'aide de l'api Qt (automatiquement), et à l'aide de l'interface (manuellement).
@@ -184,11 +174,11 @@ Les différentes campagnes de tests correspondront aux livrables envoyés au cli
 
 \subsection{Ordre d'exécution des tests}
 
-L'ordre d'exécution des tests dépendra du plan de développement.
+L'ordre d'exécution des tests suivra l'ordre du plan de développement.
 
 \subsection{Critères d'arrêt des tests}
 
-Un test est considéré comme échoué dès qu'une de ses étapes échoue, produit un résultat non attendu ou est irréalisable.
+Un test est considéré comme échoué dès qu'une de ses étapes échoue, produit un résultat non attendu ou impossible à mener à bout.
 
 
 \section{Gestion des anomalies}
@@ -229,9 +219,9 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       1 & Créer une clé & commande lancée : \texttt{"gpg -\-gen-key"} &  & \\
       2 &  &  &  & \\
       3 &  &  &  & \\ 
-	  4 &  &  &  & \\
+      4 &  &  &  & \\
       5 &  &  &  & \\
-	  6 &  &  &  & \\
+      6 &  &  &  & \\
       7 &  &  &  & \\
       8 &  &  &  & \\
       9 &  &  &  & \\
