@@ -12,6 +12,7 @@
 \#*\#
 .\#*
 *.synctex.gz
+*.tex.backup
 *.tex~
 *.sty~
 *.cls~
