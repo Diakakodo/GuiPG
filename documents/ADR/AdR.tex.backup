@@ -1,0 +1,150 @@
+\documentclass{../res/univ-projet}
+
+\usepackage[francais]{babel}
+\usepackage{multirow}
+\usepackage{booktabs}
+
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+
+\logo{../res/logo_univ.png}
+\title{Analyse des risques}
+\author{Olivier \bsc{Thibault}}
+\projet{Projet PGP}
+\projdesc{Etude et implantation d'un outil graphique de gestion de clé PGP}
+\filiere{Master 1 SSI }
+\matiere{Conduite de projet}
+\version{0.3}
+\relecteur{}
+\date{Janvier 2015}
+
+\histentry{0.1}{14/12/2014}{Vertion initiale}
+
+\begin{document}
+%Page de garde
+\maketitle
+\newpage
+%La table des matières
+~
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------------------------------------------------------
+\section{Évaluation des risques potentiels} \\
+\subsection{Points durs}
+	\begin{tabular}{| c | l |} 
+		\hline
+		\multicolumn{1}{|c|}{\cellcolor{blue} \color{white}Identifiant} & \multicolumn{1}{c|}{\cellcolor{blue} \color{white}Description} \\ \hline
+		P\_01 & Formation aux outils et technologies à utilisés \\ \hline
+		P\_02 & Développement de la toile de confiance \\ \hline
+		P\_03 & Définition de l'architecture \\ \hline
+		P\_04 & Ergonomie de l'interface \\ \hline
+		P\_05 & Nombre de commande GPG à comprendre \\ \hline
+		P\_06 & Planification du projet \\ \hline
+		P\_07 & Communication au sein de l'équipe \\ \hline
+		P\_08 & Motivation des membres de l'équipe \\ \hline
+	\end{tabular} \\
+	
+%----------------------------------------------------------------------------------------------------------------------
+\subsection{Risques}
+\begin{tabular}{| c | p{5.5cm} | p{5.5cm} | c |} 
+		\hline
+		\multicolumn{1}{|c|}{\cellcolor{blue} \color{white}Identifiant} & \multicolumn{1}{c|}{\cellcolor{blue} \color{white}Description} 
+		& \multicolumn{1}{c|}{\cellcolor{blue} \color{white}Conséquence(s) possible(s)} & \multicolumn{1}{c|}{\cellcolor{blue} \color{white}Facteur} \\ \hline
+		R\_01 & Mauvaise maîtrise des outils & Dégradation de la qualité, perte de temps & P\_01 \\ \hline
+		R\_02 & Toile de confiance ne répondant pas au besoin & Insatisfaction du client & P\_02 \\ \hline
+		R\_03 & Défaut de conception & Manque de modularité, difficultées de développement & P\_03 \\ \hline
+		R\_04 & Interface difficile à prendre en main & Insatisfaction du client & P\_04, P\_05 \\ \hline
+		R\_05 & Manque d'exhaustivité des commandes & Insatisfaction du client & P\_05 \\ \hline
+		R\_06 & Mauvaise estimation des charges & Surcharge de travail, retard & P\_06 \\ \hline
+		R\_07 & Deadline non respectée & Retard & P\_06, P\_07 \\ \hline
+		R\_08 & Incompréhension des tâches demandées & Dégradation de la qualité, perte de temps & P\_07 \\ \hline
+		R\_09 & Abandon d'un membre de l'équipe & Augmentation de la charge de travail & P\_08 \\ \hline
+	\end{tabular} \\
+
+\subsection{Criticité}
+	\begin{center}
+		\begin{tabular}{  c  p{2cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} |}
+	  		\cline{3-6}
+	   		& \multicolumn{1}{c |}{} & \multicolumn{4}{ c |}{Probabilité} \\ \cmidrule{3-6}
+	   		& & \cellcolor{lightgray} très faible & \cellcolor{lightgray} faible & \cellcolor{lightgray} moyenne & \cellcolor{lightgray} forte \\ \hline
+		   	\multicolumn{1}{| c |}{\multirow{4}{*}{Impact}} & \cellcolor{lightgray} Acceptable &\cellcolor{green}1 &\cellcolor{green}2 &\cellcolor{yellow}3 &\cellcolor{yellow}4 \\ \cmidrule{2-6}
+		   	\multicolumn{1}{| c |}{} & \cellcolor{lightgray} Préoccupant &\cellcolor{green}2 &\cellcolor{yellow}4 &\cellcolor{yellow}6 & \cellcolor{orange}8\\ \cmidrule{2-6}
+	   		\multicolumn{1}{| c |}{} & \cellcolor{lightgray} Important &\cellcolor{yellow}3 &\cellcolor{yellow}6 &\cellcolor{orange}9 & \cellcolor{orange}12 \\ \cmidrule{2-6}
+	   		\multicolumn{1}{| c |}{} & \cellcolor{lightgray} Critique &\cellcolor{yellow}4 &\cellcolor{orange}8 &\cellcolor{orange}12 &\cellcolor{red}16 \\ \hline
+		\end{tabular}
+	\end{center}
+
+%----------------------------------------------------------------------------------------------------------------------
+\section{Gestion des risques}
+\subsection{Risque 1 :}
+	\begin{tabular}{| p{5cm} | p{2.5cm} | p{6.5cm} |}
+		\hline
+		\multicolumn{3}{| l |}{\cellcolor{blue}\color{white}Identifiant : R\_08} \\ \hline
+		\cellcolor{lightgray} Évènement/situation redouté(e) 	& \multicolumn{2}{p{9cm}|}{Incompréhension des tâches demandées.} \\ \hline
+		\cellcolor{lightgray} Point dur associé 		& \multicolumn{2}{p{9cm}|}{Communication au sein de l'équipe.} \\ \hline
+		\cellcolor{lightgray} Impact 				& \multicolumn{2}{l|}{Préoccupant.} \\ \hline
+		\cellcolor{lightgray} Probabilité 			& \multicolumn{2}{l|}{Faible.} \\ \hline
+		\cellcolor{lightgray} Criticité 			& \multicolumn{2}{l|}{\cellcolor{yellow}4}\\ \hline
+		\cellcolor{lightgray} Plan de réduction de risque 	& \multicolumn{2}{p{9cm}|}{Se réunir régulièrement pour discuter du projet, travailler le plus possible ensemble.} \\ \hline
+		\cellcolor{lightgray} Plan d'action 			& But : 		& Faire comprendre ce qui n'a pas été compris. \\ \cline{2-3}
+		\cellcolor{lightgray}					& Action : 		& Se réuinir avec les personnes concernées et discuter des problèmes rencontrés.\\ \hline
+	\end{tabular}
+
+\subsection{Risque 2 :}
+	\begin{tabular}{| p{5cm} | p{2.5cm} | p{6.5cm} |}
+		\hline
+		\multicolumn{3}{| l |}{\cellcolor{blue}\color{white}Identifiant : R\_05} \\ \hline
+		\cellcolor{lightgray} Évènement/situation redouté(e) 	& \multicolumn{2}{p{9cm}|}{Manque d'exhaustivité des commandes.} \\ \hline
+		\cellcolor{lightgray} Point dur associé 		& \multicolumn{2}{p{9cm}|}{Nombre de commande GPG à comprendre.} \\ \hline
+		\cellcolor{lightgray} Impact 				& \multicolumn{2}{l|}{Préoccupant.} \\ \hline
+		\cellcolor{lightgray} Probabilité 			& \multicolumn{2}{l|}{Moyenne.} \\ \hline
+		\cellcolor{lightgray} Criticité 			& \multicolumn{2}{l|}{\cellcolor{yellow}6}\\ \hline
+		\cellcolor{lightgray} Plan de réduction de risque 	& \multicolumn{2}{p{9cm}|}{Définir un ordre de priorité et répartir les commandes à étudier par chacun des membres afin de pouvoir en estimer la charge, ou négocier avec le client en ce qui concerne les commandes obligatoires.} \\ \hline
+		\cellcolor{lightgray} Plan d'action 			& But : 		& Ajouter les commandes manquantes. \\ \cline{2-3}
+		\cellcolor{lightgray}					& Action : 		& Augmentation de la charge de travail, ajustement du planing si besoin.\\ \hline
+	\end{tabular}
+	
+\subsection{Risque 3 :}
+	\begin{tabular}{| p{5cm} | p{2.5cm} | p{6.5cm} |}
+		\hline
+		\multicolumn{3}{| l |}{\cellcolor{blue}\color{white}Identifiant : R\_06} \\ \hline
+		\cellcolor{lightgray} Évènement/situation redouté(e) 	& \multicolumn{2}{p{9cm}|}{Deadline non respectée.} \\ \hline
+		\cellcolor{lightgray} Point dur associé 		& \multicolumn{2}{p{9cm}|}{Planification du projet, communication au sein de l'équipe.} \\ \hline
+		\cellcolor{lightgray} Impact 				& \multicolumn{2}{l|}{Préoccupant.} \\ \hline
+		\cellcolor{lightgray} Probabilité 			& \multicolumn{2}{l|}{Moyenne.} \\ \hline
+		\cellcolor{lightgray} Criticité 			& \multicolumn{2}{l|}{\cellcolor{yellow}6}\\ \hline
+		\cellcolor{lightgray} Plan de réduction de risque 	& \multicolumn{2}{p{9cm}|}{Sensibiliser, résponsabiliser et obtenir un engagement de la part des membres.} \\ \hline
+		\cellcolor{lightgray} Plan d'action 			& But : 		& Finir ce qui n'a pas été fini. \\ \cline{2-3}
+		\cellcolor{lightgray}					& Action : 		& Augmentation de la charge de travail, ajustement du planing si besoin.\\ \hline
+	\end{tabular}
+
+\subsection{Risque 4 :}
+	\begin{tabular}{| p{5cm} | p{2.5cm} | p{6.5cm} |}
+		\hline
+		\multicolumn{3}{| l |}{\cellcolor{blue}\color{white}Identifiant : R\_01} \\ \hline
+		\cellcolor{lightgray} Évènement/situation redouté(e) 	& \multicolumn{2}{p{9cm}|}{Mauvaise maîtrise des outils.} \\ \hline
+		\cellcolor{lightgray} Point dur associé 		& \multicolumn{2}{p{9cm}|}{Formation aux outils et technologies à utilisés.} \\ \hline
+		\cellcolor{lightgray} Impact 				& \multicolumn{2}{l|}{Important.} \\ \hline
+		\cellcolor{lightgray} Probabilité 			& \multicolumn{2}{l|}{Moyenne.} \\ \hline
+		\cellcolor{lightgray} Criticité 			& \multicolumn{2}{l|}{\cellcolor{orange}9}\\ \hline
+		\cellcolor{lightgray} Plan de réduction de risque 	& \multicolumn{2}{p{9cm}|}{Sensibiliser, résponsabiliser et obtenir un engagement de la part des membres.} \\ \hline
+		\cellcolor{lightgray} Plan d'action 			& But : 		& Finir ce qui n'a pas été fini. \\ \cline{2-3}
+		\cellcolor{lightgray}					& Action : 		& Augmentation de la charge de travail, ajustement du planing si besoin.\\ \hline				
+	\end{tabular}
+
+\subsection{Risque 5 :}
+	\begin{tabular}{| p{5cm} | p{2.5cm} | p{6.5cm} |}
+		\hline
+		\multicolumn{3}{| l |}{\cellcolor{blue}\color{white}Identifiant : R\_03} \\ \hline
+		\cellcolor{lightgray} Évènement/situation redouté(e) 	& \multicolumn{2}{p{9cm}|}{Deadline non respectée.} \\ \hline
+		\cellcolor{lightgray} Point dur associé 		& \multicolumn{2}{p{9cm}|}{Planification du projet, communication au sein de l'équipe.} \\ \hline
+		\cellcolor{lightgray} Impact 				& \multicolumn{2}{l|}{Préoccupant.} \\ \hline
+		\cellcolor{lightgray} Probabilité 			& \multicolumn{2}{l|}{Moyenne.} \\ \hline
+		\cellcolor{lightgray} Criticité 			& \multicolumn{2}{l|}{\cellcolor{orange}6}\\ \hline
+		\cellcolor{lightgray} Plan de réduction de risque 	& \multicolumn{2}{p{9cm}|}{Sensibiliser, résponsabiliser et obtenir un engagement de la part des membres.} \\ \hline
+		\cellcolor{lightgray} Plan d'action 			& Acteur : 		& Tous \\ \cline{2-3}
+		\cellcolor{lightgray}					& But : 		& Finir ce qui n'a pas été fini. \\ \cline{2-3}
+		\cellcolor{lightgray}					& Action : 		& Augmentation de la charge de travail, ajustement du planing si besoin.\\ \hline
+	\end{tabular}
+\end{document}
