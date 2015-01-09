@@ -1,0 +1,64 @@
+
+\documentclass[slidetop, 10pt, mathserif, unknownkeysallowed]{beamer}
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+%\usepackage[latin1]{inputenc}
+\usetheme{Warsaw}        % Entre ces deux themes
+%\usecolortheme{whale}   % mon coeur balance ...
+\useoutertheme[height=30pt,left]{sidebar}
+\usepackage{multimedia}
+\useinnertheme[shadow=true]{rounded}
+\usepackage{bookman}
+\usepackage{multimedia}
+
+%definecolor si besoin 
+\definecolor{white}{rgb}{1,1,1}
+
+
+\graphicspath{{../res/}}
+
+\title{Présentation de gestion du projet GPG}
+\author{O. Thibault, G. Leroy, M. Fin, P. Balmelle, \\B. Bouillie, I.Sory\,Bary, L.Barbay}
+\institute{Université de Rouen}
+\date{19 Janvier 2015}
+
+
+\AtBeginSection[]
+{
+  \begin{frame}
+  \frametitle{\color{white}Sommaire}
+  \tableofcontents[currentsection,currentsubsubsection]
+  \end{frame} 
+}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{institute in head/foot}%
+    \usebeamerfont{institute in head/foot}\insertinstitute
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{background canvas}{\includegraphics[width=\paperwidth,height=\paperheight]{fond.jpg}} % Width pour la largeur, height pour la hauteur de l'image
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+\begin{document}
+ \include{Garde}
+ \include{Intro}
+ \include{Besoin}
+ \include{Qualite}
+ \include{Technique}
+ \include{Gestion}
+ \include{Conclu}
+
+\end{document}
+
