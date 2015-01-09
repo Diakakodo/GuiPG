@@ -2,6 +2,9 @@
 *.toc
 *.log
 *.out
+*.nav
+*.snm
+*Presentation.pdf
 *STB.pdf
 *CDR.pdf
 *DAL.pdf
