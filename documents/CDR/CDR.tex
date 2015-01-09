@@ -62,7 +62,7 @@ Stratégie de tests, Gestion des anomalies.}
 % Présentation succinte du sujet et hyp de travail.
 Ce document est le Cahier de Recette (CDR) de la réalisation d'une interface graphique pour le logiciel GnuPG.
 Cette interface permettra d'utiliser complètement l'outil OpenPGP de façon intuitive et pédagogique de façon 
-à être accessible même par des personne ayant des connaissances limitées dans le domaine de l'informatique. 
+à être accessible même par des personnes ayant des connaissances limitées dans le domaine de l'informatique. 
 
 \subsection{Fonctionnalités du logiciel}
 Le logiciel est une interface graphique pour le GnuPG (implémentation GNU du standart OpenPGP).
@@ -84,11 +84,11 @@ Nous avons dégagé 3 objets à tester :
  \item L'implémentation de l'attaque sur les secondes pré-images. 
 \end{itemize}
 
-L'interface graphique permettra d'utiliser chaques commandes et options de GPG et ce de façon le plus intuitif possible. Nous
+L'interface graphique permettra d'utiliser chaque commande et option de GPG et ce de façon le plus intuitif possible. Nous
 devrons tester le résultat des commandes ainsi que le temps d'exécution pour satisfaire le client en terme de fluidité de l'interface.
 
 La toile de confiance réprésentera un schéma des différentes personnes d'un réseau qui seront liées par des clés.
-Les clés seront de couleurs différentes en fonction de la confiance accordée à chacuns.
+Les clés seront de couleurs différentes en fonction de la confiance accordée à chacun.
 
 Enfin, il nous faudra tester l'implémentation de l'attaque. 
 
@@ -105,7 +105,7 @@ Différents documents de référence :
 \item Le logiciel \href{https://www.gnupg.org/}{GnuPG} (GNU Privacy Guard) implantation Open Source
   de OpenPGP.
 \item La \href{https://www.gnupg.org/gph/fr/manual.html#AEN541}{toile de confiance} de GnuPG
-\item Editeurs graphiques existant 
+\item Editeurs graphiques existants 
   (\href{http://www.gnupg.org/related_software/frontends.en.html}{KGpg, GPA, Seahorse})
 \item Exemple de visualisation d'une toile de confiance sur le site de 
   \href{https://www.archlinux.org/master-keys/#visualization}{archlinux}.
@@ -179,7 +179,7 @@ L'ordre d'exécution des tests suivra l'ordre du plan de développement.
 
 \subsection{Critères d'arrêt des tests}
 
-Un test est considéré comme échoué dès qu'une de ses étapes échoue, produit un résultat non attendu ou impossible à mener à bout.
+Un test est considéré comme échoué dès qu'une de ses étapes échoue, produit un résultat non attendu ou est impossible à mener à bout.
 
 
 \section{Gestion des anomalies}
@@ -381,7 +381,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Toile de confiance} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Affichage couleurs de la toile de confiance}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Affichage des couleurs de la toile de confiance}\\ \hline
       \multicolumn{3}{|l|}{Procédure n° 8} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
