@@ -6,6 +6,7 @@
 \usepackage[T1]{fontenc}
 
 \usepackage{longtable}
+\usepackage{../res/tikz-uml}
 
 %Redéfinition des marges
 \addtolength{\topmargin}{-1cm}
@@ -586,6 +587,29 @@
       \end{itemize}
     \end{itemize}
   }
+  \subsection{Exécution d'actions GPG}
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{umlseqdiag}
+        \umlactor[class=Acteur]{acteur}
+        \umlobject[class=MainWindow]{mainwindow}
+        \umlobject[class=Instance]{instance}
+        \begin{umlcall}[op=click(), type=synchron]{acteur}{mainwindow}
+          \umlcreatecall[class=Action]{mainwindow}{action}
+          \begin{umlcall}[op=doAction(action), type=synchron, return=outputAvailable(output)]{mainwindow}{instance}
+            \umlcreatecall[class=GPGManager]{instance}{manager}
+            \begin{umlcall}[op=execute(), type=synchron, return=finished(this)]{instance}{manager}
+            \end{umlcall}
+            \begin{umlcall}[op=getOutput(), type=synchron, return=output]{instance}{manager}
+            \end{umlcall}
+          \end{umlcall}
+          \begin{umlcallself}[op=addOutput(output), type=synchron]{mainwindow}
+          \end{umlcallself}
+        \end{umlcall}
+      \end{umlseqdiag}
+    \end{tikzpicture}
+  \end{center}
+
 
 % section fonctionnement_dynamique (end)
 \section{Traçabilité} % (fold)
