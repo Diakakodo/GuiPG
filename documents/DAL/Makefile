@@ -4,7 +4,7 @@ RM=rm -f
 
 all: $(doc).pdf
 
-$(doc).pdf: $(doc).tex ../res/structures.sty ../res/univ-projet.cls
+$(doc).pdf: $(doc).tex ../res/structures.sty ../res/univ-projet.cls ../res/tikz-uml.sty
 	$(CC) $<
 	$(CC) $<
 
