@@ -1,16 +1,56 @@
 \section{Le besoin}
+
 \subsection{L'expression du besoin}
+
 \begin{frame}
-  \frametitle{\color{white} L'expression du besoin 1ere frame}
+  \frametitle{\color{white} L'expression du besoin}
   une frame sur l'expression du besoin
 \end{frame}
+
 \begin{frame}
   \frametitle{\color{white} L'expression du besoin autre frame}
   une autre frame sur l'expression du besoin
 \end{frame}
-\subsection{Une autre partie ...}
+
+
+\subsection{Les exigences}
+
 \begin{frame}
-  \frametitle{\color{white} une frame sur l'autre partie.}
-  frame
+  \frametitle{\color{white} Les exigences}
+  \begin{tikzpicture}
+
+\umlactor[x=6]{Utilisateur}
+
+\begin{umlsystem}[fill=red!10]{Interface graphique}
+ \umlusecase[y=4, width=3cm]{Exécution d'actions GPG}
+ \umlusecase[y=2, width=3cm]{Chiffrer/déchiffrer Signer/Vérifier}
+ \umlusecase[y=0, width=3cm]{Affichage des commandes, des retours et des erreurs}
+ \umlusecase[y=-2, width=3cm]{Choix du profil utilisateur}
+ \umlusecase[y=-4, width=3cm]{Modification de la toile de confiance graphique}
+\end{umlsystem}
+
+\begin{umlsystem}[x=10, fill=red!10]{Attaque sur les KeyId}
+ \umlusecase[width=3cm]{Calcul d'une seconde pré-image pour une clé donnée}
+\end{umlsystem}
+
+\umlassoc{Utilisateur}{usecase-1}
+\umlassoc{Utilisateur}{usecase-2}
+\umlassoc{Utilisateur}{usecase-3}
+\umlassoc{Utilisateur}{usecase-4}
+\umlassoc{Utilisateur}{usecase-5}
+\umlassoc{Utilisateur}{usecase-6}
+
+\end{tikzpicture}
 \end{frame}
 
+\begin{frame}
+  \frametitle{\color{white} Les livrables}
+  \begin{itemize}
+   \item Rapport complet sur GnuPG et OpenPGP
+   \item Interface graphique pour GnuPG
+   \item Document d'utilisation de l'interface
+   \item Rapport d'étude des limites cryptographiques de PGP
+   \item Implémentation de l'attaque sur les KeyId
+  \end{itemize}
+
+\end{frame}
