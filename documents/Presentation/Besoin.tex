@@ -1,56 +1,80 @@
 \section{Le besoin}
 
+\subsection{Présentation de PGP}
+
+\begin{frame}
+ \frametitle{\color{white} Présentation de PGP}
+ \begin{block}{OpenPGP}
+  \begin{itemize}
+   \item Standard libre en cryptographie
+   \item Chiffrement et signature, messagerie internet
+   \item Gestion de clés, toile de confiance
+  \end{itemize}
+
+ \end{block}
+ 
+ \begin{block}{GnuPG\hfill \includegraphics[scale=0.5]{../res/gnupg-logo}}
+  \begin{itemize}
+   \item Implémentation de OpenPGP
+   \item En ligne de commande
+  \end{itemize}
+ \end{block}
+ 
+ \begin{block}{Interfaces graphiques}
+  \begin{itemize}
+   \item Fonctionnalités incomplètes
+   \item Toile de confiance non intuitive
+  \end{itemize}
+
+ \end{block}
+
+\end{frame}
+
+
 \subsection{L'expression du besoin}
 
 \begin{frame}
   \frametitle{\color{white} L'expression du besoin}
-  une frame sur l'expression du besoin
+  \begin{block}{Interface graphique}
+   \begin{itemize}
+    \item Intuitive et pédagogique
+    \item Maximum de commandes GnuPG
+    \item Toile de confiance graphique
+   \end{itemize}
+  \end{block}
+
 \end{frame}
 
-\begin{frame}
-  \frametitle{\color{white} L'expression du besoin autre frame}
-  une autre frame sur l'expression du besoin
-\end{frame}
 
-
-\subsection{Les exigences}
+\subsection{Les livrables}
 
 \begin{frame}
-  \frametitle{\color{white} Les exigences}
-  \begin{tikzpicture}
+  \frametitle{\color{white} Les livrables attendus}
+  \begin{block}{Documents}
+   \begin{itemize}
+    \item Rapport complet sur GnuPG et OpenPGP
+    \item Document d'utilisation de l'interface
+    \item Rapport d'étude des limites cryptographiques de PGP
+   \end{itemize}
 
-\umlactor[x=6]{Utilisateur}
+  \end{block}
+  
+  \begin{block}{Implémentations}
+   \begin{itemize}
+    \item Interface graphique
+    \item Implémentation de l'attaque
+   \end{itemize}
+  \end{block}
+  
+  \begin{block}{Livraisons}
+   \begin{itemize}
+    \item Priorité selon les fonctionnalités
+    \item Risque de retard
+   \end{itemize}
 
-\begin{umlsystem}[fill=red!10]{Interface graphique}
- \umlusecase[y=4, width=3cm]{Exécution d'actions GPG}
- \umlusecase[y=2, width=3cm]{Chiffrer/déchiffrer Signer/Vérifier}
- \umlusecase[y=0, width=3cm]{Affichage des commandes, des retours et des erreurs}
- \umlusecase[y=-2, width=3cm]{Choix du profil utilisateur}
- \umlusecase[y=-4, width=3cm]{Modification de la toile de confiance graphique}
-\end{umlsystem}
+  \end{block}
 
-\begin{umlsystem}[x=10, fill=red!10]{Attaque sur les KeyId}
- \umlusecase[width=3cm]{Calcul d'une seconde pré-image pour une clé donnée}
-\end{umlsystem}
 
-\umlassoc{Utilisateur}{usecase-1}
-\umlassoc{Utilisateur}{usecase-2}
-\umlassoc{Utilisateur}{usecase-3}
-\umlassoc{Utilisateur}{usecase-4}
-\umlassoc{Utilisateur}{usecase-5}
-\umlassoc{Utilisateur}{usecase-6}
-
-\end{tikzpicture}
-\end{frame}
-
-\begin{frame}
-  \frametitle{\color{white} Les livrables}
-  \begin{itemize}
-   \item Rapport complet sur GnuPG et OpenPGP
-   \item Interface graphique pour GnuPG
-   \item Document d'utilisation de l'interface
-   \item Rapport d'étude des limites cryptographiques de PGP
-   \item Implémentation de l'attaque sur les KeyId
-  \end{itemize}
+  
 
 \end{frame}

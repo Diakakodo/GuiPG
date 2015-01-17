@@ -1,26 +1,26 @@
 \section{La technique}
-\subsection{Configuration minimale}
+
 \begin{frame}
-  \frametitle{\color{white} Configuration minimale}
-  \begin{block}{Matériel}
-    \begin{itemize}
-      \item Processeur 1GHz.
-      \item 512 Mo de RAM.
-      \item 3 Mo d'espace disque.
-    \end{itemize}
-  \end{block}
-  \begin{block}{Système d'exploitation}
-    \begin{itemize}
-      \item GNU Linux avec environnement graphique.
-      \item Windows.
-    \end{itemize}
-  \end{block}
-  \begin{block}{Logiciels}
-    \begin{itemize}
-      \item GNU Privacy Guard (GPG) version 1.4 ou supérieure.
-      \item Qt 5.
-    \end{itemize}
-  \end{block}
+  \frametitle{\color{white} test tikz}
+  \begin{center}
+    \begin{tikzpicture}[scale=1]
+      \umlbasicstate[x=0, name=task1, width=8ex]{Tâche 1}
+      \umlbasicstate[x=3, name=task2, width=8ex]{Tâche 2}
+      \umlbasicstate[x=6, name=task3, width=8ex]{Tâche 3}
+      \umlbasicstate[x=0, y=-2.5, name=dev1, width=6ex, fill=green!20]{Dev Princ}
+      \umltrans{dev1}{task1}
+      \umlbasicstate[x=3, y=-2.5, name=dev2, width=6ex, fill=green!20]{Dev Princ}
+      \umltrans{dev2}{task2}
+      \umlbasicstate[x=6, y=-2.5, name=dev3, width=6ex, fill=green!20]{Dev Princ}
+      \umltrans{dev3}{task3}
+      \umlbasicstate[x=1.5, y=-5, name=sup1, width=7ex, fill=red!20]{Dev Support}
+      \umltrans{sup1}{dev1}
+      \umltrans{sup1}{dev2}
+      \umlbasicstate[x=4.5, y=-5, name=sup2, width=7ex, fill=red!20]{Dev Support}
+      \umltrans{sup2}{dev2}
+      \umltrans{sup2}{dev3}
+    \end{tikzpicture}
+  \end{center}
 \end{frame}
 
 \subsection{Outils de développement}
@@ -30,6 +30,8 @@
     \begin{itemize}
       \item C++ 11.
       \item Qt 5.
+      \hfill
+      \includegraphics[scale=.015]{Qt-logo.png}
     \end{itemize}
   \end{block}
   \begin{block}{Pourquoi le C++ 11 ?}
@@ -46,18 +48,28 @@
     \end{itemize}
   \end{block}
 \end{frame}
-\subsection{Architecture}
+
+\subsection{Maquette}
 \begin{frame}
-  \frametitle{\color{white} Architecture}
-  \begin{block}{Patron de conception}
+  \frametitle{\color{white} Maquette}
+  \begin{block}{Livrables}
     \begin{itemize}
-      \item Modèle - Vue.
-      \item Utilisé par Qt pour ses composants d'interface graphique.
+      \item Livrable 1 : Gestion des clefs, vue des commandes.
+      \item Livrable 2 : Éditeur/opérations cryptographiques.
+      \item Livrable 3 : Toile de confiance.
     \end{itemize}
   \end{block}
-  \begin{figure}[p]
-    \centering
-    \includegraphics[scale=.25]{MV.png}
-    \caption{Signaux et Slots Qt}
-  \end{figure}
+  \begin{center}
+    \includegraphics[scale=.14]{maquette.png}
+  \end{center}
+\end{frame}
+
+\subsection{Procédés de gestion}
+\begin{frame}
+  \frametitle{\color{white} Procédés de gestion}
+  \hfill
+  \includegraphics[scale=.05]{git-logo.png}
+  \begin{center}
+    \includegraphics[scale=.45]{git_workflow}
+  \end{center}
 \end{frame}
