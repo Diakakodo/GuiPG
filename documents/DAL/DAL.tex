@@ -779,8 +779,31 @@
   trié par ordre de terminaison.
 
   \subsection{Choix du profil utilisateur}
+  
+  Le diagramme ci-dessous explique le fonctionnement du choix du profil utilisateur.
 
-  TODO ...
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{umlseqdiag}
+        \umlobject[class=Instance]{instance}
+        \umlobject[class=ProfileManager]{manager}
+        \umlobject[class=QHash]{profiles}
+        \umlobject[class=MainWindow]{m}
+        \begin{umlcall}[op=profileChanged(p), type=synchron]{instance}{manager}
+          \begin{umlfragment}[type=alt]
+            \begin{umlcall}[op=put(p{,} new MainWindow), type=synchron]{manager}{profiles}
+            \end{umlcall}
+          \end{umlfragment}
+          \begin{umlfragment}[type=alt]
+            \begin{umlcall}[op=m {=} get(p), type=synchron]{manager}{profiles}
+            \end{umlcall}
+            \begin{umlcall}[op=setWindowState(Qt::WindowActive), type=synchron]{manager}{m}
+            \end{umlcall}
+          \end{umlfragment}
+        \end{umlcall}
+      \end{umlseqdiag}
+    \end{tikzpicture}
+  \end{center}
 
 % section fonctionnement_dynamique (end)
   
