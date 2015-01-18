@@ -151,7 +151,7 @@
 
 \section{Configuration requise}
   \subsection{Système d'exploitation}
-    GNU Linux noyau en version 3.17.
+    GNU/Linux basé sur debian avec un noyau en version 3.14.29.
   \subsection{Logiciels}
     Environnement de bureau KDE (v4.0 ou ultérieure) ou GNOME (v3.0 ou ultérieure)\\
     GnuPG (v1.4 ou ultérieure)
@@ -193,6 +193,7 @@
       telles que le modèle d'une clé, les différents modèles nécessaire a la réalisation
       de la toile de confiance.
 
+    \newpage
     \subsubsection{Un gestionnaire de profils}
 
       Pour répondre au besoin de pouvoir exécuter différentes instances de l'interface, ayant chacune
@@ -220,12 +221,28 @@
       les données avec un format spécifique (permettant d'effectuer un parsing des réponses de GPG).
       Et en plus gpg affiche sa sortie sur sa sortie standard et non sur /dev/tty comme a sa fâcheuse habitude (de même pour son entrée).
 
-      Ce composant doit donc ajouter ces options aux commandes demandées.
+      Ce composant doit donc ajouter ces options aux commandes demandées qui nécessite une interaction de l'utilisateur.
 
-      TODO : ...
+      Ainsi les modèles des vue qui nécessite une modification ou une requête à GNUGP demandera au gestionnaire de le faire
+      en utilisant une notion d'action qui permet d'abstraire pour le reste de l'application le fait qu'une commande soit
+      interactive ou non et toute la communication avec GNUPG.
 
-    \subsubsection{gpg}
+      Cette communication s'effectue donc par la création d'un processus qui redirige son entrée standard et sa sortie standard
+      sur des tube anonymes permettant ainsi au composant d'envoyer les données de la commande au processus et de récupérer la
+      réponse du processus.
 
+
+    \subsubsection{gpg ou GNUPG}
+
+      C'est évidement une implantation open-source et complète du standard OpenPGP.
+      L'application est pensée pour fonctionner avec la version 2.0.*.
+      Mais il est possible de modifier le chemin d’accès a l’exécutable GNUPG.
+
+      Sous GNU/Linux cette commande est généralement disponible dans les dépôts binaire de la distribution.
+      Pour Windows il existe toutes sortes d'implantations équivalentes telles que "gpg4win" par exemple.
+
+
+  \newpage
   \subsection{Patron d'architecture}
 
     L'application graphique reposant sur Qt, nous allons utiliser le patron d'architecture modèle-Vue
