@@ -683,21 +683,21 @@
 \section{Fonctionnement dynamique} % (fold)
 \label{sec:fonctionnement_dynamique}
 
-  \textcolor{blue}{
-    TODO : \\
-    Pour les principaux scénarii identifiés dans la spécification technique de besoin.
-    \begin{itemize}
-      \item Liste des composants mis en jeu.
-      \item Description du processus de mise en oeuvre sous la forme d'une
-      séquence d'appels aux services offerts par les différents composants et en faisant
-      clairement apparaître :
-      \begin{itemize}
-        \item la logique et le flux des événements traités
-        \item les interactions du logiciels avec les acteurs
-        \item les interactions entre les composants au travers de leurs interfaces
-      \end{itemize}
-    \end{itemize}
-  }
+%  \textcolor{blue}{
+%    TODO : \\
+%    Pour les principaux scénarii identifiés dans la spécification technique de besoin.
+%    \begin{itemize}
+%      \item Liste des composants mis en jeu.
+%      \item Description du processus de mise en oeuvre sous la forme d'une
+%      séquence d'appels aux services offerts par les différents composants et en faisant
+%      clairement apparaître :
+%      \begin{itemize}
+%        \item la logique et le flux des événements traités
+%        \item les interactions du logiciels avec les acteurs
+%        \item les interactions entre les composants au travers de leurs interfaces
+%      \end{itemize}
+%    \end{itemize}
+%  }
   \subsection{Exécution d'actions GPG}
 
   Toutes les actions à effectuer sont construite par les modèles des différents composants
@@ -761,27 +761,51 @@
   \end{center}
 
 
-  \subsection{TODO}
+  \subsection{Affichage des commandes, des retours et des erreurs GPG}
+
+  Cette partie explique le fonctionnement du composant d'affichage
+  des commande gpg effectués par l'application et des retours de gpg.
+
+  Appelons ce composant console qui est le modèle d'un objet QTextEdit de Qt (un composant graphique qui affiche du texte)
+  cet objet fait partie de la fenêtre principale.
+  
+  A chaque création d'un GPGManager par l'instance
+  pour exécuter une action l'instance réalise une connexion du signal finished() du GPGManager créer
+  au 'slot' du composant console, ainsi ce 'slot' va demander la commande exécuté par le gestionnaire
+  ainsi que les retours (méthode getOutput() du gestionnaire) reçus après exécution de la commande
+  et mettre a jour en conséquence sa vue.
+
+  Cette façon de faire permet d'avoir un affichage séquentiel de toutes les commandes gpg réalisé,
+  trié par ordre de terminaison.
+
+  \subsection{Choix du profil utilisateur}
+
+  TODO ...
 
 % section fonctionnement_dynamique (end)
-\section{Traçabilité} % (fold)
-\label{sec:tra_abilit_}
-
-  \textcolor{blue}{
-    TODO : \\
-    Récapitulatif des liens de dépendance entre les constituants du logiciel et les exigences de
-    la STB (par exemple sous forme de tableau).
-  }
   
 \section{Attaque sur les Keys ID}
-\subsection{Présentation}
-Lorsque l'on envoie une clé sur un serveur, un "ID" est calculé pour permettre à ce dernier 
-de rechercher beaucoup plus vite les clés demandés. Pour cela, il exécute une fonction de hashage, nommé SHA-1,
-sur cette clé et gardent seulement les 4 ou 8 octets. Or, nous disposons maintenant d'une assez grande 
-puissance de calcul pour pouvoir trouver des collisions sur les ID de 4 octets.
-\subsection{Méthode de réalisation}
-Notre attaque est de type bruteforce : on calcule une clé RSA et on modifie un ou plusieurs de ses champs (date de création, email...)
-jusqu'à obtenir l'ID de la clé donnée.
+  
+  \subsection{Présentation}
+  
+  Lorsque l'on envoie une clé sur un serveur, un "ID" est calculé pour permettre à ce dernier 
+  de rechercher beaucoup plus vite les clés demandés. Pour cela, il exécute une fonction de hashage, nommé SHA-1,
+  sur cette clé et gardent seulement les 4 ou 8 octets. Or, nous disposons maintenant d'une assez grande 
+  puissance de calcul pour pouvoir trouver des collisions sur les ID de 4 octets.
+  
+  \subsection{Méthode de réalisation}
+  
+  Notre attaque est de type bruteforce : on calcule une clé RSA et on modifie un ou plusieurs de ses champs (date de création, email...)
+  jusqu'à obtenir l'ID de la clé donnée.
+
+%\section{Traçabilité} % (fold)
+%\label{sec:tra_abilit_}
+%
+%  \textcolor{blue}{
+%    TODO : \\
+%    Récapitulatif des liens de dépendance entre les constituants du logiciel et les exigences de
+%    la STB (par exemple sous forme de tableau).
+%  }
 
 % section tra_abilit_ (end)
 \end{document}
