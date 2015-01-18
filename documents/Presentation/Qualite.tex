@@ -51,14 +51,13 @@
 \subsection{Stratégie de test}
 % Troisième slide %
 \begin{frame}
-  \frametitle{\color{white} Stratégies de test}
-  \begin{block}{Approche choisie pour les tests}
-   Ecriture des tests automatisés puis écriture du code pour faire passer le test
+  \frametitle{\color{white} Stratégie de test}
+  \begin{block}{Développement dirigé par les tests}
+   Ecriture des tests automatisés puis écriture du code pour faire passer le test et remaniement du code
   \end{block}
   \begin{figure}[p]
     \centering
-    \includegraphics[scale=.25]{tests.png}
-    \caption{Développement dirigé par les tests}
+    \includegraphics[scale=.25]{ddt.png}
   \end{figure}
 \end{frame}
 
@@ -71,7 +70,16 @@
 % Quatrième slide %
 \begin{frame}
   \frametitle{\color{white} Risque qualité}
-  Que faire dans le cas de la perte d'un membre ?
+  \begin{block}{Les risques liés au développement dirigé par les tests}
+    \begin{itemize}
+      \item Complexification du code
+      \item Test non exhaustif d'un point de vue fonctionnel
+      \item Non fiabilité des tests
+  \end{itemize}
+  \end{block}
+  \begin{block}{Gestion des anomalies}
+    Pour prévenir les risques, nous avons écrit une procédure qui nous permettra d'être organisé en cas d'anomalie détectée.
+  \end{block}
 
 \end{frame}
 
