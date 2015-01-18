@@ -624,12 +624,13 @@
 \section{Attaque sur les Keys ID}
 \subsection{Présentation}
 Lorsque l'on envoie une clé sur un serveur, un "ID" est calculé pour permettre à ce dernier 
-de rechercher beaucoup plus vite les clés demandés. Pour cela, il exécute une fonction de hashage
-sur cette clé. Or, il existe encore des serveurs qui génèrent des hash de 4 octets et nous disposons
-maintenant d'une assez grande puissance de calcul pour pouvoir trouver des collisions (c'est-à-dire
-deux clés qui ont le même ID). C'est là le but de notre attaque.
+de rechercher beaucoup plus vite les clés demandés. Pour cela, il exécute une fonction de hashage, nommé SHA-1,
+sur cette clé et gardent seulement les 4 ou 8 octets. Or, nous disposons maintenant d'une assez grande 
+puissance de calcul pour pouvoir trouver des collisions sur les ID de 4 octets.
 \subsection{Méthode de réalisation}
-YOLO
+Notre attaque est de type bruteforce : on calcule une clé RSA et on modifie sa date de création jusqu'à l'obtention de
+l'ID voulu. De plus, changer la date de création ne nécessite aucun calcul, simplement un accès au champ correspondant
+dans la clé.
 
 % section tra_abilit_ (end)
 \end{document}
