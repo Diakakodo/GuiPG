@@ -151,7 +151,7 @@
 
 \section{Configuration requise}
   \subsection{Système d'exploitation}
-    GNU Linux
+    GNU Linux noyau en version 3.17.
   \subsection{Logiciels}
     Environnement de bureau KDE (v4.0 ou ultérieure) ou GNOME (v3.0 ou ultérieure)\\
     GnuPG (v1.4 ou ultérieure)
@@ -162,8 +162,93 @@
   \subsection{Structure} % (fold)
     \includegraphics[scale=0.5]{graphics/diagramme_archi.png}
   \newpage
+
+  \subsection{Composants principaux}
+    
+    \subsubsection{Fenêtre principale}
+
+      La fenêtre principale est la partie du logiciel permettant d'afficher
+      des informations a l'utilisateur et d'interagir avec ce dernier.
+
+      La maquette retenu pour le style global de cette vue est la suivante :
+      \begin{center}
+        \includegraphics[scale=.25]{../res/maquette.png}
+      \end{center}
+
+      \begin{itemize}
+        \item La partie supérieure présente une barre d'outils permettant de faire une recherche parmi les 
+      clés présentes dans le trousseau de clés, ainsi qu'une barre de menu, permettant d'accéder à l'ensemble
+      des fonctionnalités de l'application.
+        \item La partie de gauche est un arbre qui permet de visualiser l'ensemble des clés présentes
+        dans le trousseau ainsi qui de réaliser toutes les actions de modifications de clés (révocation, signature, ...)
+        \item La partie de droite présente au choix un champ d'édition de texte permettant de chiffrer/déchiffrer
+        du texte à la volée, ou bien le rendu graphique de la toile de confiance.
+        \item La partie en bas a droite est une fenêtre qui affiche toutes les commandes GNUPG effectués
+        par l'application ainsi que les retours de GNUPG.
+      \end{itemize}
+
+    \subsubsection{Un gestionnaire graphique}
+
+      Le gestionnaire graphique représente en fait l'ensemble des modèles des vues,
+      telles que le modèle d'une clé, les différents modèles nécessaire a la réalisation
+      de la toile de confiance.
+
+    \subsubsection{Un gestionnaire de profils}
+
+      Pour répondre au besoin de pouvoir exécuter différentes instances de l'interface, ayant chacune
+      un trousseau de clé gpg différent, nous utilisons un système de profils, c'est a ce composants
+      de gérer un fichier de configuration de l'application qui permet de sauvegarder différents
+      profils a savoir qu'un profil est constitué de :
+      \begin{itemize}
+        \item Un identifiant de profile.
+        \item Un chemin vers l'exécutable de gpg (permettant d'avoir des profil utilisant des versions différentes de gpg).
+        \item Un chemin vers un dossier de configuration de gpg (permettant d'avoir un trousseau de clés différents par profils).
+      \end{itemize}
+      De plus deux profils ne peuvent avoir le même identifiant de profil,
+      ni le même chemin de configuration gpg.
+
+      C'est ce composant qui permet de créer un profil, de changer de profil, ou de modifier un profil.
+      C'est également lui qui s'occupe de s'assurer qu'un profil n'est actif qu'au plus une fois
+      (c'est plus précisément la classe Launcher qui est charger de cette tâche dans notre implantation).
+
+    \subsubsection{Un gestionnaire de gpg}
+
+      C'est le composant qui permet la communications avec GNUPG,
+      sachant qu'après étude il n'est pas toujours possible d'écrire ou de lire sur l'entrée/la sortie standard de GNUPG
+      il faut préciser un mode d'affichage et un mode d'écriture a l'aide des options --status-fd=1 et --command-fd=0
+      permettant ainsi pour les commandes gpg qui demandes un interaction de l'utilisateur d'afficher
+      les données avec un format spécifique (permettant d'effectuer un parsing des réponses de GPG).
+      Et en plus gpg affiche sa sortie sur sa sortie standard et non sur /dev/tty comme a sa fâcheuse habitude (de même pour son entrée).
+
+      Ce composant doit donc ajouter ces options aux commandes demandées.
+
+      TODO : ...
+
+    \subsubsection{gpg}
+
+  \subsection{Patron d'architecture}
+
+    L'application graphique reposant sur Qt, nous allons utiliser le patron d'architecture modèle-Vue
+    reposant sur le fonctionnant des signaux de Qt :
+    \begin{center}
+    \includegraphics[scale=.5]{../res/MV.png}
+    \end{center}
+
+    Ainsi un signal est émit par un objet et réceptionné par un autre objet en exécutant une de ces méthodes
+    qui est alors dénommé 'slot'.
+
   \subsection{Description des classes} % (fold)
       
+    \begin{center}
+    \includegraphics[scale=.5]{graphics/diagramme-classes.png}
+    
+    Ce diagramme de classe est disponible en \href{graphics/diagramme-classes.svg}{annexe} (en svg)
+    et permet de visualiser les classes principales ainsi que les échanges principaux utilisant
+    les signaux de Qt.
+    \end{center}
+
+      Dans la suite de cette section chacune de ces classes sont définies plus précisément.
+
       \subsubsection{Launcher}
 
         Cette classe est le point d'entrée de l'application, son unique rôle est de lancer des instances de l'application
@@ -594,10 +679,10 @@
         \umlactor[class=Acteur]{acteur}
         \umlobject[class=MainWindow]{mainwindow}
         \umlobject[class=Instance]{instance}
-        \begin{umlcall}[op=click(), type=synchron]{acteur}{mainwindow}
-          \umlcreatecall[class=Action]{mainwindow}{action}
+        \begin{umlcall}[op=validate(), type=synchron]{acteur}{mainwindow}
+          \umlcreatecall[class=Action, x=10]{mainwindow}{action}
           \begin{umlcall}[op=doAction(action), type=synchron, return=outputAvailable(output)]{mainwindow}{instance}
-            \umlcreatecall[class=GPGManager]{instance}{manager}
+            \umlcreatecall[class=GPGManager, x=14]{instance}{manager}
             \begin{umlcall}[op=execute(), type=synchron, return=finished(this)]{instance}{manager}
             \end{umlcall}
             \begin{umlcall}[op=getOutput(), type=synchron, return=output]{instance}{manager}
@@ -609,6 +694,33 @@
       \end{umlseqdiag}
     \end{tikzpicture}
   \end{center}
+
+
+
+  \subsubsection{Methode execute de GPGManager}
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{umlseqdiag}
+        \umlobject[class=Instance]{instance}
+        \umlobject[class=GPGManager]{manager}
+        \umlobject[class=Action]{action}
+        \umlobject[class=QProcess]{gpg}
+        \begin{umlcall}[op=execute(), type=synchron]{instance}{manager}
+          \begin{umlcall}[op=getArgs(), return=args]{manager}{action}
+          \end{umlcall}
+          \begin{umlcall}[op=start(pathExec{,} args), return=finished()]{manager}{gpg}
+            \begin{umlcall}[op=readyReadStandardOutput()]{gpg}{manager}
+            \end{umlcall}
+            \begin{umlcall}[op=readAllStandardOutput()]{manager}{gpg}
+              
+            \end{umlcall}
+          \end{umlcall}
+        \end{umlcall}
+      \end{umlseqdiag}
+    \end{tikzpicture}
+  \end{center}
+
+
 
 
 % section fonctionnement_dynamique (end)
