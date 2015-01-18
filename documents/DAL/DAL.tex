@@ -231,6 +231,15 @@
       sur des tube anonymes permettant ainsi au composant d'envoyer les données de la commande au processus et de récupérer la
       réponse du processus.
 
+      Pour réaliser la communication le composant utilise en interne la classe QProcess de Qt pour encapsuler le processus de gpg
+      ce qui permet d'être notifier de l'état du processus a l'aide de signaux notamment les signaux utilisé sont les suivants :
+      \begin{itemize}
+        \item readyReadStandardOutput() qui est émit dès que le processus écrit sur sa sortie standard
+        permettant de lancer le parsing de la réponse de gpg pour récupérer les informations nécessaires a l'application
+        \item finished() qui est émis quand le processus se termine ce qui permet de mettre fin a la communication
+        et de notifier les autres composants des informations collectées.
+      \end{itemize}
+
 
     \subsubsection{gpg ou GNUPG}
 
@@ -690,6 +699,13 @@
     \end{itemize}
   }
   \subsection{Exécution d'actions GPG}
+
+  Toutes les actions à effectuer sont construite par les modèles des différents composants
+  puis envoyé par l'intermédiaire de l'instance a un GPGManager qui exécute l'action selon
+  le schéma suivant.
+
+  Les actions de chiffrement et de signature fonctionnent avec le même principe.
+
   \begin{center}
     \begin{tikzpicture}
       \begin{umlseqdiag}
@@ -714,7 +730,12 @@
 
 
 
-  \subsubsection{Methode execute de GPGManager}
+  \subsubsection{Méthode execute de GPGManager}
+
+  Voici le diagramme de flux de l'exécution de la méthode execute du GPGManager
+  cette méthode est celle qui réalise la communication avec GPG et qui notifie de la disponibilité de données
+  à l'aide du signal finished() qui est émit une fois que l'action est entièrement exécutée.
+
   \begin{center}
     \begin{tikzpicture}
       \begin{umlseqdiag}
@@ -732,13 +753,15 @@
               
             \end{umlcall}
           \end{umlcall}
+          \begin{umlcallself}[op=finished(this), type=synchron]{manager}
+          \end{umlcallself}
         \end{umlcall}
       \end{umlseqdiag}
     \end{tikzpicture}
   \end{center}
 
 
-
+  \subsection{TODO}
 
 % section fonctionnement_dynamique (end)
 \section{Traçabilité} % (fold)
