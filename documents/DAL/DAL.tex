@@ -620,6 +620,16 @@
     Récapitulatif des liens de dépendance entre les constituants du logiciel et les exigences de
     la STB (par exemple sous forme de tableau).
   }
+  
+\section{Attaque sur les Keys ID}
+\subsection{Présentation}
+Lorsque l'on envoie une clé sur un serveur, un "ID" est calculé pour permettre à ce dernier 
+de rechercher beaucoup plus vite les clés demandés. Pour cela, il exécute une fonction de hashage
+sur cette clé. Or, il existe encore des serveurs qui génèrent des hash de 4 octets et nous disposons
+maintenant d'une assez grande puissance de calcul pour pouvoir trouver des collisions (c'est-à-dire
+deux clés qui ont le même ID). C'est là le but de notre attaque.
+\subsection{Méthode de réalisation}
+YOLO
 
 % section tra_abilit_ (end)
 \end{document}
