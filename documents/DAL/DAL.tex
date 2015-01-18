@@ -757,9 +757,8 @@ de rechercher beaucoup plus vite les clés demandés. Pour cela, il exécute une
 sur cette clé et gardent seulement les 4 ou 8 octets. Or, nous disposons maintenant d'une assez grande 
 puissance de calcul pour pouvoir trouver des collisions sur les ID de 4 octets.
 \subsection{Méthode de réalisation}
-Notre attaque est de type bruteforce : on calcule une clé RSA et on modifie sa date de création jusqu'à l'obtention de
-l'ID voulu. De plus, changer la date de création ne nécessite aucun calcul, simplement un accès au champ correspondant
-dans la clé.
+Notre attaque est de type bruteforce : on calcule une clé RSA et on modifie un ou plusieurs de ses champs (date de création, email...)
+jusqu'à obtenir l'ID de la clé donnée.
 
 % section tra_abilit_ (end)
 \end{document}
