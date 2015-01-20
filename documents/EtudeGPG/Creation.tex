@@ -1,0 +1,42 @@
+\documentclass{../res/univ-projet}
+
+%Import des packages utilisés pour le document
+\usepackage[utf8x]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+
+\usepackage{longtable}
+\usepackage{../res/tikz-uml}
+
+%Redéfinition des marges
+\addtolength{\topmargin}{-1cm}
+\addtolength{\textheight}{1cm}
+\addtolength{\headsep}{0.8cm}
+\addtolength{\footskip}{-0.2cm}
+
+%Variables
+\logo{../res/logo_univ.png}
+\title{Etude de GNUPG}
+\author{}
+\projet{Projet PGP}
+\projdesc{Etude de GNUPG}
+\filiere{Master 1 SSI }
+\matiere{Conduite de projet}
+\date{\today}
+
+
+% -- Début du document -- %
+\begin{document}
+
+%Page de garde
+\maketitle
+\newpage
+%La table des matières
+\tableofcontents
+\newpage
+\include{Intro}
+\section{Gestion de clefs}
+\subsection{Création des clefs}
+  \include{CreerClef}
+\subsection{Révocation d'une clef}
+  \include{RevokeClef}
