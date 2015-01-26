@@ -1,4 +1,4 @@
-QT += core widgets
+QT += core widgets xml
 QMAKE_CXXFLAGS += -std=c++11 -pedantic -Wall
 
 HEADERS += \

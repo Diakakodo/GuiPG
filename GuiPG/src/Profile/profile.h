@@ -9,8 +9,6 @@ class Profile : public QObject {
     public:
         explicit Profile();
 
-        unsigned getId();
-
     signals:
 
     public slots:

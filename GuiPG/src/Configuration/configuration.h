@@ -2,6 +2,7 @@
 #define CONFIGURATION_H
 
 #include <QObject>
+#include <QDomDocument>
 #include "../Profile/profile.h"
 
 /**
@@ -22,7 +23,7 @@ class Configuration : public QObject {
          * chargé.
          * @return Vrai si la configuration d'un profil a été chargé.
          */
-        bool isLoaded();
+        bool isLoaded() const;
         /**
          * @brief load Charge la configuration pour le profil donné. Dans le
          * cas où celui-ci n'existe pas, les valeurs par défaut sont attribuées.
@@ -42,9 +43,10 @@ class Configuration : public QObject {
          * chargé.
          * @return Vrai si tout s'est bien passé, faux sinon.
          */
-        bool save() const;
+        bool save();
 
     private:
+        QDomDocument m_doc;
         QString m_filePath;
         const Profile* m_profile;
 };
