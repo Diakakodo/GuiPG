@@ -20,7 +20,10 @@ bool Configuration::load(const Profile* p) {
         f.close();
         return false;
     }
-    // TODO : charger les différentes variables
+
+    QDomElement root = m_doc.documentElement();
+
+
     f.close();
     return true;
 }
