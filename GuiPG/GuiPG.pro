@@ -7,4 +7,5 @@ HEADERS += \
 
 SOURCES += \
     src/Configuration/configuration.cpp \
-    src/Profile/profile.cpp
+    src/Profile/profile.cpp \
+    src/main.cpp
