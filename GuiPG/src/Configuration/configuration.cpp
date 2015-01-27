@@ -79,7 +79,7 @@ bool Configuration::attrIsProfileId(const QString& attr, unsigned id) const {
     unsigned x = attr.toUInt(&ok);
     return ok && x == id;
 }
-#include <QDebug>
+
 void Configuration::loadConfig(QDomNode root, const QString& parent) {
     while (!root.isNull()) {
         if (root.isElement()) {
