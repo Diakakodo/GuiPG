@@ -1,6 +1,7 @@
 #include "configuration.h"
 #include <QFile>
 #include <QDomDocument>
+#include <QTextStream>
 
 #ifdef _WIN32
 #define DEF_GPG_EXEC "C:/Program Files (x86)/GNU/GnuPG/gpg2.exe"
@@ -29,13 +30,12 @@ bool Configuration::load(const Profile* p) {
     if (!f.open(QIODevice::ReadOnly)) {
         return false;
     }
-    QDomDocument doc;
-    if (!doc.setContent(&f)) {
+    if (!m_doc.setContent(&f)) {
         f.close();
         return false;
     }
 
-    QDomElement root = doc.documentElement();
+    QDomElement root = m_doc.documentElement();
     if (root.tagName() != ROOT_TAG_NAME) {
         f.close();
         return false;
@@ -46,32 +46,55 @@ bool Configuration::load(const Profile* p) {
         e = e.nextSiblingElement(CONFIG_TAG_NAME);
     }
     if (!e.isNull()) {
-        loadConfig(e);
+        m_profileElement = e;
+        loadConfig(e.firstChild());
+    }
+    if (m_profileElement.isNull()) {
+        m_profileElement = m_doc.createElement(CONFIG_TAG_NAME);
+        m_profileElement.setAttribute(PROFILE_ATTR_NAME, p->getId());
+        m_doc.documentElement().appendChild(m_profileElement);
     }
     f.close();
     return true;
 }
 
 QString Configuration::getGPGExecutable() const {
-    return m_vars.value(GPG_TAG_NAME "/" EXEC_TAG_NAME, DEF_GPG_EXEC);
+    QDomElement e = m_vars.value(GPG_TAG_NAME "/" EXEC_TAG_NAME);
+    return e.isNull() ? DEF_GPG_EXEC : e.attribute(VALUE_ATTR_NAME);
 }
 
 const Profile* Configuration::getProfile() const {
     return m_profile;
 }
 
-const QHash<QString, QString>& Configuration::getVars() const {
+const QHash<QString, QDomElement>& Configuration::getVars() const {
     return m_vars;
 }
 
-bool Configuration::save() const {
+bool Configuration::save() {
     QFile f(m_filePath);
     if (!f.open(QIODevice::WriteOnly)) {
         return false;
     }
-    // TODO
+    QTextStream out(&f);
+    out << m_doc.toString();
     f.close();
     return true;
+}
+
+void Configuration::setGPGExecutable(const QString& path) {
+    QDomElement e = m_vars.value(GPG_TAG_NAME "/" EXEC_TAG_NAME);
+    if (e.isNull()) {
+        QDomElement gpg = m_profileElement.firstChildElement(GPG_TAG_NAME);
+        if (gpg.isNull()) {
+            gpg = m_doc.createElement(GPG_TAG_NAME);
+            m_profileElement.appendChild(gpg);
+        }
+        e = m_doc.createElement(EXEC_TAG_NAME);
+        gpg.appendChild(e);
+        m_vars.insert(GPG_TAG_NAME "/" EXEC_TAG_NAME, e);
+    }
+    e.setAttribute(VALUE_ATTR_NAME, path);
 }
 
 bool Configuration::attrIsProfileId(const QString& attr, unsigned id) const {
@@ -79,14 +102,13 @@ bool Configuration::attrIsProfileId(const QString& attr, unsigned id) const {
     unsigned x = attr.toUInt(&ok);
     return ok && x == id;
 }
-#include <QDebug>
+
 void Configuration::loadConfig(QDomNode root, const QString& parent) {
     while (!root.isNull()) {
         if (root.isElement()) {
             QDomElement e = root.toElement();
             if (e.hasAttribute(VALUE_ATTR_NAME)) {
-                m_vars.insert(parent + e.tagName(),
-                              e.attribute(VALUE_ATTR_NAME));
+                m_vars.insert(parent + e.tagName(), e);
             }
             loadConfig(e.firstChild(), parent + e.tagName() + "/");
         }

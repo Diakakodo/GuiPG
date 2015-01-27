@@ -48,13 +48,18 @@ class Configuration : public QObject {
          * @brief getVars Retourne la table d'association clé => valeur chargée.
          * @return La table d'association clé => valeur chargée.
          */
-        const QHash<QString, QString>& getVars() const;
+        const QHash<QString, QDomElement>& getVars() const;
         /**
          * @brief save Sauvegarde la configuration pour le dernier profil
          * chargé.
          * @return Vrai si tout s'est bien passé, faux sinon.
          */
-        bool save() const;
+        bool save();
+        /**
+         * @brief setGPGExecutable Change le chemin vers l'exécutable de GPG pour le profil courant.
+         * @param path Le nouveau chemin vers l'exécutable de GPG.
+         */
+        void setGPGExecutable(const QString& path);
 
     private:
         /**
@@ -72,9 +77,11 @@ class Configuration : public QObject {
          */
         void loadConfig(QDomNode root, const QString& parent = QString());
 
+        QDomDocument m_doc;
         QString m_filePath;
         const Profile* m_profile;
-        QHash<QString, QString> m_vars;
+        QDomElement m_profileElement;
+        QHash<QString, QDomElement> m_vars;
 };
 
 #endif // CONFIGURATION_H
