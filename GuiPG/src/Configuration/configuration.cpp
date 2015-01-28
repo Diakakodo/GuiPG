@@ -9,51 +9,67 @@
 #define DEF_GPG_EXEC "gpg"
 #endif
 
-#define CONFIG_TAG_NAME "cfg"
 #define EXEC_TAG_NAME "exec"
 #define GPG_TAG_NAME "gpg"
-#define PROFILE_ATTR_NAME "profile"
+#define ID_ATTR_NAME "id"
+#define NAME_ATTR_NAME "name"
+#define PROFILE_TAG_NAME "profile"
 #define ROOT_TAG_NAME "configurations"
 #define VALUE_ATTR_NAME "value"
 
 Configuration::Configuration(const QString& filePath)
-    : m_filePath(filePath), m_profile(nullptr) {
-
+    : m_filePath(filePath), m_currentProfile(nullptr) {
+    QFile f(m_filePath);
+    if (!f.open(QIODevice::ReadOnly) || !m_doc.setContent(&f)) {
+        initConfig();
+        f.close();
+    }
 }
 
 bool Configuration::isLoaded() const {
-    return m_profile != nullptr;
+    return m_currentProfile != nullptr;
 }
 
-bool Configuration::load(const Profile* p) {
-    m_profile = p;
-    QFile f(m_filePath);
-    if (!f.open(QIODevice::ReadOnly)) {
-        initConfig();
+bool Configuration::loadProfiles() {
+    QDomElement root = m_doc.documentElement();
+    if (root.tagName() != ROOT_TAG_NAME) {
         return false;
     }
-    if (!m_doc.setContent(&f)) {
-        initConfig();
-        f.close();
-        return false;
+    QDomElement e = root.firstChildElement(PROFILE_TAG_NAME);
+    while (!e.isNull()) {
+        bool ok = false;
+        unsigned id = e.attribute(ID_ATTR_NAME).toUInt(&ok);
+        if (ok) {
+            Profile* p = new Profile(id, e.attribute(NAME_ATTR_NAME));
+            m_profiles.append(p);
+        }
+        e = e.nextSiblingElement(PROFILE_TAG_NAME);
     }
+    return true;
+}
+
+bool Configuration::loadVars(const Profile* p) {
+    m_currentProfile = p;
+    m_vars.clear();
 
     QDomElement root = m_doc.documentElement();
     if (root.tagName() != ROOT_TAG_NAME) {
-        f.close();
         return false;
     }
-    QDomElement e = root.firstChildElement(CONFIG_TAG_NAME);
+    QDomElement e = root.firstChildElement(PROFILE_TAG_NAME);
     while (!e.isNull()
-           && !attrIsProfileId(e.attribute(PROFILE_ATTR_NAME), p->getId())) {
-        e = e.nextSiblingElement(CONFIG_TAG_NAME);
+           && !attrIsProfileId(e.attribute(ID_ATTR_NAME), p->getId())) {
+        e = e.nextSiblingElement(PROFILE_TAG_NAME);
     }
     if (!e.isNull()) {
         m_profileElement = e;
         loadConfig(e.firstChild());
     }
-    f.close();
     return true;
+}
+
+const Profile* Configuration::getCurrentProfile() const {
+    return m_currentProfile;
 }
 
 QString Configuration::getGPGExecutable() const {
@@ -61,8 +77,8 @@ QString Configuration::getGPGExecutable() const {
     return e.isNull() ? DEF_GPG_EXEC : e.attribute(VALUE_ATTR_NAME);
 }
 
-const Profile* Configuration::getProfile() const {
-    return m_profile;
+const QList<Profile*>& Configuration::getProfiles() const {
+    return m_profiles;
 }
 
 const QHash<QString, QDomElement>& Configuration::getVars() const {
@@ -103,8 +119,8 @@ bool Configuration::attrIsProfileId(const QString& attr, unsigned id) const {
 
 void Configuration::initConfig() {
     QDomElement root = m_doc.createElement(ROOT_TAG_NAME);
-    m_profileElement = m_doc.createElement(CONFIG_TAG_NAME);
-    m_profileElement.setAttribute(PROFILE_ATTR_NAME, m_profile->getId());
+    m_profileElement = m_doc.createElement(PROFILE_TAG_NAME);
+    m_profileElement.setAttribute(ID_ATTR_NAME, m_currentProfile->getId());
     m_doc.appendChild(root);
     root.appendChild(m_profileElement);
 }

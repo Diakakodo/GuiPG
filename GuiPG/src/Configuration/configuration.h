@@ -26,24 +26,34 @@ class Configuration : public QObject {
          */
         bool isLoaded() const;
         /**
+         * @brief loadProfiles Charge les profils disponibles.
+         * @return Vrai si tout s'est bien passé.
+         */
+        bool loadProfiles();
+        /**
          * @brief load Charge la configuration pour le profil donné. Dans le
          * cas où celui-ci n'existe pas, les valeurs par défaut sont attribuées.
          * @param p Le profil.
          * @return Vrai si tout s'est bien passé, faux sinon.
          */
-        bool load(const Profile* p);
-        /**
-         * @brief getGPGExecutable Retourne le chemin vers l'exécutable de GPG.
-         * @return Le chemin vers l'exécutable de GPG.
-         */
-        QString getGPGExecutable() const;
+        bool loadVars(const Profile* p);
         /**
          * @brief getProfile Retourne le profil associé à la configuration
          * chargée.
          * @return Le profil associé à la configuration chargée ou nullptr si
          * !isLoaded().
          */
-        const Profile* getProfile() const;
+        const Profile* getCurrentProfile() const;
+        /**
+         * @brief getGPGExecutable Retourne le chemin vers l'exécutable de GPG.
+         * @return Le chemin vers l'exécutable de GPG.
+         */
+        QString getGPGExecutable() const;
+        /**
+         * @brief getProfiles Retourne la liste des profils.
+         * @return La liste des profils.
+         */
+        const QList<Profile*>& getProfiles() const;
         /**
          * @brief getVars Retourne la table d'association clé => valeur chargée.
          * @return La table d'association clé => valeur chargée.
@@ -81,9 +91,10 @@ class Configuration : public QObject {
          */
         void loadConfig(QDomNode root, const QString& parent = QString());
 
+        const Profile* m_currentProfile;
         QDomDocument m_doc;
         QString m_filePath;
-        const Profile* m_profile;
+        QList<Profile*> m_profiles;
         QDomElement m_profileElement;
         QHash<QString, QDomElement> m_vars;
 };
