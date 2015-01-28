@@ -1,0 +1,7 @@
+<configurations>
+ <cfg profile="1">
+  <gpg>
+   <exec value="caca"/>
+  </gpg>
+ </cfg>
+</configurations>

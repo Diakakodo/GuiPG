@@ -70,6 +70,10 @@ class Configuration : public QObject {
          */
         bool attrIsProfileId(const QString& attr, unsigned id) const;
         /**
+         * @brief initConfig Initialise la configuration.
+         */
+        void initConfig();
+        /**
          * @brief loadConfig Charge la configuration contenue dans un élément
          * donné.
          * @param root L'élément racine de la configuration.

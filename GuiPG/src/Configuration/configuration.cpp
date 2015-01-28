@@ -26,11 +26,14 @@ bool Configuration::isLoaded() const {
 }
 
 bool Configuration::load(const Profile* p) {
+    m_profile = p;
     QFile f(m_filePath);
     if (!f.open(QIODevice::ReadOnly)) {
+        initConfig();
         return false;
     }
     if (!m_doc.setContent(&f)) {
+        initConfig();
         f.close();
         return false;
     }
@@ -48,11 +51,6 @@ bool Configuration::load(const Profile* p) {
     if (!e.isNull()) {
         m_profileElement = e;
         loadConfig(e.firstChild());
-    }
-    if (m_profileElement.isNull()) {
-        m_profileElement = m_doc.createElement(CONFIG_TAG_NAME);
-        m_profileElement.setAttribute(PROFILE_ATTR_NAME, p->getId());
-        m_doc.documentElement().appendChild(m_profileElement);
     }
     f.close();
     return true;
@@ -101,6 +99,14 @@ bool Configuration::attrIsProfileId(const QString& attr, unsigned id) const {
     bool ok = false;
     unsigned x = attr.toUInt(&ok);
     return ok && x == id;
+}
+
+void Configuration::initConfig() {
+    QDomElement root = m_doc.createElement(ROOT_TAG_NAME);
+    m_profileElement = m_doc.createElement(CONFIG_TAG_NAME);
+    m_profileElement.setAttribute(PROFILE_ATTR_NAME, m_profile->getId());
+    m_doc.appendChild(root);
+    root.appendChild(m_profileElement);
 }
 
 void Configuration::loadConfig(QDomNode root, const QString& parent) {
