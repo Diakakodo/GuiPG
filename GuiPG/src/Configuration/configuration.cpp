@@ -2,6 +2,7 @@
 #include <QFile>
 #include <QDomDocument>
 #include <QTextStream>
+#include <iostream>
 
 #ifdef _WIN32
 #define DEF_GPG_EXEC "C:/Program Files (x86)/GNU/GnuPG/gpg2.exe"
@@ -17,12 +18,19 @@
 #define ROOT_TAG_NAME "configurations"
 #define VALUE_ATTR_NAME "value"
 
+using namespace std;
+
 Configuration::Configuration(const QString& filePath)
-    : m_filePath(filePath), m_currentProfile(nullptr) {
+    : m_currentProfile(nullptr), m_filePath(filePath) {
     QFile f(m_filePath);
-    if (!f.open(QIODevice::ReadOnly) || !m_doc.setContent(&f)) {
+    if (!f.open(QIODevice::ReadOnly)) {
+        cerr << "Unable to open '" << m_filePath.toStdString() << "'" << endl;
         initConfig();
+    } else if (!m_doc.setContent(&f)) {
         f.close();
+        cerr << "'" << m_filePath.toStdString() << "' is an invalid XML file"
+             << endl;
+        initConfig();
     }
 }
 
