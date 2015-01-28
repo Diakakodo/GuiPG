@@ -1,28 +1,18 @@
-#include "Configuration/configuration.h"
-#include "Profile/profile.h"
-#include "View/mainwindow.h"
-#include <QDebug>
-#include <QApplication>
+#include <iostream>
+#include <QSharedMemory>
 
+#define MAX_INSTANCES_NB 10
+#define SHM_NAME "guipg"
+
+using namespace std;
 
 int main(int argc, char** argv) {
-    QApplication guiPg(argc, argv);
+    QSharedMemory shm(SHM_NAME);
+    if (shm.attach(QSharedMemory::ReadOnly)) {
 
-    MainWindow mainWindow;
-    mainWindow.show();
-
-    return guiPg.exec();
-
-    /*
-    Configuration cfg("../test.xml");
-    Profile p(1, "default");
-    cfg.load(&p);
-    cfg.setGPGExecutable("caca");
-    const QHash<QString, QDomElement>& vars = cfg.getVars();
-    for (QString k : vars.keys()) {
-        qDebug() << k << " => " << vars.value(k).attribute("value");
+    } else if (!shm.create(MAX_INSTANCES_NB * sizeof (unsigned))) {
+        cerr << "Unable to init shared memory." << endl;
+        exit(1);
     }
-    cfg.save();
     return 0;
-    */
 }
