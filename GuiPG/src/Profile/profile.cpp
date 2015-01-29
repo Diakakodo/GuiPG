@@ -1,7 +1,6 @@
 #include "profile.h"
 
-Profile::Profile(unsigned id, const QString& name, const QString& exec, const QString& path)
-    : m_id(id), m_name(name), m_exec(exec), m_path(path) {
+Profile::Profile(unsigned id, const QString& name) : m_id(id), m_name(name) {
 
 }
 

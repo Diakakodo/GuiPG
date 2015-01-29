@@ -12,7 +12,7 @@ class Profile : public QObject {
          * @param id L'id du profil.
          * @param name Le nom du profil.
          */
-        explicit Profile(unsigned id, const QString& name, const QString& exec, const QString& path);
+        explicit Profile(unsigned id = 0, const QString& name = "default");
 
         /**
          * @brief getConfigurationPath Retourne le chemin vers le dossier de config
