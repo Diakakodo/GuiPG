@@ -19,6 +19,8 @@ class Configuration : public QObject {
          */
         explicit Configuration(const QString& filePath);
 
+        ~Configuration();
+
         /**
          * @brief loadProfiles Charge les profils disponibles.
          * @return Vrai si tout s'est bien passé.

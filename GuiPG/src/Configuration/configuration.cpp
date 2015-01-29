@@ -24,6 +24,10 @@ Configuration::Configuration(const QString& filePath)
     m_profiles.append(new Profile());
 }
 
+Configuration::~Configuration() {
+    qDeleteAll(m_profiles);
+}
+
 bool Configuration::load() {
     QFile f(m_filePath);
     if (!f.open(QIODevice::ReadOnly)) {
