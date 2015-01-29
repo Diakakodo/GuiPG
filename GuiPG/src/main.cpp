@@ -1,13 +1,16 @@
 #include <iostream>
 #include <QSharedMemory>
+#include "Tests/testmanager.h"
 
 #define MAX_INSTANCES_NB 10
 #define PROFILE_OPTION "-p"
+#define TEST_OPTION "-t"
 #define SHM_NAME "guipg"
 
 using namespace std;
 
 int main(int argc, char** argv) {
+
     unsigned id = 0;
     ++argv;
     while (*argv != NULL) {
@@ -25,6 +28,10 @@ int main(int argc, char** argv) {
                     exit(1);
                 }
             }
+        }
+        if (strcmp(*argv, TEST_OPTION) == 0) {
+            TestManager tmanager;
+            tmanager.runTests();
         }
     }
 
