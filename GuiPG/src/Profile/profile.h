@@ -12,7 +12,13 @@ class Profile : public QObject {
          * @param id L'id du profil.
          * @param name Le nom du profil.
          */
-        explicit Profile(unsigned id, const QString& name, const QString& exec);
+        explicit Profile(unsigned id, const QString& name, const QString& exec, const QString& path);
+
+        /**
+         * @brief getConfigurationPath Retourne le chemin vers le dossier de config
+         * @return le chemin vers le dossier de config
+         */
+        const QString& getConfigurationPath() const;
 
         /**
          * @brief getId Retourne l'id de ce profil.
@@ -28,17 +34,25 @@ class Profile : public QObject {
          * @brief getGPGExecutable Retourne le chemin vers l'exécutable de GPG.
          * @return Le chemin vers l'exécutable de GPG.
          */
-        QString getGPGExecutable() const;
+        const QString& getGPGExecutable() const;
         /**
          * @brief setGPGExecutable Change le chemin vers l'exécutable de GPG pour le profil courant.
          * @param path Le nouveau chemin vers l'exécutable de GPG.
          */
-        void setGPGExecutable(const QString& path);
+        void setGPGExecutable(const QString& exec);
+
+        /**
+         * @brief setConfigurationPath Modifie le chemin de config
+         * @param path le chemin de config
+         */
+        void setConfigurationPath(const QString& path);
+
 
     private:
         unsigned m_id;
         QString m_name;
         QString m_exec;
+        QString m_path;
 };
 
 #endif // PROFILE_H
