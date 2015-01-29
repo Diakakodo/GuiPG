@@ -80,11 +80,6 @@ const Profile* Configuration::getCurrentProfile() const {
     return m_currentProfile;
 }
 
-QString Configuration::getGPGExecutable() const {
-    QDomElement e = m_vars.value(GPG_TAG_NAME "/" EXEC_TAG_NAME);
-    return e.isNull() ? DEF_GPG_EXEC : e.attribute(VALUE_ATTR_NAME);
-}
-
 const QList<Profile*>& Configuration::getProfiles() const {
     return m_profiles;
 }
@@ -102,21 +97,6 @@ bool Configuration::save() {
     out << m_doc.toString();
     f.close();
     return true;
-}
-
-void Configuration::setGPGExecutable(const QString& path) {
-    QDomElement e = m_vars.value(GPG_TAG_NAME "/" EXEC_TAG_NAME);
-    if (e.isNull()) {
-        QDomElement gpg = m_profileElement.firstChildElement(GPG_TAG_NAME);
-        if (gpg.isNull()) {
-            gpg = m_doc.createElement(GPG_TAG_NAME);
-            m_profileElement.appendChild(gpg);
-        }
-        e = m_doc.createElement(EXEC_TAG_NAME);
-        gpg.appendChild(e);
-        m_vars.insert(GPG_TAG_NAME "/" EXEC_TAG_NAME, e);
-    }
-    e.setAttribute(VALUE_ATTR_NAME, path);
 }
 
 bool Configuration::attrIsProfileId(const QString& attr, unsigned id) const {

@@ -44,11 +44,7 @@ class Configuration : public QObject {
          * !isLoaded().
          */
         const Profile* getCurrentProfile() const;
-        /**
-         * @brief getGPGExecutable Retourne le chemin vers l'exécutable de GPG.
-         * @return Le chemin vers l'exécutable de GPG.
-         */
-        QString getGPGExecutable() const;
+
         /**
          * @brief getProfiles Retourne la liste des profils.
          * @return La liste des profils.
@@ -65,11 +61,7 @@ class Configuration : public QObject {
          * @return Vrai si tout s'est bien passé, faux sinon.
          */
         bool save();
-        /**
-         * @brief setGPGExecutable Change le chemin vers l'exécutable de GPG pour le profil courant.
-         * @param path Le nouveau chemin vers l'exécutable de GPG.
-         */
-        void setGPGExecutable(const QString& path);
+
 
     private:
         /**
