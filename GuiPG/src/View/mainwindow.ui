@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1099</width>
-    <height>760</height>
+    <height>761</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,8 +38,63 @@
         </widget>
        </widget>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QToolButton" name="toolButton">
+            <property name="minimumSize">
+             <size>
+              <width>15</width>
+              <height>15</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>15</width>
+              <height>15</height>
+             </size>
+            </property>
+            <property name="baseSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="arrowType">
+             <enum>Qt::DownArrow</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Commandes GPG</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>958</width>
+              <height>15</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
         <item>
          <widget class="QTextBrowser" name="textBrowser">
           <property name="sizePolicy">
@@ -67,58 +122,6 @@
            </size>
           </property>
          </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QToolButton" name="toolButton">
-            <property name="minimumSize">
-             <size>
-              <width>15</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>15</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="baseSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="arrowType">
-             <enum>Qt::UpArrow</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Commandes GPG</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>958</width>
-              <height>15</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
         </item>
        </layout>
       </widget>
@@ -164,7 +167,7 @@
    </widget>
    <widget class="QMenu" name="menuAide">
     <property name="title">
-     <string>Aide</string>
+     <string>A&amp;ide</string>
     </property>
     <addaction name="actionManuel_utilisateur_de_GuiPG"/>
     <addaction name="actionA_propos"/>
@@ -189,47 +192,47 @@
   </widget>
   <action name="actionProfiles">
    <property name="text">
-    <string>Profiles</string>
+    <string>&amp;Profiles</string>
    </property>
   </action>
   <action name="actionConfiguration">
    <property name="text">
-    <string>Configuration</string>
+    <string>&amp;Configuration</string>
    </property>
   </action>
   <action name="actionManuel_utilisateur_de_GuiPG">
    <property name="text">
-    <string>Manuel utilisateur de GuiPG</string>
+    <string>&amp;Manuel utilisateur de GuiPG</string>
    </property>
   </action>
   <action name="actionA_propos">
    <property name="text">
-    <string>A propos</string>
+    <string>&amp;A propos</string>
    </property>
   </action>
   <action name="actionG_n_rer_une_paire_de_clefs">
    <property name="text">
-    <string>Générer une paire de clefs</string>
+    <string>&amp;Générer une paire de clefs</string>
    </property>
   </action>
   <action name="actionEditeur_de_texte">
    <property name="text">
-    <string>Editeur de texte</string>
+    <string>&amp;Editeur de texte</string>
    </property>
   </action>
   <action name="actionToile_de_confiance_graphique">
    <property name="text">
-    <string>Toile de confiance graphique</string>
+    <string>&amp;Toile de confiance graphique</string>
    </property>
   </action>
   <action name="actionVue_des_commandes_GPG">
    <property name="text">
-    <string>Vue des commandes GPG</string>
+    <string>&amp;Vue des commandes GPG</string>
    </property>
   </action>
   <action name="actionQuitter">
    <property name="text">
-    <string>Quitter</string>
+    <string>&amp;Quitter</string>
    </property>
   </action>
  </widget>

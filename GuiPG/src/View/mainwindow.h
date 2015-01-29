@@ -15,8 +15,12 @@ class MainWindow : public QMainWindow {
         explicit MainWindow(const Profile* p);
         ~MainWindow();
 
+    public slots:
+        void setGpgCommandsVisible(bool b);
+
     private:
         Ui::MainWindow* ui;
+
 };
 
 #endif // MAINWINDOW_H

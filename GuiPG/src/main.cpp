@@ -1,6 +1,9 @@
 #include <iostream>
 #include <QSharedMemory>
 #include "Tests/testmanager.h"
+#include "QApplication"
+#include "Profile/profile.h"
+#include "View/mainwindow.h"
 
 #define MAX_INSTANCES_NB 10
 #define PROFILE_OPTION "-p"
@@ -43,6 +46,14 @@ int main(int argc, char** argv) {
         exit(1);
     } else {
         // TODO : lancer un thread pour le lancement des fenêtres
+
+        QApplication coquille(argc, argv);
+
+        Profile p(0);
+        MainWindow m(&p);
+        m.show();
+
+        return coquille.exec();
     }
     return 0;
 }
