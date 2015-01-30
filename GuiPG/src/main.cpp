@@ -1,10 +1,14 @@
 #include <iostream>
+#include <QObject>
 #include <QSharedMemory>
+#include <QSemaphore>
 #include "Tests/testmanager.h"
 #include "QApplication"
 #include "Profile/profile.h"
 #include "View/mainwindow.h"
 #include "Launcher/guipgapp.h"
+#include "Configuration/configuration.h"
+#include "Launcher/launcher.h"
 
 #define MAX_INSTANCES_NB 10
 #define PROFILE_OPTION "-p"
@@ -39,6 +43,12 @@ int main(int argc, char** argv) {
         }
     }
 
+    // TODO penser a tester le chargement de la configuration.
+    Configuration config("config.xml");
+    config.load();
+
+
+
     QSharedMemory shm(SHM_NAME);
     if (shm.attach(QSharedMemory::ReadOnly)) {
         // TODO : écrire dans un sémaphore pour lancer l'appli
@@ -49,13 +59,16 @@ int main(int argc, char** argv) {
     } else {
         // TODO : lancer un thread pour le lancement des fenêtres
 
-        QApplication coquille(argc, argv);
+        QSemaphore sem(0);
 
-        Profile p;
-        MainWindow m(&p);
-        m.show();
+        GuiPGApp app(argc, argv);
+        Launcher launcher(&sem, &config, &shm);
 
-        return coquille.exec();
+        QObject::connect(&launcher, &Launcher::runApp, &app, &GuiPGApp::launchApp);
+
+        launcher.start();
+
+        return app.exec();
     }
     return 0;
 }
