@@ -71,6 +71,15 @@ bool Configuration::load() {
     return true;
 }
 
+Profile* Configuration::getProfileById(unsigned id) const {
+    for (Profile* p : m_profiles) {
+        if (p->getId() == id) {
+            return p;
+        }
+    }
+    return nullptr;
+}
+
 const QList<Profile*>& Configuration::getProfiles() const {
     return m_profiles;
 }
