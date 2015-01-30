@@ -4,6 +4,7 @@
 #include "QApplication"
 #include "Profile/profile.h"
 #include "View/mainwindow.h"
+#include "Launcher/guipgapp.h"
 
 #define MAX_INSTANCES_NB 10
 #define PROFILE_OPTION "-p"
@@ -41,6 +42,7 @@ int main(int argc, char** argv) {
     QSharedMemory shm(SHM_NAME);
     if (shm.attach(QSharedMemory::ReadOnly)) {
         // TODO : écrire dans un sémaphore pour lancer l'appli
+        exit(0);
     } else if (!shm.create(MAX_INSTANCES_NB * sizeof (unsigned))) {
         cerr << "Unable to init shared memory." << endl;
         exit(1);
@@ -49,7 +51,7 @@ int main(int argc, char** argv) {
 
         QApplication coquille(argc, argv);
 
-        Profile p(0);
+        Profile p;
         MainWindow m(&p);
         m.show();
 

@@ -1,12 +1,16 @@
 #include "launcher.h"
 
-Launcher::Launcher()
-{
+Launcher::Launcher(QSemaphore* sem, Configuration* conf)
+    : m_sem(sem), m_conf(conf) {
 
 }
 
-Launcher::~Launcher()
-{
+Launcher::~Launcher() {
+
+}
+
+void Launcher::run() {
+    m_sem->acquire();
 
 }
 
