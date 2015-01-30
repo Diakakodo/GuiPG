@@ -27,6 +27,8 @@ class Configuration : public QObject {
          */
         bool load();
 
+        Profile* getProfileById(unsigned id) const;
+
         /**
          * @brief getProfiles Retourne la liste des profils.
          * @return La liste des profils.
