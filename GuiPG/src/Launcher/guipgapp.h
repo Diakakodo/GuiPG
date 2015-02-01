@@ -5,14 +5,13 @@
 #include <QApplication>
 #include "../Profile/profile.h"
 
-class GuiPGApp : public QApplication
-{
-        Q_OBJECT
+class GuiPGApp : public QApplication {
+
     public:
-        explicit GuiPGApp(int& argc, char** argv);
+        GuiPGApp(int& argc, char** argv);
 
         ~GuiPGApp();
-
+    signals:
     public slots:
         void launchApp(Profile* p);
 };
