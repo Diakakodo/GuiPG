@@ -7,7 +7,9 @@ HEADERS += \
     src/Tests/testmanager.h \
     src/action.h \
     src/View/mainwindow.h \
-    src/Profile/profilemanager.h
+    src/Profile/profilemanager.h \
+    src/Tests/test_12.h \
+    src/Tests/test_13.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -16,7 +18,9 @@ SOURCES += \
     src/main.cpp \
     src/action.cpp \
     src/View/mainwindow.cpp \
-    src/Profile/profilemanager.cpp
+    src/Profile/profilemanager.cpp \
+    src/Tests/test_12.cpp \
+    src/Tests/test_13.cpp
 
 FORMS += \
     src/View/mainwindow.ui

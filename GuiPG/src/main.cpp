@@ -35,6 +35,8 @@ int main(int argc, char** argv) {
         if (strcmp(*argv, TEST_OPTION) == 0) {
             TestManager tmanager;
             tmanager.runTests();
+            ++*argv;
+            exit(0);
         }
     }
 
