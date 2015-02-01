@@ -1,7 +1,5 @@
 #include <iostream>
 #include <QObject>
-#include <QSharedMemory>
-#include <QSemaphore>
 #include "Tests/testmanager.h"
 #include "QApplication"
 #include "Profile/profile.h"
@@ -10,10 +8,13 @@
 #include "Configuration/configuration.h"
 #include "Launcher/launcher.h"
 
+
+#include <QDebug>
+
 #define MAX_INSTANCES_NB 10
 #define PROFILE_OPTION "-p"
 #define TEST_OPTION "-t"
-#define SHM_NAME "guipg"
+//#define SHM_NAME "guipg"
 
 using namespace std;
 
@@ -45,32 +46,18 @@ int main(int argc, char** argv) {
         }
     }
 
+
     // TODO penser a tester le chargement de la configuration.
     Configuration config("config.xml");
     config.load();
 
-
-
-    QSharedMemory shm(SHM_NAME);
-    if (shm.attach(QSharedMemory::ReadOnly)) {
-        // TODO : écrire dans un sémaphore pour lancer l'appli
-        exit(0);
-    } else if (!shm.create(MAX_INSTANCES_NB * sizeof (unsigned))) {
-        cerr << "Unable to init shared memory." << endl;
-        exit(1);
-    } else {
-        // TODO : lancer un thread pour le lancement des fenêtres
-
-        QSemaphore sem(0);
-
-        GuiPGApp app(argc, argv);
-        Launcher launcher(&sem, &config, &shm);
-
-        QObject::connect(&launcher, &Launcher::runApp, &app, &GuiPGApp::launchApp);
-
-        launcher.start();
-
-        return app.exec();
+    GuiPGApp app(argc, argv);
+    Launcher launcher(&app, &config);
+    QObject::connect(&app, &GuiPGApp::lastWindowClosed, &launcher, &Launcher::stop);
+    launcher.start();
+    if (!launcher.alreadyRun()) {
+        app.exec();
     }
-    return 0;
+    launcher.wait();
+    return EXIT_SUCCESS;
 }
