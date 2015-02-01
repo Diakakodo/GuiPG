@@ -9,7 +9,9 @@ HEADERS += \
     src/View/mainwindow.h \
     src/Profile/profilemanager.h \
     src/Launcher/guipgapp.h \
-    src/Launcher/launcher.h
+    src/Launcher/launcher.h \
+    src/Tests/test_12.h \
+    src/Tests/test_13.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -20,7 +22,9 @@ SOURCES += \
     src/View/mainwindow.cpp \
     src/Profile/profilemanager.cpp \
     src/Launcher/guipgapp.cpp \
-    src/Launcher/launcher.cpp
+    src/Launcher/launcher.cpp \
+    src/Tests/test_12.cpp \
+    src/Tests/test_13.cpp
 
 FORMS += \
     src/View/mainwindow.ui
