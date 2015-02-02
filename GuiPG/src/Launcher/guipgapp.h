@@ -7,6 +7,8 @@
 
 class GuiPGApp : public QApplication {
 
+        Q_OBJECT
+
     public:
         GuiPGApp(int& argc, char** argv);
 
