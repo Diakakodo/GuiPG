@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1099</width>
-    <height>761</height>
+    <height>749</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,22 @@
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <widget class="QSplitter" name="splitter_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
       <widget class="QSplitter" name="splitter">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>100</verstretch>
+        </sizepolicy>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -40,61 +52,9 @@
       </widget>
       <widget class="QWidget" name="layoutWidget">
        <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QToolButton" name="toolButton">
-            <property name="minimumSize">
-             <size>
-              <width>15</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>15</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="baseSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="arrowType">
-             <enum>Qt::DownArrow</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Commandes GPG</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>958</width>
-              <height>15</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
+        </property>
         <item>
          <widget class="QTextBrowser" name="textBrowser">
           <property name="sizePolicy">
@@ -122,6 +82,88 @@
            </size>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <property name="sizeConstraint">
+           <enum>QLayout::SetFixedSize</enum>
+          </property>
+          <item>
+           <widget class="QToolButton" name="toolButton">
+            <property name="minimumSize">
+             <size>
+              <width>15</width>
+              <height>15</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>15</width>
+              <height>15</height>
+             </size>
+            </property>
+            <property name="baseSize">
+             <size>
+              <width>15</width>
+              <height>15</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="arrowType">
+             <enum>Qt::UpArrow</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>15</height>
+             </size>
+            </property>
+            <property name="baseSize">
+             <size>
+              <width>0</width>
+              <height>15</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Commandes GPG</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>958</width>
+              <height>15</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -162,7 +204,15 @@
     <property name="title">
      <string>Pa&amp;ramètres</string>
     </property>
-    <addaction name="actionProfiles"/>
+    <widget class="QMenu" name="menu_Profiles">
+     <property name="title">
+      <string>&amp;Profiles</string>
+     </property>
+     <addaction name="actionChanger_de_profile"/>
+     <addaction name="actionSupprimer_un_profile"/>
+     <addaction name="actionCreer_un_nouveau_profile"/>
+    </widget>
+    <addaction name="menu_Profiles"/>
     <addaction name="actionConfiguration"/>
    </widget>
    <widget class="QMenu" name="menuAide">
@@ -190,11 +240,6 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <action name="actionProfiles">
-   <property name="text">
-    <string>&amp;Profiles</string>
-   </property>
-  </action>
   <action name="actionConfiguration">
    <property name="text">
     <string>&amp;Configuration</string>
@@ -233,6 +278,21 @@
   <action name="actionQuitter">
    <property name="text">
     <string>&amp;Quitter</string>
+   </property>
+  </action>
+  <action name="actionChanger_de_profile">
+   <property name="text">
+    <string>Changer de profile</string>
+   </property>
+  </action>
+  <action name="actionSupprimer_un_profile">
+   <property name="text">
+    <string>Supprimer un profile</string>
+   </property>
+  </action>
+  <action name="actionCreer_un_nouveau_profile">
+   <property name="text">
+    <string>Créer un nouveau profile</string>
    </property>
   </action>
  </widget>
