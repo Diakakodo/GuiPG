@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "../Profile/profile.h"
+#include "Profil/dialogprofil.h"
 
 namespace Ui {
     class MainWindow;
@@ -17,6 +18,8 @@ class MainWindow : public QMainWindow {
 
     public slots:
         void setGpgCommandsVisible(bool b);
+        void showDialogSelectProfil();
+        void showDialogDeleteProfil();
 
     private:
         Ui::MainWindow* ui;
