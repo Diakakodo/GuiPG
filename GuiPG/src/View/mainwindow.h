@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "../Profile/profile.h"
-#include "Profil/dialogprofil.h"
+#include "../Configuration/configuration.h"
 
 namespace Ui {
     class MainWindow;
@@ -13,8 +13,10 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 
     public:
-        explicit MainWindow(const Profile* p);
+        explicit MainWindow(Profile* p, Configuration* config);
         ~MainWindow();
+        Profile* getProfil() const;
+        Configuration* getConfiguration() const;
 
     public slots:
         void setGpgCommandsVisible(bool b);
@@ -23,7 +25,8 @@ class MainWindow : public QMainWindow {
 
     private:
         Ui::MainWindow* ui;
-
+        Configuration* m_config;
+        Profile* m_profil;
 };
 
 #endif // MAINWINDOW_H

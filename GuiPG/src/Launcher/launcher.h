@@ -30,7 +30,7 @@ class Launcher : public QThread {
         bool alreadyRun();
 
     signals:
-        void runApp(Profile* p);
+        void runApp(Profile* p, Configuration* config);
 
     public slots:
         void stop();

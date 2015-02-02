@@ -41,7 +41,7 @@ void Launcher::startInstance(Profile* p) {
     // On libère le mutex
     m_sem->release();
     // On emet le signal pour signifier a GuiPGApp de lancer la fenetre.
-    emit runApp(m_conf->getProfileById(p->getId()));
+    emit runApp(m_conf->getProfileById(p->getId()), m_conf);
 }
 
 bool Launcher::alreadyRun() {
