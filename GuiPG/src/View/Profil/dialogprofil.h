@@ -2,6 +2,7 @@
 #define DIALOGPROFIL_H
 
 #include <QDialog>
+#include "../mainwindow.h"
 
 namespace Ui {
 class DialogProfil;
@@ -13,7 +14,7 @@ class DialogProfil : public QDialog
 
 public:
     enum DIALOG_TYPE {SELECT, DELETE};
-    explicit DialogProfil(DIALOG_TYPE dialog_type, QWidget *parent = 0);
+    explicit DialogProfil(DIALOG_TYPE dialog_type, MainWindow *parent = 0);
     ~DialogProfil();
 
 private:

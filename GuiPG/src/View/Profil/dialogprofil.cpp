@@ -6,7 +6,7 @@
 #include "../../Configuration/configuration.h"
 
 
-DialogProfil::DialogProfil(DIALOG_TYPE dialog_type, QWidget *parent) :
+DialogProfil::DialogProfil(DIALOG_TYPE dialog_type, MainWindow *parent) :
     QDialog(parent),
     ui(new Ui::DialogProfil)
 {
@@ -22,9 +22,18 @@ DialogProfil::DialogProfil(DIALOG_TYPE dialog_type, QWidget *parent) :
     m_TableHeader<<"N°"<<"Nom"<<"Dossier de configuration";
     ui->tableWidgetProfil->setHorizontalHeaderLabels(m_TableHeader);
 
-    //ui->tableWidgetProfil->setRowCount(1);
-    //ui->tableWidgetProfil->setItem(0, 0, new QTableWidgetItem("Hello"));
+    QList<Profile*> profilList = parent->getConfiguration()->getProfiles();
+    ui->tableWidgetProfil->setRowCount(profilList.size());
 
+    Profile* profil;
+    int i = 0;
+    foreach (profil, profilList) {
+        ui->tableWidgetProfil->setItem(i, 0, new QTableWidgetItem(QString::number(profil->getId())));
+        ui->tableWidgetProfil->setItem(i, 1, new QTableWidgetItem(profil->getName()));
+        ui->tableWidgetProfil->setItem(i, 2, new QTableWidgetItem(profil->getConfigurationPath()));
+        ui->tableWidgetProfil->setRowHeight(i, 20);
+        ++i;
+    }
 }
 
 DialogProfil::~DialogProfil()
