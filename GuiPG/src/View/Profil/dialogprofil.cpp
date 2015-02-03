@@ -21,8 +21,9 @@ DialogProfil::DialogProfil(DIALOG_TYPE dialog_type, QWidget *parent) :
     QStringList m_TableHeader;
     m_TableHeader<<"N°"<<"Nom"<<"Dossier de configuration";
     ui->tableWidgetProfil->setHorizontalHeaderLabels(m_TableHeader);
-    ui->tableWidgetProfil->setRowCount(1);
-    ui->tableWidgetProfil->setItem(0, 0, new QTableWidgetItem("Hello"));
+
+    //ui->tableWidgetProfil->setRowCount(1);
+    //ui->tableWidgetProfil->setItem(0, 0, new QTableWidgetItem("Hello"));
 
 }
 
