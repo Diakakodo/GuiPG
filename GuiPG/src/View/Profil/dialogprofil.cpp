@@ -17,10 +17,12 @@ DialogProfil::DialogProfil(DIALOG_TYPE dialog_type, QWidget *parent) :
         ui->buttonBox->addButton("&Supprimer", QDialogButtonBox::ActionRole);
     }
     ui->buttonBox->button(QDialogButtonBox::Cancel)->setText("&Annuler");
-    ui->tableWidgetProfil->setColumnCount(3);
+
     QStringList m_TableHeader;
     m_TableHeader<<"N°"<<"Nom"<<"Dossier de configuration";
     ui->tableWidgetProfil->setHorizontalHeaderLabels(m_TableHeader);
+    ui->tableWidgetProfil->setRowCount(1);
+    ui->tableWidgetProfil->setItem(0, 0, new QTableWidgetItem("Hello"));
 
 }
 

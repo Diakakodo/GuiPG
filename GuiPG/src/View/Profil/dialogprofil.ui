@@ -25,6 +25,18 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="columnCount">
+      <number>3</number>
+     </property>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
+     <column/>
+     <column/>
+     <column/>
     </widget>
    </item>
    <item>
