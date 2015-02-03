@@ -44,6 +44,15 @@ class Configuration : public QObject {
 
 
     private:
+        /**
+         * @brief addNode Ajoute un élément fils avec un noeud de texte.
+         * @param name Nom de la balise.
+         * @param value Valeur du noeud de texte.
+         * @param doc Le document parent.
+         * @param parent La balise parente.
+         */
+        void addNode(const QString& name, const QString& value,
+                     QDomDocument& doc, QDomElement& parent);
 
         QString m_filePath;
         QList<Profile*> m_profiles;

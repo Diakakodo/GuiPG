@@ -4,12 +4,6 @@
 #include <QTextStream>
 #include <iostream>
 
-#ifdef _WIN32
-#define DEF_GPG_EXEC "C:/Program Files (x86)/GNU/GnuPG/gpg2.exe"
-#else
-#define DEF_GPG_EXEC "gpg"
-#endif
-
 #define EXEC_TAG_NAME "exec"
 #define ID_ATTR_NAME "id"
 #define NAME_ATTR_NAME "name"
@@ -84,7 +78,32 @@ const QList<Profile*>& Configuration::getProfiles() const {
     return m_profiles;
 }
 
-//TODO
 bool Configuration::save() {
-    return false;
+    QDomDocument doc;
+    QDomElement root = doc.createElement(ROOT_TAG_NAME);
+    doc.appendChild(root);
+    for (Profile* p : m_profiles) {
+        QDomElement pe = doc.createElement(PROFILE_TAG_NAME);
+        pe.setAttribute(ID_ATTR_NAME, p->getId());
+        pe.setAttribute(NAME_ATTR_NAME, p->getName());
+        addNode(EXEC_TAG_NAME, p->getGPGExecutable(), doc, pe);
+        addNode(PATH_TAG_NAME, p->getConfigurationPath(), doc, pe);
+        root.appendChild(pe);
+    }
+
+    QFile f(m_filePath);
+    if (!f.open(QIODevice::WriteOnly)) {
+        return false;
+    }
+    QTextStream out(&f);
+    out << doc.toString();
+    f.close();
+    return true;
+}
+
+void Configuration::addNode(const QString& name, const QString& value,
+                            QDomDocument& doc, QDomElement& parent) {
+    QDomElement e = doc.createElement(name);
+    e.appendChild(doc.createTextNode(value));
+    parent.appendChild(e);
 }
