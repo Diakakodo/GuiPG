@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Création de clé</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -27,6 +27,9 @@
    </property>
    <property name="standardButtons">
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+   <property name="centerButtons">
+    <bool>false</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -106,14 +109,29 @@
    <property name="toolTip">
     <string/>
    </property>
+   <property name="toolTipDuration">
+    <number>5</number>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <property name="minimum">
     <number>1024</number>
    </property>
    <property name="maximum">
     <number>4096</number>
    </property>
+   <property name="singleStep">
+    <number>1024</number>
+   </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksBelow</enum>
+   </property>
+   <property name="tickInterval">
+    <number>1024</number>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -150,7 +168,7 @@
     <rect>
      <x>60</x>
      <y>220</y>
-     <width>78</width>
+     <width>91</width>
      <height>27</height>
     </rect>
    </property>
@@ -171,7 +189,7 @@
    </item>
    <item>
     <property name="text">
-     <string>Moi(s)</string>
+     <string>Mois</string>
     </property>
    </item>
    <item>

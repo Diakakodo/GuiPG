@@ -4,6 +4,7 @@
 #include "QApplication"
 #include "Profile/profile.h"
 #include "View/mainwindow.h"
+#include "View/key_creation.h"
 #include "Launcher/guipgapp.h"
 #include "Configuration/configuration.h"
 #include "Launcher/launcher.h"
