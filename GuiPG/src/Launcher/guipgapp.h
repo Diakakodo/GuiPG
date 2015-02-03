@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QApplication>
 #include "../Profile/profile.h"
+#include "../Configuration/configuration.h"
 
 class GuiPGApp : public QApplication {
 
@@ -15,7 +16,7 @@ class GuiPGApp : public QApplication {
         ~GuiPGApp();
     signals:
     public slots:
-        void launchApp(Profile* p);
+        void launchApp(Profile* p, Configuration* config);
 };
 
 #endif // GUIPGAPP_H

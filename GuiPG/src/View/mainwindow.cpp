@@ -4,12 +4,22 @@
 #include <QApplication>
 #include "Profil/dialogprofil.h"
 
-MainWindow::MainWindow(const Profile* p) : ui(new Ui::MainWindow) {
+MainWindow::MainWindow(Profile* p, Configuration* config)
+    : ui(new Ui::MainWindow), m_profil(p), m_config(config) {
+
     ui->setupUi(this);
     ui->textBrowser->setVisible(false);
     connect(ui->toolButton, SIGNAL(toggled(bool)), this, SLOT(setGpgCommandsVisible(bool)));
     connect(ui->actionChanger_de_profile, SIGNAL(triggered()), this, SLOT(showDialogSelectProfil()));
     connect(ui->actionSupprimer_un_profile, SIGNAL(triggered()), this, SLOT(showDialogDeleteProfil()));
+}
+
+Profile* MainWindow::getProfil() const {
+    return m_profil;
+}
+
+Configuration* MainWindow::getConfiguration() const {
+    return m_config;
 }
 
 MainWindow::~MainWindow() {
