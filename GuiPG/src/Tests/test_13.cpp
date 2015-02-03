@@ -22,6 +22,6 @@ void Test_13::runTest() {
     TestManager::evaluateTest("13.5", a.nextInteraction() == "1");
     TestManager::evaluateTest("13.6", a.nextInteraction() == "2");
     TestManager::evaluateTest("13.7", a.nextInteraction() == "3");
-    //Vérifier que a.nextInteraction() lance une exception
+    // TODO Vérifier que a.nextInteraction() lance une exception
 }
 
