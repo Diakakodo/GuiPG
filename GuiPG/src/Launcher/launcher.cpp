@@ -79,11 +79,11 @@ void Launcher::listen() {
         // On notifie l'application principale qu'il y a des donénes a lire
         m_systemSem->release();
         // Et on quitte le thread.
-        QThread::currentThread()->quit();
+        pthread_exit(NULL);
     } else if (!m_shm->create(sizeof (unsigned))) {
         cerr << "Unable to init shared memory." << endl;
         qDebug() << m_shm->errorString();
-        QThread::currentThread()->quit();
+        pthread_exit(NULL);
     }
     // Le SHM est fraichement créée
     // On lance la première instance.

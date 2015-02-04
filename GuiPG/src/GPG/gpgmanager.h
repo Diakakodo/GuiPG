@@ -10,10 +10,11 @@ class GPGManager : public QObject {
         Q_OBJECT
 
     public:
-        explicit GPGManager(const Profile* p, const Action* a);
+        explicit GPGManager(const Profile* p, const Action* a = nullptr);
 
         void execute();
         const QString& getOutput() const;
+        void setAction(const Action* a);
 
     signals:
         void finished(int s, const QString& output);

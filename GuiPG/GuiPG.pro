@@ -14,7 +14,9 @@ HEADERS += \
     src/Tests/test_13.h \
     src/View/key_creation.h \
     src/GPG/gpgmanager.h \
-    src/GPG/action.h
+    src/GPG/action.h \
+    src/Keys/key.h \
+    src/Keys/keymanager.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -30,7 +32,9 @@ SOURCES += \
     src/Tests/test_13.cpp \
     src/View/key_creation.cpp \
     src/GPG/gpgmanager.cpp \
-    src/GPG/action.cpp
+    src/GPG/action.cpp \
+    src/Keys/key.cpp \
+    src/Keys/keymanager.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
