@@ -1,14 +1,6 @@
 <configurations>
- <profile id="0" name="default">
-  <exec>C:/Program Files (x86)/GNU/GnuPG/gpg2.exe</exec>
-  <path>Home/AppData/Roaming/gnupg/</path>
- </profile>
- <profile id="0" name="default">
-  <exec>C:/Program Files (x86)/GNU/GnuPG/gpg2.exe</exec>
-  <path>Home/AppData/Roaming/gnupg/</path>
- </profile>
- <profile id="1" name="Guillaume">
-  <exec>chemin</exec>
-  <path>Home/AppData/Roaming/gnupg/</path>
+ <profile id="1" name="Matthieu">
+  <exec>gpg</exec>
+  <path>~/.gnupg/</path>
  </profile>
 </configurations>

@@ -15,7 +15,7 @@ using namespace std;
 
 Configuration::Configuration(const QString& filePath)
     : m_filePath(filePath) {
-    m_profiles.append(new Profile);
+    //m_profiles.append(new Profile);
 }
 
 Configuration::~Configuration() {
@@ -64,7 +64,7 @@ bool Configuration::load() {
     f.close();
     return true;
 }
-
+#include <QDebug>
 Profile* Configuration::getProfileById(unsigned id) const {
     for (Profile* p : m_profiles) {
         if (p->getId() == id) {
@@ -82,7 +82,7 @@ bool Configuration::save() {
     QDomDocument doc;
     QDomElement root = doc.createElement(ROOT_TAG_NAME);
     doc.appendChild(root);
-    for (int i = 1; i < m_profiles.size(); ++i) {
+    for (int i = 0; i < m_profiles.size(); ++i) {
         Profile* p = m_profiles.at(i);
         QDomElement pe = doc.createElement(PROFILE_TAG_NAME);
         pe.setAttribute(ID_ATTR_NAME, p->getId());

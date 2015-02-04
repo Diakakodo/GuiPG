@@ -11,8 +11,9 @@ MainWindow::MainWindow(Profile* p, Configuration* config)
     ui->setupUi(this);
     ui->textBrowser->setVisible(false);
 
-    GPGManager* m = new GPGManager(p, new Action("--gen-key"));
-    m->execute();
+    if (p == nullptr) {
+        showDialogSelectProfil();
+    }
 
     connect(ui->toolButton, SIGNAL(toggled(bool)), this, SLOT(setGpgCommandsVisible(bool)));
     connect(ui->actionChanger_de_profile, SIGNAL(triggered()), this, SLOT(showDialogSelectProfil()));

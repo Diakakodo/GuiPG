@@ -20,7 +20,9 @@ Launcher::Launcher(GuiPGApp* app, Configuration* conf, int profileId)
 
 Launcher::~Launcher() {
     // TODO libérer les ressources QHash and co ...
-    //m_systemSem->acquire();
+    delete m_sem;
+    delete m_shm;
+    delete m_systemSem;
 }
 
 void Launcher::run() {
@@ -41,7 +43,9 @@ void Launcher::startInstance(Profile* p) {
     // On libère le mutex
     m_sem->release();
     // On emet le signal pour signifier a GuiPGApp de lancer la fenetre.
-    emit runApp(m_conf->getProfileById(p->getId()), m_conf);
+    //qDebug() << p->getId();
+
+    emit runApp(p, m_conf);
 }
 
 bool Launcher::alreadyRun() {
@@ -79,11 +83,11 @@ void Launcher::listen() {
         // On notifie l'application principale qu'il y a des donénes a lire
         m_systemSem->release();
         // Et on quitte le thread.
-        QThread::currentThread()->quit();
+        pthread_exit(NULL);
     } else if (!m_shm->create(sizeof (unsigned))) {
         cerr << "Unable to init shared memory." << endl;
         qDebug() << m_shm->errorString();
-        QThread::currentThread()->quit();
+        pthread_exit(NULL);
     }
     // Le SHM est fraichement créée
     // On lance la première instance.
@@ -93,9 +97,16 @@ void Launcher::listen() {
     // On boucle avec une attente passive de données a lire sur le SHM.
     while (!m_stop) {
         m_systemSem->acquire();
+        if (m_stop) {
+            break;
+        }
         m_shm->lock();
         unsigned id = *((unsigned*) m_shm->data());
         m_shm->unlock();
+        if (id == 0) {
+            // TODO lancer avec l'option -p.
+            id = 0;
+        }
         l = new Launcher(m_app, m_conf, id);
         m_launchers.insert(m_conf->getProfileById(id), l);
         l->start();
