@@ -4,7 +4,7 @@
 #include "QApplication"
 #include "Profile/profile.h"
 #include "View/mainwindow.h"
-#include "View/key_creation.h"
+#include "View/keycreation.h"
 #include "Launcher/guipgapp.h"
 #include "Configuration/configuration.h"
 #include "Launcher/launcher.h"
@@ -38,12 +38,6 @@ int main(int argc, char** argv) {
                     exit(1);
                 }
             }
-        }
-        if (strcmp(*argv, TEST_OPTION) == 0) {
-            TestManager tmanager;
-            tmanager.runTests();
-            ++*argv;
-            exit(0);
         }
     }
 
