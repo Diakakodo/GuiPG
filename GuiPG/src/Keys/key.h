@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QList>
+#include <QDateTime>
 
 class Key : public QObject {
         Q_OBJECT
@@ -10,37 +11,37 @@ class Key : public QObject {
     public:
         // doc/DETAILS (src GPG)
         enum Validity {
-            UNKNOWN = 'o',
-            MISSING_SSIG = 'i',
-            REVOKED = 'r',
-            EXPIRED = 'e',
-            NO_VALUE = '-',
-            UNDEFINED = 'q',
-            INVALID = 'n',
-            MARGINAL = 'm',
-            FULLY = 'f',
-            ULTIMATELY = 'u',
-            PRIVATE_PART = 'w',
-            SPECIAL = 's'
+            VAL_UNKNOWN = 'o',
+            VAL_MISSING_SSIG = 'i',
+            VAL_REVOKED = 'r',
+            VAL_EXPIRED = 'e',
+            VAL_NO_VALUE = '-',
+            VAL_UNDEFINED = 'q',
+            VAL_INVALID = 'n',
+            VAL_MARGINAL = 'm',
+            VAL_FULLY = 'f',
+            VAL_ULTIMATELY = 'u',
+            VAL_PRIVATE_PART = 'w',
+            VAL_SPECIAL = 's'
         };
 
         enum Scope {
-            PUBLIC, PRIVATE
+            SCOPE_PUBLIC, SCOPE_PRIVATE
         };
 
         enum Algorithm {
-            RSA = '1',
-            DSA = '2',
-            DSA_SIG = '3',
-            RSA_SIG = '4'
+            ALGO_RSA = '1',
+            ALGO_DSA = '2',
+            ALGO_DSA_SIG = '3',
+            ALGO_RSA_SIG = '4'
         };
 
         enum Capabilities {
-            ENCRYPT = 'e',
-            SIGN = 's',
-            CERTIFY = 'c',
-            AUTHENTIFICATION = 'a',
-            UNKNOWN = '?'
+            CAP_ENCRYPT = 'e',
+            CAP_SIGN = 's',
+            CAP_CERTIFY = 'c',
+            CAP_AUTHENTIFICATION = 'a',
+            CAP_UNKNOWN = '?'
         };
 
         explicit Key(Scope s,

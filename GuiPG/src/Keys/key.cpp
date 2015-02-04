@@ -12,7 +12,7 @@ Key::Key(Scope s,
          const QString& email,
          unsigned uid)
         : m_length(length),
-          m_val(val),
+          m_val(v),
           m_scope(s),
           m_algo(a),
           m_id(id),
