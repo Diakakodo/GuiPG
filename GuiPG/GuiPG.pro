@@ -4,21 +4,17 @@ QMAKE_CXXFLAGS += -std=c++11 -pedantic -Wall
 HEADERS += \
     src/Configuration/configuration.h \
     src/Profile/profile.h \
-    src/Tests/testmanager.h \
     src/action.h \
     src/View/mainwindow.h \
     src/View/Profil/dialogprofil.h \
     src/Profile/profilemanager.h \
     src/Launcher/guipgapp.h \
     src/Launcher/launcher.h \
-    src/Tests/test_12.h \
-    src/Tests/test_13.h \
-    src/View/key_creation.h
+    src/View/keycreation.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
     src/Profile/profile.cpp \
-    src/Tests/testmanager.cpp \
     src/main.cpp \
     src/action.cpp \
     src/View/mainwindow.cpp \
@@ -26,11 +22,18 @@ SOURCES += \
     src/Profile/profilemanager.cpp \
     src/Launcher/guipgapp.cpp \
     src/Launcher/launcher.cpp \
-    src/Tests/test_12.cpp \
-    src/Tests/test_13.cpp \
-    src/View/key_creation.cpp
+    src/View/keycreation.cpp \
 
 FORMS += \
     src/View/mainwindow.ui \
     src/View/Profil/dialogprofil.ui \
-    src/View/key_creation.ui
+    src/View/keycreation.ui
+
+test {
+
+    QT += testlib
+    TARGET = Guipg-test
+    SOURCES -= src/main.cpp
+
+    SOURCES += src/Tests/tst_maintest.cpp\
+}
