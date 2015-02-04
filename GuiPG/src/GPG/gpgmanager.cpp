@@ -9,16 +9,16 @@ GPGManager::GPGManager(const Profile *p, const Action* a) : m_profile(p),
 }
 
 void GPGManager::execute() {
-    QStringList args;
-    args << m_action->getOptions() << "--with-colons" << m_action->getCmd()
-         << m_action->getArgs();
-    m_gpg.start(m_profile->getGPGExecutable(), args);
+    if (m_action != nullptr) {
+        QStringList args;
+        args << m_action->getOptions() << "--with-colons" << m_action->getCmd()
+             << m_action->getArgs();
+        m_gpg.start(m_profile->getGPGExecutable(), args);
+    }
 }
 
 void GPGManager::readOutput() {
     m_output += m_gpg.readAllStandardOutput();
-    qDebug() << m_output;
-
 }
 
 const QString& GPGManager::getOutput() const {
