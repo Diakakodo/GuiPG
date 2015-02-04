@@ -12,7 +12,7 @@ class Profile : public QObject {
          * @param id L'id du profil.
          * @param name Le nom du profil.
          */
-        explicit Profile(unsigned id = 0, const QString& name = "default");
+        explicit Profile(unsigned id = 1, const QString& name = "default");
 
         /**
          * @brief getConfigurationPath Retourne le chemin vers le dossier de config
@@ -29,7 +29,7 @@ class Profile : public QObject {
          * @brief getName Retourne le nom de ce profil.
          * @return Le nom de ce profil.
          */
-        const QString& getName() const;        
+        const QString& getName() const;
         /**
          * @brief getGPGExecutable Retourne le chemin vers l'exécutable de GPG.
          * @return Le chemin vers l'exécutable de GPG.

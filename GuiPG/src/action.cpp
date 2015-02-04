@@ -2,7 +2,7 @@
 
 // Constructeurs
 
-Action::Action(QString cmd, QStringList args, QStringList options, QStringList interactions)
+Action::Action(QString cmd, const QStringList &args, const QStringList &options, const QStringList &interactions)
     : m_cmd(cmd), m_args(args), m_options(options), m_interactions(interactions) {
     // On place l'index des interaction a 0.
     m_index = 0;

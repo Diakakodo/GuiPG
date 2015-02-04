@@ -58,6 +58,7 @@ int main(int argc, char** argv) {
     launcher.start();
     if (!launcher.alreadyRun()) {
         app.exec();
+        config.save();
     }
     launcher.wait();
     return EXIT_SUCCESS;

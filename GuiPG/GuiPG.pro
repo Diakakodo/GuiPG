@@ -13,7 +13,8 @@ HEADERS += \
     src/Launcher/launcher.h \
     src/Tests/test_12.h \
     src/Tests/test_13.h \
-    src/View/key_creation.h
+    src/View/key_creation.h \
+    src/GPG/gpgmanager.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -28,7 +29,8 @@ SOURCES += \
     src/Launcher/launcher.cpp \
     src/Tests/test_12.cpp \
     src/Tests/test_13.cpp \
-    src/View/key_creation.cpp
+    src/View/key_creation.cpp \
+    src/GPG/gpgmanager.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
