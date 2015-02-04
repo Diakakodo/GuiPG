@@ -3,12 +3,17 @@
 #include "iostream"
 #include <QApplication>
 #include "Profil/dialogprofil.h"
+#include "../GPG/gpgmanager.h"
 
 MainWindow::MainWindow(Profile* p, Configuration* config)
     : ui(new Ui::MainWindow), m_profil(p), m_config(config) {
 
     ui->setupUi(this);
     ui->textBrowser->setVisible(false);
+
+    GPGManager* m = new GPGManager(p, new Action("--gen-key"));
+    m->execute();
+
     connect(ui->toolButton, SIGNAL(toggled(bool)), this, SLOT(setGpgCommandsVisible(bool)));
     connect(ui->actionChanger_de_profile, SIGNAL(triggered()), this, SLOT(showDialogSelectProfil()));
     connect(ui->actionSupprimer_un_profile, SIGNAL(triggered()), this, SLOT(showDialogDeleteProfil()));

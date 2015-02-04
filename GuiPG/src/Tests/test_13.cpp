@@ -1,6 +1,6 @@
 #include "test_13.h"
 #include "testmanager.h"
-#include "../action.h"
+#include "../GPG/action.h"
 
 Test_13::Test_13()
 {

@@ -5,7 +5,6 @@ HEADERS += \
     src/Configuration/configuration.h \
     src/Profile/profile.h \
     src/Tests/testmanager.h \
-    src/action.h \
     src/View/mainwindow.h \
     src/View/Profil/dialogprofil.h \
     src/Profile/profilemanager.h \
@@ -14,14 +13,14 @@ HEADERS += \
     src/Tests/test_12.h \
     src/Tests/test_13.h \
     src/View/key_creation.h \
-    src/GPG/gpgmanager.h
+    src/GPG/gpgmanager.h \
+    src/GPG/action.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
     src/Profile/profile.cpp \
     src/Tests/testmanager.cpp \
     src/main.cpp \
-    src/action.cpp \
     src/View/mainwindow.cpp \
     src/View/Profil/dialogprofil.cpp \
     src/Profile/profilemanager.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/Tests/test_12.cpp \
     src/Tests/test_13.cpp \
     src/View/key_creation.cpp \
-    src/GPG/gpgmanager.cpp
+    src/GPG/gpgmanager.cpp \
+    src/GPG/action.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
