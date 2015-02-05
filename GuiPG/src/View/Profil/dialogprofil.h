@@ -17,6 +17,12 @@ public:
     explicit DialogProfil(DIALOG_TYPE dialog_type, MainWindow *parent = 0);
     ~DialogProfil();
 
+signals:
+    void selectProfil(uint* id);
+
+public slots:
+    void loadSelectProfil();
+
 private:
     Ui::DialogProfil *ui;
 };
