@@ -4,6 +4,7 @@
 #include "../../Profile/profile.h"
 #include "../../Profile/profile.h"
 #include "../../Configuration/configuration.h"
+#include <QDebug>
 
 
 DialogProfil::DialogProfil(DIALOG_TYPE dialog_type, MainWindow *parent) :
@@ -11,10 +12,14 @@ DialogProfil::DialogProfil(DIALOG_TYPE dialog_type, MainWindow *parent) :
     ui(new Ui::DialogProfil)
 {
     ui->setupUi(this);
+    QAbstractButton* actionButton;
     if (dialog_type == SELECT) {
-        ui->buttonBox->addButton("&Charger", QDialogButtonBox::ActionRole);
+        actionButton = new QPushButton("&Charger", this);
+        ui->buttonBox->addButton(actionButton, QDialogButtonBox::AcceptRole);
+        connect(actionButton, SIGNAL(clicked()), this, SLOT(loadSelectProfil()));
     } else if (dialog_type == DELETE) {
-        ui->buttonBox->addButton("&Supprimer", QDialogButtonBox::ActionRole);
+        actionButton = new QPushButton("&Supprimer", this);
+        ui->buttonBox->addButton(actionButton, QDialogButtonBox::ActionRole);
     }
     ui->buttonBox->button(QDialogButtonBox::Cancel)->setText("&Annuler");
 
@@ -34,9 +39,22 @@ DialogProfil::DialogProfil(DIALOG_TYPE dialog_type, MainWindow *parent) :
         ui->tableWidgetProfil->setRowHeight(i, 20);
         ++i;
     }
+
+    ui->tableWidgetProfil->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 DialogProfil::~DialogProfil()
 {
     delete ui;
+}
+
+void DialogProfil::loadSelectProfil() {
+    bool ok;
+    uint id = ui->tableWidgetProfil->selectedItems().first()->text().toUInt(&ok);
+    if(ok){
+        qDebug() << id;
+        emit selectProfil(&id);
+    } else {
+      qDebug() << "erreur de conversion sur id profil selectionné";
+    }
 }
