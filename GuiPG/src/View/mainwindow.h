@@ -22,6 +22,7 @@ class MainWindow : public QMainWindow {
         void setGpgCommandsVisible(bool b);
         void showDialogSelectProfil();
         void showDialogDeleteProfil();
+        void changeProfil(uint* idProfil);
 
     private:
         Ui::MainWindow* ui;

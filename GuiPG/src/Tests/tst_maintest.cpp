@@ -11,8 +11,8 @@ public:
     MainTest();
 
 private Q_SLOTS:
-    void testCase1();
-    void testCase2();
+    void testCase11();
+    void testCase13();
 
 };
 
@@ -20,7 +20,7 @@ MainTest::MainTest()
 {
 }
 
-void MainTest::testCase1()
+void MainTest::testCase11()
 {
     Profile p(66, "Mister T");
     p.setConfigurationPath("/");
@@ -33,7 +33,7 @@ void MainTest::testCase1()
     QVERIFY(p.getName() == "Mister T");
 }
 
-void MainTest::testCase2()
+void MainTest::testCase13()
 {
     QStringList interactions = (QStringList() << "1" << "2" << "3");
     Action a("test", QStringList(), QStringList(), interactions);
@@ -44,7 +44,8 @@ void MainTest::testCase2()
     QVERIFY(a.nextInteraction() == "1");
     QVERIFY(a.nextInteraction() == "2");
     QVERIFY(a.nextInteraction() == "3");
-    // TODO Vérifier que a.nextInteraction() lance une exception
+    //Vérifier que a.nextInteraction() lance une exception (qt 5.3 requis)
+    //QVERIFY_EXCEPTION_THROWN(a.nextInteraction(), IllegalStateException);
 }
 
 QTEST_MAIN(MainTest)

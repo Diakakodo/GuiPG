@@ -14,7 +14,9 @@ HEADERS += \
     src/GPG/action.h \
     src/Keys/key.h \
     src/Keys/keymanager.h \
-    src/View/keycreation.h
+    src/View/keycreation.h \
+    src/View/keycreation.h \
+    src/View/keysuppression.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -30,11 +32,13 @@ SOURCES += \
     src/Keys/key.cpp \
     src/Keys/keymanager.cpp \
     src/View/keycreation.cpp \
+    src/View/keysuppression.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
     src/View/Profil/dialogprofil.ui \
-    src/View/keycreation.ui
+    src/View/keycreation.ui \
+    src/View/keysuppression.ui
 
 test {
 
