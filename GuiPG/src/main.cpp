@@ -21,6 +21,14 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
+    QApplication app(argc, argv);
+
+        KeyCreation keyCreationGui;
+        keyCreationGui.show();
+
+        return app.exec();
+    /*
+
     unsigned id = 0;
     ++argv;
     while (*argv != NULL) {
@@ -54,5 +62,5 @@ int main(int argc, char** argv) {
         app.exec();
     }
     launcher.wait();
-    return EXIT_SUCCESS;
+    return EXIT_SUCCESS;*/
 }
