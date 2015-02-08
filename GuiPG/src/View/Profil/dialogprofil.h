@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "../mainwindow.h"
+#include <QAbstractButton>
 
 namespace Ui {
 class DialogProfil;
@@ -22,9 +23,12 @@ signals:
 
 public slots:
     void loadSelectProfil();
+    void deleteSelectProfil();
+    void enableAtionButton();
 
 private:
     Ui::DialogProfil *ui;
+    QAbstractButton* m_actionButton;
 };
 
 #endif // DIALOGPROFIL_H
