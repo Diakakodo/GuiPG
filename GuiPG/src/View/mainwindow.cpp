@@ -16,9 +16,9 @@ MainWindow::MainWindow(Profile* p, Configuration* config)
     m_TreeHeader<<"Nom"<<"Email"<<"Validité"<<"Confiance"<<"Expiration"<<"Taille"<<"Création"<<"Identifiant";
     ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
 
-    connect(ui->toolButton, SIGNAL(toggled(bool)), this, SLOT(setGpgCommandsVisible(bool)));
-    connect(ui->actionChanger_de_profile, SIGNAL(triggered()), this, SLOT(showDialogSelectProfil()));
-    connect(ui->actionSupprimer_un_profile, SIGNAL(triggered()), this, SLOT(showDialogDeleteProfil()));
+    connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
+    connect(ui->actionChanger_de_profile, &QAction::triggered, this, &MainWindow::showDialogSelectProfil);
+    connect(ui->actionSupprimer_un_profile, &QAction::triggered, this, &MainWindow::showDialogDeleteProfil);
 }
 
 Profile* MainWindow::getProfil() const {
