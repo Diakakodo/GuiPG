@@ -15,6 +15,17 @@ public:
     explicit KeyCreation(QWidget *parent = 0);
     ~KeyCreation();
 
+private slots:
+    void on_comboBox_currentIndexChanged(int index);
+
+    void on_horizontalSlider_sliderMoved(int position);
+
+    void on_spinBox_2_valueChanged(int arg1);
+
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::KeyCreation *ui;
 };
