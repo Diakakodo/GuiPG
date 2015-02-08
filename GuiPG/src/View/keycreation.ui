@@ -38,6 +38,9 @@
    <property name="text">
     <string>RSA - RSA</string>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QRadioButton" name="radioButton_2">
    <property name="geometry">
@@ -156,6 +159,9 @@
    <property name="currentText">
     <string>Jour(s)</string>
    </property>
+   <property name="currentIndex">
+    <number>1</number>
+   </property>
    <item>
     <property name="text">
      <string>Illimitée</string>
@@ -254,16 +260,6 @@
      <y>90</y>
      <width>231</width>
      <height>27</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="textEdit">
-   <property name="geometry">
-    <rect>
-     <x>230</x>
-     <y>160</y>
-     <width>231</width>
-     <height>81</height>
     </rect>
    </property>
   </widget>
@@ -738,6 +734,16 @@
    </property>
    <property name="text">
     <string>Générer</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_2">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>160</y>
+     <width>231</width>
+     <height>91</height>
+    </rect>
    </property>
   </widget>
  </widget>
