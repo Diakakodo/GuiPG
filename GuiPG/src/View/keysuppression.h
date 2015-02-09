@@ -15,6 +15,11 @@ public:
     explicit KeySuppression(QWidget *parent = 0);
     ~KeySuppression();
 
+private slots:
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::KeySuppression *ui;
 };
