@@ -1,6 +1,6 @@
 \section{Échange de clefs}
 
-Pour communiquer avec les autres, vous devez échanger vos clés publiques. Vous pouvez afficher la liste des clés de votre trousseau de clés publiques grâce à l'interface
+Pour communiquer avec les autres, vous devez échanger vos clefs publiques. Vous pouvez afficher la liste des clefs de votre trousseau de clefs publiques grâce à l'interface
 GuiPG.
 
 \subsection{Exporter une clef}
@@ -9,18 +9,18 @@ L'exportation de clef permet d'envoyer votre clef, publique ou privée, à votre
 
 Lors d'une exportation de clef secrète, il est recommandé d'utiliser un canal de diffusion sécurisé. Il est possible d'exporter uniquement les sous-clefs d'une clef, en neutralisant la partie secrète de la clef primaire. Cependant cette fonctionnalité est une extension GNU d'openPGP et les autres implémentations peuvent ne pas être compatibles avec une telle clef.
 
-La clé est exportée dans un format binaire, mais ceci peut être problématique si la clé doit être envoyée par email ou publiée sur une page web. C'est pourquoi il existe une option --armor permettant la génération des sorties dans un format ASCII similaire aux documents encodés avec l'algorithme UUE. En général, toutes les sorties peuvent être exportés dans le format ASCII en ajoutant l'option --armor.
+La clef est exportée dans un format binaire, ceci peut être problématique si la clef doit être envoyée par email ou publiée sur une page web. C'est pourquoi il existe une option --armor permettant la génération des sorties dans un format ASCII similaire aux documents encodés avec l'algorithme UUE. En général, toutes les sorties peuvent être exportées dans le format ASCII en ajoutant l'option --armor.
 
-Si vous desirez rendre publique votre clef, il est également possible de l'exporter sur un serveur de clefs. Cette action sera possible en nommant le serveur voulu ou en utilisant celui par défaut. Lors de l'exportatation de clefs, il faut envoyer les nouvelles/recemment modifiées clefs et non pas le trousseau entier.
+Si vous désirez rendre publique votre clef, il est également possible de l'exporter sur un serveur de clefs. Cette action sera possible en nommant le serveur voulu ou en utilisant celui par défaut. Lors de l'exportatation de clefs, il faut envoyer les nouvelles/récemment modifiées clefs et non pas le trousseau entier.
 
 \subsection{Importer une clef}
 
-Importer une clef permet de l'ajouter ans votre trousseau. Il est possible de faire seulement la fusion des nouvelles signatures lors d'une importation.
+Importer une clef permet de l'ajouter dans votre trousseau. Il est possible de faire seulement la fusion des nouvelles signatures lors d'une importation.
 L'importation se fait généralement depuis un serveur de clefs. Il existe plusieurs serveurs, si ce dernier n'est pas mentionné lors de l'import, le serveur par défaut est utilisé.
 
 Il existe plusieurs manières d'importer une clef. On peut rechercher une clef particulière sur un serveur ou on peut importer une clef à partir d'une URI donnée.
 
-Une fois que la clé a été importée, elle devrait être validée. GnuPG utilise un modèle de confiance puissant et flexible qui ne requiert pas que vous validiez personnellement chaque clé que vous importez. Toutefois, certaines clés le nécessitent. Une clé peut être validée en vérifiant son empreinte. En la signant, vous certifiez que c'est une clé valide. L'empreinte d'une clé peut être visualisée rapidement mais pour certifier la clé, vous devez l'éditer.
+Une fois que la clef a été importée, elle devrait être validée. GnuPG utilise un modèle de confiance puissant et flexible qui ne requiert pas que vous validiez personnellement chaque clef que vous importez. Toutefois, certaines clefs le nécessitent. Une clef peut être validée en vérifiant son empreinte. En la signant, vous certifiez que c'est une clef valide. L'empreinte d'une clef peut être visualisée rapidement mais pour certifier la clef, vous devez l'éditer.
 
 Il est également possible d'actualiser son trousseau de clef en envoyer une requête sur un serveur. Cette action permet de mettre à jour une clef avec les dernières signatures et ids d'utilisateur. Si le trousseau contient une clef qui n'est pas reliée à un serveur, celui-ci doit être précisé.
 
