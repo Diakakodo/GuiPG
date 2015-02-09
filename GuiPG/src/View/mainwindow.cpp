@@ -5,6 +5,7 @@
 #include <QApplication>
 #include "Profil/dialogprofil.h"
 #include <QDebug>
+#include "keycreation.h"
 
 MainWindow::MainWindow(Profile* p, Configuration* config)
     : ui(new Ui::MainWindow), m_profil(p), m_config(config) {
@@ -55,4 +56,11 @@ void MainWindow::showDialogDeleteProfil() {
 
 void MainWindow::changeProfil(uint* idProfil) {
     qDebug() << "un profil selectionné";
+}
+
+void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()
+{
+    KeyCreation keyCreationGui;
+    keyCreationGui.show();
+    keyCreationGui.exec();
 }
