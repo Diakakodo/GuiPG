@@ -10,8 +10,7 @@ HEADERS += \
     src/Profile/profilemanager.h \
     src/Launcher/guipgapp.h \
     src/Launcher/launcher.h \
-    src/View/keycreation.h \
-    src/View/keysuppression.h
+    src/View/keycreation.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -23,14 +22,12 @@ SOURCES += \
     src/Profile/profilemanager.cpp \
     src/Launcher/guipgapp.cpp \
     src/Launcher/launcher.cpp \
-    src/View/keycreation.cpp \
-    src/View/keysuppression.cpp
+    src/View/keycreation.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
     src/View/Profil/dialogprofil.ui \
-    src/View/keycreation.ui \
-    src/View/keysuppression.ui
+    src/View/keycreation.ui
 
 test {
 
