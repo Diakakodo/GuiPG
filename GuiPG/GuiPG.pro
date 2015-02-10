@@ -12,7 +12,8 @@ HEADERS += \
     src/Launcher/guipgapp.h \
     src/Launcher/launcher.h \
     src/Tests/test_12.h \
-    src/Tests/test_13.h
+    src/Tests/test_13.h \
+    src/View/Profil/config.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -26,8 +27,10 @@ SOURCES += \
     src/Launcher/guipgapp.cpp \
     src/Launcher/launcher.cpp \
     src/Tests/test_12.cpp \
-    src/Tests/test_13.cpp
+    src/Tests/test_13.cpp \
+    src/View/Profil/config.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
-    src/View/Profil/dialogprofil.ui
+    src/View/Profil/dialogprofil.ui \
+    src/View/Profil/config.ui

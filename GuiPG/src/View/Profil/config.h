@@ -15,6 +15,9 @@ public:
     explicit config(QWidget *parent = 0);
     ~config();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::config *ui;
 };

@@ -16,6 +16,9 @@ public:
     explicit DialogProfil(DIALOG_TYPE dialog_type, QWidget *parent = 0);
     ~DialogProfil();
 
+private slots:
+    void on_tableWidgetProfil_activated(const QModelIndex &index);
+
 private:
     Ui::DialogProfil *ui;
 };

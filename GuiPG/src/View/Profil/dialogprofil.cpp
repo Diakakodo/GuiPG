@@ -31,3 +31,8 @@ DialogProfil::~DialogProfil()
 {
     delete ui;
 }
+
+void DialogProfil::on_tableWidgetProfil_activated(const QModelIndex &index)
+{
+
+}

@@ -22,11 +22,14 @@ class MainWindow : public QMainWindow {
         void setGpgCommandsVisible(bool b);
         void showDialogSelectProfil();
         void showDialogDeleteProfil();
+        void showDialogConfiguration();
 
     private:
         Ui::MainWindow* ui;
         Configuration* m_config;
         Profile* m_profil;
+
+
 };
 
 #endif // MAINWINDOW_H
