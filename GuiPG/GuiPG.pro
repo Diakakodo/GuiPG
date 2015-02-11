@@ -13,7 +13,8 @@ HEADERS += \
     src/GPG/action.h \
     src/Keys/key.h \
     src/Keys/keymanager.h \
-    src/View/keycreation.h
+    src/View/keycreation.h \
+    src/Model/mainwindowmodel.h \
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -28,7 +29,8 @@ SOURCES += \
     src/GPG/action.cpp \
     src/Keys/key.cpp \
     src/Keys/keymanager.cpp \
-    src/View/keycreation.cpp
+    src/View/keycreation.cpp \
+    src/Model/mainwindowmodel.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
