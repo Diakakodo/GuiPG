@@ -15,9 +15,8 @@ HEADERS += \
     src/Keys/key.h \
     src/Keys/keymanager.h \
     src/View/keycreation.h \
-    src/View/keycreation.h \
     src/View/keysuppression.h \
-    src/Model/mainwindowmodel.h
+    src/Model/mainwindowmodel.h \
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -39,8 +38,7 @@ SOURCES += \
 FORMS += \
     src/View/mainwindow.ui \
     src/View/Profil/dialogprofil.ui \
-    src/View/keycreation.ui \
-    src/View/keysuppression.ui
+    src/View/keycreation.ui
 
 test {
 
