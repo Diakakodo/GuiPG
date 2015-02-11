@@ -5,12 +5,9 @@ Key::Key(Scope s,
          unsigned length,
          Validity v,
          const QString& id,
-         const QDateTime& creation,
-         const QDateTime& expiration,
-         const QString& owner,
-         const QString& comment,
-         const QString& email,
-         unsigned uid)
+         const QDate &creation,
+         const QDate &expiration,
+         const QString& owner)
         : m_length(length),
           m_val(v),
           m_scope(s),
@@ -18,10 +15,7 @@ Key::Key(Scope s,
           m_id(id),
           m_creation(creation),
           m_expiration(expiration),
-          m_owner(owner),
-          m_comment(comment),
-          m_email(email),
-          m_uid(uid) {
+          m_owner(owner) {
 
 }
 
@@ -49,11 +43,11 @@ const QString& Key::getId() const {
     return m_id;
 }
 
-const QDateTime& Key::getCreationDate() const {
+const QDate& Key::getCreationDate() const {
     return m_creation;
 }
 
-const QDateTime& Key::getExpirationDate() const {
+const QDate& Key::getExpirationDate() const {
     return m_expiration;
 }
 
@@ -61,17 +55,6 @@ const QString& Key::getOwner() const {
     return m_owner;
 }
 
-const QString& Key::getComment() const {
-    return m_comment;
-}
-
-const QString& Key::getEmail() const {
-    return m_email;
-}
-
-unsigned Key::getUserId() const {
-    return m_uid;
-}
 
 void Key::addSubKey(Key *k) {
     m_subkeys.append(k);
@@ -81,6 +64,6 @@ void Key::removeSubKey(Key *k) {
     m_subkeys.removeAll(k);
 }
 
-void Key::setExpirationDate(const QDateTime &dt) {
+void Key::setExpirationDate(const QDate &dt) {
     m_expiration = dt;
 }
