@@ -24,7 +24,10 @@ class MainWindow : public QMainWindow {
         void showDialogDeleteProfil();
         void changeProfil(uint* idProfil);
 
-    private:
+private slots:
+        void on_actionG_n_rer_une_paire_de_clefs_triggered();
+
+private:
         Ui::MainWindow* ui;
         Configuration* m_config;
         Profile* m_profil;
