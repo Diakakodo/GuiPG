@@ -12,8 +12,9 @@ KeyManager::~KeyManager() {
 void KeyManager::load() {
     Action a("--list-keys");
     m_gpg->setAction(a);
+    m_gpg->execute();
 }
-
+#include <QDebug>
 void KeyManager::gpgFinished(int s, const QString &output) {
-
+    qDebug() << output;
 }

@@ -4,6 +4,7 @@
 #include <QApplication>
 #include "Profil/dialogprofil.h"
 #include "../GPG/gpgmanager.h"
+#include "../Keys/keymanager.h"
 
 MainWindow::MainWindow(Profile* p, Configuration* config)
     : ui(new Ui::MainWindow), m_profil(p), m_config(config) {
@@ -14,6 +15,9 @@ MainWindow::MainWindow(Profile* p, Configuration* config)
     if (p == nullptr) {
         showDialogSelectProfil();
     }
+
+    KeyManager* m = new KeyManager(p);
+    m->load();
 
     connect(ui->toolButton, SIGNAL(toggled(bool)), this, SLOT(setGpgCommandsVisible(bool)));
     connect(ui->actionChanger_de_profile, SIGNAL(triggered()), this, SLOT(showDialogSelectProfil()));
