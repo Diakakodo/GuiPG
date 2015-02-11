@@ -15,7 +15,8 @@ HEADERS += \
     src/Keys/keymanager.h \
     src/View/keycreation.h \
     src/Model/mainwindowmodel.h \
-    src/View/Profil/profilecreation.h
+    src/View/Profil/profilecreation.h \
+    src/View/config.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -32,13 +33,15 @@ SOURCES += \
     src/Keys/keymanager.cpp \
     src/View/keycreation.cpp \
     src/Model/mainwindowmodel.cpp \
-    src/View/Profil/profilecreation.cpp
+    src/View/Profil/profilecreation.cpp \
+    src/View/config.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
     src/View/Profil/dialogprofil.ui \
     src/View/keycreation.ui \
-    src/View/Profil/profilecreation.ui
+    src/View/Profil/profilecreation.ui \
+    src/View/config.ui
 
 test {
 

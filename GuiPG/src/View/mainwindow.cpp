@@ -6,6 +6,7 @@
 #include "../Keys/keymanager.h"
 #include "keycreation.h"
 #include "Profil/profilecreation.h"
+#include "config.h"
 
 MainWindow::MainWindow(Profile* p, Configuration* config)
     : ui(new Ui::MainWindow), m_profil(p), m_config(config) {
@@ -21,6 +22,7 @@ MainWindow::MainWindow(Profile* p, Configuration* config)
     connect(ui->actionChanger_de_profile, &QAction::triggered, this, &MainWindow::showDialogSelectProfil);
     connect(ui->actionSupprimer_un_profile, &QAction::triggered, this, &MainWindow::showDialogDeleteProfil);
 
+    connect(ui->actionConfiguration, SIGNAL(triggered()), this, SLOT(showDialogConfiguration()));
     if (p == nullptr) {
         showDialogSelectProfil();
     }
@@ -77,4 +79,9 @@ void MainWindow::on_actionCreer_un_nouveau_profile_triggered()
     ProfileCreation profileCreationGui(this);
     profileCreationGui.show();
     profileCreationGui.exec();
+}
+
+void MainWindow::showDialogConfiguration(){
+    config c(this);
+    c.exec();
 }
