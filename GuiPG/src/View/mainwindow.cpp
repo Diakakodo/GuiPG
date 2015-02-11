@@ -4,9 +4,7 @@
 #include "iostream"
 #include <QApplication>
 #include "Profil/dialogprofil.h"
-#include "../GPG/gpgmanager.h"
-#include <QDebug>
-#include "keycreation.h"
+#include "../Keys/keymanager.h"
 
 MainWindow::MainWindow(Profile* p, Configuration* config)
     : ui(new Ui::MainWindow), m_profil(p), m_config(config) {
@@ -14,9 +12,6 @@ MainWindow::MainWindow(Profile* p, Configuration* config)
     ui->setupUi(this);
     ui->textBrowser->setVisible(false);
 
-    if (p == nullptr) {
-        showDialogSelectProfil();
-    }
     QStringList m_TreeHeader;
     m_TreeHeader<<"Nom"<<"Email"<<"Validité"<<"Confiance"<<"Expiration"<<"Taille"<<"Création"<<"Identifiant";
     ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
@@ -24,6 +19,13 @@ MainWindow::MainWindow(Profile* p, Configuration* config)
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
     connect(ui->actionChanger_de_profile, &QAction::triggered, this, &MainWindow::showDialogSelectProfil);
     connect(ui->actionSupprimer_un_profile, &QAction::triggered, this, &MainWindow::showDialogDeleteProfil);
+
+    if (p == nullptr) {
+        showDialogSelectProfil();
+    }
+
+    KeyManager* m = new KeyManager(p);
+    m->load();
 }
 
 Profile* MainWindow::getProfil() const {

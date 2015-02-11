@@ -26,6 +26,7 @@ SOURCES += \
     src/Profile/profilemanager.cpp \
     src/Launcher/guipgapp.cpp \
     src/Launcher/launcher.cpp \
+    src/View/keycreation.cpp \
     src/GPG/gpgmanager.cpp \
     src/GPG/action.cpp \
     src/Keys/key.cpp \
