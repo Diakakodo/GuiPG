@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QList>
-#include <QDateTime>
+#include <QDate>
 
 class Key : public QObject {
         Q_OBJECT
@@ -30,10 +30,10 @@ class Key : public QObject {
         };
 
         enum Algorithm {
-            ALGO_RSA = '1',
-            ALGO_DSA = '2',
-            ALGO_DSA_SIG = '3',
-            ALGO_RSA_SIG = '4'
+            ALGO_RSA,
+            ALGO_DSA,
+            ALGO_DSA_SIG,
+            ALGO_RSA_SIG
         };
 
         enum Capabilities {
@@ -49,12 +49,9 @@ class Key : public QObject {
                      unsigned length,
                      Validity v,
                      const QString& id,
-                     const QDateTime& creation,
-                     const QDateTime& expiration,
-                     const QString& owner,
-                     const QString& comment,
-                     const QString& email,
-                     unsigned uid);
+                     const QDate& creation,
+                     const QDate& expiration,
+                     const QString& owner);
 
         const QList<Key*> getSubKeys() const;
         unsigned getLength() const;
@@ -62,16 +59,13 @@ class Key : public QObject {
         Scope getScope() const;
         Algorithm getAlgorithm() const;
         const QString& getId() const;
-        const QDateTime& getCreationDate() const;
-        const QDateTime& getExpirationDate() const;
+        const QDate& getCreationDate() const;
+        const QDate &getExpirationDate() const;
         const QString& getOwner() const;
-        const QString& getComment() const;
-        const QString& getEmail() const;
-        unsigned getUserId() const;
 
         void addSubKey(Key* k);
         void removeSubKey(Key* k);
-        void setExpirationDate(const QDateTime& dt);
+        void setExpirationDate(const QDate &dt);
 
     private:
         QList<Key*> m_subkeys;
@@ -80,11 +74,9 @@ class Key : public QObject {
         Scope m_scope;
         Algorithm m_algo;
         QString m_id;
-        QDateTime m_creation;
-        QDateTime m_expiration;
+        QDate m_creation;
+        QDate m_expiration;
         QString m_owner;
-        QString m_comment;
-        QString m_email;
         unsigned m_uid;
 };
 
