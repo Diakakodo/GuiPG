@@ -58,10 +58,10 @@ class Action : public QObject {
          * @param interactions La liste des interactions.
          */
         explicit Action(QString cmd,
-                        QStringList args = QStringList(),
-                        QStringList options = QStringList(),
-                        QStringList interactions = QStringList());
-
+                        const QStringList& args = QStringList(),
+                        const QStringList& options = QStringList(),
+                        const QStringList& interactions = QStringList());
+        Action();
 
         ~Action();
 
@@ -102,6 +102,8 @@ class Action : public QObject {
          * @return L'interaction suivante.
          */
         const QString& nextInteraction();
+
+        Action& operator=(const Action& a);
 
     private:
         /**

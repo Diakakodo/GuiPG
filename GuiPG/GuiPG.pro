@@ -10,19 +10,27 @@ HEADERS += \
     src/Profile/profilemanager.h \
     src/Launcher/guipgapp.h \
     src/Launcher/launcher.h \
+    src/GPG/gpgmanager.h \
+    src/GPG/action.h \
+    src/Keys/key.h \
+    src/Keys/keymanager.h \
     src/View/keycreation.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
     src/Profile/profile.cpp \
     src/main.cpp \
-    src/action.cpp \
     src/View/mainwindow.cpp \
     src/View/Profil/dialogprofil.cpp \
     src/Profile/profilemanager.cpp \
     src/Launcher/guipgapp.cpp \
     src/Launcher/launcher.cpp \
     src/View/keycreation.cpp
+    src/GPG/gpgmanager.cpp \
+    src/GPG/action.cpp \
+    src/Keys/key.cpp \
+    src/Keys/keymanager.cpp \
+    src/View/keycreation.cpp \
 
 FORMS += \
     src/View/mainwindow.ui \

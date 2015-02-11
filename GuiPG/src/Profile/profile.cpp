@@ -4,7 +4,7 @@
 #ifdef _WIN32
 #define DEFAULT_EXEC "C:/Program Files (x86)/GNU/GnuPG/gpg2.exe"
 #define DEFAULT_PATH QStandardPaths::displayName(QStandardPaths::HomeLocation)\
-    + "/AppData/Roaming/gnupg"
+    + "/AppData/Roaming/gnupg/"
 #else
 #define DEFAULT_EXEC "gpg"
 #define DEFAULT_PATH "~/.gnupg/"

@@ -1,7 +1,7 @@
 #include <QString>
 #include <QtTest>
 #include "../Profile/profile.h"
-#include "../action.h"
+#include "../GPG/action.h"
 
 class MainTest : public QObject
 {

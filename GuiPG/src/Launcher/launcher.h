@@ -13,7 +13,7 @@
 
 class Launcher : public QThread {
 
-    #define SHM_NAME     "guipg_shm"
+    #define SHM_NAME     "guipg_shmkjebc"
     #define SYS_SEM_NAME "guipg_shm_sem"
 
         Q_OBJECT
