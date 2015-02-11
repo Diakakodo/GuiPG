@@ -9,6 +9,7 @@
 #include "../Profile/profile.h"
 #include "../Configuration/configuration.h"
 #include "guipgapp.h"
+#include "../Model/mainwindowmodel.h"
 
 
 class Launcher : public QThread {
@@ -30,7 +31,7 @@ class Launcher : public QThread {
         bool alreadyRun();
 
     signals:
-        void runApp(Profile* p, Configuration* config);
+        void runApp(int profileId, Configuration* config);
 
     public slots:
         void stop();

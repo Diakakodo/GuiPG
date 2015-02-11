@@ -4,7 +4,6 @@ QMAKE_CXXFLAGS += -std=c++11 -pedantic -Wall
 HEADERS += \
     src/Configuration/configuration.h \
     src/Profile/profile.h \
-    src/action.h \
     src/View/mainwindow.h \
     src/View/Profil/dialogprofil.h \
     src/Profile/profilemanager.h \
@@ -14,7 +13,8 @@ HEADERS += \
     src/GPG/action.h \
     src/Keys/key.h \
     src/Keys/keymanager.h \
-    src/View/keycreation.h
+    src/View/keycreation.h \
+    src/Model/mainwindowmodel.h \
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -29,8 +29,8 @@ SOURCES += \
     src/GPG/action.cpp \
     src/Keys/key.cpp \
     src/Keys/keymanager.cpp \
-    src/View/keycreation.cpp
-
+    src/View/keycreation.cpp \
+    src/Model/mainwindowmodel.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
@@ -43,5 +43,5 @@ test {
     TARGET = Guipg-test
     SOURCES -= src/main.cpp
 
-    SOURCES += src/Tests/tst_maintest.cpp\
+    SOURCES += src/Tests/tst_maintest.cpp
 }
