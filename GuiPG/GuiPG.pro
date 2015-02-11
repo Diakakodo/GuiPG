@@ -25,12 +25,12 @@ SOURCES += \
     src/Profile/profilemanager.cpp \
     src/Launcher/guipgapp.cpp \
     src/Launcher/launcher.cpp \
-    src/View/keycreation.cpp
     src/GPG/gpgmanager.cpp \
     src/GPG/action.cpp \
     src/Keys/key.cpp \
     src/Keys/keymanager.cpp \
-    src/View/keycreation.cpp \
+    src/View/keycreation.cpp
+
 
 FORMS += \
     src/View/mainwindow.ui \

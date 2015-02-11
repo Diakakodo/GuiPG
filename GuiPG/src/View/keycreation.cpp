@@ -1,7 +1,7 @@
 #include "keycreation.h"
 #include "ui_keycreation.h"
 #include <QRegExp>
-#include "../action.h"
+#include "../GPG/action.h"
 
 KeyCreation::KeyCreation(QWidget *parent) :
     QDialog(parent),
@@ -44,7 +44,6 @@ void KeyCreation::on_pushButton_2_clicked()
     QRegExp mailREX("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
     mailREX.setCaseSensitivity(Qt::CaseInsensitive);
     mailREX.setPatternSyntax(QRegExp::RegExp);
-    mailREX.exactMatch("me@me.com");
     if (!mailREX.exactMatch(ui->lineEdit_3->text())) {
         errorLabel->setText(errorLabel->text() + "Adresse email incorrecte.\n");
     }
