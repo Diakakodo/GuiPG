@@ -1,5 +1,5 @@
 <configurations>
- <profile name="Matthieu" id="1">
+ <profile id="1" name="Matthieu">
   <exec>gpg</exec>
   <path>~/.gnupg/</path>
  </profile>
