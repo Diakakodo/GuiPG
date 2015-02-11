@@ -8,6 +8,10 @@ Action::Action(QString cmd, const QStringList &args, const QStringList &options,
     m_index = 0;
 }
 
+Action::Action() {
+
+}
+
 // Destructeur
 
 Action::~Action()
@@ -47,3 +51,11 @@ const QString& Action::nextInteraction() {
     return m_interactions.at(m_index - 1);
 }
 
+Action& Action::operator =(const Action& a) {
+    m_options = a.getOptions();
+    m_args = a.getArgs();
+    m_cmd = a.getCmd();
+    m_index = 0;
+    m_interactions = a.getInteractions();
+    return *this;
+}

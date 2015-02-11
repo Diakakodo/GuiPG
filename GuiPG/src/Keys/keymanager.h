@@ -13,7 +13,11 @@ class KeyManager : public QObject {
         explicit KeyManager(const Profile* p);
         ~KeyManager();
 
+        void load();
+
     private:
+        void gpgFinished(int s, const QString& output);
+
         QList<Key*> m_keys;
         GPGManager* m_gpg;
 };
