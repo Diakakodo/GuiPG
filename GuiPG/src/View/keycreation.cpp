@@ -1,7 +1,7 @@
 #include "keycreation.h"
 #include "ui_keycreation.h"
 #include <QRegExp>
-#include "../action.h"
+#include "../GPG/action.h"
 
 KeyCreation::KeyCreation(QWidget *parent) :
     QDialog(parent),
