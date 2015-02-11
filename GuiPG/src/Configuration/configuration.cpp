@@ -64,7 +64,7 @@ bool Configuration::load() {
     f.close();
     return true;
 }
-#include <QDebug>
+
 Profile* Configuration::getProfileById(unsigned id) const {
     for (Profile* p : m_profiles) {
         if (p->getId() == id) {

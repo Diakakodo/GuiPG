@@ -16,5 +16,8 @@ void KeyManager::load() {
 }
 #include <QDebug>
 void KeyManager::gpgFinished(int s, const QString &output) {
-    qDebug() << output;
+    QStringList lines = output.split("\n");
+    if (lines.at(0) == "pub") {
+
+    }
 }
