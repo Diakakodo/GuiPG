@@ -1,6 +1,7 @@
 #include <QString>
 #include <QtTest>
 #include "../Profile/profile.h"
+#include "../Configuration/configuration.h"
 #include "../action.h"
 
 class MainTest : public QObject
@@ -13,6 +14,7 @@ public:
 private Q_SLOTS:
     void testCase11();
     void testCase13();
+    void testLoadConfig();
 
 };
 
@@ -45,7 +47,13 @@ void MainTest::testCase13()
     QVERIFY(a.nextInteraction() == "2");
     QVERIFY(a.nextInteraction() == "3");
     //Vérifier que a.nextInteraction() lance une exception (qt 5.3 requis)
-    //QVERIFY_EXCEPTION_THROWN(a.nextInteraction(), IllegalStateException);
+    QVERIFY_EXCEPTION_THROWN(a.nextInteraction(), IllegalStateException);
+}
+
+void MainTest::testLoadConfig()
+{
+    Configuration config("config.xml");
+    QVERIFY(config.load() == true);
 }
 
 QTEST_MAIN(MainTest)
