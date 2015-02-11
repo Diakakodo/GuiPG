@@ -9,11 +9,12 @@
 #include "../Profile/profile.h"
 #include "../Configuration/configuration.h"
 #include "guipgapp.h"
+#include "../Model/mainwindowmodel.h"
 
 
 class Launcher : public QThread {
 
-    #define SHM_NAME     "guipg_shm"
+    #define SHM_NAME     "guipg_shmkjebc"
     #define SYS_SEM_NAME "guipg_shm_sem"
 
         Q_OBJECT
@@ -30,7 +31,7 @@ class Launcher : public QThread {
         bool alreadyRun();
 
     signals:
-        void runApp(Profile* p, Configuration* config);
+        void runApp(int profileId, Configuration* config);
 
     public slots:
         void stop();

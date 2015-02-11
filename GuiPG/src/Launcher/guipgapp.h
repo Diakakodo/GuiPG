@@ -16,7 +16,7 @@ class GuiPGApp : public QApplication {
         ~GuiPGApp();
     signals:
     public slots:
-        void launchApp(Profile* p, Configuration* config);
+        void launchApp(int profileId, Configuration* config);
 };
 
 #endif // GUIPGAPP_H

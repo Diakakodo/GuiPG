@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
 
 
     // TODO penser a tester le chargement de la configuration.
-    Configuration config("config.xml");
+    Configuration config("../config.xml");
     config.load();
 
     GuiPGApp app(argc, argv);
@@ -61,6 +61,7 @@ int main(int argc, char** argv) {
     launcher.start();
     if (!launcher.alreadyRun()) {
         app.exec();
+        config.save();
     }
     launcher.wait();
     return EXIT_SUCCESS;

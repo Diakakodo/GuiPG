@@ -1,10 +1,9 @@
-
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "iostream"
+#include <iostream>
 #include <QApplication>
 #include "Profil/dialogprofil.h"
-#include <QDebug>
+#include "../Keys/keymanager.h"
 #include "keycreation.h"
 
 MainWindow::MainWindow(Profile* p, Configuration* config)
@@ -20,6 +19,13 @@ MainWindow::MainWindow(Profile* p, Configuration* config)
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
     connect(ui->actionChanger_de_profile, &QAction::triggered, this, &MainWindow::showDialogSelectProfil);
     connect(ui->actionSupprimer_un_profile, &QAction::triggered, this, &MainWindow::showDialogDeleteProfil);
+
+    if (p == nullptr) {
+        showDialogSelectProfil();
+    }
+
+    KeyManager* m = new KeyManager(p);
+    m->load();
 }
 
 Profile* MainWindow::getProfil() const {
@@ -55,7 +61,7 @@ void MainWindow::showDialogDeleteProfil() {
 }
 
 void MainWindow::changeProfil(uint* idProfil) {
-    qDebug() << "un profil selectionné";
+
 }
 
 void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()

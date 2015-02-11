@@ -11,8 +11,7 @@ GuiPGApp::~GuiPGApp() {
 
 }
 
-void GuiPGApp::launchApp(Profile* p, Configuration* config) {
-    qDebug() << p->getName();
-    MainWindow* w = new MainWindow(p, config);
+void GuiPGApp::launchApp(int  profileId, Configuration* config) {
+    MainWindow* w = new MainWindow(config->getProfileById(profileId), config);
     w->show();
 }

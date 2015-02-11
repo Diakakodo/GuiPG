@@ -1,8 +1,12 @@
 #include <QString>
 #include <QtTest>
 #include "../Profile/profile.h"
+<<<<<<< HEAD
 #include "../Configuration/configuration.h"
 #include "../action.h"
+=======
+#include "../GPG/action.h"
+>>>>>>> 0be5d8697fd27c8592445e090cd6748d4ae906d0
 
 class MainTest : public QObject
 {
