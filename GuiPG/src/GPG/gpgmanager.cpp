@@ -1,20 +1,17 @@
 #include "gpgmanager.h"
 #include <QDebug>
 
-GPGManager::GPGManager(const Profile *p, const Action* a) : m_profile(p),
-        m_action(a) {
+GPGManager::GPGManager(const Profile *p) : m_profile(p) {
     connect(&m_gpg, (void (QProcess::*)(int, QProcess::ExitStatus)) &QProcess::finished,
             this, &GPGManager::terminate);
     connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
 }
 
 void GPGManager::execute() {
-    if (m_action != nullptr) {
-        QStringList args;
-        args << m_action->getOptions() << "--with-colons" << m_action->getCmd()
-             << m_action->getArgs();
-        m_gpg.start(m_profile->getGPGExecutable(), args);
-    }
+    QStringList args;
+    args << m_action.getOptions() << "--with-colons" << m_action.getCmd()
+         << m_action.getArgs();
+    m_gpg.start(m_profile->getGPGExecutable(), args);
 }
 
 void GPGManager::readOutput() {
@@ -27,4 +24,8 @@ const QString& GPGManager::getOutput() const {
 
 void GPGManager::terminate(int s, QProcess::ExitStatus status) {
     emit finished(s, m_output);
+}
+
+void GPGManager::setAction(const Action &a) {
+    m_action = a;
 }
