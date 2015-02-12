@@ -5,6 +5,7 @@
 #include "Profil/dialogprofil.h"
 #include "../Keys/keymanager.h"
 #include "keycreation.h"
+#include "Profil/profilecreation.h"
 #include "config.h"
 #include <QDebug>
 
@@ -72,6 +73,13 @@ void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()
     KeyCreation keyCreationGui;
     keyCreationGui.show();
     keyCreationGui.exec();
+}
+
+void MainWindow::on_actionCreer_un_nouveau_profile_triggered()
+{
+    ProfileCreation profileCreationGui(this);
+    profileCreationGui.show();
+    profileCreationGui.exec();
 }
 
 void MainWindow::showDialogConfiguration(){

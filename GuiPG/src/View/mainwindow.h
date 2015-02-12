@@ -28,6 +28,8 @@ class MainWindow : public QMainWindow {
 private slots:
         void on_actionG_n_rer_une_paire_de_clefs_triggered();
 
+        void on_actionCreer_un_nouveau_profile_triggered();
+
 private:
         Ui::MainWindow* ui;
         Configuration* m_config;
