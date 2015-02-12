@@ -2,12 +2,14 @@
 \section{Gestion de clefs}
 \subsection{Création des clefs}
  La création d'une clef se fait par un appel à la ligne de commande suivante : \texttt{gpg --gen-key}\\
-Cette commande permet de generer une paire de clef entre trois choix qui s'offre à l'utilisateur à savoir:
-\textbf{choix 1:} Le choix numéro 1 crée en fait deux paires de clés. La paire de clés de type DSA est la paire de clés primaire, utilisable seulement pour signer. Une paire de clés additionnelle de type ElGamal est aussi créée pour le chiffrement.\\
-\textbf{choix 2:} Le choix numéro 2 est similaire, à la différence que seule la paire de clés DSA est créée.\\
-\textbf{choix 4:}Ce dernier choix crée une paire de clés ElGamal utilisable pour générer des signatures, mais aussi pour le chiffrement.\\
-De façon générale l'option par défaut est toujours conseillée.
+Cette commande nous demande au tout début de choisir le type de clef que nous voulons créer parmis les 4 types qui nous sont
+proposés puis apres le choix du type la commande nous demande de choisir la taille de notre clef, ensuite la validité
+c'est à dire la date d'expiration de la clef, également elle nous demande de confirmer le choix precédent.
+Apres on dois definir le nom de la clef , une adresse e-mail associé puis un commentaire sur la clef ensuite on demande confirmation de
+toutes les précedente etapes pour valider puis choisir la passphrase de la clef.
+A ce niveau il est recquis d'appuyer sur les touches du clavier pour creer de l'anthropie necessaire à la creation de la clef.
+Dans la plupart des choix à effectuer le premier choix ou le choix par defaut est le mieu conseillé.
 
-GnuPG requiert que toutes les clés aient une taille supérieure ou égale à 768 bits. Cependant la taille de la clé DSA doit être comprise entre 512 et 1024 bits et la clé ElGamal peut être d'une taille quelconque. Par conséquent, si vous avez choisi le choix 1 et une taille de clé supérieure à 1024 bits, la clé ElGamal sera de la taille demandée, mais la clé DSA sera de 1024 bits.
 \subsection{Révocation d'une clef}
- Une fois la paire de clés a été créée, vous devez créer un certificat de rovocation pour la clé principale en utilisant l'option \texttt{--gen -revoke}. En cas d'oubli de votre mot de passe ou de compromission de votre clé ou eventuellement en cas de perte de la clé, ce certificat de révocation peut être publié pour notifier aux autres que votre clé publique ne doit plus être utilisée.On peut toujours se servir d'une clé publique révoquée pour vérifier des signatures que vous avez faites par le passé, mais on ne peut s'en servir pour chiffrer de nouveaux messages à votre attention. Cela n'affecte pas non plus votre capacité à déchiffrer les messages qui vous ont été adressés précédemment, si vous avez toujours accès à votre clé privée. 
+ Une fois la paire de clefs a été créée, vous devez créer un certificat de révocation pour la clef principale en utilisant la commande \texttt
+{--gen -revoke}. En cas d'oubli de votre mot de passe ou de compromission de votre clef ou eventuellement en cas de perte de la clef, ce certificat de révocation peut être publié pour notifier aux autres que votre clef publique ne doit plus être utilisée.On peut toujours se servir d'une clef publique révoquée pour vérifier des signatures que vous avez faites par le passé, mais on ne peut s'en servir pour chiffrer de nouveaux messages à votre attention. Cela n'affecte pas non plus votre capacité à déchiffrer les messages qui vous ont été adressés précédemment, si vous avez toujours accès à votre clef privée.

@@ -1,46 +1,26 @@
 \section{Échange de clefs}
 
-Exporter une clef :
-    Exporter une clef permet de la stocker dans un endroit pour la réutiliser sur un autre ordinateur.
-    Soit on exporte toutes les clefs de tous les trousseaux ou si il y a au moins un nom donné, celles du nom donné. Les clefs exportées sont écrites
-    sur STDOUT ou dans le fichier donné avec l'option --option ou -o.
-    La commande gpg est \texttt{"gpg -\-export"}.
+Pour communiquer avec les autres, vous devez échanger vos clefs publiques. Vous pouvez afficher la liste des clefs de votre trousseau de clefs publiques grâce à l'interface
+GuiPG.
 
-Envoyer une clef sur un serveur de clefs :
-    Envoyer une clef permet de la rendre publique et facilement retrouvable pour ceux qui la voudraient.
-    Cette fonction est équivalente à l'exportation de clefs mais permet en plus de l'envoyer sur un serveur de clefs. On peut préciser le
-    serveur de clefs voulu. Il ne faut pas envoyer le trousseau entier, mais plutôt uniquement les nouvelles clefs ou celles qui ont été modifiées
-    depuis le dernier envoi.
-    La commande gpg est --send-keys key IDs.
+\subsection{Exporter une clef}
 
-Exporter clef secrète :
-    Comme l'exportation de clefs mais avec les clefs secrètes à la place. Noter que l'exportation d'une clef secrète peut être un risque au niveau
-    sécurité si la clef exportée est envoyer par un canal non sécurisé.
-    Commande gpg : --export-secret-keys
+L'exportation de clef permet d'envoyer votre clef, publique ou privée, à votre corresondant. Cette action est possible grâce à la commmande --export de GPG.
 
+Lors d'une exportation de clef secrète, il est recommandé d'utiliser un canal de diffusion sécurisé. Il est possible d'exporter uniquement les sous-clefs d'une clef, en neutralisant la partie secrète de la clef primaire. Cependant cette fonctionnalité est une extension GNU d'openPGP et les autres implémentations peuvent ne pas être compatibles avec une telle clef.
 
-Exporter les sous-clefs secrètes :
-    Il est possible d'exporter uniquement les sous-clefs d'une clef, en neutralisant la partie secrète de la clef primaire. Cependant cette fonctionnalité est une extension GNU d'openPGP et les autres implémentations peuvent ne pas être compatibles avec une telle clef.
-    Commande gpg : --export-secret-subkeys 
+La clef est exportée dans un format binaire, ceci peut être problématique si la clef doit être envoyée par email ou publiée sur une page web. C'est pourquoi il existe une option --armor permettant la génération des sorties dans un format ASCII similaire aux documents encodés avec l'algorithme UUE. En général, toutes les sorties peuvent être exportées dans le format ASCII en ajoutant l'option --armor.
 
-Importer une clef :
-    Importe ou fusionne une ou plusieurs clefs. Cette action ajoute les clefs données au trousseau.
-    Il existe une option permettant de faire seulement la fusion des nouvelles signatures.
-    Commande gpg : --import
+Si vous désirez rendre publique votre clef, il est également possible de l'exporter sur un serveur de clefs. Cette action sera possible en nommant le serveur voulu ou en utilisant celui par défaut. Lors de l'exportatation de clefs, il faut envoyer les nouvelles/récemment modifiées clefs et non pas le trousseau entier.
 
-Importer une clef d'un serveur de clefs : 
-    Importe une clef donnée d'un serveur de clefs. Si le nom du serveur n'est pas mentionné, celui par défaut est utilisé.
-    Commande gpg : --recv-keys key IDs
+\subsection{Importer une clef}
 
-Actualiser le trousseau de clefs : 
-    Envoie une requête sur le serveur pour mettre à jour les clefs qui existe déjà dans le trousseau. Cette action est utile pour actualiser une clef
-    avec les dernières signatures et ids d'utilisateur. Si aucun argument n'est donné, le trousseau entier est mis à jour. Si le trousseau contient une clef qui n'est pas reliée à un serveur, celui-ci doit être précisé.
-    Commande gpg : --refresh-keys
+Importer une clef permet de l'ajouter dans votre trousseau. Il est possible de faire seulement la fusion des nouvelles signatures lors d'une importation.
+L'importation se fait généralement depuis un serveur de clefs. Il existe plusieurs serveurs, si ce dernier n'est pas mentionné lors de l'import, le serveur par défaut est utilisé.
 
-Rechercher une clef sur un serveur de clefs : 
-    Recherche le nom du serveur pour une clef donnée. Le serveur de clefs doit être spécifié. 
-    Commande gpg : --search-keys names
+Il existe plusieurs manières d'importer une clef. On peut rechercher une clef particulière sur un serveur ou on peut importer une clef à partir d'une URI donnée.
 
-Importer les clefs d'une URI donnée : 
-    Importe les clefs stockées à l'URI spécifiée.
-    Commande gpg : --fetch-keys URIs
+Une fois que la clef a été importée, elle devrait être validée. GnuPG utilise un modèle de confiance puissant et flexible qui ne requiert pas que vous validiez personnellement chaque clef que vous importez. Toutefois, certaines clefs le nécessitent. Une clef peut être validée en vérifiant son empreinte. En la signant, vous certifiez que c'est une clef valide. L'empreinte d'une clef peut être visualisée rapidement mais pour certifier la clef, vous devez l'éditer.
+
+Il est également possible d'actualiser son trousseau de clef en envoyer une requête sur un serveur. Cette action permet de mettre à jour une clef avec les dernières signatures et ids d'utilisateur. Si le trousseau contient une clef qui n'est pas reliée à un serveur, celui-ci doit être précisé.
+
