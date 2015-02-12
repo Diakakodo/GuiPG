@@ -6,6 +6,7 @@
 #include "../Keys/keymanager.h"
 #include "keycreation.h"
 #include "config.h"
+#include <QDebug>
 
 MainWindow::MainWindow(Profile* p, Configuration* config)
     : ui(new Ui::MainWindow), m_profil(p), m_config(config) {
@@ -52,9 +53,9 @@ void MainWindow::setGpgCommandsVisible(bool b) {
 }
 
 void MainWindow::showDialogSelectProfil() {
-    DialogProfil* d = new DialogProfil(DialogProfil::DIALOG_TYPE::SELECT, this);
-    QObject::connect(d, SIGNAL(selectProfil(uint*)), this, SLOT(changeProfil(uint*)));
-    d->exec();
+    DialogProfil d(DialogProfil::DIALOG_TYPE::SELECT, this);
+    QObject::connect(&d, &DialogProfil::selectProfil, this, &MainWindow::changeProfil);
+    d.exec();
 }
 
 void MainWindow::showDialogDeleteProfil() {
@@ -62,8 +63,8 @@ void MainWindow::showDialogDeleteProfil() {
     d.exec();
 }
 
-void MainWindow::changeProfil(uint* idProfil) {
-
+void MainWindow::changeProfil(unsigned idProfil) {
+    qDebug() << idProfil;
 }
 
 void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()

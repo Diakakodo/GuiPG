@@ -25,7 +25,7 @@ DialogProfil::DialogProfil(DIALOG_TYPE dialog_type, MainWindow *parent) :
 
     ui->buttonBox->button(QDialogButtonBox::Cancel)->setText("&Annuler");
 
-    // Configure les en-tête du tableau
+    // Configure les en-têtes du tableau
     QStringList m_TableHeader;
     m_TableHeader<<"N°"<<"Nom"<<"Dossier de configuration";
     ui->tableWidgetProfil->setHorizontalHeaderLabels(m_TableHeader);
@@ -54,10 +54,10 @@ DialogProfil::~DialogProfil()
 
 void DialogProfil::loadSelectProfil() {
     bool ok;
-    uint id = ui->tableWidgetProfil->selectedItems().first()->text().toUInt(&ok);
+    unsigned id = ui->tableWidgetProfil->selectedItems().first()->text().toUInt(&ok);
     if(ok){
         qDebug() << id;
-        emit selectProfil(&id);
+        emit selectProfil(id);
     } else {
       qDebug() << "erreur de conversion sur id profil selectionné";
     }

@@ -19,7 +19,7 @@ public:
     ~DialogProfil();
 
 signals:
-    void selectProfil(uint* id);
+    void selectProfil(unsigned id);
 
 public slots:
     void loadSelectProfil();
