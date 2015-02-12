@@ -2,6 +2,8 @@
 #include "ui_keycreation.h"
 #include <QRegExp>
 #include "../GPG/action.h"
+#include "../Profile/profile.h"
+#include "../GPG/gpgmanager.h"
 
 KeyCreation::KeyCreation(QWidget *parent) :
     QDialog(parent),
@@ -92,6 +94,7 @@ void KeyCreation::on_pushButton_2_clicked()
         interactions << "O";
 
         Action keyCreation(QString("--gen-key"), QStringList(), QStringList(), interactions);
+
         // TODO Donner l'action à gpg
         // TODO Comment rentrer la phrase de passe ?
         errorLabel->setText("Veuillez patienter pendant la création de la clé...\n");
