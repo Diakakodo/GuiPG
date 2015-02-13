@@ -1,5 +1,17 @@
 <configurations>
- <profile id="1" name="Matthieu">
+ <profile name="Matthieu" id="1">
+  <exec>gpg</exec>
+  <path>~/.gnupg/</path>
+ </profile>
+ <profile name="Guillaume" id="2">
+  <exec>gpg</exec>
+  <path>~/.gnupg/</path>
+ </profile>
+ <profile name="Pierre" id="3">
+  <exec>gpg</exec>
+  <path>~/.gnupg/</path>
+ </profile>
+ <profile name="Olivier" id="4">
   <exec>gpg</exec>
   <path>~/.gnupg/</path>
  </profile>

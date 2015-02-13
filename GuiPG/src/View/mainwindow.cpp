@@ -2,15 +2,15 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 #include <QApplication>
-#include "Profil/dialogprofil.h"
+#include "Profil/dialogprofile.h"
 #include "../Keys/keymanager.h"
 #include "keycreation.h"
 #include "Profil/profilecreation.h"
 #include "config.h"
 #include <QDebug>
 
-MainWindow::MainWindow(Profile* p, Configuration* config)
-    : ui(new Ui::MainWindow), m_profil(p), m_config(config) {
+MainWindow::MainWindow(MainWindowModel* model)
+    : ui(new Ui::MainWindow), m_model(model) {
 
     ui->setupUi(this);
     ui->textBrowser->setVisible(false);
@@ -20,24 +20,24 @@ MainWindow::MainWindow(Profile* p, Configuration* config)
     ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
 
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
-    connect(ui->actionChanger_de_profile, &QAction::triggered, this, &MainWindow::showDialogSelectProfil);
+    connect(ui->actionChanger_de_profile, &QAction::triggered, this, &MainWindow::showDialogSelectProfile);
     connect(ui->actionSupprimer_un_profile, &QAction::triggered, this, &MainWindow::showDialogDeleteProfil);
 
     connect(ui->actionConfiguration, SIGNAL(triggered()), this, SLOT(showDialogConfiguration()));
-    if (p == nullptr) {
-        showDialogSelectProfil();
+    if (m_model->getProfile() == nullptr) {
+        showDialogSelectProfile();
     }
 
-    KeyManager* m = new KeyManager(p);
+    KeyManager* m = new KeyManager(m_model->getProfile());
     m->load();
 }
 
 Profile* MainWindow::getProfil() const {
-    return m_profil;
+    return m_model->getProfile();
 }
 
 Configuration* MainWindow::getConfiguration() const {
-    return m_config;
+    return m_model->getConf();
 }
 
 MainWindow::~MainWindow() {
@@ -53,19 +53,19 @@ void MainWindow::setGpgCommandsVisible(bool b) {
     }
 }
 
-void MainWindow::showDialogSelectProfil() {
-    DialogProfil d(DialogProfil::DIALOG_TYPE::SELECT, this);
-    QObject::connect(&d, &DialogProfil::selectProfil, this, &MainWindow::changeProfil);
+void MainWindow::showDialogSelectProfile() {
+    DialogProfile d(DialogProfile::DIALOG_TYPE::SELECT, this);
+    QObject::connect(&d, &DialogProfile::selectProfile, this, &MainWindow::changeProfil);
     d.exec();
 }
 
 void MainWindow::showDialogDeleteProfil() {
-    DialogProfil d(DialogProfil::DIALOG_TYPE::DELETE, this);
+    DialogProfile d(DialogProfile::DIALOG_TYPE::DELETE, this);
     d.exec();
 }
 
-void MainWindow::changeProfil(unsigned idProfil) {
-    qDebug() << idProfil;
+void MainWindow::changeProfil(unsigned profileId) {
+    m_model->loadProfile(profileId);
 }
 
 void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()

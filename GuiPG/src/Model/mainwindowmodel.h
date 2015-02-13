@@ -2,28 +2,30 @@
 #define MAINWINDOWMODEL_H
 
 #include <QObject>
-#include <QThread>
-#include <QSemaphore>
 #include "../Configuration/configuration.h"
 #include "../Launcher/guipgapp.h"
+class GuiPGApp;
+#include "../Launcher/launcher.h"
+class Launcher;
 
-class MainWindowModel : public QThread {
+class MainWindowModel : public QObject {
 
         Q_OBJECT
 
     public:
-        MainWindowModel(GuiPGApp* app, Configuration* conf, unsigned profileId = 0);
+        MainWindowModel(Launcher* launcher, GuiPGApp* app, Configuration* conf, Profile* profile = NULL);
         ~MainWindowModel();
-        void run();
-    signals:
-        void runApp2(Profile* p, Configuration* config);
+        Launcher* getLauncher() const;
+        GuiPGApp* getGuiPGApp() const;
+        Configuration* getConf() const;
+        Profile* getProfile() const;
+        void loadProfile(unsigned profileId);
 
     private:
+        Launcher* m_launcher;
         GuiPGApp* m_app;
-        QSemaphore* m_sem;
         Configuration* m_conf;
-        unsigned m_profileId;
-        //QSystemSemaphore* m_systemSem;
+        Profile* m_profile;
 };
 
 
