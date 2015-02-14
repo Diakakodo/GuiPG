@@ -11,7 +11,9 @@ GuiPGApp::~GuiPGApp() {
 
 }
 
-void GuiPGApp::launchApp(int  profileId, Configuration* config) {
-    MainWindow* w = new MainWindow(config->getProfileById(profileId), config);
+void GuiPGApp::launchApp(Launcher* launcher, GuiPGApp* app, Configuration* config, unsigned profileId) {
+    Profile* profile = config->getProfileById(profileId);
+    MainWindowModel* model = new MainWindowModel(launcher, app, config, profile);
+    MainWindow* w = new MainWindow(model);
     w->show();
 }

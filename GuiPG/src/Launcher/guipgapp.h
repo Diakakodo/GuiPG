@@ -5,6 +5,10 @@
 #include <QApplication>
 #include "../Profile/profile.h"
 #include "../Configuration/configuration.h"
+#include "launcher.h"
+class Launcher;
+#include "../Model/mainwindowmodel.h"
+class MainWindowModel;
 
 class GuiPGApp : public QApplication {
 
@@ -16,7 +20,7 @@ class GuiPGApp : public QApplication {
         ~GuiPGApp();
     signals:
     public slots:
-        void launchApp(int profileId, Configuration* config);
+        void launchApp(Launcher* launcher, GuiPGApp* app, Configuration* conf, unsigned profileId);
 };
 
 #endif // GUIPGAPP_H

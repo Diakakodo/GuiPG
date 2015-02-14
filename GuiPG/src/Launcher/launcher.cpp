@@ -12,7 +12,6 @@ Launcher::Launcher(GuiPGApp* app, Configuration* conf, int profileId)
     m_profileId = profileId;
     m_launchers = QHash<Profile*, Launcher*>();
     m_stop = false;
-    MainWindowModel m(app,conf, profileId);
     // TODO vérifier la compatibilité Windows/Unix pour le mode d'accés.
     m_systemSem = new QSystemSemaphore(SYS_SEM_NAME, 0, QSystemSemaphore::Create);
     QObject::connect(this, &Launcher::runApp, m_app, &GuiPGApp::launchApp);
@@ -70,7 +69,7 @@ void Launcher::listen() {
     }
     // Le SHM est fraichement créée
     // On lance la première instance.
-    emit runApp(1, m_conf);
+    emit runApp(this, m_app, m_conf, 1);
     // On boucle avec une attente passive de données a lire sur le SHM.
     while (!m_stop) {
         m_systemSem->acquire();
@@ -85,7 +84,7 @@ void Launcher::listen() {
             // TODO lancer avec l'option -p.
             id = 0;
         }
-        emit runApp(id, m_conf);
+        emit runApp(this, m_app, m_conf, id);
     }
 }
 
