@@ -56,7 +56,6 @@ void DialogProfile::loadSelectProfile() {
     bool ok;
     unsigned id = ui->tableWidgetProfil->selectedItems().first()->text().toUInt(&ok);
     if(ok){
-        qDebug() << id;
         emit selectProfile(id);
     } else {
       qDebug() << "erreur de conversion sur id profil selectionné";
