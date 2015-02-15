@@ -18,6 +18,8 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_lineEdit_cursorPositionChanged(int arg1, int arg2);
+
 private:
     Ui::config *ui;
 };
