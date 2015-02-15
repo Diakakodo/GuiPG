@@ -1,4 +1,5 @@
 #include "mainwindowmodel.h"
+#include <QDebug>
 
 
 MainWindowModel::MainWindowModel(Launcher* launcher, GuiPGApp *app, Configuration* conf, Profile* profile)
@@ -25,7 +26,14 @@ Profile* MainWindowModel::getProfile() const {
     return m_profile;
 }
 
-void MainWindowModel::loadProfile(unsigned profileId) {
-
+void MainWindowModel::loadProfile(unsigned profileId, MainWindow* window) {
+    Profile* p = m_conf->getProfileById(profileId);
+    MainWindow* w = m_launcher->profileIsLoad(p);
+    if (w != nullptr) {
+        w->raise();
+    } else {
+        m_launcher->loadProfile(p, window);
+        m_profile = p;
+    }
 }
 

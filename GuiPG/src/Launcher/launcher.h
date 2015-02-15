@@ -10,6 +10,8 @@
 #include "../Configuration/configuration.h"
 #include "guipgapp.h"
 class GuiPGApp;
+#include "../View/mainwindow.h"
+class MainWindow;
 
 
 class Launcher : public QThread {
@@ -30,6 +32,14 @@ class Launcher : public QThread {
 
         bool alreadyRun();
 
+        bool addMainWindow(Profile* p, MainWindow* window);
+
+        MainWindow* profileIsLoad(Profile* p);
+
+        void loadProfile(Profile* p, MainWindow* window);
+
+        void UnloadProfileWithWindow(Profile* p);
+
     signals:
         void runApp(Launcher* launcher, GuiPGApp* app, Configuration* conf, unsigned profileId);
 
@@ -42,7 +52,7 @@ class Launcher : public QThread {
         QSemaphore* m_sem;
         Configuration* m_conf;
         QSharedMemory* m_shm;
-        QHash<Profile*, Launcher*> m_launchers;
+        QHash<Profile*, MainWindow*> m_profileMainWindowHash;
         int m_profileId;
         QSystemSemaphore* m_systemSem;
         bool m_stop;

@@ -10,7 +10,7 @@ Launcher::Launcher(GuiPGApp* app, Configuration* conf, int profileId)
 
     m_shm = new QSharedMemory(SHM_NAME, this);
     m_profileId = profileId;
-    m_launchers = QHash<Profile*, Launcher*>();
+    m_profileMainWindowHash = QHash<Profile*, MainWindow*>();
     m_stop = false;
     // TODO vérifier la compatibilité Windows/Unix pour le mode d'accés.
     m_systemSem = new QSystemSemaphore(SYS_SEM_NAME, 0, QSystemSemaphore::Create);
@@ -88,3 +88,36 @@ void Launcher::listen() {
     }
 }
 
+bool Launcher::addMainWindow(Profile* p, MainWindow* window) {
+    if (p == nullptr or window == nullptr) {
+        // TODO: balancer une exception
+        return false;
+    }
+    if (profileIsLoad(p) != nullptr) {
+        // TODO: balancer une exception
+        return false;
+    }
+    m_profileMainWindowHash.insert(p, window);
+    return true;
+}
+
+MainWindow* Launcher::profileIsLoad(Profile* p) {
+    if (p == nullptr) {
+        // TODO: balancer une exception
+        return NULL;
+    }
+    if (m_profileMainWindowHash.contains(p)) {
+        return m_profileMainWindowHash.value(p);
+    }
+    return NULL;
+}
+
+void Launcher::loadProfile(Profile* p, MainWindow* window) {
+    Profile* key = m_profileMainWindowHash.key(window);
+    m_profileMainWindowHash.remove(key);
+    addMainWindow(p, window);
+}
+
+void Launcher::UnloadProfileWithWindow(Profile* p) {
+    m_profileMainWindowHash.remove(p);
+}

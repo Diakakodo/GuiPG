@@ -24,7 +24,7 @@ MainWindow::MainWindow(MainWindowModel* model)
     connect(ui->actionSupprimer_un_profile, &QAction::triggered, this, &MainWindow::showDialogDeleteProfil);
 
     connect(ui->actionConfiguration, SIGNAL(triggered()), this, SLOT(showDialogConfiguration()));
-    if (m_model->getProfile() == nullptr) {
+    while (m_model->getProfile() == nullptr) {
         showDialogSelectProfile();
     }
 
@@ -42,6 +42,10 @@ Configuration* MainWindow::getConfiguration() const {
 
 MainWindow::~MainWindow() {
     delete ui;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+    m_model->getLauncher()->UnloadProfileWithWindow(m_model->getProfile());
 }
 
 void MainWindow::setGpgCommandsVisible(bool b) {
@@ -65,7 +69,7 @@ void MainWindow::showDialogDeleteProfil() {
 }
 
 void MainWindow::changeProfil(unsigned profileId) {
-    m_model->loadProfile(profileId);
+    m_model->loadProfile(profileId, this);
 }
 
 void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()

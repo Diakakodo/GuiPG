@@ -7,6 +7,8 @@
 class GuiPGApp;
 #include "../Launcher/launcher.h"
 class Launcher;
+#include "../View/mainwindow.h"
+class MainWindow;
 
 class MainWindowModel : public QObject {
 
@@ -19,7 +21,7 @@ class MainWindowModel : public QObject {
         GuiPGApp* getGuiPGApp() const;
         Configuration* getConf() const;
         Profile* getProfile() const;
-        void loadProfile(unsigned profileId);
+        void loadProfile(unsigned profileId, MainWindow* window);
 
     private:
         Launcher* m_launcher;
