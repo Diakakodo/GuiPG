@@ -30,6 +30,7 @@ void KeyManager::gpgFinished(int s, const QString &output) {
                     QDate::fromString(split.at(6), "yyyy-MM-dd"),
                     split.at(9)
             );
+            qDebug() << split;
             m_keys.append(k);
         } else if (split.first() == "sub") {
             Key* k = new Key(
