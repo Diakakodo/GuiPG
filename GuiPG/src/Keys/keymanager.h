@@ -16,6 +16,9 @@ class KeyManager : public QObject {
         void load();
         const QList<Key*>& getKeys() const;
 
+    signals:
+        void keysLoaded();
+
     private:
         void gpgFinished(int s, const QString& output);
 

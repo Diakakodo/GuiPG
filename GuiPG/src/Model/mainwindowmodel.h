@@ -23,6 +23,13 @@ class MainWindowModel : public QObject {
         Configuration* getConf() const;
         Profile* getProfile() const;
         void loadProfile(unsigned profileId, MainWindow* window);
+        KeyManager* getKeyManager() const;
+
+    signals:
+        void keysChanged();
+
+    private slots:
+        void emitKeysChanged();
 
     private:
         Launcher* m_launcher;

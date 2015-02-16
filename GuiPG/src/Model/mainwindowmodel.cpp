@@ -5,6 +5,8 @@
 MainWindowModel::MainWindowModel(Launcher* launcher, GuiPGApp *app, Configuration* conf, Profile* profile)
         : m_launcher(launcher), m_app(app), m_conf(conf), m_profile(profile),
           m_keyManager(new KeyManager(m_profile)) {
+    connect(m_keyManager, &KeyManager::keysLoaded, this, &MainWindowModel::emitKeysChanged);
+    m_keyManager->load();
 }
 
 MainWindowModel::~MainWindowModel() {
@@ -38,3 +40,10 @@ void MainWindowModel::loadProfile(unsigned profileId, MainWindow* window) {
     }
 }
 
+KeyManager* MainWindowModel::getKeyManager() const {
+    return m_keyManager;
+}
+
+void MainWindowModel::emitKeysChanged() {
+    emit keysChanged();
+}

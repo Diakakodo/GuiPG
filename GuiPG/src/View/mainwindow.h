@@ -22,6 +22,7 @@ class MainWindow : public QMainWindow {
         Configuration* getConfiguration() const;
 
     public slots:
+        void buildTree();
         void setGpgCommandsVisible(bool b);
         void showDialogSelectProfile();
         void showDialogDeleteProfil();

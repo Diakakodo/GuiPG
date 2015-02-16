@@ -14,18 +14,26 @@ MainWindow::MainWindow(MainWindowModel* model)
     ui->setupUi(this);
     ui->textBrowser->setVisible(false);
 
-    QStringList m_TreeHeader;
-    m_TreeHeader<<"Nom"<<"Email"<<"Validité"<<"Confiance"<<"Expiration"<<"Taille"<<"Création"<<"Identifiant";
-    ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
-
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
     connect(ui->actionChanger_de_profile, &QAction::triggered, this, &MainWindow::showDialogSelectProfile);
     connect(ui->actionSupprimer_un_profile, &QAction::triggered, this, &MainWindow::showDialogDeleteProfil);
-
     connect(ui->actionConfiguration, SIGNAL(triggered()), this, SLOT(showDialogConfiguration()));
+
     while (m_model->getProfile() == nullptr) {
         showDialogSelectProfile();
     }
+
+    QStringList m_TreeHeader;
+    m_TreeHeader
+            << "ID"
+            << "Propriétaire"
+            << "Taille"
+            << "Création"
+            << "Expiration"
+            << "Validité"
+            << "Confiance";
+    ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
+    connect(m_model, &MainWindowModel::keysChanged, this, &MainWindow::buildTree);
 }
 
 Profile* MainWindow::getProfil() const {
@@ -85,4 +93,31 @@ void MainWindow::on_actionCreer_un_nouveau_profile_triggered()
 void MainWindow::showDialogConfiguration(){
     config c(this);
     c.exec();
+}
+
+void MainWindow::buildTree() {
+    const QList<Key*>& keys = m_model->getKeyManager()->getKeys();
+    for (Key* k : keys) {
+        QStringList infos;
+        infos
+                << k->getId()
+                << k->getOwner()
+                << QString::number(k->getLength())
+                << k->getCreationDate().toString("dd/MM/yyyy")
+                << k->getExpirationDate().toString("dd/MM/yyyy")
+                << Key::validityToStr(k->getValidity());
+        QTreeWidgetItem* item = new QTreeWidgetItem(ui->treeWidgetKey, infos);
+        for (Key* sk : k->getSubKeys()) {
+            infos.clear();
+            infos
+                    << sk->getId()
+                    << sk->getOwner()
+                    << QString::number(sk->getLength())
+                    << sk->getCreationDate().toString("dd/MM/yyyy")
+                    << sk->getExpirationDate().toString("dd/MM/yyyy")
+                    << Key::validityToStr(sk->getValidity());
+            item->addChild(new QTreeWidgetItem(ui->treeWidgetKey, infos));
+        }
+        ui->treeWidgetKey->addTopLevelItem(item);
+    }
 }

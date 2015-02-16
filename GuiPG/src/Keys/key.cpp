@@ -1,5 +1,35 @@
 #include "key.h"
 
+QString Key::validityToStr(Validity v) {
+    switch (v) {
+        case VAL_EXPIRED:
+            return "Expirée";
+        case VAL_FULLY:
+            return "Totalement valide";
+        case VAL_INVALID:
+            return "Invalide";
+        case VAL_MARGINAL:
+            return "Valide";
+        case VAL_MISSING_SSIG:
+            return "Singnature manquante";
+        case VAL_NO_VALUE:
+            return "";
+        case VAL_PRIVATE_PART:
+            return "";
+        case VAL_REVOKED:
+            return "Révoquée";
+        case VAL_SPECIAL:
+            return "Spéciale";
+        case VAL_ULTIMATELY:
+            return "Ultime";
+        case VAL_UNDEFINED:
+            return "Indéfinie";
+        case VAL_UNKNOWN:
+            return "Inconnue";
+    }
+    return "";
+}
+
 Key::Key(Scope s,
          Algorithm a,
          unsigned length,

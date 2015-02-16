@@ -45,6 +45,7 @@ void KeyManager::gpgFinished(int s, const QString &output) {
             m_keys.last()->addSubKey(k);
         }
     }
+    emit keysLoaded();
 }
 
 const QList<Key*>& KeyManager::getKeys() const {

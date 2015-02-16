@@ -44,6 +44,8 @@ class Key : public QObject {
             CAP_UNKNOWN = '?'
         };
 
+        static QString validityToStr(Validity v);
+
         explicit Key(Scope s,
                      Algorithm a,
                      unsigned length,
