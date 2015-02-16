@@ -26,20 +26,26 @@ DialogProfile::DialogProfile(DIALOG_TYPE dialog_type, MainWindow *parent) :
     ui->buttonBox->button(QDialogButtonBox::Cancel)->setText("&Annuler");
 
     // Configure les en-têtes du tableau
+    ui->tableWidgetProfil->setColumnCount(2);
     QStringList m_TableHeader;
-    m_TableHeader<<"N°"<<"Nom"<<"Dossier de configuration";
+    m_TableHeader<<"Nom"<<"Dossier de configuration";
     ui->tableWidgetProfil->setHorizontalHeaderLabels(m_TableHeader);
 
     // Rempli la tableau de profil
-    QList<Profile*> profilList = parent->getConfiguration()->getProfiles();
-    ui->tableWidgetProfil->setRowCount(profilList.size());
-    Profile* profil;
+    QList<Profile*> profileList = parent->getConfiguration()->getProfiles();
+    ui->tableWidgetProfil->setRowCount(profileList.size());
+    Profile* profile;
     int i = 0;
-    foreach (profil, profilList) {
-        ui->tableWidgetProfil->setItem(i, 0, new QTableWidgetItem(QString::number(profil->getId())));
-        ui->tableWidgetProfil->setItem(i, 1, new QTableWidgetItem(profil->getName()));
-        ui->tableWidgetProfil->setItem(i, 2, new QTableWidgetItem(profil->getConfigurationPath()));
+    foreach (profile, profileList) {
+        ui->tableWidgetProfil->setItem(i, 0, new QTableWidgetItem(profile->getName()));
+        ui->tableWidgetProfil->setItem(i, 1, new QTableWidgetItem(profile->getConfigurationPath()));
         ui->tableWidgetProfil->setRowHeight(i, 20);
+        if (profile->isDefault()) {
+            QFont font;
+            font.setBold(true);
+            ui->tableWidgetProfil->item(i,0)->setFont(font);
+            ui->tableWidgetProfil->item(i,1)->setFont(font);
+        }
         ++i;
     }
 
