@@ -3,7 +3,6 @@
 #include <iostream>
 #include <QApplication>
 #include "Profil/dialogprofile.h"
-#include "../Keys/keymanager.h"
 #include "keycreation.h"
 #include "Profil/profilecreation.h"
 #include "config.h"
@@ -27,9 +26,6 @@ MainWindow::MainWindow(MainWindowModel* model)
     while (m_model->getProfile() == nullptr) {
         showDialogSelectProfile();
     }
-
-    KeyManager* m = new KeyManager(m_model->getProfile());
-    m->load();
 }
 
 Profile* MainWindow::getProfil() const {

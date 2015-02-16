@@ -5,6 +5,7 @@
 #include "../Profile/profile.h"
 #include "../Configuration/configuration.h"
 #include "../Model/mainwindowmodel.h"
+
 class MainWindowModel;
 
 namespace Ui {

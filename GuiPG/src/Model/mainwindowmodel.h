@@ -9,6 +9,7 @@ class GuiPGApp;
 class Launcher;
 #include "../View/mainwindow.h"
 class MainWindow;
+#include "../Keys/keymanager.h"
 
 class MainWindowModel : public QObject {
 
@@ -28,6 +29,7 @@ class MainWindowModel : public QObject {
         GuiPGApp* m_app;
         Configuration* m_conf;
         Profile* m_profile;
+        KeyManager* m_keyManager;
 };
 
 

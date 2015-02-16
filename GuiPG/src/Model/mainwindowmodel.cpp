@@ -3,11 +3,12 @@
 
 
 MainWindowModel::MainWindowModel(Launcher* launcher, GuiPGApp *app, Configuration* conf, Profile* profile)
-        : m_launcher(launcher), m_app(app), m_conf(conf), m_profile(profile) {
+        : m_launcher(launcher), m_app(app), m_conf(conf), m_profile(profile),
+          m_keyManager(new KeyManager(m_profile)) {
 }
 
 MainWindowModel::~MainWindowModel() {
-
+    delete m_keyManager;
 }
 
 Launcher* MainWindowModel::getLauncher() const {
