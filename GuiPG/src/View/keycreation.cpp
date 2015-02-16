@@ -96,6 +96,9 @@ void KeyCreation::on_pushButton_2_clicked()
         Action keyCreation(QString("--gen-key"), QStringList(), QStringList(), interactions);
 
         // TODO Donner l'action à gpg
+        GPGManager* manager = new GPGManager(new Profile());
+        manager->setAction(keyCreation);
+        manager->execute();
         // TODO Comment rentrer la phrase de passe ?
         errorLabel->setText("Veuillez patienter pendant la création de la clé...\n");
 

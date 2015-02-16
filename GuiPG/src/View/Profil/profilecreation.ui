@@ -15,36 +15,71 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="profileName">
-       <property name="text">
-        <string>Nom du profil</string>
-       </property>
-      </widget>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="nameLabel">
+         <property name="text">
+          <string>   Nom du profil   </string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="buddy">
+          <cstring>gpgPathLabel</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="nameEdit"/>
+       </item>
+      </layout>
      </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="profileNameLineEdit"/>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="gpgPathLabel">
+         <property name="text">
+          <string> Chemin vers gpg </string>
+         </property>
+         <property name="buddy">
+          <cstring>gpgPathLabel</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="gpgPathEdit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="gpgPathButton">
+         <property name="text">
+          <string>Parcourir</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="gPGPathLabel">
-       <property name="text">
-        <string>Chemin vers GPG</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="cheminVersGPGLineEdit"/>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="profilePathLabel">
-       <property name="text">
-        <string>Chemin vers profil</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="profilePathLineEdit"/>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="storagePathLabel">
+         <property name="text">
+          <string>Stockage du profil</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="storagePathEdit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="storagePathButton">
+         <property name="text">
+          <string>Parcourir</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>

@@ -19,6 +19,12 @@ public:
 private slots:
     void on_cancelButton_clicked();
 
+    void on_gpgPathButton_clicked();
+
+    void on_storagePathButton_clicked();
+
+    void on_acceptButton_clicked();
+
 private:
     Ui::ProfileCreation *ui;
 };
