@@ -35,6 +35,7 @@ class Profile : public QObject {
          * @return Le chemin vers l'exécutable de GPG.
          */
         const QString& getGPGExecutable() const;
+        unsigned isDefault() const;
         /**
          * @brief setGPGExecutable Change le chemin vers l'exécutable de GPG pour le profil courant.
          * @param path Le nouveau chemin vers l'exécutable de GPG.
@@ -46,6 +47,7 @@ class Profile : public QObject {
          * @param path le chemin de config
          */
         void setConfigurationPath(const QString& path);
+        void setDefault(unsigned isDefault);
 
 
     private:
@@ -53,6 +55,7 @@ class Profile : public QObject {
         QString m_name;
         QString m_exec;
         QString m_path;
+        unsigned m_isDefault;
 };
 
 #endif // PROFILE_H

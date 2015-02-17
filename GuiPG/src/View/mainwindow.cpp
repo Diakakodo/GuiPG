@@ -15,12 +15,11 @@ MainWindow::MainWindow(MainWindowModel* model)
     ui->textBrowser->setVisible(false);
 
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
-    connect(ui->actionChanger_de_profile, &QAction::triggered, this, &MainWindow::showDialogSelectProfile);
-    connect(ui->actionSupprimer_un_profile, &QAction::triggered, this, &MainWindow::showDialogDeleteProfil);
+    connect(ui->actionProfil, &QAction::triggered, this, &MainWindow::showDialogProfile);
     connect(ui->actionConfiguration, SIGNAL(triggered()), this, SLOT(showDialogConfiguration()));
 
     while (m_model->getProfile() == nullptr) {
-        showDialogSelectProfile();
+        showDialogProfile();
     }
 
     QStringList m_TreeHeader;
@@ -32,6 +31,7 @@ MainWindow::MainWindow(MainWindowModel* model)
             << "Expiration"
             << "Validité"
             << "Confiance";
+    ui->treeWidgetKey->setColumnCount(7);
     ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
     connect(m_model, &MainWindowModel::keysChanged, this, &MainWindow::buildTree);
 }
@@ -61,14 +61,14 @@ void MainWindow::setGpgCommandsVisible(bool b) {
     }
 }
 
-void MainWindow::showDialogSelectProfile() {
-    DialogProfile d(DialogProfile::DIALOG_TYPE::SELECT, this);
+void MainWindow::showDialogProfile() {
+    DialogProfile d(this);
     QObject::connect(&d, &DialogProfile::selectProfile, this, &MainWindow::changeProfil);
     d.exec();
 }
 
-void MainWindow::showDialogDeleteProfil() {
-    DialogProfile d(DialogProfile::DIALOG_TYPE::DELETE, this);
+void MainWindow::showDialogCreateProfile() {
+    ProfileCreation d(this);
     d.exec();
 }
 
@@ -81,13 +81,6 @@ void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()
     KeyCreation keyCreationGui;
     keyCreationGui.show();
     keyCreationGui.exec();
-}
-
-void MainWindow::on_actionCreer_un_nouveau_profile_triggered()
-{
-    ProfileCreation profileCreationGui(this);
-    profileCreationGui.show();
-    profileCreationGui.exec();
 }
 
 void MainWindow::showDialogConfiguration(){

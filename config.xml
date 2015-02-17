@@ -1,18 +1,14 @@
 <configurations>
- <profile name="Matthieu" id="1">
+ <profile id="1" name="Default_GnuPG" default="1">
   <exec>gpg</exec>
   <path>~/.gnupg/</path>
  </profile>
- <profile id="2" name="Guillaume">
+ <profile id="2" name="Matthieu" default="0">
   <exec>gpg</exec>
-  <path>~/.gnupg/</path>
+  <path>~/.gnupg</path>
  </profile>
- <profile id="3" name="Pierre">
+ <profile id="3" name="Guillaume" default="0">
   <exec>gpg</exec>
-  <path>~/.gnupg/</path>
- </profile>
- <profile id="4" name="Olivier">
-  <exec>gpg</exec>
-  <path>~/.gnupg/</path>
+  <path>~/.gnupg</path>
  </profile>
 </configurations>

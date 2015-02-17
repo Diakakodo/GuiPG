@@ -14,8 +14,7 @@ class DialogProfile : public QDialog
     Q_OBJECT
 
 public:
-    enum DIALOG_TYPE {SELECT, DELETE};
-    explicit DialogProfile(DIALOG_TYPE dialog_type, MainWindow *parent = 0);
+    explicit DialogProfile(MainWindow *parent = 0);
     ~DialogProfile();
 
 signals:
@@ -28,7 +27,10 @@ public slots:
 
 private:
     Ui::DialogProfile *ui;
-    QAbstractButton* m_actionButton;
+    QAbstractButton* m_loadButton;
+    QAbstractButton* m_createButton;
+    QAbstractButton* m_deleteButton;
+    QAbstractButton* m_setDefaultButton;
 };
 
 #endif // DIALOGPROFILE_H

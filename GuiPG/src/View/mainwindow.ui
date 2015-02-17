@@ -41,43 +41,8 @@
          <bool>true</bool>
         </property>
         <property name="columnCount">
-         <number>7</number>
+         <number>0</number>
         </property>
-        <column>
-         <property name="text">
-          <string notr="true">1</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string notr="true">2</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string notr="true">3</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string notr="true">4</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string notr="true">5</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string notr="true">6</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string notr="true">7</string>
-         </property>
-        </column>
        </widget>
        <widget class="QTabWidget" name="tabWidget">
         <widget class="QWidget" name="tab">
@@ -219,7 +184,7 @@
      <x>0</x>
      <y>0</y>
      <width>1099</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -246,16 +211,8 @@
     <property name="title">
      <string>Pa&amp;ramètres</string>
     </property>
-    <widget class="QMenu" name="menu_Profiles">
-     <property name="title">
-      <string>&amp;Profiles</string>
-     </property>
-     <addaction name="actionChanger_de_profile"/>
-     <addaction name="actionSupprimer_un_profile"/>
-     <addaction name="actionCreer_un_nouveau_profile"/>
-    </widget>
-    <addaction name="menu_Profiles"/>
     <addaction name="actionConfiguration"/>
+    <addaction name="actionProfil"/>
    </widget>
    <widget class="QMenu" name="menuAide">
     <property name="title">
@@ -335,6 +292,11 @@
   <action name="actionCreer_un_nouveau_profile">
    <property name="text">
     <string>Créer &amp;un nouveau profile</string>
+   </property>
+  </action>
+  <action name="actionProfil">
+   <property name="text">
+    <string>Profil</string>
    </property>
   </action>
  </widget>

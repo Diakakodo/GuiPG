@@ -7,6 +7,7 @@
 #define EXEC_TAG_NAME "exec"
 #define ID_ATTR_NAME "id"
 #define NAME_ATTR_NAME "name"
+#define DEFAULT_ATTR_NAME "default"
 #define PATH_TAG_NAME "path"
 #define PROFILE_TAG_NAME "profile"
 #define ROOT_TAG_NAME "configurations"
@@ -40,11 +41,14 @@ bool Configuration::load() {
         QDomElement pe = e.firstChildElement(PROFILE_TAG_NAME);
         while (!pe.isNull()) {
             bool ok = false;
+            bool ok2 = false;
             unsigned id = pe.attribute(ID_ATTR_NAME).toUInt(&ok);
-            if (ok) {
+            unsigned isDefault = pe.attribute(DEFAULT_ATTR_NAME).toUInt(&ok2);
+            if (ok and ok2) {
                 QString name = pe.attribute(NAME_ATTR_NAME);
                 QDomNode n = pe.firstChild();
                 Profile* p = new Profile(id, name);
+                p->setDefault(isDefault);
                 while (!n.isNull()) {
                     if (n.isElement()) {
                         QDomElement ae = n.toElement();
@@ -74,6 +78,15 @@ Profile* Configuration::getProfileById(unsigned id) const {
     return nullptr;
 }
 
+Profile* Configuration::getDefaultProfile() const {
+    for (Profile* p : m_profiles) {
+        if (p->isDefault()) {
+            return p;
+        }
+    }
+    return nullptr;
+}
+
 const QList<Profile*>& Configuration::getProfiles() const {
     return m_profiles;
 }
@@ -87,6 +100,7 @@ bool Configuration::save() {
         QDomElement pe = doc.createElement(PROFILE_TAG_NAME);
         pe.setAttribute(ID_ATTR_NAME, p->getId());
         pe.setAttribute(NAME_ATTR_NAME, p->getName());
+        pe.setAttribute(DEFAULT_ATTR_NAME, p->isDefault());
         addNode(EXEC_TAG_NAME, p->getGPGExecutable(), doc, pe);
         addNode(PATH_TAG_NAME, p->getConfigurationPath(), doc, pe);
         root.appendChild(pe);
