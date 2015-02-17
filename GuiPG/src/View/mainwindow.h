@@ -24,14 +24,13 @@ class MainWindow : public QMainWindow {
     public slots:
         void buildTree();
         void setGpgCommandsVisible(bool b);
-        void showDialogSelectProfile();
-        void showDialogDeleteProfil();
+        void showDialogProfile();
+        void showDialogCreateProfile();
         void changeProfil(unsigned profileId);
         void showDialogConfiguration();
 
 private slots:
         void on_actionG_n_rer_une_paire_de_clefs_triggered();
-        void on_actionCreer_un_nouveau_profile_triggered();
 
 protected:
      void closeEvent(QCloseEvent *event);
