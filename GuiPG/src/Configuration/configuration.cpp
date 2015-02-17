@@ -41,9 +41,10 @@ bool Configuration::load() {
         QDomElement pe = e.firstChildElement(PROFILE_TAG_NAME);
         while (!pe.isNull()) {
             bool ok = false;
+            bool ok2 = false;
             unsigned id = pe.attribute(ID_ATTR_NAME).toUInt(&ok);
-            bool isDefault = (pe.attribute(DEFAULT_ATTR_NAME) == "0" ? true : false);
-            if (ok) {
+            unsigned isDefault = pe.attribute(DEFAULT_ATTR_NAME).toUInt(&ok2);
+            if (ok and ok2) {
                 QString name = pe.attribute(NAME_ATTR_NAME);
                 QDomNode n = pe.firstChild();
                 Profile* p = new Profile(id, name);
