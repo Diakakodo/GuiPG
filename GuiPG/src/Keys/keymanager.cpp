@@ -20,27 +20,31 @@ void KeyManager::gpgFinished(int s, const QString &output) {
     for (int i = 1; i < lines.size(); ++i) {
         QStringList split = lines.at(i).split(":");
         if (split.first() == "pub") {
+            QDate c = strToDate(split.at(5));
+            QDate e = strToDate(split.at(6));
             Key* k = new Key(
                     Key::SCOPE_PUBLIC,
                     (Key::Algorithm) split.at(3).toInt(),
                     split.at(2).toUInt(),
                     (Key::Validity) split.at(1).at(0).toLatin1(),
                     split.at(4),
-                    QDate::fromString(split.at(5), "yyyy-MM-dd"),
-                    QDate::fromString(split.at(6), "yyyy-MM-dd"),
+                    c,
+                    e,
                     split.at(9)
             );
             qDebug() << split;
             m_keys.append(k);
         } else if (split.first() == "sub") {
+            QDate c = strToDate(split.at(5));
+            QDate e = strToDate(split.at(6));
             Key* k = new Key(
                     Key::SCOPE_PUBLIC,
                     (Key::Algorithm) split.at(3).toInt(),
                     split.at(2).toUInt(),
                     (Key::Validity) split.at(1).at(0).toLatin1(),
                     split.at(4),
-                    QDate::fromString(split.at(5), "yyyy-MM-dd"),
-                    QDate::fromString(split.at(6), "yyyy-MM-dd"),
+                    c,
+                    e,
                     split.at(9)
             );
             m_keys.last()->addSubKey(k);
@@ -51,4 +55,14 @@ void KeyManager::gpgFinished(int s, const QString &output) {
 
 const QList<Key*>& KeyManager::getKeys() const {
     return m_keys;
+}
+
+QDate KeyManager::strToDate(const QString& d) const {
+    bool nb = false;
+    unsigned long timestamp = d.toULong(&nb);
+    if (nb) {
+        return QDateTime::fromMSecsSinceEpoch(timestamp).date();
+    } else {
+        return QDate::fromString(d, "yyyy-MM-dd");
+    }
 }
