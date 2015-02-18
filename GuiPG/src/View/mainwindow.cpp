@@ -29,9 +29,7 @@ MainWindow::MainWindow(MainWindowModel* model)
             << "Taille"
             << "Création"
             << "Expiration"
-            << "Validité"
-            << "Confiance";
-    ui->treeWidgetKey->setColumnCount(7);
+            << "Validité";
     ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
     connect(m_model, &MainWindowModel::keysChanged, this, &MainWindow::buildTree);
 }
