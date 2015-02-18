@@ -4,20 +4,27 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
+#include "mainwindow.h"
+#include "../Profile/profile.h"
 
-config::config(QWidget *parent) :
+config::config(MainWindow *parent) : //QWidget
     QDialog(parent),
     ui(new Ui::config)
 {
     ui->setupUi(this);
 
-    struct passwd *pw = getpwuid(getuid());
-    QString homedir = pw->pw_dir;
-    QString home = "home/";
 
-    ui->lineEdit_2->setText((homedir).append(".gnugp"));
-
+    m_profil = parent->getProfil();
+    if(m_profil->getConfigurationPath() != ""){
+        ui->lineEdit_2->setText(m_profil->getConfigurationPath());
+    }else{
+        struct passwd *pw = getpwuid(getuid());
+        QString homedir = pw->pw_dir;
+        QString home = "home/";
+        ui->lineEdit_2->setText((homedir).append(".gnugp/"));
+    }
 }
+
 config::~config()
 
 {
@@ -30,12 +37,24 @@ void config::on_pushButton_clicked()
   const char *homedir = pw->pw_dir;
   QString home = "home/";
 
-  QString filename=QFileDialog::getOpenFileName(this,tr("Open File"),homedir,"All files (*.*)" );
-  ui->lineEdit_2->setText(filename);
-
-}
+  location=QFileDialog::getOpenFileName(this,tr("Open File"),homedir,"All files (*.*)" );
+  ui->lineEdit_2->setText(location);
+};
 
 void config::on_lineEdit_cursorPositionChanged(int arg1, int arg2)
 {
     ui->lineEdit->setText("gpg.config");
 }
+
+void config::on_pushButton_4_clicked()
+{
+    close();
+}
+
+void config::on_pushButton_5_clicked()
+{
+    m_profil->setConfigurationPath(location);
+    close();
+}
+
+

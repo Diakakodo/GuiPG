@@ -1,7 +1,7 @@
 <configurations>
  <profile id="1" name="Default_GnuPG" default="1">
   <exec>gpg</exec>
-  <path>~/.gnupg/</path>
+  <path>/home/ibrahima/Public/Documents/compte_rendu.txt</path>
  </profile>
  <profile id="2" name="Matthieu" default="0">
   <exec>gpg</exec>

@@ -2,6 +2,9 @@
 #define CONFIG_H
 
 #include <QDialog>
+#include "mainwindow.h"
+#include "../Profile/profile.h"
+
 
 namespace Ui {
 class config;
@@ -12,7 +15,7 @@ class config : public QDialog
     Q_OBJECT
 
 public:
-    explicit config(QWidget *parent = 0);
+    explicit config(MainWindow *parent = 0);
     ~config();
 
 private slots:
@@ -20,8 +23,14 @@ private slots:
 
     void on_lineEdit_cursorPositionChanged(int arg1, int arg2);
 
+    void on_pushButton_4_clicked();
+
+    void on_pushButton_5_clicked();
+
 private:
     Ui::config *ui;
+    Profile *m_profil;
+    QString location;
 };
 
 #endif // CONFIG_H
