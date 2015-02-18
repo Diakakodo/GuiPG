@@ -8,7 +8,7 @@
 
 DialogProfile::DialogProfile(MainWindow *parent) :
     QDialog(parent),
-    ui(new Ui::DialogProfile)
+    ui(new Ui::DialogProfile), m_parent(parent)
 {
     ui->setupUi(this);
 
@@ -43,7 +43,20 @@ DialogProfile::DialogProfile(MainWindow *parent) :
     ui->tableWidgetProfil->setHorizontalHeaderLabels(m_TableHeader);
 
     // Rempli la tableau de profil
-    QList<Profile*> profileList = parent->getConfiguration()->getProfiles();
+    fillTableWidget();
+
+    ui->tableWidgetProfil->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    connect(ui->tableWidgetProfil, &QTableWidget::itemSelectionChanged, this, &DialogProfile::enableAtionButton);
+}
+
+DialogProfile::~DialogProfile()
+{
+    delete ui;
+}
+
+void DialogProfile::fillTableWidget() {
+    ui->tableWidgetProfil->clearContents();
+    QList<Profile*> profileList = m_parent->getConfiguration()->getProfiles();
     ui->tableWidgetProfil->setRowCount(profileList.size());
     Profile* profile;
     int i = 0;
@@ -61,14 +74,6 @@ DialogProfile::DialogProfile(MainWindow *parent) :
         }
         ++i;
     }
-
-    ui->tableWidgetProfil->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    connect(ui->tableWidgetProfil, &QTableWidget::itemSelectionChanged, this, &DialogProfile::enableAtionButton);
-}
-
-DialogProfile::~DialogProfile()
-{
-    delete ui;
 }
 
 void DialogProfile::loadSelectProfile() {

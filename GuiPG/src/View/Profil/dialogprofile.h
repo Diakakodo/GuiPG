@@ -16,6 +16,7 @@ class DialogProfile : public QDialog
 public:
     explicit DialogProfile(MainWindow *parent = 0);
     ~DialogProfile();
+    void fillTableWidget();
 
 signals:
     void selectProfile(unsigned id);
@@ -27,6 +28,7 @@ public slots:
 
 private:
     Ui::DialogProfile *ui;
+    MainWindow* m_parent;
     QAbstractButton* m_loadButton;
     QAbstractButton* m_createButton;
     QAbstractButton* m_deleteButton;
