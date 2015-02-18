@@ -29,9 +29,7 @@ MainWindow::MainWindow(MainWindowModel* model)
             << "Taille"
             << "Création"
             << "Expiration"
-            << "Validité"
-            << "Confiance";
-    ui->treeWidgetKey->setColumnCount(7);
+            << "Validité";
     ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
     connect(m_model, &MainWindowModel::keysChanged, this, &MainWindow::buildTree);
 }
@@ -109,8 +107,7 @@ void MainWindow::buildTree() {
                     << sk->getCreationDate().toString("dd/MM/yyyy")
                     << sk->getExpirationDate().toString("dd/MM/yyyy")
                     << Key::validityToStr(sk->getValidity());
-            item->addChild(new QTreeWidgetItem(ui->treeWidgetKey, infos));
+            item->addChild(new QTreeWidgetItem(infos));
         }
-        ui->treeWidgetKey->addTopLevelItem(item);
     }
 }

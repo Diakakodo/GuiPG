@@ -21,6 +21,7 @@ class KeyManager : public QObject {
 
     private:
         void gpgFinished(int s, const QString& output);
+        QDate strToDate(const QString& d) const;
 
         QList<Key*> m_keys;
         GPGManager* m_gpg;
