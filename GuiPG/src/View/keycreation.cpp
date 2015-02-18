@@ -112,3 +112,37 @@ void KeyCreation::on_pushButton_clicked()
 {
     close();
 }
+
+void KeyCreation::on_radioButton_2_clicked()
+{
+    ui->horizontalSlider->setMaximum(3072);
+    if (ui->horizontalSlider->value() > 3072) {
+        ui->horizontalSlider->setValue(3072);
+    }
+    ui->spinBox_2->setValue(ui->horizontalSlider->value());
+    ui->spinBox_2->setMaximum(3072);
+}
+
+void KeyCreation::on_radioButton_3_clicked()
+{
+    ui->horizontalSlider->setMaximum(3072);
+    if (ui->horizontalSlider->value() > 3072) {
+        ui->horizontalSlider->setValue(3072);
+    }
+    ui->spinBox_2->setValue(ui->horizontalSlider->value());
+    ui->spinBox_2->setMaximum(3072);
+}
+
+void KeyCreation::on_radioButton_clicked()
+{
+    ui->horizontalSlider->setMaximum(4096);
+    ui->spinBox_2->setValue(ui->horizontalSlider->value());
+    ui->spinBox_2->setMaximum(4096);
+}
+
+void KeyCreation::on_radioButton_4_clicked()
+{
+    ui->horizontalSlider->setMaximum(4096);
+    ui->spinBox_2->setValue(ui->horizontalSlider->value());
+    ui->spinBox_2->setMaximum(4096);
+}
