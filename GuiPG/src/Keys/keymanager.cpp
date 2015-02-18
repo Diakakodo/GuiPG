@@ -22,6 +22,12 @@ void KeyManager::gpgFinished(int s, const QString &output) {
         if (split.first() == "pub") {
             QDate c = strToDate(split.at(5));
             QDate e = strToDate(split.at(6));
+            QString owner = split.at(4);
+            if (owner.isEmpty()) {
+                ++i;
+                QStringList split2 = lines.at(i).split(":");
+                owner = split2.at(10);
+            }
             Key* k = new Key(
                     Key::SCOPE_PUBLIC,
                     (Key::Algorithm) split.at(3).toInt(),
@@ -32,7 +38,6 @@ void KeyManager::gpgFinished(int s, const QString &output) {
                     e,
                     split.at(9)
             );
-            qDebug() << split;
             m_keys.append(k);
         } else if (split.first() == "sub") {
             QDate c = strToDate(split.at(5));
