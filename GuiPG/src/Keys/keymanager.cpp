@@ -25,6 +25,7 @@ void KeyManager::gpgFinished(int s, const QString &output) {
         if (split.first() == "pub") {
             ++i;
             QString owner = lines.at(i).split(":").at(9);
+
             Key* k = new Key(
                     Key::SCOPE_PUBLIC,
                     (Key::Algorithm) split.at(3).toInt(),
