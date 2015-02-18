@@ -38,6 +38,13 @@ class Configuration : public QObject {
         const QList<Profile*>& getProfiles() const;
 
         /**
+          * @brief addProfile Ajoute un profil à la liste des profils.
+          * @param p le profil à ajouter
+          */
+        void addProfile(Profile* p);
+
+
+        /**
          * @brief save Sauvegarde la configuration pour le dernier profil
          * chargé.
          * @return Vrai si tout s'est bien passé, faux sinon.

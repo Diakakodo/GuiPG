@@ -21,14 +21,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
-    //affichage de la fenêtre de création de clé
-    /*QApplication app(argc, argv);
 
-        KeyCreation keyCreationGui;
-        keyCreationGui.show();
-
-        return app.exec();
-    */
 
     unsigned id = 0;
     ++argv;

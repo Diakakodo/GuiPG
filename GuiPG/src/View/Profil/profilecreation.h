@@ -27,6 +27,7 @@ private slots:
 
 private:
     Ui::ProfileCreation *ui;
+    MainWindow* m_parent;
 };
 
 #endif // PROFILECREATION_H
