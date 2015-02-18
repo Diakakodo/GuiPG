@@ -107,8 +107,7 @@ void MainWindow::buildTree() {
                     << sk->getCreationDate().toString("dd/MM/yyyy")
                     << sk->getExpirationDate().toString("dd/MM/yyyy")
                     << Key::validityToStr(sk->getValidity());
-            item->addChild(new QTreeWidgetItem(ui->treeWidgetKey, infos));
+            item->addChild(new QTreeWidgetItem(infos));
         }
-        ui->treeWidgetKey->addTopLevelItem(item);
     }
 }

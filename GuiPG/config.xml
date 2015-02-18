@@ -1,13 +1,13 @@
 <configurations>
- <profile default="1" id="1" name="Default_GnuPG">
+ <profile id="1" name="Default_GnuPG" default="1">
   <exec>gpg2</exec>
   <path>/home/ibrahima/Public/Documents/compte_rendu.txt</path>
  </profile>
- <profile default="0" id="2" name="Matthieu">
+ <profile id="2" name="Matthieu" default="0">
   <exec>gpg</exec>
   <path>~/.gnupg</path>
  </profile>
- <profile default="0" id="3" name="Guillaume">
+ <profile id="3" name="Guillaume" default="0">
   <exec>gpg</exec>
   <path>~/.gnupg</path>
  </profile>
