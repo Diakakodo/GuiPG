@@ -1,10 +1,14 @@
 <configurations>
- <profile id="1" name="Matthieu">
+ <profile name="Default_GnuPG" id="1" default="1">
   <exec>gpg</exec>
   <path>~/.gnupg/</path>
  </profile>
- <profile id="2" name="Guillaume">
-  <exec>C:/Program Files (x86)/GNU/GnuPG/gpg2.exe</exec>
-  <path>C:/Users/GLeroy/AppData/Roaming/gnupg/</path>
+ <profile name="Matthieu" id="2" default="0">
+  <exec>gpg</exec>
+  <path>~/.gnupg</path>
+ </profile>
+ <profile name="Guillaume" id="3" default="0">
+  <exec>gpg</exec>
+  <path>~/.gnupg</path>
  </profile>
 </configurations>
