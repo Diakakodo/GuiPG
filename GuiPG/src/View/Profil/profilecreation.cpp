@@ -1,9 +1,10 @@
 #include "profilecreation.h"
 #include "ui_profilecreation.h"
 #include <QFileDialog>
+#include <iostream>
 
 ProfileCreation::ProfileCreation(MainWindow *parent) :
-    QDialog(parent),
+    QDialog(parent), m_parent(parent),
     ui(new Ui::ProfileCreation)
 {
     ui->setupUi(this);
@@ -33,6 +34,18 @@ void ProfileCreation::on_storagePathButton_clicked()
 
 void ProfileCreation::on_acceptButton_clicked()
 {
-
+    QList<Profile*> profileList = m_parent->getConfiguration()->getProfiles();
+    unsigned max = 0;
+    for (Profile* l : profileList) {
+        if (l->getId() > max) {
+            max = l->getId();
+        }
+    }
+    Profile* p = new Profile(max + 1, ui->nameEdit->text());
+    p->setConfigurationPath(ui->storagePathEdit->text());
+    p->setGPGExecutable(ui->gpgPathEdit->text());
+    m_parent->getConfiguration()->addProfile(p);
+    m_parent->getConfiguration()->save();
+    m_parent->changeProfil(max + 1);
     close();
 }
