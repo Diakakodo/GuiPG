@@ -10,47 +10,43 @@ KeyManager::~KeyManager() {
 }
 
 void KeyManager::load() {
-    Action a("--list-keys");
+    QStringList opt;
+    opt << "--fixed-list-mode";
+    Action a("--list-keys", QStringList(), opt);
     m_gpg->setAction(a);
     m_gpg->execute();
 }
 #include <QDebug>
 void KeyManager::gpgFinished(int s, const QString &output) {
     QStringList lines = output.split("\n");
+    QString lastOwner;
     for (int i = 1; i < lines.size(); ++i) {
         QStringList split = lines.at(i).split(":");
         if (split.first() == "pub") {
-            QDate c = strToDate(split.at(5));
-            QDate e = strToDate(split.at(6));
-            QString owner = split.at(4);
-            if (owner.isEmpty()) {
-                ++i;
-                QStringList split2 = lines.at(i).split(":");
-                owner = split2.at(10);
-            }
+            ++i;
+            QString owner = lines.at(i).split(":").at(9);
             Key* k = new Key(
                     Key::SCOPE_PUBLIC,
                     (Key::Algorithm) split.at(3).toInt(),
                     split.at(2).toUInt(),
                     (Key::Validity) split.at(1).at(0).toLatin1(),
                     split.at(4),
-                    c,
-                    e,
-                    split.at(9)
+                    QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),
+                    QDateTime::fromMSecsSinceEpoch(split.at(6).toULong() * 1000).date(),
+                    owner
             );
             m_keys.append(k);
+            lastOwner = owner;
         } else if (split.first() == "sub") {
-            QDate c = strToDate(split.at(5));
-            QDate e = strToDate(split.at(6));
             Key* k = new Key(
                     Key::SCOPE_PUBLIC,
                     (Key::Algorithm) split.at(3).toInt(),
                     split.at(2).toUInt(),
                     (Key::Validity) split.at(1).at(0).toLatin1(),
                     split.at(4),
-                    c,
-                    e,
-                    split.at(9)
+                    QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),
+                    QDateTime::fromMSecsSinceEpoch(split.at(6).toULong() * 1000).date(),
+                    lastOwner
             );
             m_keys.last()->addSubKey(k);
         }

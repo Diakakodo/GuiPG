@@ -1,6 +1,6 @@
 <configurations>
  <profile default="1" id="1" name="Default_GnuPG">
-  <exec>gpg</exec>
+  <exec>gpg2</exec>
   <path>/home/ibrahima/Public/Documents/compte_rendu.txt</path>
  </profile>
  <profile default="0" id="2" name="Matthieu">
