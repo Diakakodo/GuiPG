@@ -95,7 +95,7 @@ void KeyCreation::on_pushButton_2_clicked()
 
         Action keyCreation(QString("--gen-key"), QStringList(), QStringList(), interactions);
 
-        // TODO Donner l'action à gpg
+        // TODO Gérer gpg2
         GPGManager* manager = new GPGManager(new Profile());
         manager->setAction(keyCreation);
         manager->execute();

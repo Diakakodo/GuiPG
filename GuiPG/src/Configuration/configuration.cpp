@@ -91,6 +91,10 @@ const QList<Profile*>& Configuration::getProfiles() const {
     return m_profiles;
 }
 
+void Configuration::addProfile(Profile* p) {
+    m_profiles.append(p);
+}
+
 bool Configuration::save() {
     QDomDocument doc;
     QDomElement root = doc.createElement(ROOT_TAG_NAME);
