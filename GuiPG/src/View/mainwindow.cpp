@@ -18,6 +18,7 @@ MainWindow::MainWindow(MainWindowModel* model)
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
     connect(ui->actionProfil, &QAction::triggered, this, &MainWindow::showDialogProfile);
     connect(ui->actionConfiguration, SIGNAL(triggered()), this, SLOT(showDialogConfiguration()));
+    connect(ui->actionManuel_utilisateur_de_GuiPG, &QAction::triggered, this, &MainWindow::showManuel);
 
     while (m_model->getProfile() == nullptr) {
         showDialogProfile();
@@ -83,6 +84,12 @@ void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()
     KeyCreation keyCreationGui;
     keyCreationGui.show();
     keyCreationGui.exec();
+}
+
+
+void MainWindow::showManuel()
+{
+    system("evince manuel.pdf&");
 }
 
 void MainWindow::showDialogConfiguration(){
