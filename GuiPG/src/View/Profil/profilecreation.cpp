@@ -4,8 +4,7 @@
 #include <iostream>
 
 ProfileCreation::ProfileCreation(MainWindow *parent) :
-    QDialog(parent), m_parent(parent),
-    ui(new Ui::ProfileCreation)
+    QDialog(parent), ui(new Ui::ProfileCreation), m_parent(parent)
 {
     ui->setupUi(this);
 }
@@ -47,5 +46,6 @@ void ProfileCreation::on_acceptButton_clicked()
     m_parent->getConfiguration()->addProfile(p);
     m_parent->getConfiguration()->save();
     m_parent->changeProfil(max + 1);
+
     close();
 }

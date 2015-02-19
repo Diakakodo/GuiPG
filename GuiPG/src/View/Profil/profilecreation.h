@@ -13,8 +13,11 @@ class ProfileCreation : public QDialog
     Q_OBJECT
 
 public:
-    explicit ProfileCreation(MainWindow *parent = 0);
+    explicit ProfileCreation(MainWindow* parent = 0);
     ~ProfileCreation();
+
+signals:
+    void updateDialogProfile();
 
 private slots:
     void on_cancelButton_clicked();

@@ -7,6 +7,7 @@
 #include "Profil/profilecreation.h"
 #include "config.h"
 #include <QDebug>
+#include <QCloseEvent>
 
 MainWindow::MainWindow(MainWindowModel* model)
     : ui(new Ui::MainWindow), m_model(model) {
@@ -22,6 +23,8 @@ MainWindow::MainWindow(MainWindowModel* model)
     while (m_model->getProfile() == nullptr) {
         showDialogProfile();
     }
+
+    m_model->initKeyManager();
 
     QStringList m_TreeHeader;
     m_TreeHeader
@@ -49,6 +52,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::closeEvent(QCloseEvent *event) {
     m_model->getLauncher()->UnloadProfileWithWindow(m_model->getProfile());
+    event->accept();
 }
 
 void MainWindow::setGpgCommandsVisible(bool b) {
