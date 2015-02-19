@@ -7,6 +7,7 @@
 #include "Profil/profilecreation.h"
 #include "config.h"
 #include <QDebug>
+#include <QCloseEvent>
 
 MainWindow::MainWindow(MainWindowModel* model)
     : ui(new Ui::MainWindow), m_model(model) {
@@ -17,10 +18,13 @@ MainWindow::MainWindow(MainWindowModel* model)
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
     connect(ui->actionProfil, &QAction::triggered, this, &MainWindow::showDialogProfile);
     connect(ui->actionConfiguration, SIGNAL(triggered()), this, SLOT(showDialogConfiguration()));
+    connect(ui->actionManuel_utilisateur_de_GuiPG, &QAction::triggered, this, &MainWindow::showManuel);
 
     while (m_model->getProfile() == nullptr) {
         showDialogProfile();
     }
+
+    m_model->initKeyManager();
 
     QStringList m_TreeHeader;
     m_TreeHeader
@@ -48,6 +52,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::closeEvent(QCloseEvent *event) {
     m_model->getLauncher()->UnloadProfileWithWindow(m_model->getProfile());
+    event->accept();
 }
 
 void MainWindow::setGpgCommandsVisible(bool b) {
@@ -79,6 +84,12 @@ void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()
     KeyCreation keyCreationGui;
     keyCreationGui.show();
     keyCreationGui.exec();
+}
+
+
+void MainWindow::showManuel()
+{
+    system("evince manuel.pdf&");
 }
 
 void MainWindow::showDialogConfiguration(){

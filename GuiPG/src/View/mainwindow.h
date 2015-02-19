@@ -27,6 +27,7 @@ class MainWindow : public QMainWindow {
         void showDialogProfile();
         void showDialogCreateProfile();
         void changeProfil(unsigned profileId);
+        void showManuel();
         void showDialogConfiguration();
 
 private slots:
