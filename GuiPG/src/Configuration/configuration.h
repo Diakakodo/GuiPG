@@ -27,9 +27,36 @@ class Configuration : public QObject {
          */
         bool load();
 
-        Profile* getProfileById(unsigned id) const;
+        /**
+         * @brief save Sauvegarde la configuration pour le dernier profil
+         * chargé.
+         * @return Vrai si tout s'est bien passé, faux sinon.
+         */
+        bool save();
 
+        /**
+         * @brief getDefaultProfile Retourne le profil défaut.
+         * @return Le profil dont l'id correspond à l'id par défaut enregistré
+         * par la configuration ou nullptr si aucun ne correspond.
+         */
         Profile* getDefaultProfile() const;
+
+        /**
+         * @brief getDefaultProfileId Retourne l'id du profil par défaut.
+         * @return L'id par défaut enregistré par la configuration qui
+         * correspond à l'id de l'un des profils de la liste m_profiles
+         * ou 0 sinon.
+         */
+        unsigned getDefaultProfileId() const;
+
+        /**
+         * @brief getProfileById Retourne un profil enregistré dans la
+         * configutation.
+         * @param id
+         * @return Un profil enregistré dans la configutation ou nullptr si
+         * aucun id ne correspond.
+         */
+        Profile* getProfileById(unsigned id) const;
 
         /**
          * @brief getProfiles Retourne la liste des profils.
@@ -43,13 +70,9 @@ class Configuration : public QObject {
           */
         void addProfile(Profile* p);
 
+        void deleteProfile(unsigned profileId);
 
-        /**
-         * @brief save Sauvegarde la configuration pour le dernier profil
-         * chargé.
-         * @return Vrai si tout s'est bien passé, faux sinon.
-         */
-        bool save();
+        void setDefaultProfileId(unsigned profileId);
 
 
     private:
@@ -65,6 +88,7 @@ class Configuration : public QObject {
 
         QString m_filePath;
         QList<Profile*> m_profiles;
+        unsigned m_defaultProfileId;
 };
 
 #endif // CONFIGURATION_H
