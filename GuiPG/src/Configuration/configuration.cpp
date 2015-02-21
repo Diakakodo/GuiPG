@@ -7,8 +7,9 @@
 #define EXEC_TAG_NAME "exec"
 #define ID_ATTR_NAME "id"
 #define NAME_ATTR_NAME "name"
-#define DEFAULT_ATTR_NAME "default"
+#define DEFAULT_PROFILE_ATTR_NAME "defaultProfileId"
 #define PATH_TAG_NAME "path"
+#define PROFILES_TAG_NAME "profiles"
 #define PROFILE_TAG_NAME "profile"
 #define ROOT_TAG_NAME "configurations"
 
@@ -16,7 +17,6 @@ using namespace std;
 
 Configuration::Configuration(const QString& filePath)
     : m_filePath(filePath) {
-    //m_profiles.append(new Profile);
 }
 
 Configuration::~Configuration() {
@@ -38,17 +38,15 @@ bool Configuration::load() {
 
     QDomElement e = doc.documentElement();
     if (e.tagName() == ROOT_TAG_NAME) {
-        QDomElement pe = e.firstChildElement(PROFILE_TAG_NAME);
+        QDomElement profiles = e.firstChildElement(PROFILES_TAG_NAME);
+        QDomElement pe = profiles.firstChildElement(PROFILE_TAG_NAME);
         while (!pe.isNull()) {
             bool ok = false;
-            bool ok2 = false;
             unsigned id = pe.attribute(ID_ATTR_NAME).toUInt(&ok);
-            unsigned isDefault = pe.attribute(DEFAULT_ATTR_NAME).toUInt(&ok2);
-            if (ok and ok2) {
+            if (ok) {
                 QString name = pe.attribute(NAME_ATTR_NAME);
                 QDomNode n = pe.firstChild();
                 Profile* p = new Profile(id, name);
-                p->setDefault(isDefault);
                 while (!n.isNull()) {
                     if (n.isElement()) {
                         QDomElement ae = n.toElement();
@@ -64,23 +62,59 @@ bool Configuration::load() {
             }
             pe = pe.nextSiblingElement(PROFILE_TAG_NAME);
         }
+        bool ok = false;
+        unsigned defaultProfileId = profiles.attribute(DEFAULT_PROFILE_ATTR_NAME).toUInt(&ok);
+        if (ok) {
+            setDefaultProfileId(defaultProfileId);
+        }
     }
     f.close();
     return true;
 }
 
-Profile* Configuration::getProfileById(unsigned id) const {
+bool Configuration::save() {
+    QDomDocument doc;
+    QDomElement root = doc.createElement(ROOT_TAG_NAME);
+    doc.appendChild(root);
+    QDomElement profiles = doc.createElement(PROFILES_TAG_NAME);
+    root.appendChild(profiles);
+    profiles.setAttribute(DEFAULT_PROFILE_ATTR_NAME, m_defaultProfileId);
+    for (int i = 0; i < m_profiles.size(); ++i) {
+        Profile* p = m_profiles.at(i);
+        QDomElement pe = doc.createElement(PROFILE_TAG_NAME);
+        pe.setAttribute(ID_ATTR_NAME, p->getId());
+        pe.setAttribute(NAME_ATTR_NAME, p->getName());
+        addNode(EXEC_TAG_NAME, p->getGPGExecutable(), doc, pe);
+        addNode(PATH_TAG_NAME, p->getConfigurationPath(), doc, pe);
+        profiles.appendChild(pe);
+    }
+
+    QFile f(m_filePath);
+    if (!f.open(QIODevice::WriteOnly)) {
+        return false;
+    }
+    QTextStream out(&f);
+    out << doc.toString();
+    f.close();
+    return true;
+}
+
+Profile* Configuration::getDefaultProfile() const {
     for (Profile* p : m_profiles) {
-        if (p->getId() == id) {
+        if (p->getId() == m_defaultProfileId) {
             return p;
         }
     }
     return nullptr;
 }
 
-Profile* Configuration::getDefaultProfile() const {
+unsigned Configuration::getDefaultProfileId() const {
+    return m_defaultProfileId;
+}
+
+Profile* Configuration::getProfileById(unsigned id) const {
     for (Profile* p : m_profiles) {
-        if (p->isDefault()) {
+        if (p->getId() == id) {
             return p;
         }
     }
@@ -95,29 +129,16 @@ void Configuration::addProfile(Profile* p) {
     m_profiles.append(p);
 }
 
-bool Configuration::save() {
-    QDomDocument doc;
-    QDomElement root = doc.createElement(ROOT_TAG_NAME);
-    doc.appendChild(root);
-    for (int i = 0; i < m_profiles.size(); ++i) {
-        Profile* p = m_profiles.at(i);
-        QDomElement pe = doc.createElement(PROFILE_TAG_NAME);
-        pe.setAttribute(ID_ATTR_NAME, p->getId());
-        pe.setAttribute(NAME_ATTR_NAME, p->getName());
-        pe.setAttribute(DEFAULT_ATTR_NAME, p->isDefault());
-        addNode(EXEC_TAG_NAME, p->getGPGExecutable(), doc, pe);
-        addNode(PATH_TAG_NAME, p->getConfigurationPath(), doc, pe);
-        root.appendChild(pe);
-    }
+void deleteProfile(unsigned profileId);
 
-    QFile f(m_filePath);
-    if (!f.open(QIODevice::WriteOnly)) {
-        return false;
+void Configuration::setDefaultProfileId(unsigned profileId) {
+    for (Profile* p : m_profiles) {
+        if (p->getId() == profileId) {
+            m_defaultProfileId = profileId;
+            return;
+        }
     }
-    QTextStream out(&f);
-    out << doc.toString();
-    f.close();
-    return true;
+    m_defaultProfileId = 0;
 }
 
 void Configuration::addNode(const QString& name, const QString& value,
