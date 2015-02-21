@@ -1,0 +1,174 @@
+\documentclass{../../res/CR-projet}
+
+%Import des packages utilisés pour le document
+\usepackage[T1]{fontenc}
+\usepackage{../../res/tikz-uml}
+
+\definecolor{gris}{rgb}{0.95, 0.95, 0.95}
+\definecolor{vert}{rgb}{0.14, 0.69, 0.11}
+
+%Variables
+\logo{../../res/logo_univ.png}
+\title{Compte rendu - Réunion Groupe}
+\author{Matthieu \bsc{FIN}}
+\projet{Projet PGP}
+\projdesc{Etude et implantation d'un outil graphique de gestion de clé PGP}
+\filiere{Master 1 SSI }
+\matiere{Conduite de projet}
+\date{20 février 2015}
+
+\context{Revue de début de sprint 2}
+
+\presentry{\bsc{Balmelle}}{Pierre}{\textbf{Présent}}{vert}
+\presentry{\bsc{Barbay}}{Lucas}{\textbf{Absent}}{red}
+\presentry{\bsc{Barry}}{Ibrahima Sory}{\textbf{Absent}}{red}
+\presentry{\bsc{Bouillie}}{Bertille}{\textbf{Absente}}{red}
+\presentry{\bsc{Fin}}{Matthieu}{\textbf{Présent}}{vert}
+\presentry{\bsc{Leroy}}{Guillaume}{\textbf{Présent}}{vert}
+\presentry{\bsc{Thibault}}{Olivier}{\textbf{Présent}}{vert}
+
+% -- Début du document -- %
+\begin{document}
+
+%Page de garde
+\maketitle
+\newpage
+%La table des matières
+%\tableofcontents
+
+\newpage
+
+\section{Tâches définies}
+
+Liste des tâches principales :
+\begin{itemize}
+  \item Ajout d'exceptions (Pour la communication GPG et pour assurer les préconditions définies pour chaque méthode).
+  \item Communication GPG.
+  \begin{itemize}
+    \item Ajouter le mécanisme de communication interactive.
+    \item Ajouter une méthode execute bloquante pour les interaction et une deuxième non bloquante.
+  \end{itemize}
+  \item Édition des clés.
+  \item Gestion des clés.
+  \item Mécanisme multi-instance.
+  \item Toile de confiance.
+  \item Configuration.
+  \\
+  \item Signature de messages.
+  \item Vérification de signature.
+  \item Chiffrement.
+  \item Déchiffrement.
+  \item Éditeur.
+  \item Attaque.
+  \item Étude GPG.
+  \item Étude des limites open PGP / GPG.
+\end{itemize}
+
+
+\section{Diagramme des exceptions définies}
+
+\begin{center}
+  \begin{tikzpicture}
+    \begin{umlpackage}{/}
+      \umlclass[x=4]{QException}{}{} % QException
+      \begin{umlpackage}[x=0,y=-2]{/Exception}
+        \umlclass[x=0,y=-2]{IllegalArgumentException}{}{} % IllegalArgumentException
+        \umlclass[x=8,y=-2]{IllegalStateException}{}{} % IllegalStateException
+        \umlclass[x=4,y=0]{GPGException}{}{} % GPGException
+        \umlclass[x=1,y=-4]{BadInteraction}{}{} % BadInteraction
+        \umlclass[x=7,y=-4]{NotEnoughtInteraction}{}{} % NotEnoughtInteraction
+      \end{umlpackage} % /
+    \end{umlpackage} % /
+
+    \umlinherit[geometry=--]{IllegalStateException}{QException}
+    \umlinherit[geometry=--]{IllegalArgumentException}{QException}
+    \umlinherit[geometry=--]{GPGException}{QException}
+    \umlinherit[geometry=--]{BadInteraction}{GPGException}
+    \umlinherit[geometry=--]{NotEnoughtInteraction}{GPGException}
+  \end{tikzpicture}
+\end{center}
+
+\section{Attribution des tâches}
+
+\subsection{Matthieu}
+
+\begin{itemize}
+  \item Communication GPG
+  \item Ajout des exceptions.
+  \item ajout d'un gestionnaire de signaux UNIX pour libérer les ressources en cas de fermeture non appropriée de l'application.
+  \item Finalisation de la gestion de l'option -P dans le Launcher.
+\end{itemize}
+
+\subsection{Olivier}
+
+\begin{itemize}
+  \item Définition du chargement du premier profil par le Launcher.
+  \item Modification de la gestion du profil par défaut dans le fichier de configuration
+  à l'aide d'un nœud dédié plutôt qu'une répétition par profils.
+  \item Affichage du nom du profil dans la barre d'état de la fenêtre principale.
+  \item Modification de DialogProfile avec un constructeur prenant une Mainwindow
+  et un prenant une Configuration.
+\end{itemize}
+
+\subsection{Pierre}
+
+\begin{itemize}
+  \item Gestion des clés.
+  \item Importation de clé depuis un fichier ou un serveur de clés.
+  \item Exporter une clé depuis un fichier ou un serveur de clés,
+  qui doit se faire a partir de l'arbre de clés de la fenêtre principale
+  (avec possibilité de sélection multiple).
+  \item Modéliser la notion de serveur de clé.
+  \item Possibilité de définir l'url du serveur de clés a utiliser.
+  \item La gestion des clés .
+\end{itemize}
+
+\subsection{Guillaume}
+
+Finitions de l'arbre des clés de la fenêtre principale.
+\begin{itemize}
+  \item Affichage en couleur des clés en fonction de leur validité
+  (barrer/griser la clé si elle est expirée/révoquée).
+  \item Afficher les clés publique dont on détient la clé privée en gras.
+  \item Gestion des timestamp nul pour éviter d'avoir une clé valide qui s'affiche en expiration le 01/01/1970.
+  \item Ajout d'une colonne affichant la confiance en la clé.
+  \item Afficher les signatures des clés.
+\end{itemize}
+
+\subsection{Ibrahima}
+
+\begin{itemize}
+  \item Rédaction de l'étude sur GPG.
+\end{itemize}
+
+\subsection{Lucas}
+
+\begin{itemize}
+  \item Attaque (en attente d'échanges pour mieux définir l'attribution).
+\end{itemize}
+
+\section{Ajout de spécification a la classe de configuration}
+
+
+Ajout d'un signal sgProfilesChanged
+permettant d'indiquer le changement d'au moins un profil.
+
+\begin{itemize}
+  \item 
+setDefaultProfile(Profile* p) :\\
+préconditions : p != nullptr\\
+postconditions : émission d'un signal sgProfilesChanged()
+  \item
+delete(Profile* p) :\\
+préconditions : getProfileById(p->getId()) == p\\
+postconditions : p == nullptr \&\& getProfileById((old p)->getId()) == nullptr\\
+                 émission d'un signal sgProfilesChanged()
+  \item
+addProfile(Profile* p) :\\
+préconditions : getProfileById(p->getId()) == nullptr\\
+postconditions : getProfileById((old p)->getId()) == p\\
+                 émission d'un signal sgProfilesChanged()
+\end{itemize}
+
+\end{document}
+
