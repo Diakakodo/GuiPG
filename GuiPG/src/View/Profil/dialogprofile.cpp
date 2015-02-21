@@ -17,6 +17,11 @@ DialogProfile::DialogProfile(MainWindow *parent) :
     ui->buttonBox->addButton(m_loadButton, QDialogButtonBox::AcceptRole);
     connect(m_loadButton, &QAbstractButton::clicked, this, &DialogProfile::loadSelectProfile);
 
+    m_setDefaultButton = new QPushButton("&Par défaut", this);
+    m_setDefaultButton->setToolTip("Enregistrer le profil sélectionné comme celui par défaut");
+    ui->buttonBox->addButton(m_setDefaultButton, QDialogButtonBox::ActionRole);
+    //connect(m_setDefaultButton, &QAbstractButton::clicked, this, &DialogProfile::setDefaultSelectProfile);
+
     m_createButton = new QPushButton("&Créer", this);
     ui->buttonBox->addButton(m_createButton, QDialogButtonBox::ActionRole);
     connect(m_createButton, &QAbstractButton::clicked, parent, &MainWindow::showDialogCreateProfile);
@@ -24,10 +29,6 @@ DialogProfile::DialogProfile(MainWindow *parent) :
     m_deleteButton = new QPushButton("&Supprimer", this);
     ui->buttonBox->addButton(m_deleteButton, QDialogButtonBox::ActionRole);
     //connect(m_deleteButton, &QAbstractButton::clicked, this, &DialogProfile::deleteSelectProfile);
-
-    m_setDefaultButton = new QPushButton("&Profil par défaut", this);
-    ui->buttonBox->addButton(m_setDefaultButton, QDialogButtonBox::ActionRole);
-    //connect(m_setDefaultButton, &QAbstractButton::clicked, this, &DialogProfile::setDefaultSelectProfile);
 
     m_loadButton->setEnabled(false);
     m_deleteButton->setEnabled(false);
@@ -65,7 +66,7 @@ void DialogProfile::fillTableWidget() {
         ui->tableWidgetProfil->setItem(i, 1, new QTableWidgetItem(profile->getName()));
         ui->tableWidgetProfil->setItem(i, 2, new QTableWidgetItem(profile->getConfigurationPath()));
         ui->tableWidgetProfil->setRowHeight(i, 20);
-        if (profile->isDefault()) {
+        if (profile->getId() == m_parent->getConfiguration()->getDefaultProfileId()) {
             QFont font;
             font.setBold(true);
             ui->tableWidgetProfil->item(i,0)->setFont(font);
