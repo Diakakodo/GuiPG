@@ -69,7 +69,10 @@ void Launcher::listen() {
     }
     // Le SHM est fraichement créée
     // On lance la première instance.
-    emit runApp(this, m_app, m_conf, 1);
+    /* Tester si option -P pour soit lancer le profil par défaut ou alors
+     * choisir le profil
+     */
+    emit runApp(this, m_app, m_conf, m_conf->getDefaultProfileId());
     // On boucle avec une attente passive de données a lire sur le SHM.
     while (!m_stop) {
         m_systemSem->acquire();
