@@ -16,7 +16,8 @@ HEADERS += \
     src/Model/mainwindowmodel.h \
     src/View/Profil/profilecreation.h \
     src/View/config.h \
-    src/View/Profil/dialogprofile.h
+    src/View/Profil/dialogprofile.h \
+    src/Exception/illegalargumentexception.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -34,7 +35,8 @@ SOURCES += \
     src/Model/mainwindowmodel.cpp \
     src/View/Profil/profilecreation.cpp \
     src/View/config.cpp \
-    src/View/Profil/dialogprofile.cpp
+    src/View/Profil/dialogprofile.cpp \
+    src/Exception/illegalargumentexception.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
