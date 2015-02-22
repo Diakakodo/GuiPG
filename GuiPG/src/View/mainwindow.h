@@ -33,6 +33,10 @@ class MainWindow : public QMainWindow {
 private slots:
         void on_actionG_n_rer_une_paire_de_clefs_triggered();
 
+        void on_actionImporter_triggered();
+
+        void on_actionExporter_triggered();
+
 protected:
      void closeEvent(QCloseEvent *event);
 
