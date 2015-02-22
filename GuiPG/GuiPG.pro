@@ -19,7 +19,8 @@ HEADERS += \
     src/View/Profil/dialogprofile.h \
     src/Exception/illegalargumentexception.h \
     src/Exception/illegalstateexception.h \
-    src/Exception/exceptions.h
+    src/Exception/exceptions.h \
+    src/Exception/gpgexception.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
