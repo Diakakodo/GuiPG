@@ -14,17 +14,12 @@ MainWindow::MainWindow(MainWindowModel* model)
 
     ui->setupUi(this);
     ui->textBrowser->setVisible(false);
+    this->setWindowTitle("GuiPG - " + m_model->getProfile()->getName());
 
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
     connect(ui->actionProfil, &QAction::triggered, this, &MainWindow::showDialogProfile);
     connect(ui->actionConfiguration, SIGNAL(triggered()), this, SLOT(showDialogConfiguration()));
     connect(ui->actionManuel_utilisateur_de_GuiPG, &QAction::triggered, this, &MainWindow::showManuel);
-
-    while (m_model->getProfile() == nullptr) {
-        showDialogProfile();
-    }
-
-    m_model->initKeyManager();
 
     QStringList m_TreeHeader;
     m_TreeHeader
@@ -46,6 +41,10 @@ Configuration* MainWindow::getConfiguration() const {
     return m_model->getConf();
 }
 
+MainWindowModel* MainWindow::getModel() const {
+    return m_model;
+}
+
 MainWindow::~MainWindow() {
     delete ui;
 }
@@ -65,13 +64,8 @@ void MainWindow::setGpgCommandsVisible(bool b) {
 }
 
 void MainWindow::showDialogProfile() {
-    DialogProfile d(this);
+    DialogProfile d(m_model->getConf(), m_model->getLauncher());
     QObject::connect(&d, &DialogProfile::selectProfile, this, &MainWindow::changeProfil);
-    d.exec();
-}
-
-void MainWindow::showDialogCreateProfile() {
-    ProfileCreation d(this);
     d.exec();
 }
 
@@ -86,7 +80,6 @@ void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()
     keyCreationGui.exec();
 }
 
-
 void MainWindow::showManuel()
 {
     system("evince manuel.pdf&");
@@ -98,6 +91,7 @@ void MainWindow::showDialogConfiguration(){
 }
 
 void MainWindow::buildTree() {
+    ui->treeWidgetKey->clear();
     const QList<Key*>& keys = m_model->getKeyManager()->getKeys();
     for (Key* k : keys) {
         QStringList infos;
