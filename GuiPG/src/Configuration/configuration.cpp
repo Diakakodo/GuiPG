@@ -129,7 +129,10 @@ void Configuration::addProfile(Profile* p) {
     m_profiles.append(p);
 }
 
-void deleteProfile(unsigned profileId);
+void Configuration::deleteProfile(unsigned profileId) {
+    m_profiles.removeOne(getProfileById(profileId));
+    save();
+}
 
 void Configuration::setDefaultProfileId(unsigned profileId) {
     for (Profile* p : m_profiles) {
