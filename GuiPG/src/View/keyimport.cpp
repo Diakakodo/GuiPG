@@ -12,3 +12,8 @@ KeyImport::~KeyImport()
 {
     delete ui;
 }
+
+void KeyImport::on_cancelButton_clicked()
+{
+    close();
+}

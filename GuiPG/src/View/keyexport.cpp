@@ -12,3 +12,8 @@ KeyExport::~KeyExport()
 {
     delete ui;
 }
+
+void KeyExport::on_cancelButton_clicked()
+{
+    close();
+}
