@@ -139,13 +139,13 @@
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>147</y>
+      <y>148</y>
       <width>91</width>
-      <height>21</height>
+      <height>20</height>
      </rect>
     </property>
     <property name="currentText">
-     <string/>
+     <string>Ultime</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_12">
@@ -174,18 +174,6 @@
      <string>Taille de la clef:</string>
     </property>
    </widget>
-   <zorder>frame_2</zorder>
-   <zorder>label_2</zorder>
-   <zorder>label_5</zorder>
-   <zorder>label_6</zorder>
-   <zorder>label_7</zorder>
-   <zorder>label_8</zorder>
-   <zorder>label_9</zorder>
-   <zorder>label_10</zorder>
-   <zorder>label_11</zorder>
-   <zorder>fontComboBox</zorder>
-   <zorder>label_12</zorder>
-   <zorder>label_13</zorder>
   </widget>
   <widget class="QFrame" name="frame_2">
    <property name="geometry">
