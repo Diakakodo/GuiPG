@@ -21,7 +21,8 @@ HEADERS += \
     src/Exception/illegalstateexception.h \
     src/Exception/exceptions.h \
     src/View/keyexport.h \
-    src/View/keyimport.h
+    src/View/keyimport.h \
+    src/View/keyedition.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -43,7 +44,8 @@ SOURCES += \
     src/Exception/illegalargumentexception.cpp \
     src/Exception/illegalstateexception.cpp \
     src/View/keyexport.cpp \
-    src/View/keyimport.cpp
+    src/View/keyimport.cpp \
+    src/View/keyedition.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
@@ -52,7 +54,8 @@ FORMS += \
     src/View/config.ui \
     src/View/Profil/dialogprofile.ui \
     src/View/keyexport.ui \
-    src/View/keyimport.ui
+    src/View/keyimport.ui \
+    src/View/keyedition.ui
 
 test {
 
