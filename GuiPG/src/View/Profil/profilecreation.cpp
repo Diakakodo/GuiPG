@@ -3,7 +3,7 @@
 #include <QFileDialog>
 #include <iostream>
 
-ProfileCreation::ProfileCreation(MainWindow *parent) :
+ProfileCreation::ProfileCreation(DialogProfile *parent) :
     QDialog(parent), ui(new Ui::ProfileCreation), m_parent(parent)
 {
     ui->setupUi(this);
@@ -21,19 +21,23 @@ void ProfileCreation::on_cancelButton_clicked()
 
 void ProfileCreation::on_gpgPathButton_clicked()
 {
-    QString filename=QFileDialog::getOpenFileName(this,tr("Open File"),"","All files (*.*)" );
+    QString filename=QFileDialog::getOpenFileName(this,tr("Open File"),
+        "/home","All files (*)" );
     ui->gpgPathEdit->setText(filename);
 }
 
 void ProfileCreation::on_storagePathButton_clicked()
 {
-    QString filename=QFileDialog::getOpenFileName(this,tr("Open File"),"","All files (*.*)" );
-    ui->storagePathEdit->setText(filename);
+    QString pathName = QFileDialog::getExistingDirectory(this,
+        tr("Open Directory"),
+        "/home",
+        QFileDialog::ShowDirsOnly);
+    ui->storagePathEdit->setText(pathName);
 }
 
 void ProfileCreation::on_acceptButton_clicked()
 {
-    QList<Profile*> profileList = m_parent->getConfiguration()->getProfiles();
+    QList<Profile*> profileList = m_parent->getConfig()->getProfiles();
     unsigned max = 0;
     for (Profile* l : profileList) {
         if (l->getId() > max) {
@@ -43,9 +47,8 @@ void ProfileCreation::on_acceptButton_clicked()
     Profile* p = new Profile(max + 1, ui->nameEdit->text());
     p->setConfigurationPath(ui->storagePathEdit->text());
     p->setGPGExecutable(ui->gpgPathEdit->text());
-    m_parent->getConfiguration()->addProfile(p);
-    m_parent->getConfiguration()->save();
-    m_parent->changeProfil(max + 1);
-
+    m_parent->getConfig()->addProfile(p);
+    m_parent->getConfig()->save();
+    m_parent->refreshTableWidget();
     close();
 }
