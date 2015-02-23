@@ -4,27 +4,7 @@
 #include <QObject>
 #include <QStringList>
 #include <QException>
-
-/** TODO : question est ce qu'on garde un system d'exceptions ou bien !?
- * @brief The IllegalStateException class
- *
- * Exception levée quand les préconditions d'une
- * méthode ne sont pas respécté.
- *
- */
-class IllegalStateException : public QException
-{
-    public:
-        explicit IllegalStateException(QString msg = "")
-            : m_msg(msg) {}
-        const char* what() const throw() {
-          return m_msg.toLatin1();
-        }
-    void raise() const { throw *this; }
-    IllegalStateException *clone() const { return new IllegalStateException(*this); }
-    private:
-        QString m_msg;
-};
+#include "../Exception/exceptions.h"
 
 /**
  * @brief The Action class

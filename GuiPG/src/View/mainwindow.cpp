@@ -4,6 +4,8 @@
 #include <QApplication>
 #include "Profil/dialogprofile.h"
 #include "keycreation.h"
+#include "keyimport.h"
+#include "keyexport.h"
 #include "Profil/profilecreation.h"
 #include "config.h"
 #include <QDebug>
@@ -115,4 +117,18 @@ void MainWindow::buildTree() {
             item->addChild(new QTreeWidgetItem(infos));
         }
     }
+}
+
+void MainWindow::on_actionImporter_triggered()
+{
+    KeyImport keyImportGui;
+    keyImportGui.show();
+    keyImportGui.exec();
+}
+
+void MainWindow::on_actionExporter_triggered()
+{
+    KeyExport keyExportGui;
+    keyExportGui.show();
+    keyExportGui.exec();
 }

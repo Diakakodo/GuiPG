@@ -16,7 +16,12 @@ HEADERS += \
     src/Model/mainwindowmodel.h \
     src/View/Profil/profilecreation.h \
     src/View/config.h \
-    src/View/Profil/dialogprofile.h
+    src/View/Profil/dialogprofile.h \
+    src/Exception/illegalargumentexception.h \
+    src/Exception/illegalstateexception.h \
+    src/Exception/exceptions.h \
+    src/View/keyexport.h \
+    src/View/keyimport.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -34,14 +39,20 @@ SOURCES += \
     src/Model/mainwindowmodel.cpp \
     src/View/Profil/profilecreation.cpp \
     src/View/config.cpp \
-    src/View/Profil/dialogprofile.cpp
+    src/View/Profil/dialogprofile.cpp \
+    src/Exception/illegalargumentexception.cpp \
+    src/Exception/illegalstateexception.cpp \
+    src/View/keyexport.cpp \
+    src/View/keyimport.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
     src/View/keycreation.ui \
     src/View/Profil/profilecreation.ui \
     src/View/config.ui \
-    src/View/Profil/dialogprofile.ui
+    src/View/Profil/dialogprofile.ui \
+    src/View/keyexport.ui \
+    src/View/keyimport.ui
 
 test {
 
