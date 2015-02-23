@@ -1,16 +1,20 @@
 <configurations>
- <profiles defaultProfileId="1">
-  <profile id="1" name="Default_GnuPG">
+ <profiles defaultProfileId="2">
+  <profile name="Default_GnuPG" id="1">
    <exec>gpg</exec>
    <path>~/.gnupg/</path>
   </profile>
-  <profile id="2" name="Matthieu">
+  <profile name="Matthieu" id="2">
    <exec>gpg</exec>
    <path>~/.gnupg</path>
   </profile>
-  <profile id="3" name="Guillaume">
+  <profile name="Guillaume" id="3">
    <exec>gpg</exec>
    <path>~/.gnupg</path>
+  </profile>
+  <profile name="test" id="4">
+   <exec>gpg</exec>
+   <path>~/testgpg</path>
   </profile>
  </profiles>
 </configurations>

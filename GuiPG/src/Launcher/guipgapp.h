@@ -16,11 +16,21 @@ class GuiPGApp : public QApplication {
 
     public:
         GuiPGApp(int& argc, char** argv);
+        Configuration* getConfig() const;
 
         ~GuiPGApp();
     signals:
     public slots:
         void launchApp(Launcher* launcher, GuiPGApp* app, Configuration* conf, unsigned profileId);
+
+    private:
+        Configuration* m_config;
+        Launcher* m_launcher;
+        unsigned m_profileId;
+
+    private slots:
+        void showDialogProfile();
+        void setProfileId(unsigned profileId);
 };
 
 #endif // GUIPGAPP_H
