@@ -1,15 +1,30 @@
 #include "dialogprofile.h"
+#include "profilecreation.h"
 #include "ui_dialogprofile.h"
 #include <QPushButton>
 #include "../../Profile/profile.h"
 #include "../../Configuration/configuration.h"
+#include <QMessageBox>
 #include <QDebug>
 
 
-DialogProfile::DialogProfile(MainWindow *parent) :
-    QDialog(parent),
-    ui(new Ui::DialogProfile), m_parent(parent)
+DialogProfile::DialogProfile(Configuration* config, Launcher* launcher) :
+    QDialog(),
+    ui(new Ui::DialogProfile), m_conf(config), m_launcher(launcher)
 {
+    createAndPlaceWidget();
+}
+
+DialogProfile::~DialogProfile()
+{
+    delete m_loadButton;
+    delete m_createButton;
+    delete m_deleteButton;
+    delete m_setDefaultButton;
+    delete ui;
+}
+
+void DialogProfile::createAndPlaceWidget() {
     ui->setupUi(this);
 
     // Configure la buttonBox
@@ -20,15 +35,15 @@ DialogProfile::DialogProfile(MainWindow *parent) :
     m_setDefaultButton = new QPushButton("&Par défaut", this);
     m_setDefaultButton->setToolTip("Enregistrer le profil sélectionné comme celui par défaut");
     ui->buttonBox->addButton(m_setDefaultButton, QDialogButtonBox::ActionRole);
-    //connect(m_setDefaultButton, &QAbstractButton::clicked, this, &DialogProfile::setDefaultSelectProfile);
+    connect(m_setDefaultButton, &QAbstractButton::clicked, this, &DialogProfile::setDefaultSelectProfile);
 
     m_createButton = new QPushButton("&Créer", this);
     ui->buttonBox->addButton(m_createButton, QDialogButtonBox::ActionRole);
-    connect(m_createButton, &QAbstractButton::clicked, parent, &MainWindow::showDialogCreateProfile);
+    connect(m_createButton, &QAbstractButton::clicked, this, &DialogProfile::showDialogCreateProfile);
 
     m_deleteButton = new QPushButton("&Supprimer", this);
     ui->buttonBox->addButton(m_deleteButton, QDialogButtonBox::ActionRole);
-    //connect(m_deleteButton, &QAbstractButton::clicked, this, &DialogProfile::deleteSelectProfile);
+    connect(m_deleteButton, &QAbstractButton::clicked, this, &DialogProfile::deleteSelectProfile);
 
     m_loadButton->setEnabled(false);
     m_deleteButton->setEnabled(false);
@@ -44,20 +59,15 @@ DialogProfile::DialogProfile(MainWindow *parent) :
     ui->tableWidgetProfil->setHorizontalHeaderLabels(m_TableHeader);
 
     // Rempli la tableau de profil
-    fillTableWidget();
+    refreshTableWidget();
 
     ui->tableWidgetProfil->setEditTriggers(QAbstractItemView::NoEditTriggers);
     connect(ui->tableWidgetProfil, &QTableWidget::itemSelectionChanged, this, &DialogProfile::enableAtionButton);
 }
 
-DialogProfile::~DialogProfile()
-{
-    delete ui;
-}
-
-void DialogProfile::fillTableWidget() {
+void DialogProfile::refreshTableWidget() {
     ui->tableWidgetProfil->clearContents();
-    QList<Profile*> profileList = m_parent->getConfiguration()->getProfiles();
+    QList<Profile*> profileList = m_conf->getProfiles();
     ui->tableWidgetProfil->setRowCount(profileList.size());
     Profile* profile;
     int i = 0;
@@ -66,7 +76,7 @@ void DialogProfile::fillTableWidget() {
         ui->tableWidgetProfil->setItem(i, 1, new QTableWidgetItem(profile->getName()));
         ui->tableWidgetProfil->setItem(i, 2, new QTableWidgetItem(profile->getConfigurationPath()));
         ui->tableWidgetProfil->setRowHeight(i, 20);
-        if (profile->getId() == m_parent->getConfiguration()->getDefaultProfileId()) {
+        if (profile->getId() == m_conf->getDefaultProfileId()) {
             QFont font;
             font.setBold(true);
             ui->tableWidgetProfil->item(i,0)->setFont(font);
@@ -75,6 +85,10 @@ void DialogProfile::fillTableWidget() {
         }
         ++i;
     }
+}
+
+Configuration* DialogProfile::getConfig() const {
+    return m_conf;
 }
 
 void DialogProfile::loadSelectProfile() {
@@ -87,8 +101,39 @@ void DialogProfile::loadSelectProfile() {
     }
 }
 
-void DialogProfile::deleteSelectProfile() {
+void DialogProfile::showDialogCreateProfile() {
+    ProfileCreation d(this);
+    d.exec();
+}
 
+void DialogProfile::deleteSelectProfile() {
+    bool ok;
+    unsigned id = ui->tableWidgetProfil->selectedItems().first()->text().toUInt(&ok);
+    if(ok){
+        Profile* p = m_conf->getProfileById(id);
+        if (m_launcher->profileIsLoad(p) != nullptr) {
+            QMessageBox::critical(this, tr("Suppression impossible"),
+                                            tr("Le profil que vous souhaitez supprimer est actuellement utilisé.\n"
+                                               "Veuillez quitter la fenêtre qui l'utilise actuellement ou y charger un autre profil."),
+                                            QMessageBox::Ok);
+        } else {
+            m_conf->deleteProfile(id);
+            refreshTableWidget();
+        }
+    } else {
+      qDebug() << "erreur de conversion sur id profil selectionné";
+    }
+}
+
+void DialogProfile::setDefaultSelectProfile() {
+    bool ok;
+    unsigned id = ui->tableWidgetProfil->selectedItems().first()->text().toUInt(&ok);
+    if(ok){
+        m_conf->setDefaultProfileId(id);
+        refreshTableWidget();
+    } else {
+      qDebug() << "erreur de conversion sur id profil selectionné";
+    }
 }
 
 void DialogProfile::enableAtionButton() {
