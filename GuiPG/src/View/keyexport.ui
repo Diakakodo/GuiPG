@@ -26,7 +26,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
-       <widget class="QRadioButton" name="radioButton">
+       <widget class="QRadioButton" name="keyServerRadioButton">
         <property name="text">
          <string>Vers un serveur de clés :</string>
         </property>
@@ -37,14 +37,14 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QComboBox" name="comboBox"/>
+       <widget class="QComboBox" name="keyServerList"/>
       </item>
      </layout>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QRadioButton" name="radioButton_2">
+       <widget class="QRadioButton" name="fileRadioButton">
         <property name="text">
          <string>Vers un fichier :</string>
         </property>
@@ -55,10 +55,10 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="pathEdit"/>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="browseButton">
         <property name="text">
          <string>Parcourir</string>
         </property>
@@ -92,14 +92,14 @@
      </spacer>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="cancelButton">
       <property name="text">
        <string>Annuler</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="exportButton">
       <property name="text">
        <string>Exporter</string>
       </property>

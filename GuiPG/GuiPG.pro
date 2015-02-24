@@ -24,7 +24,8 @@ HEADERS += \
     src/View/keyexport.h \
     src/View/keyimport.h \
     src/Exception/badinteraction.h \
-    src/Exception/notenoughinteraction.h
+    src/Exception/notenoughinteraction.h \
+    src/View/keyedition.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -49,7 +50,8 @@ SOURCES += \
     src/View/keyimport.cpp \
     src/Exception/badinteraction.cpp \
     src/Exception/gpgexception.cpp \
-    src/Exception/notenoughinteraction.cpp
+    src/Exception/notenoughinteraction.cpp \
+    src/View/keyedition.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
@@ -58,7 +60,8 @@ FORMS += \
     src/View/config.ui \
     src/View/Profil/dialogprofile.ui \
     src/View/keyexport.ui \
-    src/View/keyimport.ui
+    src/View/keyimport.ui \
+    src/View/keyedition.ui
 
 test {
 

@@ -15,6 +15,9 @@ public:
     explicit KeyExport(QWidget *parent = 0);
     ~KeyExport();
 
+private slots:
+    void on_cancelButton_clicked();
+
 private:
     Ui::KeyExport *ui;
 };
