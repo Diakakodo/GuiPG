@@ -5,14 +5,12 @@
 #include <QString>
 
 class GPGException : QException {
-    private:
+    protected:
         QString m_msg;
-
     public:
-        virtual ~GPGException();
-        virtual const char* what() const throw = 0;
-        virtual void raise() const = 0;
-        virtual GPGException* clone() const;
+        GPGException(QString msg = "");
+        const char* what();
+        void raise() const;
 };
 
 #endif // GPGEXCEPTION
