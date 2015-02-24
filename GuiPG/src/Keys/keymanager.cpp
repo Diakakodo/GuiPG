@@ -11,7 +11,7 @@ KeyManager::~KeyManager() {
 
 void KeyManager::load() {
     QStringList opt;
-    opt << "--fixed-list-mode";
+    opt << "--fixed-list-mode" << "--with-colons";
     Action a("--list-keys", QStringList(), opt);
     m_gpg->setAction(a);
     m_gpg->execute();
