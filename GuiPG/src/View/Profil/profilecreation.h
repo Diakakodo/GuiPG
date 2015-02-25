@@ -14,7 +14,7 @@ class ProfileCreation : public QDialog
     Q_OBJECT
 
 public:
-    explicit ProfileCreation(DialogProfile* parent);
+    explicit ProfileCreation(DialogProfile* parent, unsigned profileId = 0);
     ~ProfileCreation();
 
 signals:
@@ -32,6 +32,7 @@ private slots:
 private:
     Ui::ProfileCreation *ui;
     DialogProfile* m_parent;
+    unsigned m_profileId;
 };
 
 #endif // PROFILECREATION_H

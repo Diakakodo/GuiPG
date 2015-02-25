@@ -28,6 +28,7 @@ public slots:
     void setDefaultSelectProfile();
     void enableAtionButton();
     void showDialogCreateProfile();
+    void showDialogEditProfile();
 
 private:
     Ui::DialogProfile *ui;
@@ -35,8 +36,9 @@ private:
     Launcher* m_launcher;
     QAbstractButton* m_loadButton;
     QAbstractButton* m_createButton;
-    QAbstractButton* m_deleteButton;
+    QAbstractButton* m_editButton;
     QAbstractButton* m_setDefaultButton;
+    QAbstractButton* m_deleteButton;
 
     void createAndPlaceWidget();
 };
