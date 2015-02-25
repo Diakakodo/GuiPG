@@ -37,3 +37,15 @@ const QString& Profile::getConfigurationPath() const {
 void Profile::setConfigurationPath(const QString& path) {
     m_path = path;
 }
+
+QColor Profile::getValidityColor(Key::Validity v) const {
+    return m_validityColors.value(v);
+}
+
+void Profile::setValidityColor(Key::Validity v, const QColor &c) {
+    m_validityColors.insert(v, c);
+}
+
+const QHash<Key::Validity, QColor>& Profile::getValidityColors() const {
+    return m_validityColors;
+}
