@@ -21,13 +21,13 @@
        <item>
         <widget class="QLabel" name="nameLabel">
          <property name="text">
-          <string>   Nom du profil   </string>
+          <string>Nom du prrofil</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::PlainText</enum>
          </property>
          <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="buddy">
-          <cstring>gpgPathLabel</cstring>
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -41,10 +41,7 @@
        <item>
         <widget class="QLabel" name="gpgPathLabel">
          <property name="text">
-          <string> Chemin vers gpg </string>
-         </property>
-         <property name="buddy">
-          <cstring>gpgPathLabel</cstring>
+          <string>Chemin vers gpg </string>
          </property>
         </widget>
        </item>
