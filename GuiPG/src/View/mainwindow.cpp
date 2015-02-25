@@ -114,7 +114,9 @@ QTreeWidgetItem* MainWindow::createKeyItem(Key *k, QTreeWidget* tree) {
             << (e.isNull() ? "Aucune" : k->getExpirationDate().toString("dd/MM/yyyy"))
             << Key::validityToStr(k->getValidity())
     ;
-    return tree == nullptr ? new QTreeWidgetItem(infos) : new QTreeWidgetItem(tree, infos);
+    QTreeWidgetItem* item = tree == nullptr ? new QTreeWidgetItem(infos) : new QTreeWidgetItem(tree, infos);
+    item->setTextColor(0, m_model->getProfile()->getValidityColor(k->getValidity()));
+    return item;
 }
 
 void MainWindow::on_actionImporter_triggered()
