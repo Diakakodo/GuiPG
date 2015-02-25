@@ -1,0 +1,65 @@
+\documentclass{CR-projet}
+
+%Import des packages utilisés pour le document
+\usepackage[T1]{fontenc}
+
+
+\definecolor{gris}{rgb}{0.95, 0.95, 0.95}
+\definecolor{vert}{rgb}{0.14, 0.69, 0.11}
+
+%Variables
+\logo{logo_univ.png}
+\title{Compte rendu - Réunion Client}
+\author{Matthieu \bsc{FIN}}
+\projet{Projet PGP}
+\projdesc{Etude et implantation d'un outil graphique de gestion de clé PGP}
+\filiere{Master 1 SSI}
+\matiere{Conduite de projet}
+\date{24 février 2015}
+
+\context{Réunion début de sprint 2}
+
+\presentry{\bsc{Balmelle}}{Pierre}{\textbf{Présent}}{vert}
+\presentry{\bsc{Barbay}}{Lucas}{\textbf{Présent}}{vert}
+\presentry{\bsc{Barry}}{Ibrahima Sory}{\textbf{Présent}}{vert}
+\presentry{\bsc{Bouillie}}{Bertille}{\textbf{Absente}}{red}
+\presentry{\bsc{Fin}}{Matthieu}{\textbf{Présent}}{vert}
+\presentry{\bsc{Leroy}}{Guillaume}{\textbf{Présent}}{vert}
+\presentry{\bsc{Thibault}}{Olivier}{\textbf{Présent}}{vert}
+
+% -- Début du document -- %
+\begin{document}
+
+%Page de garde
+\maketitle
+\newpage
+%La table des matières
+%\tableofcontents
+
+\newpage
+
+\section{Actions}
+
+\begin{itemize}
+	\item Mettre un fichier texte a la racine du repo git expliquant le fonctionnement des différentes branches
+	où trouver les comptes rendus, le PDD...
+	\item Attribution de l'étude et de l'implantation de l'attaque pour Lucas.\\
+	Deux type d'attaques :
+	\begin{itemize}
+		\item Générer une première clé de test puis trouver une collision.
+		\item Générer plusieurs clés et trouver une pair de clé qui provoque une collision.
+	\end{itemize}
+	\item Penser a un document d'attribution de tâches et de leur avancement
+	pour pouvoir communiquer en interne et en externe permettant de voir qui fait quoi quand et quelle tâche pose éventuellement problème.\\
+	Du genre todo-list améliorée ou diagramme de GANTT.
+	\item Définir un chemin critique.
+	\item Chacun met a jour l'avancement de ses tâches sur le planning.
+	\item Ajouter une tâche d'empaquetage pour la livraison.
+	\item Rédiger des tests.
+	\item Rédiger un cahier de recettes (listes de tests réalisé par rapport a ce qui a était prévu).
+	\item Tenir a jour \textbf{tous} les documents.
+	\item Livrer le programme réalisant tous les tests.
+\end{itemize}
+
+\end{document}
+

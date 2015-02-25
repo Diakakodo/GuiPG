@@ -1,0 +1,90 @@
+\documentclass{CR-projet}
+
+%Import des packages utilisés pour le document
+\usepackage[T1]{fontenc}
+
+
+\definecolor{gris}{rgb}{0.95, 0.95, 0.95}
+\definecolor{vert}{rgb}{0.14, 0.69, 0.11}
+
+%Variables
+\logo{logo_univ.png}
+\title{Compte rendu - Réunion Client}
+\author{Matthieu \bsc{FIN}}
+\projet{Projet PGP}
+\projdesc{Etude et implantation d'un outil graphique de gestion de clé PGP}
+\filiere{Master 1 SSI }
+\matiere{Conduite de projet}
+\date{19 février 2015}
+
+\context{Livraison 1er livrable fin du sprint 1}
+
+\presentry{\bsc{Balmelle}}{Pierre}{\textbf{Présent}}{vert}
+\presentry{\bsc{Barbay}}{Lucas}{\textbf{Absent}}{red}
+\presentry{\bsc{Barry}}{Ibrahima Sory}{\textbf{Absent}}{red}
+\presentry{\bsc{Bouillie}}{Bertille}{\textbf{Absente}}{red}
+\presentry{\bsc{Fin}}{Matthieu}{\textbf{Présent}}{vert}
+\presentry{\bsc{Leroy}}{Guillaume}{\textbf{Absent}}{red}
+\presentry{\bsc{Thibault}}{Olivier}{\textbf{Présent}}{vert}
+
+% -- Début du document -- %
+\begin{document}
+
+%Page de garde
+\maketitle
+\newpage
+%La table des matières
+%\tableofcontents
+
+\newpage
+
+\textbf{\Large \textcolor{red} {Livraison non validée !}}
+
+
+\section{Modifications sur le livrable à prendre en compte}
+
+\begin{itemize}
+	\item Afficher le nom du profil courant sur la fenêtre principale (dans la barre de titre).
+	\item Afficher les clés en couleur en fonction de leur validité.
+	\item Afficher les signatures des clés et la confiance accordée a chaque clés (séparé de la validité).
+	\item Pour les versions gpg2 quand le timestamp est nul ne pas afficher la date plutôt que d'afficher le 1 janvier 1970.
+	ce cas correspond aux clé sans dates de fin de validité.
+\end{itemize}
+
+\section{Actions}
+
+\begin{itemize}
+	\item Report des études a plus tard. Priorité au \textbf{développement}.
+	\item Attribuer \textbf{une} personne sur la tâche de l'attaque.
+	\item Finir la gestion fine des clés au plus vite\\
+	en particulier la communication interactive avec GPG.\\
+	Pour ainsi terminer toutes les opérations de gestion de clés.
+	\item Repenser l'architecture pour séparer complètement les tâches de développement.\\
+	L'architecture doit être repensée impérativement pour la prochaine réunion du mardi 24 février 2015.
+	Premières tâches majeures a distribuer :
+	\begin{itemize}
+		\item Chiffrement/déchiffrement de fichiers, ...
+		\item Toile de confiance.
+		\item Gestion des clés + noyau de l'application.
+	\end{itemize}
+	\item Réaliser un guide GIT. Et séparer les grandes tâches par branches.
+	\item \textbf{Chaque semaines} :
+	\begin{itemize}
+		\item \textbf{Bilan} des tâches effectuées de la semaines passée.
+		\item \textbf{Ré-attribution} des tâches pour la semaine suivante.
+	\end{itemize}
+	\item \textcolor{red} {Présence \textbf{obligatoire} de \textbf{chaque} membre aux réunions du mardi.}\\
+	Si présence impossible :
+	\begin{itemize}
+		\item Envoie d'un \textbf{mail perso} a Magali Bardet.
+		\item Contenant \textbf{l'avancement} personnel sur les tâches attribuées
+		et la \textbf{prévision} des tâches de la semaine suivante.  
+	\end{itemize}
+	\item \textbf{Compte-rendu de chaque réunions} au format texte sur la liste de diffusion
+	le \textbf{soir même} de la réunion ou le lendemain au plus tard.
+	\item Avoir commencer la refonte nécessaire de l'architecture et la
+	\textbf{distribution des nouvelles tâches} pour \textbf{Mardi 24 février 2015}.
+\end{itemize}
+
+\end{document}
+

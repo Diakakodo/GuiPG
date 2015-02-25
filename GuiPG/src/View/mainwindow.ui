@@ -184,7 +184,7 @@
      <x>0</x>
      <y>0</y>
      <width>1099</width>
-     <height>22</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -206,6 +206,8 @@
      <string>C&amp;lefs</string>
     </property>
     <addaction name="actionG_n_rer_une_paire_de_clefs"/>
+    <addaction name="actionImporter"/>
+    <addaction name="actionExporter"/>
    </widget>
    <widget class="QMenu" name="menuConfiguration">
     <property name="title">
@@ -297,6 +299,16 @@
   <action name="actionProfil">
    <property name="text">
     <string>Profil</string>
+   </property>
+  </action>
+  <action name="actionImporter">
+   <property name="text">
+    <string>Importer</string>
+   </property>
+  </action>
+  <action name="actionExporter">
+   <property name="text">
+    <string>Exporter</string>
    </property>
   </action>
  </widget>

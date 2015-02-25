@@ -20,28 +20,25 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-
-
-
-    unsigned id = 0;
-    ++argv;
-    while (*argv != NULL) {
-        if (strcmp(*argv, PROFILE_OPTION) == 0) {
-            ++*argv;
-            if (*argv == NULL) {
-                cerr << "Missing argument after '" PROFILE_OPTION "'" << endl;
-                exit(1);
-            } else {
-                QString a(*argv);
-                bool ok = false;
-                id = a.toUInt(&ok);
-                if (!ok) {
-                    cerr << "Invalid profile id" << endl;
-                    exit(1);
-                }
-            }
-        }
-    }
+    //unsigned id = 0;
+    //++argv;
+    //while (*argv != NULL) {
+    //    if (strcmp(*argv, PROFILE_OPTION) == 0) {
+    //        ++*argv;
+    //        if (*argv == NULL) {
+    //            cerr << "Missing argument after '" PROFILE_OPTION "'" << endl;
+    //            exit(1);
+    //        } else {
+    //            QString a(*argv);
+    //            bool ok = false;
+    //            id = a.toUInt(&ok);
+    //            if (!ok) {
+    //                cerr << "Invalid profile id" << endl;
+    //                exit(1);
+    //            }
+    //        }
+    //    }
+    //}
 
 
     // TODO penser a tester le chargement de la configuration.

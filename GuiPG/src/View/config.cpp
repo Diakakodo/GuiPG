@@ -39,11 +39,6 @@ void config::on_pushButton_clicked()
 
   location=QFileDialog::getOpenFileName(this,tr("Open File"),homedir,"All files (*.*)" );
   ui->lineEdit_2->setText(location);
-};
-
-void config::on_lineEdit_cursorPositionChanged(int arg1, int arg2)
-{
-    ui->lineEdit->setText("gpg.config");
 }
 
 void config::on_pushButton_4_clicked()

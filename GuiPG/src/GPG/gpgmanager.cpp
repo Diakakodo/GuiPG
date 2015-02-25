@@ -9,6 +9,9 @@ GPGManager::GPGManager(const Profile *p) : m_profile(p) {
 
 void GPGManager::execute() {
     QStringList args;
+    if (m_profile->getConfigurationPath() != "") {
+        args << "--homedir" << m_profile->getConfigurationPath();
+    }
     args << m_action.getOptions() << "--with-colons" << m_action.getCmd()
          << m_action.getArgs();
     m_gpg.start(m_profile->getGPGExecutable(), args);
@@ -29,3 +32,4 @@ void GPGManager::terminate(int s, QProcess::ExitStatus status) {
 void GPGManager::setAction(const Action &a) {
     m_action = a;
 }
+

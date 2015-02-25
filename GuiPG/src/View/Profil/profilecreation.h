@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "../mainwindow.h"
+#include "../../View/Profil/dialogprofile.h"
 
 namespace Ui {
 class ProfileCreation;
@@ -13,8 +14,11 @@ class ProfileCreation : public QDialog
     Q_OBJECT
 
 public:
-    explicit ProfileCreation(MainWindow *parent = 0);
+    explicit ProfileCreation(DialogProfile* parent);
     ~ProfileCreation();
+
+signals:
+    void updateDialogProfile();
 
 private slots:
     void on_cancelButton_clicked();
@@ -27,7 +31,7 @@ private slots:
 
 private:
     Ui::ProfileCreation *ui;
-    MainWindow* m_parent;
+    DialogProfile* m_parent;
 };
 
 #endif // PROFILECREATION_H
