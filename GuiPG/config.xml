@@ -16,5 +16,9 @@
    <exec>gpg</exec>
    <path>~/testgpg</path>
   </profile>
+  <profile name="fffffff" id="5">
+   <exec>/home/pierre/IMG_26122014_210706.png</exec>
+   <path>/home/pierre/Images</path>
+  </profile>
  </profiles>
 </configurations>
