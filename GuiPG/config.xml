@@ -7,6 +7,7 @@
   <profile name="Matthieu" id="2">
    <exec>gpg</exec>
    <path>~/.gnupg</path>
+   <validity_color blue="0" value="117" green="0" red="255"/>
   </profile>
   <profile name="Guillaume" id="3">
    <exec>gpg</exec>
@@ -15,6 +16,10 @@
   <profile name="test" id="4">
    <exec>gpg</exec>
    <path>~/testgpg</path>
+  </profile>
+  <profile name="fffffff" id="5">
+   <exec>/home/pierre/IMG_26122014_210706.png</exec>
+   <path>/home/pierre/Images</path>
   </profile>
  </profiles>
 </configurations>

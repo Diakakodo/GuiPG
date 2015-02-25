@@ -2,6 +2,9 @@
 #define PROFILE_H
 
 #include <QObject>
+#include <QHash>
+#include "../Keys/key.h"
+#include <QColor>
 
 class Profile : public QObject {
     Q_OBJECT
@@ -48,12 +51,19 @@ class Profile : public QObject {
          */
         void setConfigurationPath(const QString& path);
 
+        QColor getValidityColor(Key::Validity v) const;
+
+        void setValidityColor(Key::Validity v, const QColor& c);
+
+        const QHash<Key::Validity, QColor>& getValidityColors() const;
+
 
     private:
         unsigned m_id;
         QString m_name;
         QString m_exec;
         QString m_path;
+        QHash<Key::Validity, QColor> m_validityColors;
 };
 
 #endif // PROFILE_H

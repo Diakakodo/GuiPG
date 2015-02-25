@@ -18,6 +18,12 @@ public:
 private slots:
     void on_cancelButton_clicked();
 
+    void on_browseButton_clicked();
+
+    void on_pathEdit_textChanged(const QString &arg1);
+
+    void on_keyIdEdit_textChanged(const QString &arg1);
+
 private:
     Ui::KeyImport *ui;
 };

@@ -37,7 +37,31 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QComboBox" name="keyServerList"/>
+       <widget class="QComboBox" name="keyServerList">
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>http://keys.gnupg.net</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>http://keyserver.ubuntu.com</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>hkp://subkeys.pgp.net</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>hkp://pgp.mit.edu</string>
+         </property>
+        </item>
+       </widget>
       </item>
      </layout>
     </item>
