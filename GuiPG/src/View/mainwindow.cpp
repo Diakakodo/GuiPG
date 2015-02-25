@@ -96,27 +96,25 @@ void MainWindow::buildTree() {
     ui->treeWidgetKey->clear();
     const QList<Key*>& keys = m_model->getKeyManager()->getKeys();
     for (Key* k : keys) {
-        QStringList infos;
-        infos
-                << k->getId()
-                << k->getOwner()
-                << QString::number(k->getLength())
-                << k->getCreationDate().toString("dd/MM/yyyy")
-                << k->getExpirationDate().toString("dd/MM/yyyy")
-                << Key::validityToStr(k->getValidity());
-        QTreeWidgetItem* item = new QTreeWidgetItem(ui->treeWidgetKey, infos);
+        QTreeWidgetItem* item = createKeyItem(k, ui->treeWidgetKey);
         for (Key* sk : k->getSubKeys()) {
-            infos.clear();
-            infos
-                    << sk->getId()
-                    << sk->getOwner()
-                    << QString::number(sk->getLength())
-                    << sk->getCreationDate().toString("dd/MM/yyyy")
-                    << sk->getExpirationDate().toString("dd/MM/yyyy")
-                    << Key::validityToStr(sk->getValidity());
-            item->addChild(new QTreeWidgetItem(infos));
+            item->addChild(createKeyItem(sk));
         }
     }
+}
+
+QTreeWidgetItem* MainWindow::createKeyItem(Key *k, QTreeWidget* tree) {
+    QStringList infos;
+    const QDate& e = k->getExpirationDate();
+    infos
+            << k->getId()
+            << k->getOwner()
+            << QString::number(k->getLength())
+            << k->getCreationDate().toString("dd/MM/yyyy")
+            << (e.isNull() ? "Aucune" : k->getExpirationDate().toString("dd/MM/yyyy"))
+            << Key::validityToStr(k->getValidity())
+    ;
+    return tree == nullptr ? new QTreeWidgetItem(infos) : new QTreeWidgetItem(tree, infos);
 }
 
 void MainWindow::on_actionImporter_triggered()
