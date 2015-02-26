@@ -17,6 +17,8 @@
  *   - une liste d'arguments
  *   - une liste d'interactions
  *
+ * @inv Chaques interactions de la liste contient un unique '\n' a la fin.
+ *
  */
 class Action : public QObject {
     Q_OBJECT
