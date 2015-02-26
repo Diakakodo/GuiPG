@@ -35,6 +35,12 @@ void KeyManager::gpgFinished(int s, const QString &output) {
         if (split.first() == "pub") {
             ++i;
             QString owner = lines.at(i).split(":").at(9);
+            bool ok = false;
+            unsigned long e = split.at(6).toULong(&ok);
+            QDate expiration;
+            if (ok) {
+                expiration = QDateTime::fromMSecsSinceEpoch(e * 1000).date();
+            }
             Key* k = new Key(
                     Key::SCOPE_PUBLIC,
                     (Key::Algorithm) split.at(3).toInt(),
@@ -42,12 +48,18 @@ void KeyManager::gpgFinished(int s, const QString &output) {
                     (Key::Validity) split.at(1).at(0).toLatin1(),
                     split.at(4),
                     QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),
-                    QDateTime::fromMSecsSinceEpoch(split.at(6).toULong() * 1000).date(),
+                    expiration,
                     owner
             );
             m_keys.append(k);
             lastOwner = owner;
         } else if (split.first() == "sub") {
+            bool ok = false;
+            unsigned long e = split.at(6).toULong(&ok);
+            QDate expiration;
+            if (ok) {
+                expiration = QDateTime::fromMSecsSinceEpoch(e * 1000).date();
+            }
             Key* k = new Key(
                     Key::SCOPE_PUBLIC,
                     (Key::Algorithm) split.at(3).toInt(),
@@ -55,7 +67,7 @@ void KeyManager::gpgFinished(int s, const QString &output) {
                     (Key::Validity) split.at(1).at(0).toLatin1(),
                     split.at(4),
                     QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),
-                    QDateTime::fromMSecsSinceEpoch(split.at(6).toULong() * 1000).date(),
+                    expiration,
                     lastOwner
             );
             m_keys.last()->addSubKey(k);

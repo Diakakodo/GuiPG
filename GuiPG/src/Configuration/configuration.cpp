@@ -12,6 +12,11 @@
 #define PROFILES_TAG_NAME "profiles"
 #define PROFILE_TAG_NAME "profile"
 #define ROOT_TAG_NAME "configurations"
+#define VALIDITY_COLOR_TAG_NAME "validity_color"
+#define BLUE_ATTRIBUTE "blue"
+#define GREEN_ATTRIBUTE "green"
+#define RED_ATTRIBUTE "red"
+#define VALUE_ATTRIBUTE "value"
 
 using namespace std;
 
@@ -54,6 +59,13 @@ bool Configuration::load() {
                             p->setGPGExecutable(ae.text());
                         } else if (ae.tagName() == PATH_TAG_NAME) {
                             p->setConfigurationPath(ae.text());
+                        } else if (ae.tagName() == VALIDITY_COLOR_TAG_NAME) {
+                            QColor c(
+                                        ae.attribute(RED_ATTRIBUTE).toInt(),
+                                        ae.attribute(GREEN_ATTRIBUTE).toInt(),
+                                        ae.attribute(BLUE_ATTRIBUTE).toInt()
+                            );
+                            p->setValidityColor((Key::Validity) ae.attribute(VALUE_ATTRIBUTE).toInt(), c);
                         }
                     }
                     n = n.nextSibling();
@@ -86,6 +98,15 @@ bool Configuration::save() {
         pe.setAttribute(NAME_ATTR_NAME, p->getName());
         addNode(EXEC_TAG_NAME, p->getGPGExecutable(), doc, pe);
         addNode(PATH_TAG_NAME, p->getConfigurationPath(), doc, pe);
+        const QHash<Key::Validity, QColor> validityColors = p->getValidityColors();
+        for (Key::Validity v : validityColors.keys()) {
+            QDomElement e = doc.createElement(VALIDITY_COLOR_TAG_NAME);
+            e.setAttribute(VALUE_ATTRIBUTE, (int) v);
+            e.setAttribute(RED_ATTRIBUTE, validityColors.value(v).red());
+            e.setAttribute(BLUE_ATTRIBUTE, validityColors.value(v).blue());
+            e.setAttribute(GREEN_ATTRIBUTE, validityColors.value(v).green());
+            pe.appendChild(e);
+        }
         profiles.appendChild(pe);
     }
 

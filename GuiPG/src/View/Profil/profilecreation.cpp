@@ -3,10 +3,17 @@
 #include <QFileDialog>
 #include <iostream>
 
-ProfileCreation::ProfileCreation(DialogProfile *parent) :
-    QDialog(parent), ui(new Ui::ProfileCreation), m_parent(parent)
+ProfileCreation::ProfileCreation(DialogProfile *parent, unsigned profileId) :
+    QDialog(parent), ui(new Ui::ProfileCreation), m_parent(parent), m_profileId(profileId)
 {
     ui->setupUi(this);
+    if (m_profileId != 0) {
+        ui->acceptButton->setText("Editer");
+        ui->nameEdit->setText(m_parent->getConfig()->getProfileById(m_profileId)->getName());
+        ui->nameEdit->setReadOnly(true);
+        ui->gpgPathEdit->setText(m_parent->getConfig()->getProfileById(m_profileId)->getGPGExecutable());
+        ui->storagePathEdit->setText(m_parent->getConfig()->getProfileById(m_profileId)->getConfigurationPath());
+    }
 }
 
 ProfileCreation::~ProfileCreation()
@@ -37,18 +44,23 @@ void ProfileCreation::on_storagePathButton_clicked()
 
 void ProfileCreation::on_acceptButton_clicked()
 {
-    QList<Profile*> profileList = m_parent->getConfig()->getProfiles();
-    unsigned max = 0;
-    for (Profile* l : profileList) {
-        if (l->getId() > max) {
-            max = l->getId();
+    if (m_profileId != 0) {
+        m_parent->getConfig()->getProfileById(m_profileId)->setGPGExecutable(ui->gpgPathEdit->text());
+        m_parent->getConfig()->getProfileById(m_profileId)->setConfigurationPath(ui->storagePathEdit->text());
+    } else {
+        QList<Profile*> profileList = m_parent->getConfig()->getProfiles();
+        unsigned max = 0;
+        for (Profile* l : profileList) {
+            if (l->getId() > max) {
+                max = l->getId();
+            }
         }
+        Profile* p = new Profile(max + 1, ui->nameEdit->text());
+        p->setConfigurationPath(ui->storagePathEdit->text());
+        p->setGPGExecutable(ui->gpgPathEdit->text());
+        m_parent->getConfig()->addProfile(p);
+        m_parent->getConfig()->save();
     }
-    Profile* p = new Profile(max + 1, ui->nameEdit->text());
-    p->setConfigurationPath(ui->storagePathEdit->text());
-    p->setGPGExecutable(ui->gpgPathEdit->text());
-    m_parent->getConfig()->addProfile(p);
-    m_parent->getConfig()->save();
     m_parent->refreshTableWidget();
     close();
 }

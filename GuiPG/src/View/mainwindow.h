@@ -5,6 +5,8 @@
 #include "../Profile/profile.h"
 #include "../Configuration/configuration.h"
 #include "../Model/mainwindowmodel.h"
+#include <QTreeWidget>
+#include "../Keys/key.h"
 
 class MainWindowModel;
 
@@ -41,6 +43,8 @@ protected:
      void closeEvent(QCloseEvent *event);
 
 private:
+        QTreeWidgetItem* createKeyItem(Key* k, QTreeWidget* tree = nullptr);
+
         Ui::MainWindow* ui;
         MainWindowModel* m_model;
 };
