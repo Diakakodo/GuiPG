@@ -8,16 +8,26 @@ KeyManager::~KeyManager() {
     qDeleteAll(m_keys);
     delete m_gpg;
 }
-
+#include <QDebug>
 void KeyManager::load() {
     QStringList opt;
+    //*
     opt << "--fixed-list-mode" << "--with-colons";
     Action a("--list-keys", QStringList(), opt);
+    /*/
+    //opt << "--status-fd=1" << "--command-fd=0" << "--no-tty";
+    //Action a("--full-gen-key", QStringList(), opt);
+    opt << "--status-fd=1" << "--command-fd=0" << "--no-tty" << "--with-colons";
+    QStringList interact;
+    interact << "help\n" << "list\n" << "sign" << "q\n";
+    Action a("--edit-key", QStringList("Olivier"), opt, interact);
+    //*/
     m_gpg->setAction(a);
     m_gpg->execute();
 }
 #include <QDebug>
 void KeyManager::gpgFinished(int s, const QString &output) {
+    //qDebug() << output;
     QStringList lines = output.split("\n");
     QString lastOwner;
     for (int i = 1; i < lines.size(); ++i) {
