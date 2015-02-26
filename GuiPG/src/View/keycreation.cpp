@@ -92,8 +92,9 @@ void KeyCreation::on_pushButton_2_clicked()
         interactions << ui->lineEdit_3->text();
         interactions << ui->lineEdit_2->text();
         interactions << "O";
-
-        Action keyCreation(QString("--gen-key"), QStringList(), QStringList(), interactions);
+        QStringList opt;
+        opt << "--status-fd=1" << "--command-fd=0" << "--no-tty";
+        Action keyCreation(QString("--full-gen-key"), QStringList(), opt, interactions);
 
         // TODO Gérer gpg2
         GPGManager* manager = new GPGManager(new Profile());
