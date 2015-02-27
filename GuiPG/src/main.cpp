@@ -50,7 +50,13 @@ int main(int argc, char** argv) {
     QObject::connect(&app, &GuiPGApp::lastWindowClosed, &launcher, &Launcher::stop);
     launcher.start();
     if (!launcher.alreadyRun()) {
-        app.exec();
+        try {
+            app.exec();
+        } catch (QException& e) {
+            qDebug() << e.what();
+            launcher.stop();
+        }
+
         config.save();
     }
     launcher.wait();
