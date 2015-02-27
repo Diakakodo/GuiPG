@@ -1,25 +1,25 @@
 <configurations>
  <profiles defaultProfileId="2">
-  <profile name="Default_GnuPG" id="1">
+  <profile id="1" name="Default_GnuPG">
    <exec>gpg</exec>
    <path>~/.gnupg/</path>
   </profile>
-  <profile name="Matthieu" id="2">
+  <profile id="2" name="Matthieu">
    <exec>gpg</exec>
    <path>~/.gnupg</path>
-   <validity_color blue="0" value="117" green="0" red="255"/>
+   <validity_color blue="0" green="0" red="255" value="117"/>
   </profile>
-  <profile name="Guillaume" id="3">
+  <profile id="3" name="Guillaume">
    <exec>gpg</exec>
    <path>~/.gnupg</path>
   </profile>
-  <profile name="test" id="4">
+  <profile id="4" name="test">
    <exec>gpg</exec>
    <path>~/testgpg</path>
   </profile>
-  <profile name="fffffff" id="5">
-   <exec>/home/pierre/IMG_26122014_210706.png</exec>
-   <path>/home/pierre/Images</path>
+  <profile id="5" name="fffffff">
+   <exec>/usr/bin/gpg</exec>
+   <path>/home/matthieu/tmp/bidon</path>
   </profile>
  </profiles>
 </configurations>
