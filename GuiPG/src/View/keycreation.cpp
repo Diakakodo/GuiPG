@@ -4,6 +4,7 @@
 #include "../GPG/action.h"
 #include "../Profile/profile.h"
 #include "../GPG/gpgmanager.h"
+#include <QDebug>
 
 KeyCreation::KeyCreation(QWidget *parent) :
     QDialog(parent),
@@ -92,19 +93,21 @@ void KeyCreation::on_pushButton_2_clicked()
         interactions << ui->lineEdit_3->text();
         interactions << ui->lineEdit_2->text();
         interactions << "O";
+
+
         QStringList opt;
         opt << "--status-fd=1" << "--command-fd=0" << "--no-tty";
-        Action keyCreation(QString("--full-gen-key"), QStringList(), opt, interactions);
+        Action keyCreation(QString("--gen-key"), QStringList(), opt, interactions);
 
-        // TODO Gérer gpg2
         GPGManager* manager = new GPGManager(new Profile());
         manager->setAction(keyCreation);
         manager->execute();
         // TODO Comment rentrer la phrase de passe ?
+        qDebug() << interactions;
         errorLabel->setText("Veuillez patienter pendant la création de la clé...\n");
 
         // TODO Attendre que GPG ait fini de générer la clé
-        //close();
+        close();
     }
 }
 
