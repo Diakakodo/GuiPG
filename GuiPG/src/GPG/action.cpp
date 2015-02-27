@@ -16,8 +16,12 @@
  */
 void setEOL(QStringList* l) {
     for (int i = 0; i < l->length(); ++i) {
-        if ( (*l)[i][(*l)[i].length() - 1] != '\n' ) {
-            l->replace(i, (*l)[i] + "\n");
+        if ((*l)[i].isEmpty()) {
+            l->replace(i, "\n");
+        } else {
+            if ( (*l)[i][(*l)[i].length() - 1] != '\n' ) {
+                l->replace(i, (*l)[i] + "\n");
+            }
         }
     }
 }
@@ -25,11 +29,6 @@ Action::Action(QString cmd, const QStringList &args, const QStringList &options,
     : m_cmd(cmd), m_args(args), m_options(options), m_interactions(interactions) {
     // On place l'index des interaction a 0.
     m_index = 0;
-    for (QString s : m_interactions) {
-        if (s.isEmpty()) {
-            throw IllegalArgumentException("Une interaction est vide");
-        }
-    }
     setEOL(&m_interactions);
     for (QString s : m_interactions) {
         if (s.contains('\n')) {
