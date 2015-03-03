@@ -105,9 +105,9 @@ void KeyCreation::on_pushButton_2_clicked()
         // TODO Comment rentrer la phrase de passe ?
         qDebug() << interactions;
         errorLabel->setText("Veuillez patienter pendant la création de la clé...\n");
-
+        connect(manager, &GPGManager::finished, this, &KeyCreation::on_pushButton_clicked);
         // TODO Attendre que GPG ait fini de générer la clé
-        close();
+        //close();
     }
 }
 
