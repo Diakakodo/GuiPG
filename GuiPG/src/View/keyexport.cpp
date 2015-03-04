@@ -6,9 +6,10 @@
 #include "iostream"
 #include "QDebug"
 
-KeyExport::KeyExport(QWidget *parent) :
+KeyExport::KeyExport(QWidget *parent, Type mode) :
     QDialog(parent),
-    ui(new Ui::KeyExport)
+    ui(new Ui::KeyExport),
+    m_mode(mode)
 {
     ui->setupUi(this);
 }
@@ -37,7 +38,8 @@ void KeyExport::on_exportButton_clicked()
         close();
     } else
         if (ui->fileRadioButton->isChecked() && ui->pathEdit->text() != "") {
-            Action keyExport(QString("--export"), QStringList(), QStringList() << "-a" << "--output " + ui->pathEdit->text());
+            Action keyExport(m_mode == PUBLIC_KEYS ? QString("--export") : QString("--export-secret-keys"), QStringList(), QStringList() << "-a" << "--output " + ui->pathEdit->text());
+
             GPGManager* manager = new GPGManager(new Profile());
 
             qDebug() << keyExport.getCmd();

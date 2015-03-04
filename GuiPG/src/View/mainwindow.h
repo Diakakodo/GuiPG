@@ -37,7 +37,9 @@ private slots:
 
         void on_actionImporter_triggered();
 
-        void on_actionExporter_triggered();
+        void on_actionCl_s_publiques_triggered();
+
+        void on_actionCl_s_priv_es_triggered();
 
 protected:
      void closeEvent(QCloseEvent *event);
@@ -50,3 +52,4 @@ private:
 };
 
 #endif // MAINWINDOW_H
+

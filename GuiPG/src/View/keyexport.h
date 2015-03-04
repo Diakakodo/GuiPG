@@ -12,7 +12,12 @@ class KeyExport : public QDialog
     Q_OBJECT
 
 public:
-    explicit KeyExport(QWidget *parent = 0);
+    enum Type {
+        SECRET_KEYS,
+        PUBLIC_KEYS
+    };
+
+    explicit KeyExport(QWidget *parent = 0, Type mode = PUBLIC_KEYS);
     ~KeyExport();
 
 private slots:
@@ -28,6 +33,7 @@ private slots:
 
 private:
     Ui::KeyExport *ui;
+    Type m_mode;
 };
 
 #endif // KEYEXPORT_H

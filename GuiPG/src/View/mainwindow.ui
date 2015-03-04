@@ -205,9 +205,16 @@
     <property name="title">
      <string>C&amp;lefs</string>
     </property>
+    <widget class="QMenu" name="menuExporter">
+     <property name="title">
+      <string>Exporter</string>
+     </property>
+     <addaction name="actionCl_s_publiques"/>
+     <addaction name="actionCl_s_priv_es"/>
+    </widget>
     <addaction name="actionG_n_rer_une_paire_de_clefs"/>
     <addaction name="actionImporter"/>
-    <addaction name="actionExporter"/>
+    <addaction name="menuExporter"/>
    </widget>
    <widget class="QMenu" name="menuConfiguration">
     <property name="title">
@@ -306,9 +313,14 @@
     <string>Importer</string>
    </property>
   </action>
-  <action name="actionExporter">
+  <action name="actionCl_s_publiques">
    <property name="text">
-    <string>Exporter</string>
+    <string>Clés publiques</string>
+   </property>
+  </action>
+  <action name="actionCl_s_priv_es">
+   <property name="text">
+    <string>Clés privées</string>
    </property>
   </action>
  </widget>

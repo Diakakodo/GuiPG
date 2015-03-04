@@ -126,9 +126,16 @@ void MainWindow::on_actionImporter_triggered()
     keyImportGui.exec();
 }
 
-void MainWindow::on_actionExporter_triggered()
+void MainWindow::on_actionCl_s_publiques_triggered()
 {
-    KeyExport keyExportGui;
+    KeyExport keyExportGui(this, KeyExport::PUBLIC_KEYS);
+    keyExportGui.show();
+    keyExportGui.exec();
+}
+
+void MainWindow::on_actionCl_s_priv_es_triggered()
+{
+    KeyExport keyExportGui(this, KeyExport::SECRET_KEYS);
     keyExportGui.show();
     keyExportGui.exec();
 }
