@@ -25,7 +25,8 @@ HEADERS += \
     src/View/keyimport.h \
     src/Exception/badinteraction.h \
     src/Exception/notenoughinteraction.h \
-    src/View/keyedition.h
+    src/View/keyedition.h \
+    src/Keys/signature.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -51,7 +52,8 @@ SOURCES += \
     src/Exception/badinteraction.cpp \
     src/Exception/gpgexception.cpp \
     src/Exception/notenoughinteraction.cpp \
-    src/View/keyedition.cpp
+    src/View/keyedition.cpp \
+    src/Keys/signature.cpp
 
 FORMS += \
     src/View/mainwindow.ui \

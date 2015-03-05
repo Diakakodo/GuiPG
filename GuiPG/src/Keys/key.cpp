@@ -38,15 +38,16 @@ Key::Key(Scope s,
          const QDate &creation,
          const QDate &expiration,
          const QString& owner)
-        : m_length(length),
+        : Signature(a, id, creation, owner),
+          m_length(length),
           m_val(v),
           m_scope(s),
-          m_algo(a),
-          m_id(id),
-          m_creation(creation),
-          m_expiration(expiration),
-          m_owner(owner) {
+          m_expiration(expiration) {
 
+}
+
+Key::~Key() {
+    qDeleteAll(m_sigs);
 }
 
 const QList<Key*> Key::getSubKeys() const {
@@ -65,26 +66,9 @@ Key::Scope Key::getScope() const {
     return m_scope;
 }
 
-Key::Algorithm Key::getAlgorithm() const {
-    return m_algo;
-}
-
-const QString& Key::getId() const {
-    return m_id;
-}
-
-const QDate& Key::getCreationDate() const {
-    return m_creation;
-}
-
 const QDate& Key::getExpirationDate() const {
     return m_expiration;
 }
-
-const QString& Key::getOwner() const {
-    return m_owner;
-}
-
 
 void Key::addSubKey(Key *k) {
     m_subkeys.append(k);
@@ -96,4 +80,12 @@ void Key::removeSubKey(Key *k) {
 
 void Key::setExpirationDate(const QDate &dt) {
     m_expiration = dt;
+}
+
+void Key::addSignature(Signature *s) {
+    m_sigs.append(s);
+}
+
+const QList<Signature*>& Key::getSignatures() const {
+    return m_sigs;
 }

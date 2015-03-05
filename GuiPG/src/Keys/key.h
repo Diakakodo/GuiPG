@@ -4,8 +4,9 @@
 #include <QObject>
 #include <QList>
 #include <QDate>
+#include "signature.h"
 
-class Key : public QObject {
+class Key : public Signature {
         Q_OBJECT
 
     public:
@@ -29,13 +30,6 @@ class Key : public QObject {
             SCOPE_PUBLIC, SCOPE_PRIVATE
         };
 
-        enum Algorithm {
-            ALGO_RSA,
-            ALGO_DSA,
-            ALGO_DSA_SIG,
-            ALGO_RSA_SIG
-        };
-
         enum Capabilities {
             CAP_ENCRYPT = 'e',
             CAP_SIGN = 's',
@@ -54,32 +48,28 @@ class Key : public QObject {
                      const QDate& creation,
                      const QDate& expiration,
                      const QString& owner);
+        ~Key();
 
         const QList<Key*> getSubKeys() const;
         unsigned getLength() const;
         Validity getValidity() const;
         Scope getScope() const;
-        Algorithm getAlgorithm() const;
-        const QString& getId() const;
-        const QDate& getCreationDate() const;
         const QDate &getExpirationDate() const;
-        const QString& getOwner() const;
 
         void addSubKey(Key* k);
         void removeSubKey(Key* k);
         void setExpirationDate(const QDate &dt);
+
+        void addSignature(Signature* s);
+        const QList<Signature*>& getSignatures() const;
 
     private:
         QList<Key*> m_subkeys;
         unsigned m_length;
         Validity m_val;
         Scope m_scope;
-        Algorithm m_algo;
-        QString m_id;
-        QDate m_creation;
         QDate m_expiration;
-        QString m_owner;
-        unsigned m_uid;
+        QList<Signature*> m_sigs;
 };
 
 #endif // KEY_H
