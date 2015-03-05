@@ -14,9 +14,11 @@ GPGManager::GPGManager(const Profile *p) : m_profile(p) {
 
 bool GPGManager::askInteraction() {
     QStringList l = m_output.split('\n', QString::SkipEmptyParts);
-    QString last = l.last();
-    if (last.contains("[GNUPG:] GET_LINE")) {
-        return true;
+    if (!l.isEmpty()) {
+        QString last = l.last();
+        if (last.contains("[GNUPG:] GET_LINE")) {
+            return true;
+        }
     }
     return false;
 }
