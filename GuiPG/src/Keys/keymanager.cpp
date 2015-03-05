@@ -8,12 +8,12 @@ KeyManager::~KeyManager() {
     qDeleteAll(m_keys);
     delete m_gpg;
 }
-#include <QDebug>
+
 void KeyManager::load() {
     QStringList opt;
     //*
     opt << "--fixed-list-mode" << "--with-colons";
-    Action a("--list-keys", QStringList(), opt);
+    Action a("--list-sigs", QStringList(), opt);
     /*/
     //opt << "--status-fd=1" << "--command-fd=0" << "--no-tty";
     //Action a("--full-gen-key", QStringList(), opt);
@@ -25,11 +25,11 @@ void KeyManager::load() {
     m_gpg->setAction(a);
     m_gpg->execute();
 }
-#include <QDebug>
+
 void KeyManager::gpgFinished(int s, const QString &output) {
     //qDebug() << output;
     QStringList lines = output.split("\n");
-    QString lastOwner;
+    Key* last = nullptr;
     for (int i = 1; i < lines.size(); ++i) {
         QStringList split = lines.at(i).split(":");
         if (split.first() == "pub") {
@@ -52,7 +52,7 @@ void KeyManager::gpgFinished(int s, const QString &output) {
                     owner
             );
             m_keys.append(k);
-            lastOwner = owner;
+            last = k;
         } else if (split.first() == "sub") {
             bool ok = false;
             unsigned long e = split.at(6).toULong(&ok);
@@ -68,15 +68,17 @@ void KeyManager::gpgFinished(int s, const QString &output) {
                     split.at(4),
                     QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),
                     expiration,
-                    lastOwner
+                    last->getOwner()
             );
-            m_keys.last()->addSubKey(k);
+            last->addSubKey(k);
+        } else if (split.first() == "sig") {
+
         }
     }
     emit keysLoaded();
 }
 
-const QList<Key*>& KeyManager::getKeys() const {
+const QList<Key *> &KeyManager::getKeys() const {
     return m_keys;
 }
 

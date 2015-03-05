@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QList>
+#include <QHash>
 #include "key.h"
 #include "../GPG/gpgmanager.h"
 

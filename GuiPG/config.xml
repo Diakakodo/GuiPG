@@ -1,5 +1,5 @@
 <configurations>
- <profiles defaultProfileId="2">
+ <profiles defaultProfileId="3">
   <profile id="1" name="Default_GnuPG">
    <exec>gpg</exec>
    <path>~/.gnupg/</path>
@@ -7,11 +7,11 @@
   <profile id="2" name="Matthieu">
    <exec>gpg</exec>
    <path>~/.gnupg</path>
-   <validity_color blue="0" green="0" red="255" value="117"/>
+   <validity_color blue="0" red="255" green="0" value="117"/>
   </profile>
   <profile id="3" name="Guillaume">
    <exec>gpg</exec>
-   <path>~/.gnupg</path>
+   <path>C:/Users/GLeroy/AppData/Roaming/gnupg</path>
   </profile>
   <profile id="4" name="test">
    <exec>gpg</exec>

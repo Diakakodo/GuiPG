@@ -3,7 +3,6 @@
 #include <QFileDialog>
 #include <unistd.h>
 #include <sys/types.h>
-#include <pwd.h>
 #include "mainwindow.h"
 #include "../Profile/profile.h"
 
@@ -18,10 +17,12 @@ config::config(MainWindow *parent) : //QWidget
     if(m_profil->getConfigurationPath() != ""){
         ui->lineEdit_2->setText(m_profil->getConfigurationPath());
     }else{
+        /*
         struct passwd *pw = getpwuid(getuid());
         QString homedir = pw->pw_dir;
         QString home = "home/";
         ui->lineEdit_2->setText((homedir).append(".gnugp/"));
+        */
     }
 }
 
@@ -33,12 +34,14 @@ config::~config()
 
 void config::on_pushButton_clicked()
 {
+    /*
   struct passwd *pw = getpwuid(getuid());
   const char *homedir = pw->pw_dir;
   QString home = "home/";
 
   location=QFileDialog::getOpenFileName(this,tr("Open File"),homedir,"All files (*.*)" );
   ui->lineEdit_2->setText(location);
+  */
 }
 
 void config::on_pushButton_4_clicked()
