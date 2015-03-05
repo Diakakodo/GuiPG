@@ -89,12 +89,10 @@ void KeyCreation::on_pushButton_2_clicked()
                 interactions << QString::number(ui->spinBox->value()) + "y";
                 break;
         }
-        interactions << "o";
         interactions << ui->lineEdit->text();
         interactions << ui->lineEdit_3->text();
         interactions << ui->lineEdit_2->text();
-        interactions << "O";
-
+        interactions << "mdp";
 
         QStringList opt;
         opt << "--status-fd=1" << "--command-fd=0" << "--no-tty";
@@ -102,11 +100,11 @@ void KeyCreation::on_pushButton_2_clicked()
 
         GPGManager* manager = new GPGManager(m_profile);
         manager->setAction(keyCreation);
+        connect(manager, &GPGManager::finished, this, &KeyCreation::on_pushButton_clicked);
         manager->execute();
         // TODO Comment rentrer la phrase de passe ?
         qDebug() << interactions;
         errorLabel->setText("Veuillez patienter pendant la création de la clé...\n");
-        connect(manager, &GPGManager::finished, this, &KeyCreation::on_pushButton_clicked);
         // TODO Attendre que GPG ait fini de générer la clé
         //close();
     }

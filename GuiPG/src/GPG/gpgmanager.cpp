@@ -15,7 +15,7 @@ bool GPGManager::askInteraction() {
     QStringList l = m_output.split('\n', QString::SkipEmptyParts);
     if (!l.isEmpty()) {
         QString last = l.last();
-        if (last.contains("[GNUPG:] GET_LINE")) {
+        if (last.contains("[GNUPG:] GET_LINE") || last.contains("[GNUPG:] GET_HIDDEN")) {
             return true;
         }
     }
