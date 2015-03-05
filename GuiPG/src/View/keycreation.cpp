@@ -11,6 +11,8 @@ KeyCreation::KeyCreation(MainWindow*parent) :
     ui(new Ui::KeyCreation)
 {
     m_profile = parent->getProfil();
+    m_model = parent->getModel();
+    m_window = parent;
     ui->setupUi(this);
 }
 
@@ -92,7 +94,7 @@ void KeyCreation::on_pushButton_2_clicked()
         interactions << ui->lineEdit->text();
         interactions << ui->lineEdit_3->text();
         interactions << ui->lineEdit_2->text();
-        interactions << "mdp";
+        interactions << ui->lineEdit_4->text();
 
         QStringList opt;
         opt << "--status-fd=1" << "--command-fd=0" << "--no-tty";
@@ -100,16 +102,19 @@ void KeyCreation::on_pushButton_2_clicked()
 
         GPGManager* manager = new GPGManager(m_profile);
         manager->setAction(keyCreation);
-        connect(manager, &GPGManager::finished, this, &KeyCreation::on_pushButton_clicked);
+        connect(manager, &GPGManager::finished, this, &KeyCreation::keyCreationFinished);
         manager->execute();
-        // TODO Comment rentrer la phrase de passe ?
         qDebug() << interactions;
         errorLabel->setText("Veuillez patienter pendant la création de la clé...\n");
-        // TODO Attendre que GPG ait fini de générer la clé
-        //close();
+
     }
 }
 
+void KeyCreation::keyCreationFinished()
+{
+    m_window->refreshKeys();
+    close();
+}
 
 void KeyCreation::on_pushButton_clicked()
 {

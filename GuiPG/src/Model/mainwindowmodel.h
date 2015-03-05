@@ -29,7 +29,7 @@ class MainWindowModel : public QObject {
     signals:
         void keysChanged();
 
-    private slots:
+    public slots:
         void emitKeysChanged();
 
     private:

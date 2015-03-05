@@ -23,6 +23,7 @@ class MainWindow : public QMainWindow {
         Profile* getProfil() const;
         Configuration* getConfiguration() const;
         MainWindowModel* getModel() const;
+        void refreshKeys();
 
     public slots:
         void buildTree();

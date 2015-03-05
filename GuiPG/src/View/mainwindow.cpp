@@ -159,3 +159,7 @@ void MainWindow::on_actionCl_s_priv_es_triggered()
     keyExportGui.show();
     keyExportGui.exec();
 }
+
+void MainWindow::refreshKeys() {
+    m_model->initKeyManager();
+}

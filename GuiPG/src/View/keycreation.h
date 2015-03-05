@@ -16,6 +16,9 @@ public:
     explicit KeyCreation(MainWindow *parent = 0);
     ~KeyCreation();
 
+private:
+    void keyCreationFinished();
+
 private slots:
     void on_comboBox_currentIndexChanged(int index);
 
@@ -38,6 +41,8 @@ private slots:
 private:
     Ui::KeyCreation *ui;
     Profile* m_profile;
+    MainWindowModel* m_model;
+    MainWindow* m_window;
 };
 
 #endif // KEYCREATION_H
