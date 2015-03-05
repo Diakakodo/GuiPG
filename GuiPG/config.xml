@@ -1,30 +1,30 @@
 <configurations>
  <profiles defaultProfileId="3">
-  <profile id="1" name="Default_GnuPG">
+  <profile name="Default_GnuPG" id="1">
    <exec>gpg</exec>
    <path>~/.gnupg/</path>
-   <sig_color red="0" green="0" blue="0"/>
+   <sig_color red="0" blue="0" green="0"/>
   </profile>
-  <profile id="2" name="Matthieu">
+  <profile name="Matthieu" id="2">
    <exec>gpg</exec>
    <path>~/.gnupg</path>
-   <validity_color red="255" value="117" green="0" blue="0"/>
-   <sig_color red="0" green="0" blue="0"/>
+   <validity_color red="255" blue="0" value="117" green="0"/>
+   <sig_color red="0" blue="0" green="0"/>
   </profile>
-  <profile id="3" name="Guillaume">
+  <profile name="Guillaume" id="3">
    <exec>gpg</exec>
    <path>C:/Users/GLeroy/AppData/Roaming/gnupg</path>
-   <sig_color red="0" green="0" blue="0"/>
+   <sig_color red="0" blue="0" green="0"/>
   </profile>
-  <profile id="4" name="test">
+  <profile name="test" id="4">
    <exec>gpg</exec>
    <path>~/testgpg</path>
-   <sig_color red="0" green="0" blue="0"/>
+   <sig_color red="0" blue="0" green="0"/>
   </profile>
-  <profile id="5" name="fffffff">
+  <profile name="fffffff" id="5">
    <exec>/usr/bin/gpg</exec>
    <path>/home/matthieu/tmp/bidon</path>
-   <sig_color red="0" green="0" blue="0"/>
+   <sig_color red="0" blue="0" green="0"/>
   </profile>
  </profiles>
 </configurations>

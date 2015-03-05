@@ -30,6 +30,7 @@ void KeyManager::gpgFinished(int s, const QString &output) {
     //qDebug() << output;
     QStringList lines = output.split("\n");
     Key* last = nullptr;
+    Key* lastKey = nullptr;
     for (int i = 1; i < lines.size(); ++i) {
         QStringList split = lines.at(i).split(":");
         if (split.first() == "pub") {
@@ -53,6 +54,7 @@ void KeyManager::gpgFinished(int s, const QString &output) {
             );
             m_keys.append(k);
             last = k;
+            lastKey = k;
         } else if (split.first() == "sub") {
             bool ok = false;
             unsigned long e = split.at(6).toULong(&ok);
@@ -70,13 +72,14 @@ void KeyManager::gpgFinished(int s, const QString &output) {
                     expiration,
                     last->getOwner()
             );
-            last->addSubKey(k);
+            lastKey->addSubKey(k);
+            last = k;
         } else if (split.first() == "sig") {
             Signature* s = new Signature(
                     (Key::Algorithm) split.at(3).toInt(),
                     split.at(4),
                     QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),
-                    last->getOwner()
+                    split.at(9)
             );
             last->addSignature(s);
         }

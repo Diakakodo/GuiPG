@@ -98,22 +98,11 @@ void MainWindow::buildTree() {
     for (Key* k : keys) {
         QTreeWidgetItem* item = createKeyItem(k, ui->treeWidgetKey);
         for (Key* sk : k->getSubKeys()) {
-            item->addChild(createKeyItem(sk));
+            QTreeWidgetItem* sub = createKeyItem(sk);
+            createSignatureItem(sk, sub);
+            item->addChild(sub);
         }
-        for (Signature* s : k->getSignatures()) {
-            QStringList infos;
-            infos
-                    << s->getId()
-                    << s->getOwner()
-                    << ""
-                    << s->getCreationDate().toString("dd/MM/yyyy")
-                    << ""
-                    << ""
-            ;
-            QTreeWidgetItem* sig = new QTreeWidgetItem(infos);
-            sig->setTextColor(0, m_model->getProfile()->getSignatureColor());
-            item->addChild(sig);
-        }
+        createSignatureItem(k, item);
     }
 }
 
@@ -131,6 +120,23 @@ QTreeWidgetItem* MainWindow::createKeyItem(Key *k, QTreeWidget* tree) {
     QTreeWidgetItem* item = tree == nullptr ? new QTreeWidgetItem(infos) : new QTreeWidgetItem(tree, infos);
     item->setTextColor(0, m_model->getProfile()->getValidityColor(k->getValidity()));
     return item;
+}
+
+void MainWindow::createSignatureItem(Key* k, QTreeWidgetItem* item) {
+    for (Signature* s : k->getSignatures()) {
+        QStringList infos;
+        infos
+                << s->getId()
+                << s->getOwner()
+                << ""
+                << s->getCreationDate().toString("dd/MM/yyyy")
+                << ""
+                << ""
+        ;
+        QTreeWidgetItem* sig = new QTreeWidgetItem(infos);
+        sig->setTextColor(0, m_model->getProfile()->getSignatureColor());
+        item->addChild(sig);
+    }
 }
 
 void MainWindow::on_actionImporter_triggered()
