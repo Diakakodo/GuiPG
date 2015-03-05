@@ -13,41 +13,35 @@
 #include <QDebug>
 
 #define MAX_INSTANCES_NB 10
-#define PROFILE_OPTION "-p"
+#define PROFILE_OPTION "-P"
 #define TEST_OPTION "-t"
 //#define SHM_NAME "guipg"
 
 using namespace std;
 
-int main(int argc, char** argv) {
-    //unsigned id = 0;
-    //++argv;
-    //while (*argv != NULL) {
-    //    if (strcmp(*argv, PROFILE_OPTION) == 0) {
-    //        ++*argv;
-    //        if (*argv == NULL) {
-    //            cerr << "Missing argument after '" PROFILE_OPTION "'" << endl;
-    //            exit(1);
-    //        } else {
-    //            QString a(*argv);
-    //            bool ok = false;
-    //            id = a.toUInt(&ok);
-    //            if (!ok) {
-    //                cerr << "Invalid profile id" << endl;
-    //                exit(1);
-    //            }
-    //        }
-    //    }
-    //}
 
+bool hasProfileOpt(int argc, char** argv) {
+    int i = 0;
+    while (i < argc && *argv) {
+        if (strncmp(*argv, PROFILE_OPTION, strlen(PROFILE_OPTION) + 1) == 0) {
+            return true;
+        }
+        ++i;
+        ++argv;
+    }
+    return false;
+}
+
+int main(int argc, char** argv) {
+    // Flag permettant de savoir si l'option PROFILE_OPTION est présente en argument.
+    bool dashP = hasProfileOpt(argc, argv);
 
     // TODO penser a tester le chargement de la configuration.
     Configuration config("../config.xml");
     config.load();
 
     GuiPGApp app(argc, argv);
-    Launcher launcher(&app, &config);
-    QObject::connect(&app, &GuiPGApp::lastWindowClosed, &launcher, &Launcher::stop);
+    Launcher launcher(&app, &config, (dashP ? 0 : config.getDefaultProfileId()));
     launcher.start();
     if (!launcher.alreadyRun()) {
         try {
