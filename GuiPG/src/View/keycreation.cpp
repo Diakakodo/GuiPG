@@ -6,10 +6,11 @@
 #include "../GPG/gpgmanager.h"
 #include <QDebug>
 
-KeyCreation::KeyCreation(QWidget *parent) :
+KeyCreation::KeyCreation(MainWindow*parent) :
     QDialog(parent),
     ui(new Ui::KeyCreation)
 {
+    m_profile = parent->getProfil();
     ui->setupUi(this);
 }
 
@@ -99,7 +100,7 @@ void KeyCreation::on_pushButton_2_clicked()
         opt << "--status-fd=1" << "--command-fd=0" << "--no-tty";
         Action keyCreation(QString("--gen-key"), QStringList(), opt, interactions);
 
-        GPGManager* manager = new GPGManager(new Profile());
+        GPGManager* manager = new GPGManager(m_profile);
         manager->setAction(keyCreation);
         manager->execute();
         // TODO Comment rentrer la phrase de passe ?

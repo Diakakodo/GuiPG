@@ -2,6 +2,7 @@
 #define KEYCREATION_H
 
 #include <QDialog>
+#include "mainwindow.h"
 
 namespace Ui {
 class KeyCreation;
@@ -12,7 +13,7 @@ class KeyCreation : public QDialog
     Q_OBJECT
 
 public:
-    explicit KeyCreation(QWidget *parent = 0);
+    explicit KeyCreation(MainWindow *parent = 0);
     ~KeyCreation();
 
 private slots:
@@ -36,6 +37,7 @@ private slots:
 
 private:
     Ui::KeyCreation *ui;
+    Profile* m_profile;
 };
 
 #endif // KEYCREATION_H

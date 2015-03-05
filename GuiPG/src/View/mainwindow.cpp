@@ -77,7 +77,7 @@ void MainWindow::changeProfil(unsigned profileId) {
 
 void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()
 {
-    KeyCreation keyCreationGui;
+    KeyCreation keyCreationGui(this);
     keyCreationGui.show();
     keyCreationGui.exec();
 }
