@@ -57,6 +57,9 @@ class Profile : public QObject {
 
         const QHash<Key::Validity, QColor>& getValidityColors() const;
 
+        const QColor& getSignatureColor() const;
+        void setSignatureColor(const QColor& c);
+
 
     private:
         unsigned m_id;
@@ -64,6 +67,7 @@ class Profile : public QObject {
         QString m_exec;
         QString m_path;
         QHash<Key::Validity, QColor> m_validityColors;
+        QColor m_signColor;
 };
 
 #endif // PROFILE_H

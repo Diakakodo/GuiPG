@@ -46,6 +46,10 @@ Key::Key(Scope s,
 
 }
 
+Key::~Key() {
+    qDeleteAll(m_sigs);
+}
+
 const QList<Key*> Key::getSubKeys() const {
     return m_subkeys;
 }
@@ -78,10 +82,10 @@ void Key::setExpirationDate(const QDate &dt) {
     m_expiration = dt;
 }
 
-void Key::addSignature(Key *k) {
-    m_sigs.append(k);
+void Key::addSignature(Signature *s) {
+    m_sigs.append(s);
 }
 
-const QList<Key*>& Key::getSignatures() const {
+const QList<Signature*>& Key::getSignatures() const {
     return m_sigs;
 }

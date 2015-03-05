@@ -49,3 +49,11 @@ void Profile::setValidityColor(Key::Validity v, const QColor &c) {
 const QHash<Key::Validity, QColor>& Profile::getValidityColors() const {
     return m_validityColors;
 }
+
+const QColor& Profile::getSignatureColor() const {
+    return m_signColor;
+}
+
+void Profile::setSignatureColor(const QColor &c) {
+    m_signColor = c;
+}

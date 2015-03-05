@@ -72,7 +72,13 @@ void KeyManager::gpgFinished(int s, const QString &output) {
             );
             last->addSubKey(k);
         } else if (split.first() == "sig") {
-
+            Signature* s = new Signature(
+                    (Key::Algorithm) split.at(3).toInt(),
+                    split.at(4),
+                    QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),
+                    last->getOwner()
+            );
+            last->addSignature(s);
         }
     }
     emit keysLoaded();

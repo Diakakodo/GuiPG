@@ -3,23 +3,28 @@
   <profile id="1" name="Default_GnuPG">
    <exec>gpg</exec>
    <path>~/.gnupg/</path>
+   <sig_color red="0" green="0" blue="0"/>
   </profile>
   <profile id="2" name="Matthieu">
    <exec>gpg</exec>
    <path>~/.gnupg</path>
-   <validity_color blue="0" red="255" green="0" value="117"/>
+   <validity_color red="255" value="117" green="0" blue="0"/>
+   <sig_color red="0" green="0" blue="0"/>
   </profile>
   <profile id="3" name="Guillaume">
    <exec>gpg</exec>
    <path>C:/Users/GLeroy/AppData/Roaming/gnupg</path>
+   <sig_color red="0" green="0" blue="0"/>
   </profile>
   <profile id="4" name="test">
    <exec>gpg</exec>
    <path>~/testgpg</path>
+   <sig_color red="0" green="0" blue="0"/>
   </profile>
   <profile id="5" name="fffffff">
    <exec>/usr/bin/gpg</exec>
    <path>/home/matthieu/tmp/bidon</path>
+   <sig_color red="0" green="0" blue="0"/>
   </profile>
  </profiles>
 </configurations>

@@ -100,6 +100,20 @@ void MainWindow::buildTree() {
         for (Key* sk : k->getSubKeys()) {
             item->addChild(createKeyItem(sk));
         }
+        for (Signature* s : k->getSignatures()) {
+            QStringList infos;
+            infos
+                    << s->getId()
+                    << s->getOwner()
+                    << ""
+                    << s->getCreationDate().toString("dd/MM/yyyy")
+                    << ""
+                    << ""
+            ;
+            QTreeWidgetItem* sig = new QTreeWidgetItem(infos);
+            sig->setTextColor(0, m_model->getProfile()->getSignatureColor());
+            item->addChild(sig);
+        }
     }
 }
 

@@ -48,6 +48,7 @@ class Key : public Signature {
                      const QDate& creation,
                      const QDate& expiration,
                      const QString& owner);
+        ~Key();
 
         const QList<Key*> getSubKeys() const;
         unsigned getLength() const;
@@ -59,8 +60,8 @@ class Key : public Signature {
         void removeSubKey(Key* k);
         void setExpirationDate(const QDate &dt);
 
-        void addSignature(Key* k);
-        const QList<Key*>& getSignatures() const;
+        void addSignature(Signature* s);
+        const QList<Signature*>& getSignatures() const;
 
     private:
         QList<Key*> m_subkeys;
@@ -68,7 +69,7 @@ class Key : public Signature {
         Validity m_val;
         Scope m_scope;
         QDate m_expiration;
-        QList<Key*> m_sigs;
+        QList<Signature*> m_sigs;
 };
 
 #endif // KEY_H

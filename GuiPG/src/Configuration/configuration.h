@@ -85,6 +85,8 @@ class Configuration : public QObject {
          */
         void addNode(const QString& name, const QString& value,
                      QDomDocument& doc, QDomElement& parent);
+        QDomElement createColorElement(const QString& tag, const QColor& color,
+                                       QDomDocument &doc);
 
         QString m_filePath;
         QList<Profile*> m_profiles;

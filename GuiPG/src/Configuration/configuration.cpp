@@ -17,6 +17,7 @@
 #define GREEN_ATTRIBUTE "green"
 #define RED_ATTRIBUTE "red"
 #define VALUE_ATTRIBUTE "value"
+#define SIG_COLOR_TAG_NAME "sig_color"
 
 using namespace std;
 
@@ -66,6 +67,13 @@ bool Configuration::load() {
                                         ae.attribute(BLUE_ATTRIBUTE).toInt()
                             );
                             p->setValidityColor((Key::Validity) ae.attribute(VALUE_ATTRIBUTE).toInt(), c);
+                        } else if (ae.tagName() == SIG_COLOR_TAG_NAME) {
+                            QColor c(
+                                        ae.attribute(RED_ATTRIBUTE).toInt(),
+                                        ae.attribute(GREEN_ATTRIBUTE).toInt(),
+                                        ae.attribute(BLUE_ATTRIBUTE).toInt()
+                            );
+                            p->setSignatureColor(c);
                         }
                     }
                     n = n.nextSibling();
@@ -100,13 +108,11 @@ bool Configuration::save() {
         addNode(PATH_TAG_NAME, p->getConfigurationPath(), doc, pe);
         const QHash<Key::Validity, QColor> validityColors = p->getValidityColors();
         for (Key::Validity v : validityColors.keys()) {
-            QDomElement e = doc.createElement(VALIDITY_COLOR_TAG_NAME);
+            QDomElement e = createColorElement(VALIDITY_COLOR_TAG_NAME, validityColors.value(v), doc);
             e.setAttribute(VALUE_ATTRIBUTE, (int) v);
-            e.setAttribute(RED_ATTRIBUTE, validityColors.value(v).red());
-            e.setAttribute(BLUE_ATTRIBUTE, validityColors.value(v).blue());
-            e.setAttribute(GREEN_ATTRIBUTE, validityColors.value(v).green());
             pe.appendChild(e);
         }
+        pe.appendChild(createColorElement(SIG_COLOR_TAG_NAME, p->getSignatureColor(), doc));
         profiles.appendChild(pe);
     }
 
@@ -170,4 +176,12 @@ void Configuration::addNode(const QString& name, const QString& value,
     QDomElement e = doc.createElement(name);
     e.appendChild(doc.createTextNode(value));
     parent.appendChild(e);
+}
+
+QDomElement Configuration::createColorElement(const QString& tag, const QColor& color, QDomDocument& doc) {
+    QDomElement e = doc.createElement(tag);
+    e.setAttribute(RED_ATTRIBUTE, color.red());
+    e.setAttribute(BLUE_ATTRIBUTE, color.blue());
+    e.setAttribute(GREEN_ATTRIBUTE, color.green());
+    return e;
 }
