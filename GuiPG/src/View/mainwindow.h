@@ -46,6 +46,7 @@ protected:
 
 private:
         QTreeWidgetItem* createKeyItem(Key* k, QTreeWidget* tree = nullptr);
+        void createSignatureItem(Key* k, QTreeWidgetItem* item);
 
         Ui::MainWindow* ui;
         MainWindowModel* m_model;
