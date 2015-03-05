@@ -5,6 +5,12 @@
 
 using namespace std;
 
+/**
+ * @brief Launcher::Launcher
+ * @param app
+ * @param conf
+ * @param profileId Indique l'identifiant du profile a lancer
+ */
 Launcher::Launcher(GuiPGApp* app, Configuration* conf, int profileId)
     : m_app(app), m_conf(conf) {
 
@@ -15,6 +21,9 @@ Launcher::Launcher(GuiPGApp* app, Configuration* conf, int profileId)
     // TODO vérifier la compatibilité Windows/Unix pour le mode d'accés.
     m_systemSem = new QSystemSemaphore(SYS_SEM_NAME, 0, QSystemSemaphore::Create);
     QObject::connect(this, &Launcher::runApp, m_app, &GuiPGApp::launchApp);
+    if (m_profileId != 0) {
+        QObject::connect(app, &GuiPGApp::lastWindowClosed, this, &Launcher::stop);
+    }
 }
 
 Launcher::~Launcher() {
@@ -49,14 +58,11 @@ void Launcher::listen() {
 
     if (m_shm->attach(QSharedMemory::ReadWrite)) {
         // Le SHM existe déja on écrit alors dedans.
-        // TODO : écrire dans le SHM pour lancer l'appli
-        qDebug() << "exist";
         m_shm->lock();
         unsigned* data = (unsigned*) m_shm->data();
-        //memccpy(data, &idtmp, 1, sizeof(unsigned));
-        *data = (unsigned) 0;
+        // On écris l'id du profile demandé.
+        *data = (unsigned) m_profileId;
         m_shm->unlock();
-        qDebug() << "temoin";
 
         // On notifie l'application principale qu'il y a des donénes a lire
         m_systemSem->release();
@@ -69,10 +75,7 @@ void Launcher::listen() {
     }
     // Le SHM est fraichement créée
     // On lance la première instance.
-    /* Tester si option -P pour soit lancer le profil par défaut ou alors
-     * choisir le profil
-     */
-    emit runApp(this, m_app, m_conf, m_conf->getDefaultProfileId());
+    emit runApp(this, m_app, m_conf, m_profileId);
     // On boucle avec une attente passive de données a lire sur le SHM.
     while (!m_stop) {
         m_systemSem->acquire();
@@ -82,32 +85,31 @@ void Launcher::listen() {
         m_shm->lock();
         unsigned id = *((unsigned*) m_shm->data());
         m_shm->unlock();
-        qDebug() << id;
-        if (id == 0) {
-            // TODO lancer avec l'option -p.
-            id = 0;
-        }
         emit runApp(this, m_app, m_conf, id);
     }
 }
 
 bool Launcher::addMainWindow(Profile* p, MainWindow* window) {
-    if (p == nullptr or window == nullptr) {
-        // TODO: balancer une exception
-        return false;
+    if (p == nullptr || window == nullptr) {
+        throw IllegalArgumentException("p == null || window == NULL");
     }
     if (profileIsLoad(p) != nullptr) {
-        // TODO: balancer une exception
-        return false;
+        throw IllegalStateException("profileIsLoad(p) != nullptr");
     }
+
+    // Si on a était lancé en attente de séléction de profile
+    // alors on vient de récupérer le profile séléctionné, on peut se brancher au signal.
+    if (m_profileId == 0) {
+        QObject::connect(m_app, &GuiPGApp::lastWindowClosed, this, &Launcher::stop);
+    }
+    m_profileId = p->getId();
     m_profileMainWindowHash.insert(p, window);
     return true;
 }
 
 MainWindow* Launcher::profileIsLoad(Profile* p) {
     if (p == nullptr) {
-        // TODO: balancer une exception
-        return NULL;
+        throw IllegalArgumentException("p == null");
     }
     if (m_profileMainWindowHash.contains(p)) {
         return m_profileMainWindowHash.value(p);
