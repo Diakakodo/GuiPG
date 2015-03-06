@@ -141,7 +141,7 @@ void MainWindow::createSignatureItem(Key* k, QTreeWidgetItem* item) {
 
 void MainWindow::on_actionImporter_triggered()
 {
-    KeyImport keyImportGui;
+    KeyImport keyImportGui(this);
     keyImportGui.show();
     keyImportGui.exec();
 }
