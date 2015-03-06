@@ -30,7 +30,8 @@ MainWindow::MainWindow(MainWindowModel* model)
             << "Taille"
             << "Création"
             << "Expiration"
-            << "Validité";
+            << "Validité"
+            << "Confiance";
     ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
     connect(m_model, &MainWindowModel::keysChanged, this, &MainWindow::buildTree);
 }
@@ -116,6 +117,7 @@ QTreeWidgetItem* MainWindow::createKeyItem(Key *k, QTreeWidget* tree) {
             << k->getCreationDate().toString("dd/MM/yyyy")
             << (e.isNull() ? "Aucune" : k->getExpirationDate().toString("dd/MM/yyyy"))
             << Key::validityToStr(k->getValidity())
+            << Key::validityToStr(k->getTrust())
     ;
     QTreeWidgetItem* item = tree == nullptr ? new QTreeWidgetItem(infos) : new QTreeWidgetItem(tree, infos);
     item->setTextColor(0, m_model->getProfile()->getValidityColor(k->getValidity()));
@@ -130,6 +132,7 @@ void MainWindow::createSignatureItem(Key* k, QTreeWidgetItem* item) {
                 << s->getOwner()
                 << ""
                 << s->getCreationDate().toString("dd/MM/yyyy")
+                << ""
                 << ""
                 << ""
         ;

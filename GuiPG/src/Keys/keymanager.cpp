@@ -42,6 +42,7 @@ void KeyManager::gpgFinished(int s, const QString &output) {
             if (ok) {
                 expiration = QDateTime::fromMSecsSinceEpoch(e * 1000).date();
             }
+            qDebug() << split.at(8);
             Key* k = new Key(
                     Key::SCOPE_PUBLIC,
                     (Key::Algorithm) split.at(3).toInt(),
@@ -50,7 +51,8 @@ void KeyManager::gpgFinished(int s, const QString &output) {
                     split.at(4),
                     QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),
                     expiration,
-                    owner
+                    owner,
+                    (Key::Validity) split.at(8).at(0).toLatin1()
             );
             m_keys.append(k);
             last = k;
@@ -70,7 +72,8 @@ void KeyManager::gpgFinished(int s, const QString &output) {
                     split.at(4),
                     QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),
                     expiration,
-                    last->getOwner()
+                    last->getOwner(),
+                    (Key::Validity) split.at(8).at(0).toLatin1()
             );
             lastKey->addSubKey(k);
             last = k;

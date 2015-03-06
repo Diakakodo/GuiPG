@@ -37,7 +37,8 @@ Key::Key(Scope s,
          const QString& id,
          const QDate &creation,
          const QDate &expiration,
-         const QString& owner)
+         const QString& owner,
+         Validity trust)
         : Signature(a, id, creation, owner),
           m_length(length),
           m_val(v),
@@ -88,4 +89,8 @@ void Key::addSignature(Signature *s) {
 
 const QList<Signature*>& Key::getSignatures() const {
     return m_sigs;
+}
+
+Key::Validity Key::getTrust() const {
+    return m_trust;
 }
