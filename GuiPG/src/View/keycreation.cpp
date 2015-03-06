@@ -14,6 +14,10 @@ KeyCreation::KeyCreation(MainWindow*parent) :
     m_model = parent->getModel();
     m_window = parent;
     ui->setupUi(this);
+    if (m_profile->getGPGExecutable().endsWith("2")) {
+        ui->lineEdit_4->hide();
+        ui->label_8->hide();
+    }
 }
 
 KeyCreation::~KeyCreation()
@@ -94,7 +98,10 @@ void KeyCreation::on_pushButton_2_clicked()
         interactions << ui->lineEdit->text();
         interactions << ui->lineEdit_3->text();
         interactions << ui->lineEdit_2->text();
-        interactions << ui->lineEdit_4->text();
+        if (!m_profile->getGPGExecutable().endsWith("2")) {
+            interactions << ui->lineEdit_4->text();
+        }
+
 
         QStringList opt;
         opt << "--status-fd=1" << "--command-fd=0" << "--no-tty";
