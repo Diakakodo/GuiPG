@@ -43,14 +43,17 @@ void KeyImport::on_importButton_clicked()
 {
     if (ui->fileRadioButton->isChecked()) {
         Action keyImport(QString("--import"), QStringList() << ui->pathEdit->text(), QStringList() << "--allow-secret-key-import");
-
         GPGManager* manager = new GPGManager(m_profile);
         connect(manager, &GPGManager::finished, this, &KeyImport::keyImportFinished);
         manager->setAction(keyImport);
         manager->execute();
     } else {
         if (ui->keyServerButton->isChecked()) {
-
+            Action keyImport(QString("--recv-keys"), QStringList() << ui->keyIdEdit->text(), QStringList() << "--keyserver hkp://keys.gnupg.net");
+            GPGManager* manager = new GPGManager(m_profile);
+            connect(manager, &GPGManager::finished, this, &KeyImport::keyImportFinished);
+            manager->setAction(keyImport);
+            manager->execute();
         }
     }
 }
