@@ -48,7 +48,7 @@ class Key : public Signature {
                      const QDate& creation,
                      const QDate& expiration,
                      const QString& owner,
-                     Validity trust);
+                     Validity trust = VAL_NO_VALUE);
         ~Key();
 
         const QList<Key*> getSubKeys() const;

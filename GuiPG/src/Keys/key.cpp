@@ -43,7 +43,8 @@ Key::Key(Scope s,
           m_length(length),
           m_val(v),
           m_scope(s),
-          m_expiration(expiration) {
+          m_expiration(expiration),
+          m_trust(trust) {
 
 }
 
