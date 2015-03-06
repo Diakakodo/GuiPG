@@ -2,6 +2,8 @@
 #define KEYEXPORT_H
 
 #include <QDialog>
+#include "../Profile/profile.h"
+#include "mainwindow.h"
 
 namespace Ui {
 class KeyExport;
@@ -17,7 +19,7 @@ public:
         PUBLIC_KEYS
     };
 
-    explicit KeyExport(QWidget *parent = 0, Type mode = PUBLIC_KEYS);
+    explicit KeyExport(MainWindow* parent = 0, Type mode = PUBLIC_KEYS, QStringList keys = QStringList());
     ~KeyExport();
 
 private slots:
@@ -34,6 +36,8 @@ private slots:
 private:
     Ui::KeyExport *ui;
     Type m_mode;
+    QStringList m_keys;
+    Profile* m_profile;
 };
 
 #endif // KEYEXPORT_H

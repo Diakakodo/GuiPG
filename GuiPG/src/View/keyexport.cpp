@@ -6,12 +6,19 @@
 #include "iostream"
 #include "QDebug"
 
-KeyExport::KeyExport(QWidget *parent, Type mode) :
+KeyExport::KeyExport(MainWindow*parent, Type mode, QStringList keys) :
     QDialog(parent),
     ui(new Ui::KeyExport),
-    m_mode(mode)
+    m_mode(mode),
+    m_keys(keys),
+    m_profile(parent->getProfil())
 {
+
     ui->setupUi(this);
+    if (keys.length() == 0 || mode == SECRET_KEYS) {
+        ui->keyServerRadioButton->hide();
+        ui->keyServerList->hide();
+    }
 }
 
 KeyExport::~KeyExport()
@@ -32,22 +39,29 @@ void KeyExport::on_browseButton_clicked()
 
 void KeyExport::on_exportButton_clicked()
 {
+    QStringList keyList;
+    for (QString key : m_keys) {
+        keyList << key;
+    }
     if (ui->keyServerRadioButton->isChecked()) {
 
 
+        Action keyExport(QString("--send-keys"), keyList, QStringList() << "--keyserver" << ui->keyServerList->currentText());
+
+        GPGManager* manager = new GPGManager(m_profile);
+
+        manager->setAction(keyExport);
+        manager->execute();
         close();
     } else
         if (ui->fileRadioButton->isChecked() && ui->pathEdit->text() != "") {
-            Action keyExport(m_mode == PUBLIC_KEYS ? QString("--export") : QString("--export-secret-keys"), QStringList(), QStringList() << "-a" << "--output " + ui->pathEdit->text());
 
-            GPGManager* manager = new GPGManager(new Profile());
+            Action keyExport(m_mode == PUBLIC_KEYS ? QString("--export") : QString("--export-secret-keys"), keyList, QStringList() << "-a" << "--output " + ui->pathEdit->text());
 
-            qDebug() << keyExport.getCmd();
-            qDebug() << keyExport.getArgs();
-            qDebug() << keyExport.getOptions();
+            GPGManager* manager = new GPGManager(m_profile);
+
             manager->setAction(keyExport);
             manager->execute();
-            qDebug() << manager->getOutput();
             close();
         }
 }

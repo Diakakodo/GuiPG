@@ -1,4 +1,5 @@
 #include "gpgmanager.h"
+#include "QDebug"
 
 GPGManager::GPGManager(const Profile *p) : m_profile(p) {
     connect(&m_gpg, (void (QProcess::*)(int, QProcess::ExitStatus)) &QProcess::finished,
@@ -56,7 +57,7 @@ void GPGManager::execute() {
     }
     args << m_action.getOptions() << m_action.getCmd()
          << m_action.getArgs();
-
+    qDebug() << args;
     m_gpg.start(m_profile->getGPGExecutable(), args);
 }
 
