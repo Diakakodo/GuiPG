@@ -21,7 +21,7 @@
        <item>
         <widget class="QLabel" name="nameLabel">
          <property name="text">
-          <string>Nom du prrofil</string>
+          <string>Nom du profil</string>
          </property>
          <property name="textFormat">
           <enum>Qt::PlainText</enum>

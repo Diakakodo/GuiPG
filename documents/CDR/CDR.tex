@@ -33,12 +33,13 @@
 \projdesc{Etude et implantation d'un outil graphique de gestion de clé PGP}
 \filiere{Master 1 SSI }
 \matiere{Conduite de projet}
-\version{0.5}
+\version{0.6}
 \relecteur{Olivier \bsc{Thibault}}
 \signataire{}
 \date{\today}
 
 
+\histentry{0.6}{07/03/2015}{Ajout des tests de non-régression.}
 \histentry{0.5}{15/12/2014}{Respect de la STB v0.4 et ajout des données de test.}
 \histentry{0.4}{05/12/2014}{Ajout de toutes les procédures liées aux commandes GPG.}
 \histentry{0.3}{24/11/2014}{Respect de la STB v0.3.}
@@ -125,16 +126,14 @@ Les test seront réalisés soit sur le site de l'université soit au domicile de
 \subsection{Configurations matérielles utilisées}
 Voici la configuration des machines personnelles des deux testeurs :
 \begin{itemize}
- \item PC n°1 : Un ordinateur portable équipé de Kali Linux 1.0(Debian) 64 bits sous Gnome avec un processeur Intel i5-3210M @ 2.50GHz et 6Go de RAM.
- \item PC n°2 : Un ordinateur portable équipé de Xubuntu 64 bits avec un processeur Intel i7-2630QM.
- @ 2.00 GHz et 6Go de RAM.
+ \item PC n°1 : Un ordinateur portable équipé de Xubuntu 64 bits avec un processeur Intel i5-3210M @ 2.50GHz et 6Go de RAM.
+ \item PC n°2 : Un ordinateur portable équipé de Xubuntu 64 bits avec un processeur Intel i7-2630QM @ 2.00 GHz et 6Go de RAM.
 \end{itemize}
 Seront également utilisées des machines virtuelles pour répondre aux besoins du client sur la compatibilité de l'interface (KDE et GNOME obligatoire,
 WINDOWS optionnel).
 
 \subsection{Outils de tests mis en oeuvre}
-Le module Qt Test de Qt.
-Les modules CxxTest et CppUnit pourront être utilisés.
+Le module Qt Test de Qt sera utilisé.
 
 \subsection{Jeux de données/Bases de données}
 Nous aurons comme jeu de données les différentes clés contenues dans le trousseau de test.
@@ -208,13 +207,24 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
 
 \section{Procédures de test}
 
+\subsection{Types de tests}
+
+  Les différents types de tests utilisés sont :
+  \begin{itemize}
+   \item Les tests unitaires, préfixés par u,
+   \item Les tests de non-régression, préfixés par nr
+  \end{itemize}
+  
+
+\subsection{Tests unitaires}
+
 \begin{center}
     %---------------------------------------Test N° 1------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Création de clé}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une clé & commande lancée : \texttt{"gpg -\-gen-key"} &  & \\
@@ -238,7 +248,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Toile de confiance} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Tout changement de confiance est répercuté sur la toile de confiance.}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Changer la confiance d'une clé & La représentation de cette clé a changé de couleur en fonction de la nouvelle confiance &  & \\
@@ -262,7 +272,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Attaque seconde pré-image} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : La clé produite a la même seconde pré-image que celle donnée.}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 3} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u3} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Donner une clé publique au programme d'attaque & Le programme renvoie une clé différente avec la même pré-image &  & \\
@@ -286,7 +296,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Editeur de texte de l'interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la zone de copier/coller}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 4} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u4} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Coller du texte dans la zone de texte & Le texte s'affiche dans la zone de texte &  & \\
@@ -310,7 +320,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Editeur de texte de l'interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la zone de copier/coller}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 5} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u5} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Coller du texte chiffré et signé dans la zone de texte & Le texte s'affiche dans la zone de texte &  & \\
@@ -334,7 +344,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Affichage des commandes et retours gpg}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 6} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u6} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Activer l'affichage des commandes gpg dans l'interface graphique &  &  & \\
@@ -358,7 +368,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Tester la sélection du profil}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 7} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u7} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Lancer l'interface graphique en ligne de commande avec l'option -P & On peut choisir son profil, et en créer un si besoin &  & \\
@@ -382,7 +392,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Toile de confiance} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Affichage des couleurs de la toile de confiance}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 8} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u8} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Ouvrir la toile de confiance & Toile de confiance affichée &  & \\
@@ -405,7 +415,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Editeur de texte de l'interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Vérification de la fonction chiffrement/déchiffrement}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 9} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u9} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Coller du texte dans la zone de texte & Le texte collé s'affiche dans la zone de texte &  & \\
@@ -427,7 +437,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe Launcher} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 10} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u10} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & \\
@@ -450,7 +460,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe Profile} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 11} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u11} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & \\
@@ -472,7 +482,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe ProfileManager} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 12} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u12} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & \\
@@ -495,7 +505,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe Action} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 13} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u13} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & \\
@@ -517,7 +527,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe GPGManager} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 14} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u14} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & \\
@@ -539,7 +549,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe Instance} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 15} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u15} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & \\
@@ -561,7 +571,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe GPGKeyLevel} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 16} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u16} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & \\
@@ -583,7 +593,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe GPGKey} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 17} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u17} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & \\
@@ -606,7 +616,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe GPGKeyManager} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° 18} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° u18} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & \\
@@ -623,8 +633,30 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \end{tabular}
     \vskip 2.2cm
 	
-	
+\subsection{Tests de non-régression}
 
+    %---------------------------------------Test N° 1------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Classe KeyExport} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Test d'un bug rencontré}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° nr1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Créer une instance de la classe &  &  & \\
+      2 & Utiliser la fonction exportKey avec un path donné & Le fichier correspondant au path a été créé. &  & \\
+      3 &  &  &  & \\
+      4 &  &  &  & \\
+      5 &  &  &  & \\
+	  6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+	\hline
+    \end{tabular}
+    \vskip 2.2cm
+    
 \end{center}
 
 \section{Jeux de données de test}
