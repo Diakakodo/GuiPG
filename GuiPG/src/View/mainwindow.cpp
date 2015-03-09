@@ -8,7 +8,6 @@
 #include "keyexport.h"
 #include "Profil/profilecreation.h"
 #include "config.h"
-#include <QDebug>
 #include <QCloseEvent>
 
 MainWindow::MainWindow(MainWindowModel* model)
@@ -120,7 +119,7 @@ QTreeWidgetItem* MainWindow::createKeyItem(Key *k, QTreeWidget* tree) {
             << Key::validityToStr(k->getTrust())
     ;
     QTreeWidgetItem* item = tree == nullptr ? new QTreeWidgetItem(infos) : new QTreeWidgetItem(tree, infos);
-    item->setTextColor(0, m_model->getProfile()->getValidityColor(k->getValidity()));
+    setItemColor(item, m_model->getProfile()->getValidityColor(k->getValidity()));
     return item;
 }
 
@@ -137,7 +136,7 @@ void MainWindow::createSignatureItem(Key* k, QTreeWidgetItem* item) {
                 << ""
         ;
         QTreeWidgetItem* sig = new QTreeWidgetItem(infos);
-        sig->setTextColor(0, m_model->getProfile()->getSignatureColor());
+        setItemColor(sig, m_model->getProfile()->getSignatureColor());
         item->addChild(sig);
     }
 }
@@ -165,4 +164,10 @@ void MainWindow::on_actionCl_s_priv_es_triggered()
 
 void MainWindow::refreshKeys() {
     m_model->initKeyManager();
+}
+
+void MainWindow::setItemColor(QTreeWidgetItem* item, const QColor& color) {
+    for (int i = 0; i < ui->treeWidgetKey->columnCount(); ++i) {
+        item->setTextColor(i, color);
+    }
 }

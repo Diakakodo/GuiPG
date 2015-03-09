@@ -31,6 +31,9 @@ Configuration::~Configuration() {
 
 bool Configuration::load() {
     QFile f(m_filePath);
+    if (!f.exists()) {
+        return true;
+    }
     if (!f.open(QIODevice::ReadOnly)) {
         cerr << "Unable to open '" << m_filePath.toStdString() << "'" << endl;
         return false;

@@ -1,5 +1,4 @@
 #include "mainwindowmodel.h"
-#include <QDebug>
 
 
 MainWindowModel::MainWindowModel(Launcher* launcher, GuiPGApp *app, Configuration* conf, Profile* profile)

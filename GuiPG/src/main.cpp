@@ -9,9 +9,6 @@
 #include "Configuration/configuration.h"
 #include "Launcher/launcher.h"
 
-
-#include <QDebug>
-
 #define MAX_INSTANCES_NB 10
 #define PROFILE_OPTION "-P"
 #define TEST_OPTION "-t"
@@ -47,7 +44,6 @@ int main(int argc, char** argv) {
         try {
             app.exec();
         } catch (QException& e) {
-            qDebug() << e.what();
             launcher.stop();
         }
 

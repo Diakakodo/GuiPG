@@ -4,7 +4,6 @@
 #include "../GPG/action.h"
 #include "../Profile/profile.h"
 #include "../GPG/gpgmanager.h"
-#include <QDebug>
 
 KeyCreation::KeyCreation(MainWindow*parent) :
     QDialog(parent),
@@ -111,7 +110,6 @@ void KeyCreation::on_pushButton_2_clicked()
         manager->setAction(keyCreation);
         connect(manager, &GPGManager::finished, this, &KeyCreation::keyCreationFinished);
         manager->execute();
-        qDebug() << interactions;
         errorLabel->setText("Veuillez patienter pendant la création de la clé...\n");
 
     }

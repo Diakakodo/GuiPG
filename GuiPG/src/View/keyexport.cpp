@@ -4,7 +4,6 @@
 #include "../GPG/gpgmanager.h"
 #include "QFileDialog"
 #include "iostream"
-#include "QDebug"
 
 KeyExport::KeyExport(MainWindow*parent, Type mode, QStringList keys) :
     QDialog(parent),

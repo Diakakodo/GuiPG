@@ -1,7 +1,6 @@
 #include "launcher.h"
 #include "../View/mainwindow.h"
 #include <iostream>
-#include <QDebug>
 
 using namespace std;
 
@@ -70,7 +69,6 @@ void Launcher::listen() {
         pthread_exit(NULL);
     } else if (!m_shm->create(sizeof (unsigned))) {
         cerr << "Unable to init shared memory." << endl;
-        qDebug() << m_shm->errorString();
         pthread_exit(NULL);
     }
     // Le SHM est fraichement créée

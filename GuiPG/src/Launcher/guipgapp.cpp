@@ -1,7 +1,6 @@
 #include "guipgapp.h"
 #include "../View/mainwindow.h"
 #include "../View/Profil/dialogprofile.h"
-#include <QDebug>
 
 GuiPGApp::GuiPGApp(int& argc, char** argv)
     : QApplication(argc, argv) {

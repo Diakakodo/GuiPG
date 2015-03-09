@@ -5,7 +5,6 @@
 #include "../../Profile/profile.h"
 #include "../../Configuration/configuration.h"
 #include <QMessageBox>
-#include <QDebug>
 
 
 DialogProfile::DialogProfile(Configuration* config, Launcher* launcher) :
@@ -101,8 +100,6 @@ void DialogProfile::loadSelectProfile() {
     unsigned id = ui->tableWidgetProfil->selectedItems().first()->text().toUInt(&ok);
     if(ok){
         emit selectProfile(id);
-    } else {
-      qDebug() << "erreur de conversion sur id profil selectionné";
     }
 }
 
@@ -117,8 +114,6 @@ void DialogProfile::showDialogEditProfile() {
     if(ok){
         ProfileCreation d(this, id);
         d.exec();
-    } else {
-      qDebug() << "erreur de conversion sur id profil selectionné";
     }
 }
 
@@ -136,8 +131,6 @@ void DialogProfile::deleteSelectProfile() {
             m_conf->deleteProfile(id);
             refreshTableWidget();
         }
-    } else {
-      qDebug() << "erreur de conversion sur id profil selectionné";
     }
 }
 
@@ -147,8 +140,6 @@ void DialogProfile::setDefaultSelectProfile() {
     if(ok){
         m_conf->setDefaultProfileId(id);
         refreshTableWidget();
-    } else {
-      qDebug() << "erreur de conversion sur id profil selectionné";
     }
 }
 

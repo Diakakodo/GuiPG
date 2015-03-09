@@ -1,7 +1,6 @@
 #include "action.h"
 
 // Constructeurs
-#include <QDebug>
 
 /**
  * @brief setEOL Permet d'ajouter les '\n' manquant a la fin de chaques QString de la liste *l.

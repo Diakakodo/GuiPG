@@ -25,9 +25,8 @@ void KeyManager::load() {
     m_gpg->setAction(a);
     m_gpg->execute();
 }
-#include <QDebug>
+
 void KeyManager::gpgFinished(int s, const QString &output) {
-    //qDebug() << output;
     QStringList lines = output.split("\n");
     Key* last = nullptr;
     Key* lastKey = nullptr;

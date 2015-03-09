@@ -48,6 +48,7 @@ protected:
 private:
         QTreeWidgetItem* createKeyItem(Key* k, QTreeWidget* tree = nullptr);
         void createSignatureItem(Key* k, QTreeWidgetItem* item);
+        void setItemColor(QTreeWidgetItem* item, const QColor& color);
 
         Ui::MainWindow* ui;
         MainWindowModel* m_model;
