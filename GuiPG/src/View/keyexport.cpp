@@ -38,30 +38,12 @@ void KeyExport::on_browseButton_clicked()
 
 void KeyExport::on_exportButton_clicked()
 {
-    QStringList keyList;
-    for (QString key : m_keys) {
-        keyList << key;
-    }
+
     if (ui->keyServerRadioButton->isChecked()) {
-
-
-        Action keyExport(QString("--send-keys"), keyList, QStringList() << "--keyserver" << ui->keyServerList->currentText());
-
-        GPGManager* manager = new GPGManager(m_profile);
-
-        manager->setAction(keyExport);
-        manager->execute();
-        close();
+        exportFunction(KEYSERVER, ui->keyServerList->currentText(), "");
     } else
-        if (ui->fileRadioButton->isChecked() && ui->pathEdit->text() != "") {
-
-            Action keyExport(m_mode == PUBLIC_KEYS ? QString("--export") : QString("--export-secret-keys"), keyList, QStringList() << "-a" << "--output " + ui->pathEdit->text());
-
-            GPGManager* manager = new GPGManager(m_profile);
-
-            manager->setAction(keyExport);
-            manager->execute();
-            close();
+        if (ui->fileRadioButton->isChecked()) {
+            exportFunction(KEYSERVER, "", ui->pathEdit->text());
         }
 }
 
@@ -73,4 +55,32 @@ void KeyExport::on_keyServerList_activated(const QString &arg1)
 void KeyExport::on_pathEdit_textChanged(const QString &arg1)
 {
     ui->fileRadioButton->click();
+}
+
+void KeyExport::exportFunction(ExportMode mode, QString keyserver, QString path) {
+    QStringList keyList;
+    for (QString key : m_keys) {
+        keyList << key;
+    }
+    if (mode == KEYSERVER) {
+
+
+        Action keyExport(QString("--send-keys"), keyList, QStringList() << "--keyserver" << keyserver);
+
+        GPGManager* manager = new GPGManager(m_profile);
+
+        manager->setAction(keyExport);
+        manager->execute();
+        close();
+    } else
+        if (mode == FILE && path != "") {
+
+            Action keyExport(m_mode == PUBLIC_KEYS ? QString("--export") : QString("--export-secret-keys"), keyList, QStringList() << "-a" << "--output " + path);
+
+            GPGManager* manager = new GPGManager(m_profile);
+
+            manager->setAction(keyExport);
+            manager->execute();
+            close();
+        }
 }

@@ -19,8 +19,14 @@ public:
         PUBLIC_KEYS
     };
 
+    enum ExportMode {
+        KEYSERVER,
+        FILE
+    };
+
     explicit KeyExport(MainWindow* parent = 0, Type mode = PUBLIC_KEYS, QStringList keys = QStringList());
     ~KeyExport();
+    void exportFunction(ExportMode mode, QString keyserver, QString path);
 
 private slots:
     void on_cancelButton_clicked();
@@ -32,6 +38,7 @@ private slots:
     void on_keyServerList_activated(const QString &arg1);
 
     void on_pathEdit_textChanged(const QString &arg1);
+
 
 private:
     Ui::KeyExport *ui;
