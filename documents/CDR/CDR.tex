@@ -133,7 +133,8 @@ Seront également utilisées des machines virtuelles pour répondre aux besoins 
 WINDOWS optionnel).
 
 \subsection{Outils de tests mis en oeuvre}
-Le module Qt Test de Qt sera utilisé.
+Nous avons décidé d'utiliser le framework Qt pour réaliser ce projet. C'est donc le module Qttest de Qt que l'on a choisi car il permet de réaliser
+simplement les tests unitaires et benchmark.
 
 \subsection{Jeux de données/Bases de données}
 Nous aurons comme jeu de données les différentes clés contenues dans le trousseau de test.
@@ -227,7 +228,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une clé & commande lancée : \texttt{"gpg -\-gen-key"} &  & \\
+      1 & Créer une clé & commande lancée : \texttt{"gpg -\-gen-key"} &  & NOK \\
       2 &  &  &  & \\
       3 &  &  &  & \\ 
       4 &  &  &  & \\
@@ -251,7 +252,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Changer la confiance d'une clé & La représentation de cette clé a changé de couleur en fonction de la nouvelle confiance &  & \\
+      1 & Changer la confiance d'une clé & La représentation de cette clé a changé de couleur en fonction de la nouvelle confiance &  & NOK \\
       2 &  &  &  & \\
       3 &  &  &  & \\ 
 	  4 &  &  &  & \\
@@ -275,8 +276,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u3} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Donner une clé publique au programme d'attaque & Le programme renvoie une clé différente avec la même pré-image &  & \\
-      2 & Comparer la clé produite avec la clé initiale & Les deux clés ont la même seconde pré-image &  & \\
+      1 & Donner une clé publique au programme d'attaque & Le programme renvoie une clé différente avec la même pré-image &  & NOK \\
+      2 & Comparer la clé produite avec la clé initiale & Les deux clés ont la même seconde pré-image &  & NOK \\
       3 &  &  &  & \\ 
 	  4 &  &  &  & \\
       5 &  &  &  & \\
@@ -299,8 +300,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u4} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Coller du texte dans la zone de texte & Le texte s'affiche dans la zone de texte &  & \\
-      2 & Cliquer sur "Chiffrer et signer" & La commande exécutée est "gpg -es <texte>" &  & \\
+      1 & Coller du texte dans la zone de texte & Le texte s'affiche dans la zone de texte &  & NOK \\
+      2 & Cliquer sur "Chiffrer et signer" & La commande exécutée est "gpg -es <texte>" &  & NOK \\
       3 &  &  &  & \\ 
 	  4 &  &  &  & \\
       5 &  &  &  & \\
@@ -323,8 +324,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u5} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Coller du texte chiffré et signé dans la zone de texte & Le texte s'affiche dans la zone de texte &  & \\
-      2 & Cliquer sur "Déchiffrer et vérifier" & La commande exécutée est "gpg -dv <texte>" &  & \\
+      1 & Coller du texte chiffré et signé dans la zone de texte & Le texte s'affiche dans la zone de texte &  & NOK \\
+      2 & Cliquer sur "Déchiffrer et vérifier" & La commande exécutée est "gpg -dv <texte>" &  & NOK \\
       3 &  &  &  & \\ 
 	  4 &  &  &  & \\
       5 &  &  &  & \\
@@ -347,8 +348,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u6} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Activer l'affichage des commandes gpg dans l'interface graphique &  &  & \\
-      2 & Lancer une commande gpg via l'interface graphique & La commande et les retours sont affichés &  & \\
+      1 & Activer l'affichage des commandes gpg dans l'interface graphique &  &  & NOK \\
+      2 & Lancer une commande gpg via l'interface graphique & La commande et les retours sont affichés &  & NOK \\
       3 &  &  &  & \\ 
 	  4 &  &  &  & \\
       5 &  &  &  & \\
@@ -371,9 +372,9 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u7} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Lancer l'interface graphique en ligne de commande avec l'option -P & On peut choisir son profil, et en créer un si besoin &  & \\
-      2 & Choisir un profil & L'interface graphique s'affiche &  & \\
-      3 & Cliquer sur le bouton "Changer de profil" & On peut choisir son profil, et en créer un si besoin &  & \\ 
+      1 & Lancer l'interface graphique en ligne de commande avec l'option -P & On peut choisir son profil, et en créer un si besoin &  & NOK \\
+      2 & Choisir un profil & L'interface graphique s'affiche &  & NOK \\
+      3 & Cliquer sur le bouton "Changer de profil" & On peut choisir son profil, et en créer un si besoin &  & NOK \\ 
 	  4 &  &  &  & \\
       5 &  &  &  & \\
 	  6 &  &  &  & \\
@@ -395,8 +396,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u8} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Ouvrir la toile de confiance & Toile de confiance affichée &  & \\
-      2 & Vérifier que chaque niveau de confiance est représenté par une couleur & Chaque niveau de confiance est représenté par une couleur différente &  & \\
+      1 & Ouvrir la toile de confiance & Toile de confiance affichée &  & NOK \\
+      2 & Vérifier que chaque niveau de confiance est représenté par une couleur & Chaque niveau de confiance est représenté par une couleur différente &  & NOK \\
       3 &  &  &  & \\ 
 	  4 &  &  &  & \\
       5 &  &  &  & \\
@@ -418,9 +419,9 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u9} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Coller du texte dans la zone de texte & Le texte collé s'affiche dans la zone de texte &  & \\
-      2 & Cliquer sur "Chiffrer" & Le texte chiffré s'affiche dans la zone de texte &  & \\
-      3 & Cliquer sur "Déchiffrer" & Le texte collé original s'affiche dans la zone de texte &  & \\
+      1 & Coller du texte dans la zone de texte & Le texte collé s'affiche dans la zone de texte &  & NOK \\
+      2 & Cliquer sur "Chiffrer" & Le texte chiffré s'affiche dans la zone de texte &  & NOK \\
+      3 & Cliquer sur "Déchiffrer" & Le texte collé original s'affiche dans la zone de texte &  & NOK \\
 	  4 &  &  &  & \\
       5 &  &  &  & \\
 	  6 &  &  &  & \\
@@ -440,12 +441,12 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u10} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & \\
-      2 & Utiliser la fonction alreadyRun & La fonction renvoie false &  & \\
-      3 & Utiliser la fonction start & L'application graphique se lance &  & \\
-      4 & Utiliser la fonction alreadyRun & La fonction renvoie true &  & \\
+      1 & Créer une instance de la classe &  &  & NOK \\
+      2 & Utiliser la fonction alreadyRun & La fonction renvoie false &  & NOK \\
+      3 & Utiliser la fonction start & L'application graphique se lance &  & NOK \\
+      4 & Utiliser la fonction alreadyRun & La fonction renvoie true &  & NOK \\
       5 &  &  &  & \\
-	  6 &  &  &  & \\
+	    6 &  &  &  & \\
       7 &  &  &  & \\
       8 &  &  &  & \\
       9 &  &  &  & \\
@@ -463,12 +464,12 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u11} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & \\
-      2 & Utiliser la fonction getID & La fonction renvoie false &  & \\
-      3 & Utiliser la fonction getName & La fonction renvoie le nom donné au constructeur &  & \\
-      4 & Utiliser la fonction getPath & La fonction renvoie le path donné au constructeur &  & \\
-      5 & Utiliser la fonction setPath &  &  & \\
-      6 & Utiliser la fonction getPath & La fonction renvoie le path donné à setPath &  & \\
+      1 & Créer une instance de la classe &  &  & OK \\
+      2 & Utiliser la fonction getID & La fonction renvoie false &  & OK \\
+      3 & Utiliser la fonction getName & La fonction renvoie le nom donné au constructeur &  & OK \\
+      4 & Utiliser la fonction getPath & La fonction renvoie le path donné au constructeur &  & OK \\
+      5 & Utiliser la fonction setPath &  &  & OK \\
+      6 & Utiliser la fonction getPath & La fonction renvoie le path donné à setPath &  & OK \\
       7 &  &  &  & \\
       8 &  &  &  & \\
       9 &  &  &  & \\
@@ -485,15 +486,15 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u12} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & \\
-      2 & Utiliser la fonction setPath, puis la fonction getPath & La fonction renvoie le path donné à setPath  &  & \\
-      3 & Utiliser la fonction createProfile & Un profil p est créé &  & \\
-      4 & Utiliser la fonction profileAvailable(p) & La fonction renvoie true &  & \\
-      5 & Utiliser la fonction runProfile(p) & Une nouvelle fenêtre s'ouvre avec le profil p &  & \\
-	  6 & Utiliser la fonction profileAvailable(p) & La fonction renvoie false &  & \\
-      7 & Utiliser la fonction Save &  &  & \\
-      8 & Utiliser la fonction Load &  &  & \\
-      9 & Utiliser la fonction getProfiles & La QList renvoyée contient p &  & \\
+      1 & Créer une instance de la classe &  &  & NOK \\
+      2 & Utiliser la fonction setPath, puis la fonction getPath & La fonction renvoie le path donné à setPath  &  & NOK \\
+      3 & Utiliser la fonction createProfile & Un profil p est créé &  & NOK \\
+      4 & Utiliser la fonction profileAvailable(p) & La fonction renvoie true &  & NOK \\
+      5 & Utiliser la fonction runProfile(p) & Une nouvelle fenêtre s'ouvre avec le profil p &  & NOK \\
+	  6 & Utiliser la fonction profileAvailable(p) & La fonction renvoie false &  & NOK \\
+      7 & Utiliser la fonction Save &  &  & NOK \\
+      8 & Utiliser la fonction Load &  &  & NOK \\
+      9 & Utiliser la fonction getProfiles & La QList renvoyée contient p &  & NOK \\
       10 &  &  &  &\\ 
 	\hline
     \end{tabular}
@@ -508,13 +509,13 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u13} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & \\
-      2 & Utiliser la fonction getCmd & La fonction renvoie la commande donnée au constructeur &  & \\
-      3 & Utiliser la fonction getOptions & La fonction renvoie les options données au constructeur &  & \\
-      4 & Utiliser la fonction getInteractions & La fonction renvoie les interactions donnés au constructeur &  & \\
-      5 & Utiliser la fonction getArgs & La fonction renvoie les arguments donnés au constructeur &  & \\
-	  6 & Utiliser la fonction hasInteractions & La fonction renvoie true si des interactions ont été données au constructeur, false sinon &  & \\
-      7 & Utiliser la fonction nextInteraction autant de fois que le nombre d'interactions données au constructeur plus une & La fonction renvoie un QString contenant une interaction à chaque appel à la fonction, et NULL au dernier &  & \\
+      1 & Créer une instance de la classe &  &  & OK \\
+      2 & Utiliser la fonction getCmd & La fonction renvoie la commande donnée au constructeur &  & OK \\
+      3 & Utiliser la fonction getOptions & La fonction renvoie les options données au constructeur &  & OK \\
+      4 & Utiliser la fonction getInteractions & La fonction renvoie les interactions donnés au constructeur &  & OK \\
+      5 & Utiliser la fonction getArgs & La fonction renvoie les arguments donnés au constructeur &  & OK \\
+	    6 & Utiliser la fonction hasInteractions & La fonction renvoie true si des interactions ont été données au constructeur, false sinon &  & OK \\
+      7 & Utiliser la fonction nextInteraction autant de fois que le nombre d'interactions données au constructeur plus une & La fonction renvoie un QString contenant une interaction à chaque appel à la fonction, et NULL au dernier &  & OK \\
       8 &  &  &  & \\
       9 &  &  &  & \\
       10 &  &  &  &\\ 
@@ -530,14 +531,14 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u14} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & \\
-      2 & Utiliser la fonction isRunning & La fonction renvoie false &  & \\
-      3 & Utiliser la fonction getAction & La fonction renvoie NULL &  & \\
-      4 & Utiliser la fonction setAction &  &  & \\
-      5 & Utiliser la fonction execute &  &  & \\
-	  6 & Utiliser la fonction isRunning & La fonction renvoie true &  & \\
-      7 & Utiliser la fonction getQuestionType & La fonction renvoie un QuestionType correspondant au type de réponse de GPG à l'action donnée en argument à setAction &  & \\
-      8 & Utiliser la fonction getOutput & La fonction renvoie le texte renvoyé par gpg quand exécute l'action donnée en argument à setAction &  & \\
+      1 & Créer une instance de la classe &  &  & NOK \\
+      2 & Utiliser la fonction isRunning & La fonction renvoie false &  & NOK \\
+      3 & Utiliser la fonction getAction & La fonction renvoie NULL &  & NOK \\
+      4 & Utiliser la fonction setAction &  &  & NOK \\
+      5 & Utiliser la fonction execute &  &  & NOK \\
+	  6 & Utiliser la fonction isRunning & La fonction renvoie true &  & NOK \\
+      7 & Utiliser la fonction getQuestionType & La fonction renvoie un QuestionType correspondant au type de réponse de GPG à l'action donnée en argument à setAction &  & NOK \\
+      8 & Utiliser la fonction getOutput & La fonction renvoie le texte renvoyé par gpg quand exécute l'action donnée en argument à setAction &  & NOK \\
       9 &  &  &  & \\
       10 &  &  &  &\\ 
 	\hline
@@ -552,8 +553,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u15} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & \\
-      2 & Utiliser la fonction getProfile & La fonction renvoie le profil donné au constructeur &  & \\
+      1 & Créer une instance de la classe &  &  & NOK \\
+      2 & Utiliser la fonction getProfile & La fonction renvoie le profil donné au constructeur &  & NOK \\
       3 &  &  &  & \\
       4 &  &  &  & \\
       5 &  &  &  & \\
@@ -575,8 +576,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & \\
-      2 & Utiliser la fonction getName & La fonction renvoie un QString représentant le nom donné du niveau au constructeur &  & \\
-      3 & Utiliser la fonction getLevel & La fonction renvoie un entier représentant le niveau donné au constructeur &  & \\
+      2 & Utiliser la fonction getName & La fonction renvoie un QString représentant le nom donné du niveau au constructeur &  & NOK \\
+      3 & Utiliser la fonction getLevel & La fonction renvoie un entier représentant le niveau donné au constructeur &  & NOK \\
       4 &  &  &  & \\
       5 &  &  &  & \\
 	  6 &  &  &  & \\
@@ -596,17 +597,17 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° u17} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & \\
-      2 & Utiliser la fonction getSubKeys & La fonction renvoie une QList<GPGKey> correspondant aux sous-clés de la clé donnée au constructeur &  & \\
-      3 & Utiliser la fonction getEmail & La fonction renvoie un QString correspondant à l'email associé à la clé donnée au constructeur &  & \\
-      4 & Utiliser la fonction getName & La fonction renvoie un QString correspondant au nom associé à la clé donnée au constructeur &  & \\
-      5 & Utiliser la fonction getDate & La fonction renvoie une QDate correspondant à la date de création de la clé donnée au constructeur &  & \\
-	  6 & Utiliser la fonction getId & La fonction renvoie un QString correspondant au keyID de la clé donnée au constructeur &  & \\
-      7 & Utiliser la fonction getComments & La fonction renvoie un QString correspondant au commentaire associé à la clé donnée au constructeur &  & \\
-      8 & Utiliser la fonction getTrust & La fonction renvoie un GPGKeyLevel correspondant au niveau de confiance de la clé donnée au constructeur &  & \\
-      9 & Utiliser la fonction addSubKey, puis la fonction getSubKeys & La fonction getSubKeys renvoie une QList<GPGKey> contenant la clé donnée à addSubKey &  & \\
-      10 & Utiliser la fonction removeSubKey, puis la fonction getSubKeys & La fonction getSubKeys renvoie une QList<GPGKey> ne contenant pas la clé donnée à addSubKey &  &\\ 
-	  11 & Utiliser la fonction setTrust, puis la fonction getTrust & La fonction getTrust renvoie un GPGKeyLevel contenant au niveau donné à setTrust &  &\\ 
+      1 & Créer une instance de la classe &  &  & NOK \\
+      2 & Utiliser la fonction getSubKeys & La fonction renvoie une QList<GPGKey> correspondant aux sous-clés de la clé donnée au constructeur &  & NOK \\
+      3 & Utiliser la fonction getEmail & La fonction renvoie un QString correspondant à l'email associé à la clé donnée au constructeur &  & NOK \\
+      4 & Utiliser la fonction getName & La fonction renvoie un QString correspondant au nom associé à la clé donnée au constructeur &  & NOK \\
+      5 & Utiliser la fonction getDate & La fonction renvoie une QDate correspondant à la date de création de la clé donnée au constructeur &  & NOK \\
+	    6 & Utiliser la fonction getId & La fonction renvoie un QString correspondant au keyID de la clé donnée au constructeur &  & NOK \\
+      7 & Utiliser la fonction getComments & La fonction renvoie un QString correspondant au commentaire associé à la clé donnée au constructeur &  & NOK \\
+      8 & Utiliser la fonction getTrust & La fonction renvoie un GPGKeyLevel correspondant au niveau de confiance de la clé donnée au constructeur &  & NOK \\
+      9 & Utiliser la fonction addSubKey, puis la fonction getSubKeys & La fonction getSubKeys renvoie une QList<GPGKey> contenant la clé donnée à addSubKey &  & NOK \\
+      10 & Utiliser la fonction removeSubKey, puis la fonction getSubKeys & La fonction getSubKeys renvoie une QList<GPGKey> ne contenant pas la clé donnée à addSubKey &  & NOK \\ 
+	    11 & Utiliser la fonction setTrust, puis la fonction getTrust & La fonction getTrust renvoie un GPGKeyLevel contenant au niveau donné à setTrust &  & NOK \\ 
 	\hline
     \end{tabular}
     \vskip 2.2cm
@@ -620,8 +621,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & \\
-      2 & Utiliser la fonction createKey, puis la fonction getKeys & La fonction getKeys renvoie une QList<GPGKey> contenant la clé donnée à createKey &  & \\
-      3 & Utiliser la fonction deleteKey, puis la fonction getKeys  & La fonction getKeys renvoie une QList<GPGKey> ne contenant pas la clé donnée à deleteKey &  & \\
+      2 & Utiliser la fonction createKey, puis la fonction getKeys & La fonction getKeys renvoie une QList<GPGKey> contenant la clé donnée à createKey &  & NOK  \\
+      3 & Utiliser la fonction deleteKey, puis la fonction getKeys  & La fonction getKeys renvoie une QList<GPGKey> ne contenant pas la clé donnée à deleteKey &  & NOK \\
       4 &  &  &  & \\
       5 &  &  &  & \\
 	  6 &  &  &  & \\
@@ -643,8 +644,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° nr1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & \\
-      2 & Utiliser la fonction exportKey avec un path donné & Le fichier correspondant au path a été créé. &  & \\
+      1 & Créer une instance de la classe &  &  & NOK \\
+      2 & Utiliser la fonction exportKey avec un path donné & Le fichier correspondant au path a été créé. &  & NOK \\
       3 &  &  &  & \\
       4 &  &  &  & \\
       5 &  &  &  & \\
@@ -684,15 +685,136 @@ Elles suivent le schéma de signature décrit ci-dessous :
       EO\_02 & Effectuer tous les tests avec GnuPG 1.4.* & Toutes & \\ \hline
       EO\_03 & Effectuer tous les tests avec KDE 4.* et 5 & Toutes & \\ \hline
       EO\_04 & Effectuer tous les tests avec Gnome 3.* & Toutes & \\ \hline
-      EO\_05 & Effectuer tous les tests sous Windows. & Toutes & \\ \hline
-      EO\_06 & Vérifier que la toile de confiance s'affiche et représente correctement les niveaux de confiance. & 8 & \\ \hline
-      EO\_07 & Ouvrir deux interfaces avec des profils différents sur la même session. & Toutes & \\ \hline
-      EO\_08 & Vérifier que l'on peut s'authentifier en SSH via une clé signée par GPG. &  & \\ \hline
-      EO\_09 & Rechercher des clés en local. &  & \\ \hline
+      EO\_05 & Vérifier que la toile de confiance s'affiche et représente correctement les niveaux de confiance. & 8 & \\ \hline
+      EO\_06 & Ouvrir deux interfaces avec des profils différents sur la même session. & Toutes & \\ \hline
+      EO\_07 & Vérifier que l'on peut s'authentifier en SSH via une clé signée par GPG. &  & \\ \hline
+      EO\_08 & Rechercher des clés en local. &  & \\ \hline
       EQ\_01 & Chaque niveau de confiance est représenté par une couleur. & 8 & \\ \hline
       EQ\_03 & Effectuer tous les tests avec le paquet fourni. & Toutes & \\ \hline
   \end{tabular}  
 \end{center}
+
+\bigbreak
+\bigbreak
+\bigbreak
+
+Rappel des codes utilisés dans la STB :
+
+\begin{tabular}{|>{\centering}p{1cm}|>{}p{8,5cm}|>{\centering}p{2cm}|>{\centering}p{2cm}|}
+  \hline
+  \color{white}\cellcolor{blue}\bfseries{Id}&
+  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
+  \color{white}\cellcolor{blue}\bfseries{Acteur(s)}&
+  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+  \cr
+  \hline
+  EF\_1&
+  Exécution d'actions GPG&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  EF\_2&
+  Chiffrer/déchiffrer/Signer/Vérifier&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  EF\_3&
+  Affichage des commandes, des retours et des erreurs&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  EF\_4&
+  Choix du profil utilisateur&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  EF\_5&
+  Modification de la toile de confiance graphique&
+  Utilisateur&
+  Important
+  \cr
+  \hline
+  EF\_6&
+  Calcul d'une seconde pré-image pour une clé donnée&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+\end{tabular}\\
+
+
+\begin{tabular}{|>{\centering}p{1cm}|>{}p{11,5cm}|>{\centering}p{2cm}|}
+  \hline
+  \color{white}\cellcolor{blue}\bfseries{Id}&
+  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
+  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+  \cr
+  \hline
+  EO\_1&
+  Compatibilité GnuPG 2.0.*&
+  Indispensable
+  \cr
+  \hline
+  EO\_2&
+  Compatibilité GnuPG 1.4.*&
+  Secondaire
+  \cr
+  \hline
+  EO\_3&
+  Compatibilité GnuPG 2.1.0&
+  Secondaire
+  \cr
+  \hline
+  EO\_4&
+  Fonctionnement sous KDE 4.* et 5&
+  Indispensable
+  \cr
+  \hline
+  EO\_5&
+  Fonctionnement sous Gnome 3.*&
+  Important
+  \cr
+  \hline
+  EO\_6&
+  Fonctionnement sous Windows&
+  Secondaire
+  \cr
+  \hline
+  EO\_7&
+  Visualisation graphique de la Toile de confiance&
+  Indispensable
+  \cr
+  \hline
+  EO\_8&
+  Ouverture de deux interfaces avec des profils différents sur une même session&
+  Important
+  \cr
+  \hline
+\end{tabular}\\
+
+
+\begin{tabular}{|>{\centering}p{1cm}|>{}p{11,5cm}|>{\centering}p{2cm}|}
+  \hline
+  \color{white}\cellcolor{blue}\bfseries{Id}&
+  \color{white}\cellcolor{blue}\bfseries{Intitulé}&
+  \color{white}\cellcolor{blue}\bfseries{Priorité}\\
+  \cr
+  \hline
+  EQ\_1&
+  Représentation des niveaux de confiance et de validité par couleurs&
+  Indispensable
+  \cr
+  \hline
+  EQ\_3&
+  Interface livrée sous forme de paquet Ubuntu&
+  Important
+  \cr
+  \hline
+\end{tabular}\\
 
 
 \end{document}
