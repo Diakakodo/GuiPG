@@ -45,6 +45,7 @@ class GPGManager : public QObject {
          * @return un booléen indiquant si gpg attend des données.
          */
         bool askInteraction();
+        QString m_prompt;
 };
 
 #endif // GPGMANAGER_H

@@ -4,7 +4,6 @@
 GPGManager::GPGManager(const Profile *p) : m_profile(p) {
     connect(&m_gpg, (void (QProcess::*)(int, QProcess::ExitStatus)) &QProcess::finished,
             this, &GPGManager::terminate);
-    connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
     connect(&m_gpg, (void (QProcess::*)(QProcess::ProcessError)) &QProcess::error, this, &GPGManager::errorGPG);
     connect(&m_gpg, &QProcess::stateChanged, this, &GPGManager::stateChanged);
 
@@ -51,19 +50,43 @@ void GPGManager::errorGPG(QProcess::ProcessError error) {
 }
 
 void GPGManager::execute() {
-    QStringList args;
+    QByteArray args = " ";
     if (m_profile->getConfigurationPath() != "") {
-        args << "--homedir" << m_profile->getConfigurationPath();
+        args.append("--homedir " + m_profile->getConfigurationPath() + " ");
     }
-    args << m_action.getOptions() << m_action.getCmd()
-         << m_action.getArgs();
+    for (QString option : m_action.getOptions()) {
+        args.append(option + " ");
+    }
+    args.append(m_action.getCmd() + " ");
+    for (QString argument : m_action.getArgs()) {
+        args.append(argument + " ");
+    }
     qDebug() << m_profile->getGPGExecutable() << args;
-    m_gpg.start(m_profile->getGPGExecutable(), args);
+    // TODO definir proprement le chemin vers getPrettyGoodPty
+    // Ainsi que le nom du shell a lancer (éventuellement la variable d'env SHELL).
+    m_gpg.start("./getPrettyGoodPty", QStringList("sh"));
+    m_gpg.waitForReadyRead();
+    m_prompt = m_gpg.readAllStandardOutput();
+
+    QByteArray cmd(m_profile->getGPGExecutable().toLatin1());
+    cmd.append(args);
+    if (!cmd.endsWith("\n")) {
+        cmd.append("\n");
+    }
+    m_gpg.write(cmd);
+
+    m_gpg.waitForReadyRead();
+    m_output = m_gpg.readAllStandardOutput();
+    connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
 }
 
 void GPGManager::readOutput() {
     QString tmp = m_gpg.readAllStandardOutput();
     m_output += tmp;
+    if (tmp.endsWith(m_prompt)) {
+        m_output = m_output.split(m_prompt).at(0);
+        m_gpg.kill();
+    }
     if (m_gpg.state() == QProcess::Running
             && askInteraction()) {
         sendInteraction();
@@ -75,6 +98,7 @@ const QString& GPGManager::getOutput() const {
 }
 
 void GPGManager::terminate(int s, QProcess::ExitStatus status) {
+    disconnect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
     emit finished(s, m_output);
 }
 

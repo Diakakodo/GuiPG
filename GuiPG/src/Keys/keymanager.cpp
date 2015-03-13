@@ -17,10 +17,10 @@ void KeyManager::load() {
     /*/
     //opt << "--status-fd=1" << "--command-fd=0" << "--no-tty";
     //Action a("--full-gen-key", QStringList(), opt);
-    opt << "--status-fd=1" << "--command-fd=0" << "--no-tty";
+    opt << "--status-fd=1" << "--command-fd=0" << "--with-colons";
     QStringList interact;
-    interact << "1" << "2048\n" << "1" << "bidon" << "bidon@albert.cul" << "" << "O";
-    Action a("--full-gen-key", QStringList(), opt, interact);
+    interact << "pref" << "q";
+    Action a("--edit-key", QStringList("order"), opt, interact);
     //*/
     m_gpg->setAction(a);
     m_gpg->execute();
