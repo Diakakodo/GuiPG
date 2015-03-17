@@ -54,6 +54,8 @@ void KeyImport::on_importButton_clicked()
             connect(manager, &GPGManager::finished, this, &KeyImport::keyImportFinished);
             manager->setAction(keyImport);
             manager->execute();
+            ui->warningLabel->setText("Veuillez patienter pendant l'importation...");
+            ui->importButton->setDisabled(true);
         }
     }
 }
