@@ -43,7 +43,7 @@ void KeyExport::on_exportButton_clicked()
         exportFunction(KEYSERVER, ui->keyServerList->currentText(), "");
     } else
         if (ui->fileRadioButton->isChecked()) {
-            exportFunction(KEYSERVER, "", ui->pathEdit->text());
+            exportFunction(FILE, "", ui->pathEdit->text());
         }
 }
 
@@ -62,25 +62,22 @@ void KeyExport::exportFunction(ExportMode mode, QString keyserver, QString path)
     for (QString key : m_keys) {
         keyList << key;
     }
+    GPGManager* manager = new GPGManager(m_profile);
     if (mode == KEYSERVER) {
-
-
-        Action keyExport(QString("--send-keys"), keyList, QStringList() << "--keyserver" << keyserver);
-
-        GPGManager* manager = new GPGManager(m_profile);
-
-        manager->setAction(keyExport);
-        manager->execute();
-        close();
+        if (keyserver != "") {
+            Action keyExport(QString("--send-keys"), keyList, QStringList() << "--keyserver" << keyserver);
+            manager->setAction(keyExport);
+        } else {
+            Action keyExport(QString("--send-keys"), keyList, QStringList());
+            manager->setAction(keyExport);
+        }
     } else
         if (mode == FILE && path != "") {
 
             Action keyExport(m_mode == PUBLIC_KEYS ? QString("--export") : QString("--export-secret-keys"), keyList, QStringList() << "-a" << "--output " + path);
 
-            GPGManager* manager = new GPGManager(m_profile);
-
             manager->setAction(keyExport);
-            manager->execute();
-            close();
         }
+    manager->execute();
+    close();
 }

@@ -1,6 +1,7 @@
 #include "keyimport.h"
 #include "ui_keyimport.h"
 #include "QFileDialog"
+#include "QDebug"
 
 KeyImport::KeyImport(MainWindow* parent) :
     QDialog(parent),
@@ -54,11 +55,13 @@ void KeyImport::on_importButton_clicked()
             connect(manager, &GPGManager::finished, this, &KeyImport::keyImportFinished);
             manager->setAction(keyImport);
             manager->execute();
+            ui->warningLabel->setText("Veuillez patienter pendant l'importation...");
+            ui->importButton->setDisabled(true);
         }
     }
 }
 
-void KeyImport::keyImportFinished()
+void KeyImport::keyImportFinished(int a, QString s)
 {
     m_window->refreshKeys();
     close();
