@@ -6,6 +6,9 @@
 #include "../Model/mainwindowmodel.h"
 #include "../View/mainwindow.h"
 #include "../View/keyexport.h"
+#include <unistd.h>
+#include <chrono>
+#include <thread>
 
 class MainTest : public QObject
 {
@@ -69,7 +72,7 @@ void MainTest::testCase_nr1()
     MainWindow mainWindow(&model);
     KeyExport keyExport(&mainWindow);
     keyExport.exportFunction(KeyExport::FILE, "", "/tmp/TEST");
-    //TODO : Attendre la fin du thread ?
+    sleep(2);
     QVERIFY(remove("/tmp/TEST") != -1);
 }
 

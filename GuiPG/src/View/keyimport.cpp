@@ -1,6 +1,7 @@
 #include "keyimport.h"
 #include "ui_keyimport.h"
 #include "QFileDialog"
+#include "QDebug"
 
 KeyImport::KeyImport(MainWindow* parent) :
     QDialog(parent),
@@ -60,7 +61,7 @@ void KeyImport::on_importButton_clicked()
     }
 }
 
-void KeyImport::keyImportFinished()
+void KeyImport::keyImportFinished(int a, QString s)
 {
     m_window->refreshKeys();
     close();

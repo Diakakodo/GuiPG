@@ -27,7 +27,7 @@ private slots:
 
     void on_importButton_clicked();
 
-    void keyImportFinished();
+    void keyImportFinished(int a, QString s);
 
 private:
     Ui::KeyImport *ui;
