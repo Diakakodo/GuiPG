@@ -1,0 +1,90 @@
+\documentclass{CR-projet}
+
+%Import des packages utilisés pour le document
+\usepackage[T1]{fontenc}
+
+
+\definecolor{gris}{rgb}{0.95, 0.95, 0.95}
+\definecolor{vert}{rgb}{0.14, 0.69, 0.11}
+
+%Variables
+\logo{logo_univ.png}
+\title{Compte rendu - Réunion Client}
+\author{Matthieu \bsc{FIN}}
+\projet{Projet PGP}
+\projdesc{Étude et implantation d'un outil graphique de gestion de clé PGP}
+\filiere{Master 1 SSI }
+\matiere{Conduite de projet}
+\date{17 mars 2015}
+
+\context{Réunion hebdomadaire}
+
+\presentry{\bsc{Balmelle}}{Pierre}{\textbf{Présent}}{vert}
+\presentry{\bsc{Barbay}}{Lucas}{\textbf{Absent}}{red}
+\presentry{\bsc{Barry}}{Ibrahima Sory}{\textbf{Absent}}{red}
+\presentry{\bsc{Bouillie}}{Bertille}{\textbf{Absente}}{red}
+\presentry{\bsc{Fin}}{Matthieu}{\textbf{Présent}}{vert}
+\presentry{\bsc{Leroy}}{Guillaume}{\textbf{Absent}}{red}
+\presentry{\bsc{Thibault}}{Olivier}{\textbf{Présent}}{vert}
+
+% -- Début du document -- %
+\begin{document}
+
+%Page de garde
+\maketitle
+\newpage
+%La table des matières
+%\tableofcontents
+
+\newpage
+
+\section{Redéfinitions des commandes obligatoires}
+
+Liste des commandes à implanter :
+\begin{itemize}
+	\item Suppression de clés.
+	\item Suppression de signature de base. 
+	\item Suppression d'un uid. 
+	\item Suppression d'une sous clef. 
+	\item Révocation d'une clé. 
+	\item Ajout d'une sous clef.
+	\item Ajout d'un uid.
+	\item Signature de clefs (basique).
+	\item Clef par defaut.
+	\item Afficher/modifier la preference d'algo d'un uid.
+	\item Changer la date d'expiration.
+	\item Changer la confiance.
+	\item passwd (changer la passphrase)
+	\item Pouvoir déchiffrer un fichier.
+	\item Vérifier les signatures.
+	\item Chiffrer un fichier.
+	\item Signature de fichier.
+\end{itemize}
+\vspace{1cm}
+Liste des commandes optionnelles :
+\begin{itemize}
+	\item Révocation de signature.
+	\item disable/enable
+	\item Définition d'un revokeur.
+	\item clean (supprimer toutes les signature d'une clé).
+	\item minimize (similaire a clean).
+	\item [cross-certify]
+	\item Révocation d'un uid.
+	\item Révocation d'une sous clef.
+\end{itemize}
+
+\section{Actions}
+
+\begin{itemize}
+	\item La toile de confiance doit être complètement fonctionnel,
+	sans représentation graphique pour le moment.
+	\item Tout doit être libre de droits (les documents et images notamment) dans le cas contraire il faut 
+	absolument citer les sources.
+	\item Les absents doivent envoyer un mail sur la liste de diffusion avec leur progression sur leurs tâches.
+	\item Revu des documents.
+	\item Réalisation d'un plan d'action pour redéfinir les tâches et l'attribution de ressources.
+	\item Préparer un livrable digne de ce nom.
+\end{itemize}
+
+\end{document}
+
