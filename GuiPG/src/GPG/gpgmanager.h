@@ -19,6 +19,7 @@ class GPGManager : public QObject {
 
     signals:
         void finished(int s, const QString& output);
+        void finishedNoParam();
 
     private slots:
         void readOutput();

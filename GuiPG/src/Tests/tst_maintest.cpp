@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <chrono>
 #include <thread>
+#include "QEventLoop"
 
 class MainTest : public QObject
 {
@@ -59,7 +60,7 @@ void MainTest::testCase_u13()
 
 void MainTest::testCase_nr1()
 {
-    remove("/tmp/TEST");
+    remove("~/TEST");
 
     Configuration config("../config.xml");
     config.load();
@@ -71,9 +72,8 @@ void MainTest::testCase_nr1()
     MainWindowModel model(&launcher, &app, &config, config.getDefaultProfile());
     MainWindow mainWindow(&model);
     KeyExport keyExport(&mainWindow);
-    keyExport.exportFunction(KeyExport::FILE, "", "/tmp/TEST");
-    sleep(2);
-    QVERIFY(remove("/tmp/TEST") != -1);
+    keyExport.exportFunction(KeyExport::FILE, "", "~/TEST");
+    QVERIFY(remove("~/TEST") != -1);
 }
 
 void MainTest::testLoadConfig()
