@@ -31,6 +31,7 @@ void GuiPGApp::launchApp(Launcher* launcher, GuiPGApp* app, Configuration* confi
         Profile* profile = m_config->getProfileById(m_profileId);
         MainWindow* window = launcher->profileIsLoad(profile);
         if (window != nullptr) {
+            app->setActiveWindow(window);
             window->raise();
         } else {
             MainWindowModel* model = new MainWindowModel(launcher, app, config, profile);
