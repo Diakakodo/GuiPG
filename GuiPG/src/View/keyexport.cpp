@@ -82,13 +82,10 @@ void KeyExport::exportFunction(ExportMode mode, QString keyserver, QString path)
         }
 
     QEventLoop loop;
-    //connect(manager, &GPGManager::finished, )
-    connect(manager, &GPGManager::finished, this, &KeyExport::keyExportFinished);
-    //loop.exec();
+    connect(manager, &GPGManager::finished, &loop, &QEventLoop::quit);
     manager->execute();
+    loop.exec();
+
     close();
 }
 
-void KeyExport::keyExportFinished() {
-    qDebug() << "ici";
-}
