@@ -59,8 +59,8 @@ void ProfileCreation::on_acceptButton_clicked()
         p->setConfigurationPath(ui->storagePathEdit->text());
         p->setGPGExecutable(ui->gpgPathEdit->text());
         m_parent->getConfig()->addProfile(p);
-        m_parent->getConfig()->save();
     }
+    m_parent->getConfig()->save();
     m_parent->refreshTableWidget();
     close();
 }

@@ -102,7 +102,10 @@ const QString& GPGManager::getOutput() const {
 
 void GPGManager::terminate(int s, QProcess::ExitStatus status) {
     disconnect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
+    qDebug() << "emit ok";
     emit finished(s, m_output);
+    //emit finishedNoParam();
+
 }
 
 void GPGManager::setAction(const Action &a) {

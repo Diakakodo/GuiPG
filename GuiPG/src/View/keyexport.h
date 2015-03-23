@@ -41,6 +41,7 @@ private slots:
 
 
 private:
+    void keyExportFinished();
     Ui::KeyExport *ui;
     Type m_mode;
     QStringList m_keys;
