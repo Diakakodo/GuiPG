@@ -18,7 +18,7 @@ void GuiPGApp::launchApp(Launcher* launcher, GuiPGApp* app, Configuration* confi
     m_launcher = launcher;
     m_config = config;
     m_profileId = profileId;
-    if (m_profileId == 0) {
+    if (m_profileId == 0 || m_launcher->profileIsLoad(m_config->getProfileById(m_profileId))) {
         showDialogProfile();
         // Si aucun profile n'a était séléctionné, on notifie le launcher et on quitte.
         if (m_profileId == 0) {
