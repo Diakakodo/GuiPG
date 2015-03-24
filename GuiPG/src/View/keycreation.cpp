@@ -103,7 +103,7 @@ void KeyCreation::on_pushButton_2_clicked()
 
 
         QStringList opt;
-        opt << "--status-fd=1" << "--command-fd=0" << "--no-tty";
+        opt << "--status-fd=1" << "--command-fd=0";
         Action keyCreation(QString("--gen-key"), QStringList(), opt, interactions);
 
         GPGManager* manager = new GPGManager(m_profile);

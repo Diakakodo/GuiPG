@@ -21,6 +21,7 @@ public:
 private Q_SLOTS:
     void testCase_u11();
     void testCase_u13();
+    void testCase_nr2();
     void testCase_nr1();
     void testLoadConfig();
 
@@ -72,8 +73,26 @@ void MainTest::testCase_nr1()
     MainWindowModel model(&launcher, &app, &config, config.getDefaultProfile());
     MainWindow mainWindow(&model);
     KeyExport keyExport(&mainWindow);
-    keyExport.exportFunction(KeyExport::FILE, "", "~/TEST");
-    QVERIFY(remove("~/TEST") != -1);
+    keyExport.exportFunction(KeyExport::FILE, "", "/tmp/TEST");
+    QVERIFY(remove("/tmp/TEST") != -1);
+}
+
+void MainTest::testCase_nr2()
+{
+
+    Configuration config("../config.xml");
+    config.load();
+
+    int argc = 2;
+    char* argv[] = {"GuiPG", NULL};
+    GuiPGApp app(argc, argv);
+    Launcher launcher(&app, &config, config.getDefaultProfileId());
+    MainWindowModel model(&launcher, &app, &config, config.getDefaultProfile());
+    MainWindow mainWindow(&model);
+    for (int i=0; i < 100; i++) {
+        mainWindow.changeProfil(1);
+        mainWindow.changeProfil(2);
+    }
 }
 
 void MainTest::testLoadConfig()
