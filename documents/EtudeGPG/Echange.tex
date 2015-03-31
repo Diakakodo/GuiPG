@@ -1,26 +1,42 @@
 \section{Échange de clefs}
 
-Pour communiquer avec les autres, vous devez échanger vos clefs publiques. Vous pouvez afficher la liste des clefs de votre trousseau de clefs publiques grâce à l'interface
-GuiPG.
+
+
+
+
+
+Pour pouvoir échanger avec nos correspondants, il faut bien leur faire parvenir notre clef publique pour qu'il puisse chiffrer des
+messages à notre destination puis vérifier nos signatures en utilisant cette clef publique. À cet effet après la génération de la 
+paire de clef et la création du certificat de re-vocation correspondant, nous allons à présent exporter notre clef publique vers un 
+serveur de clef publique ( ou les transmettre à nos correspondants directement à travers un email ou sur un support amovible).
 
 \subsection{Exporter une clef}
+Avant de pouvoir envoyer nos clefs aux correspondants nous allons tout d'abord l'exporter dans notre repertoire avec l'option
+ \texttt{--export } de gpg.\\
+La commande est la suivante : \\
 
-L'exportation de clef permet d'envoyer votre clef, publique ou privée, à votre corresondant. Cette action est possible grâce à la commmande --export de GPG.
 
-Lors d'une exportation de clef secrète, il est recommandé d'utiliser un canal de diffusion sécurisé. Il est possible d'exporter uniquement les sous-clefs d'une clef, en neutralisant la partie secrète de la clef primaire. Cependant cette fonctionnalité est une extension GNU d'openPGP et les autres implémentations peuvent ne pas être compatibles avec une telle clef.
+\texttt{gpg --output pb\_clef.gpg --armor --export id\_clef } où id\_clef est l'identifiant de la clef et pb\_clef.gpg est la clef 
+publique . 
 
-La clef est exportée dans un format binaire, ceci peut être problématique si la clef doit être envoyée par email ou publiée sur une page web. C'est pourquoi il existe une option --armor permettant la génération des sorties dans un format ASCII similaire aux documents encodés avec l'algorithme UUE. En général, toutes les sorties peuvent être exportées dans le format ASCII en ajoutant l'option --armor.
+Une fois la clef publique exportée vous pouvez la publier partout où vous le voulez que ce soit sur votre blog personnel ou sur les 
+servers de clefs publique . Chacun peut alors accéder à votre clé publique et l'utiliser pour vous envoyer des message puis verifier 
+vos signatures pour authentifier vos messages.\\
 
-Si vous désirez rendre publique votre clef, il est également possible de l'exporter sur un serveur de clefs. Cette action sera possible en nommant le serveur voulu ou en utilisant celui par défaut. Lors de l'exportatation de clefs, il faut envoyer les nouvelles/récemment modifiées clefs et non pas le trousseau entier.
+On peut publier notre clef sur le serveur de clef a travers la commande:\\
 
-\subsection{Importer une clef}
+\texttt{gpg --keyserver pgp.mit.edu --send-keys  mon\_id } dans cet exemple nous avons choisi le serveur de clef du du MIT
+  (Massachusetts Institute of Technology)
+\subsection{Importer une clé publique}
 
-Importer une clef permet de l'ajouter dans votre trousseau. Il est possible de faire seulement la fusion des nouvelles signatures lors d'une importation.
-L'importation se fait généralement depuis un serveur de clefs. Il existe plusieurs serveurs, si ce dernier n'est pas mentionné lors de l'import, le serveur par défaut est utilisé.
 
-Il existe plusieurs manières d'importer une clef. On peut rechercher une clef particulière sur un serveur ou on peut importer une clef à partir d'une URI donnée.
+Pour pouvoir ajouter une clef publique à notre trousseau de clef il faut ajouter l'option --import  de gpg.
 
-Une fois que la clef a été importée, elle devrait être validée. GnuPG utilise un modèle de confiance puissant et flexible qui ne requiert pas que vous validiez personnellement chaque clef que vous importez. Toutefois, certaines clefs le nécessitent. Une clef peut être validée en vérifiant son empreinte. En la signant, vous certifiez que c'est une clef valide. L'empreinte d'une clef peut être visualisée rapidement mais pour certifier la clef, vous devez l'éditer.
+%\texttt{gpg --import pb_clef.gpg}
 
-Il est également possible d'actualiser son trousseau de clef en envoyer une requête sur un serveur. Cette action permet de mettre à jour une clef avec les dernières signatures et ids d'utilisateur. Si le trousseau contient une clef qui n'est pas reliée à un serveur, celui-ci doit être précisé.
+c) Supprimer ou retirer une clef publique de votre trousseau de clef:
+À l'aide de la commande \texttt{gpg --delete-key info-clef } on peut supprimer une clef publique de notre trousseau de clef.
+
+À savoir egalement qu'avec l'option \texttt{--delet-secrete-key} on peut aussi supprimer la clef privée dont l'identifiant est en entrée.
+
 
