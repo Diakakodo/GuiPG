@@ -1,0 +1,36 @@
+#!/usr/bin/perl -T
+
+use strict;
+use warnings;
+use Crypt::OpenSSL::RSA;
+use Digest::SHA;
+
+my $fingerprint;
+my $uid = shift;
+defined($uid) or die "Vous devez mettre le nom de la clef en paramètre.\n";
+
+my $target_keyid = shift;
+defined($target_keyid) or die "Vous devez entrer une clé ID de 8 caractères.\n";
+
+my $rsa;
+my $ts = time();
+
+while(1) {
+	print("Génération d'une nouvelle clé RSA\n");
+    $rsa = Crypt::OpenSSL::RSA->generate_key(4096);
+    $fingerprint = uc(unpack("H*", fingerprint($rsa, $ts)));
+    $keyid = substr($fingerprint, 32, 8);
+
+    if ($target_keyid eq $keyid) {
+    	#Ecrire une fonction pour transformer la clé avec les bons octets en suivant la RFC section 4.2
+    	
+    	#open(FILE, ">$keyid.gpg");
+        #print FILE $openpgp_key;
+        #close(FILE);
+
+        die "Fin de la collision\n" ;
+    }
+
+	
+}
+#print($fingerprint."\n");

@@ -1,200 +1,123 @@
 \section{Édition de clefs}
 
- \texttt{--edit-key}\\
-              Présente un menu qui nous permet d'effectuer toutes sortes de tâches relatives aux clés :
+la commande gpg --edit-key id\_clef
+présente un menu qui nous permet d’effectuer toutes sortes de tâches relatives aux clés:\\
+\begin{itemize}
+\item Empreinte de la clef:\\
+
+Après avoir importé une clef publique, il est nécessaire, voire indispensable, de vérifier l'empreinte de la clef avec le fingerprint 
+pour s'assurer que nous avons la bonne clef. Cette procédure se fait avec le propriétaire de la clef publique pour qu'ensemble vous 
+comparez les résultats de vos empreintes si y a conformité. l'empreinte est vérifiée avec la commande:
+
+\texttt{gpg> fpr\\
+pub   2048R/81079E92 2015-02-05 mamou (mamouclef) <bb@y.com>\\
+ Primary key fingerprint: A133 004C E06A 3DEC C8C6  26F5 593F 0033 8107 9E92} \\
+
+\item Signer une clef:\\
+Il est très important de bien vérifier l'identité des personnes dont vous signez les clefs. Si l'identité de la personne n'est pas 
+vérifiée correctement, et que vous signez la clef, cela signifie que vous avez confiance en cette personne, et par conséquent que 
+toute personne qui a confiance en vous a alors confiance en cette personne. Autrement en signant n'importe quelle clef, vous détruisez
+votre réseau de confiance.
+
+Une fois que vous êtes sûr d'avoir la bonne clef publique, vous pouvez à présent procéder à sa signature avec la commande.
+
+\texttt{Command> sign}
+
+\item On peut verifier l'ensemble des signatures sur une clef avec la commande check
+\texttt{Command> check }
+\end{itemize}
+
+- Avec la commande \texttt{lsign} on crée des signatures non exportable donc qu'on ne peut utiliser que localement.
+
+-Avec la commande \texttt{nrsign} la signature est marquée sur la clef comme non-revocable donc cette signature ne peut etre revoquée apres.
+
+-Lorsque nous voulons créer une signature non revocable et non exportable ( utilisable en local uniquement ) on utilise \texttt{nrlsign}
+ qui combien les deux precedentes.
+-On peut également utiliser la commande \texttt{delsign} qui permet de supprimer une signature sachant bien entendu qu'une fois la signature
+ deposée en public elle ne peut plus être  retractée.
+-Lorsque nous voulons révoquer une signature on utilise la commande \texttt{revsig}.
+-On peut bien evidemment ajouter un identifiant c'est à dire un nom une adresse email et un commentaire à notre clef avec 
+la commande \texttt{adduid} comme on peut aussi  ajouter une photo à la clef avec la commande \texttt{addphoto} et également afficher 
+cette photo à l'aide la commande \texttt{showphoto} puis enfin supprimer l'identifiant avec la commande \texttt{deluid}
+
+-Avec la commande \texttt{pref} on peut lister les preferences de l'utilisateur selectionné sachant que la commande \texttt{showpref}
+ donne beaucoup plus de details sur les préférences que la prémière.
+-On peut egalement ajouter une sous-clef à l'aide de la commande \texttt{addkey} comme on peut en supprimer avec la commande \texttt{delkey}.
+Il est impossible de supprimer cette sous-clef avec \texttt{delkey} une fois qu'elle a été deposée sur un serveur de clefs.
+
+-On peut egalement changer la date d'expiration des sous-clefs à l'aide la commande \texttt{expire}.
+-On peut attribuer un degré de confiance à une clef avec la commande \texttt{trust}.\\
+  1 = je ne sais pas\\
+  2 = ne fais pas confiance\\
+  3 = je fais un peu confiance\\
+  4 = je fais confiance\\
+  5 = j'ai une confiance absolue ( choix le plus souvent reservé pour ses propres clefs)\\
+  m = retourner au menu precedent\\
+  
+-On peut aussi désactiver ou activer une clef respectivement avec la commande \texttt{disable} et \texttt{enable}.
+-On peut aussi changer la phrase de passe de la clef secrète avec la commande \texttt{passwd}.
+
+
+Cette liste est loin d'être complète donc pour plus d'information se reférer au man de gpg dans la section --edit-key.\\
+
+\section{Chiffrer et déchiffrer des documents}
+  
+Ggp fonctionne avec le principe de clef publique clef privée. Ce principe répose sur le fait que votre interlocuteur
+utilise votre clef publique puis chiffre le message et vous envoi le chiffré que vous dechiffré en utilisant 
+la clef sécrète correspondante.
+
+
+\subsection {Chiffrement}:\\
+Cette méthode permet de transmettre des données de façon illisible par le commun des mortels sauf la personne detentrice de la clef 
+secrète pouvant dechiffrer le message pour enfin avoir accès au message clair.\\
+
+la commande pour chiffrer un message est la suivante:\\
+\texttt{gpg --armor --output "mon\_fichier\_chiffré" --encrypt "mon\_fichier\_à\_chiffrer"}
+où on utilise l'option \texttt{--armor } pour pouvoir generer le fichier crypté en code ASCII à fin de pouvoir le transmettre en 
+format texte et non obligatoirement en fichier joint uniquement.
+Cette commande démande l'identifiant de la clef publique de la personne pour laquelle le message est adressé.
+
+
+\subsection {Dechiffrement}:\\
+A l'aide de la commande \texttt{gpg --output <mon\_fichier> --decrypt <mon\_fichier.gpg>} , on peut bien decryper le message 
+mon\_fichier.gpg dont le contenu est mis en clair dans le fichier  mon\_fichier.\\
+
+Cette commande commande demande la phrase de passe pour dechiffrer le message .
+
+
+\section {Signer et vérifier des signatures} :\\
+
+Une signature numérique d'un document nous permet de certifier et de dater un document. Si le document fait l'objet d'une quelconque
+modification une vérification de signature echouera donc on peut bien dire qu'une signature numérique contrairement à la signature 
+manuscrite ne peut être contrefaite.
+
+Cette signature utilise la paire de clef privée/publique comme le fait l'opération de chiffrement et de déchiffrement.
+La personne qui signae le document le signe avec sa clef privée pour vous l'envoyer ensuite vous utiliser sa clef publique
+pour certifier exactement que le document a bien été signé par lui donc son conténu n'a pas été alteré par une quelconque 
+autre personne.Une conséquence de l'utilisation des signatures numériques est qu'il est difficile d'infirmer que vous avez fait
+une signature numérique car cela impliquerait que votre clé privée a été compromise.
+Pour générer une signature numerique la ligne de commande est la suivante :
+
+ \texttt{gpg --output doc\_signe --sign doc\_a\_signer } où doc\_signe est le document signé et doc\_a\_signer est le document 
+ dont on souhaite signé.\\
+ 
+ Cette commande nous démande la phrase de passe pour enfin signé le document donc on ne peut plus nié être à l'origine du 
+ document.
+ 
+ Un fois le document signé on peut soit avoir  bésoin juste de verifier la signature  ou de d'aller un peu plus loin en verifiant
+ la signature du document mais aussi à extraire son conténu.
+ Pour simplement verifier la signature on utilise l'option \texttt{--verify} et pour verifier et extraire en même temps on utilise l'option
+  \texttt{--decrypt }.
+ Dans cet exemple je vais montré comment verifier la signature et extraire en même temps le document avec la commande suivante:
+  \texttt{gpg --output doc --decrypt doc.sig}  où doc est le fichier decrypé mis dans le repertore courant et doc.sig est le document signé.
+ 
+ ----VII-Les documents signés en clair
+ 
+ ----VIII-Signatures détachées  
+ 
 
 
 
-              \texttt{uid n }\\ 
-               sélectionner le nom d'utilisateur N.
-             Utilisez * pour sélectionner tous et 0 pour désélectionner tous.
 
 
-              \texttt{key n  }\\ 
-               sélectionner la sous-clé N. Utilisez * pour
-              tout sélectionner et 0 pour désélectionner tous.
-              
-              \texttt{ check }\\ 
-              
-              vérifier les signatures
-
-
-               \texttt{sign }\\   
-              Apposer une signature sur les noms d'utilisateurs sélectionnés. Si la clef n'est pas déjà signée
-              par l'utilisateur par défaut (ou par les utilisateurs spécifiés avec -u), le programme ré-affiche 
-              les informations sur la clé, ainsi que son empreinte, et demande si elle doit être signée. 
-              Cette question est répétée pour tous les utilisateurs spécifiés avec -u.
-
-
-               \texttt{lsign }\\  
-              Il fonctionne presque de la meme façon que --sign, mais la signature est marquée comme étant non-exportable et ne sera par conséquent 
-            jamais utilisée par d'autres. Cela peut être utilisé pour créer des clés valides uniquement dans l'environnement local.
-              
-              \texttt{nrsign }\\ 
-             Même principe également que --sign, mais la signature est marquée comme étant non-révocable et 
-             ne peut dès lors jamais être révoquée.
-            
-              \texttt{nrlsign}\\ 
-            Combine les fonctionnalités de nrsign et de lsign pour créer une signature à la fois non-révocable et non-exportable.
-
-
-               \texttt{tsign }\\ 
-              Faire une signature de confiance. Ce est une signature qui combine les notions de certification 
-              et la confiance.Cette commande  est généralement utile dans les communautés ou groupes distincts.
-
-              \texttt{delsig }\\ 
-             Permet de supprimer une signature. Sachant bien qu'il n'est pas possible de
-                      rétracter une signature une fois qu'elle a été déposée au public
-                      (c'est a dire sur un serveur de clés).
-
-              
-               \texttt{revsig }\\ 
-              Permet de révoquer une signature. Pour chaque signature qui a été
-                      générée par l'une des clés secrètes, GnuPG demande si
-                      un certificat de révocation doit être généré.
-
-
-               \texttt{check  }\\ 
-              Vérifie les signatures sur tous les ID d'utilisateurs sélectionnés.
-
-
-               \texttt{adduid }\\ 
-              Permet de créer un ID utilisateur supplémentaire.
-
-
-               \texttt{addphoto}\\ 
-                  Permet d'ajouter une photo d'identité . Cette commande demandera un
-                      fichier JPEG qui sera intégré dans l'identifiant de l'utilisateur. 
-                      Remarque :Un très grand fichier JPEG fera une très grande clé.
-                      Notez également que certains programmes affichent votre  fichier JPEG
-                      inchangé (GnuPG), et certains programmes l'affiche dans une boite de dialogue(PGP).
-
-
-               \texttt{showphoto}\\ 
-                     
-                     Affiche la photo d'identité de l'utilisateur selectionné.
-
-
-               \texttt{deluid }\\ 
-             Supprimer un identifiant utilisateur ou la photo de l'utilisateur. Notez bien qu'il
-                     n'est pas possible de retirer un identifiant utilisateur, une fois qu'il a été
-                     rendu public (c'est à dire deposé sur un serveur de clefs). Dans ce cas il
-                     es mieux conseillé d'utiliser revuid.
-
-
-               \texttt{revuid }\\ 
-    
-              Revocation d'un  identifiant utilisateur ou de sa photo .
-
-               \texttt{primary}\\ 
-                      marquer le nom d'utilisateur sélectionné comme principal
-
-
-               \texttt{keyserver}\\ 
-                     indiquer l'URL du serveur de clés préféré pour les identifiants utilisateur sélectionnés
-               \texttt{notation}\\ 
-                     indiquer une notation pour les identifiants utilisateur sélectionnés
-
-
-               \texttt{pref   }\\ 
-                    lister les préférences de l'utilisateur selectionné 
-
-               \texttt{showpref}\\ 
-                     lister les préférences de l'utilisateur selectionné  (beaucoup plus detaillé que la prémière)
-                     
-                    
-
-               \texttt{setpref }\\ 
-                     
-                indiquer la liste des préférences pour le nom d'utilisateur
-                sélectionné
-
-
-               \texttt{addkey }\\ 
-             
-             Permet d'ajouter une sous-clef
-
-
-               \texttt{addcardkey}\\ 
-                    ajouter une clef à une carte à puce
-
-
-               \texttt{keytocard}\\ 
-                      déplacer une clé vers une carte à puce
-
-               \texttt{bkuptocard} "fichier" \\
-                     déplacer une clé de sauvegarde vers une carte à puce
-
-
-              \texttt{ delkey}\\ 
-              Supprimer les sous-clefs sélectionnées tout en sachant que cette operation n'est pas possible une fois la sous-clef est 
-              deposée sur un serveur de clef
-              
-              
-
-               \texttt{revkey }\\ 
-               révoquer la clef ou les sous-clefs sélectionnées
-
-
-               \texttt{expire }\\ 
-              changer la date d'expiration de la clé ou des sous-clés sélectionnées
-
-               \texttt{trust  }\\ 
-              Permet de changer la confiance pour une clef
-              
-            
-
-               \texttt{disable }\\ 
-              Desactiver la clef
-
-               \texttt{enable }\\ 
-              Activer la clef
-              
-               \texttt{addrevoker}\\ 
-                     ajouter une clé de révocation
-
-               \texttt{passwd }\\ 
-              changer la phrase de passe de la clef secrete.
-
-
-               \texttt{toggle }\\ 
-               passer de la liste des clés secrètes à celle des clés privées
-               et inversement
-
-
-               \texttt{clean }\\ 
-               Compacter les identifiants utilisateur inutilisables et retirer les signatures inutiles de la clef
-
-               \texttt{minimize}\\ 
-                     Compacter les identifiants utilisateurs inutilisables et retirer toutes les signatures de la clef.
-
-
-            
-
-               \texttt{save   }\\ 
-        
-               Sauvegarder tous les changements dans les trousseaux de clefs et quitter le programme.
-
-               \texttt{quit   }\\ 
-              quitter sans enregistrer les changements dans les trousseaux de clefs\\
-              
-Le listage vous montre la clé accompagnée de ses clés secondaires et de tous ses ID d'utilisateur. 
-Les clés ou ID d'utilisateurs sélectionnés sont indiqués par un astérisque. 
-Deux valeurs de confiance accompagnent la clé primaire : la première est la confiance dans le propriétaire, 
-et la seconde est la valeur de confiance calculée. Des lettres sont utilisées pour les valeurs suivantes :\\
-
-         \texttt{-}\\ 
-            Aucune confiance dans le propriétaire attribuée / pas encore calculée.\\
-         \texttt{e}\\ 
-            Échec du calcul du niveau de confiance ; probablement dû à une clé expirée.\\
-         \texttt{q}\\ 
-            Pas assez d'informations pour le calcul.\\
-         \texttt{n}\\ 
-            Ne jamais faire confiance à cette clé.\\
-         \texttt{m}\\ 
-            Confiance marginale.\\
-         \texttt{f}\\ 
-            Confiance complète.\\
-         \texttt{u}\\ 
-            Confiance absolue.\\
 

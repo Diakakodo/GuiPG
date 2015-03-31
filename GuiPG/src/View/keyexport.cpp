@@ -4,6 +4,8 @@
 #include "../GPG/gpgmanager.h"
 #include "QFileDialog"
 #include "iostream"
+#include "QDebug"
+#include "QEventLoop"
 
 KeyExport::KeyExport(MainWindow*parent, Type mode, QStringList keys) :
     QDialog(parent),
@@ -74,10 +76,16 @@ void KeyExport::exportFunction(ExportMode mode, QString keyserver, QString path)
     } else
         if (mode == FILE && path != "") {
 
-            Action keyExport(m_mode == PUBLIC_KEYS ? QString("--export") : QString("--export-secret-keys"), keyList, QStringList() << "-a" << "--output " + path);
+            Action keyExport(m_mode == PUBLIC_KEYS ? QString("--export") : QString("--export-secret-keys"), keyList, QStringList() << "--with-colons" << "-a" << "--output " + path);
 
             manager->setAction(keyExport);
         }
+
+    QEventLoop loop;
+    connect(manager, &GPGManager::finished, &loop, &QEventLoop::quit);
     manager->execute();
+    loop.exec();
+
     close();
 }
+

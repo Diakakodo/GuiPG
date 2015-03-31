@@ -1,15 +1,84 @@
 
 \section{Gestion de clefs}
 \subsection{Création des clefs}
- La création d'une clef se fait par un appel à la ligne de commande suivante : \texttt{gpg --gen-key}\\
-Cette commande nous demande au tout début de choisir le type de clef que nous voulons créer parmis les 4 types qui nous sont
-proposés puis apres le choix du type la commande nous demande de choisir la taille de notre clef, ensuite la validité
-c'est à dire la date d'expiration de la clef, également elle nous demande de confirmer le choix precédent.
-Apres on dois definir le nom de la clef , une adresse e-mail associé puis un commentaire sur la clef ensuite on demande confirmation de
-toutes les précedente etapes pour valider puis choisir la passphrase de la clef.
-A ce niveau il est recquis d'appuyer sur les touches du clavier pour creer de l'anthropie necessaire à la creation de la clef.
-Dans la plupart des choix à effectuer le premier choix ou le choix par defaut est le mieu conseillé.
 
-\subsection{Révocation d'une clef}
- Une fois la paire de clefs a été créée, vous devez créer un certificat de révocation pour la clef principale en utilisant la commande \texttt
-{--gen -revoke}. En cas d'oubli de votre mot de passe ou de compromission de votre clef ou eventuellement en cas de perte de la clef, ce certificat de révocation peut être publié pour notifier aux autres que votre clef publique ne doit plus être utilisée.On peut toujours se servir d'une clef publique révoquée pour vérifier des signatures que vous avez faites par le passé, mais on ne peut s'en servir pour chiffrer de nouveaux messages à votre attention. Cela n'affecte pas non plus votre capacité à déchiffrer les messages qui vous ont été adressés précédemment, si vous avez toujours accès à votre clef privée.
+
+
+la commande de generation de clefs gpg  \texttt{ ggp --gen-key } est une commande interactive:
+En fonction des versions de gpg elle nous permet de creer divers types de clefs.\\
+Dans les versions recentes elle nous offre 4 choix:\\
+   (1) RSA and RSA (default)\\
+   (2) DSA and Elgamal\\
+   (3) DSA (sign only)\\
+   (4) RSA (sign only)\\
+   
+Le prémier choix nous crée une paire de clef privée/publique de type RSA primaire qui servira à signer des messages et une seconde 
+paire de clef privée/publique sécondaire qui servira à son tour à chiffrer et déchiffrer les messages.\\
+Le sécond choix consiste à créer une paire de clef privée/publique primaire de type DSA pour les signatures et une paire de clef 
+privée/publique secondaire de type El-gamal qui pour les opérations de chiffrement et de déchiffrement.\\
+Le troisième et le quatrième crée respectvement une seule paire de clef privée/publique primaire de type DSA (respectivement RSA) pour
+uniquement les signatures donc si cette option est choisi par l'utilisateur il devra lui même par la suite crée des clefs additionnelles 
+pour pouvoir chiffrer et déchiffrer.\\
+
+Il est important de préciser que dans les anciennes de versions de gpg , il n'existait pas le premier choix car à l'époque RSA
+etait bréveté.
+Le prémier choix et le second se valent du point de vue securité même si chacun des deux présente ses avanatages:\\
+RSA:\\ 
+-Géneration rapide des clefs
+-commun, étudié et largement considéré comme sécurisé. 
+DSA:\\
+-Largement compatible avec GPG d'à peu près ne importe quelle version. 
+-signature courte et plus pratiques.
+
+La séconde question porte sur la taille des clefs de chiffrement / déchiffrement ( et de signature si vous avez choisi de générer une 
+clef de signature seulement ).
+Dans le cas absolu plus une taille de clef est grande plus la clef est securisée mais cette grandeur de la taille n'est pas sans 
+conséquence car plus la taille est grande plus le temps de chiffrement augmente. Autrement dis il est mieux conseillé de prendre les
+tailles par défaut proposées par le système puisque on peut toujours les editer ces clefs ( plus tard ) pour ajouter des sous-clefs en 
+fonction de nouveaux bésoins. 
+Pour les clefs de types RSA la taille varie entre 1024 et 4096 bits et la valeur par défaut choisie par gpg est 2048.
+Pour les clefs de types DSA la taille varie entre 1024 et 3072 bits et la valeur par défaut est aussi de 2048 bits.
+Pour Elgmal la taille varie entre 768 et 2048 bits .
+Apres avoir choisi la taille l'étape suivante consiste à choisir la date d'expiration de la clef .
+Cette date d'expiration peut être exprimé en jours , semaines , mois , années et on peux egalement choisir l'option par defaut qui 
+donne une durée de vie illimité à notre clefs ce qui est le mieux consillé sachant qu'on peut aussi changé ces  dates avec l'option 
+expire de gpg.
+
+Les prochaines question servent à collecter des information qui serviront d'identifiant à votre pair de clef pour vous faciliter la
+gestion de votre trousseax de clefs. Ces informations sont entre autre un nom pour la clef une adresse e-mail associé puis un commentaire 
+sur la clef.Toutes ces informations peuvent être modifiées par la suite apres la génération de la paire de clefs.
+Gpg utilise ensuite ces informations et un générateur de nombres pseudo-aléatoires pour générer la paire de clefs.
+
+Il ne reste plus qu'à choisir mainténant que la phrase de passe qui va nous servir à chiffrer notre clef privée a fin de la stockée 
+dans un endroit securisé . Cette phrase de passe sera demandé systématiquement à chauqe fois qu'on fera apel à notre clef privée pour
+signer ou dechiffré.
+En resumé la securité du systeme de chiffrement répose sur la clef secrète et la securité de cette dernière repose sur votre 
+phrase de passe.
+En  conséquence de cela il est primordiale de choisir une phrse de passe qui offre un minimum de securité dont entre autre:\\
+-Elle dois etre la plus longue possible;
+-Elle dois contenir des chiffres et des lettre et une lettre majuscule au debut
+-Eviter des prénoms et noms ainsi que des date de naissaces. 
+
+ 
+\subsection {Révocation d'une clef}
+ Après la création de la paire de clefs, il faut créer un certificat de révocation pour la clef principale pour qu'au cas où la clef
+venait à être compromise , que ce certificat soit publié pour dire à vos correspondants de ne plus chiffrer des messages à votre
+destination en utilisant cette  clef. Par contre, même après publication de ce certificat de revocation la clef publique peut toujours 
+être utilisée par vos correspondants pour vérifier les messages précédemment signés avec votre clef publique, mais elle ne peut plus 
+être utilisée pour signer des messages qui vous seront destinés et également l'émetteur du certificat de revocation peut toujours 
+s'il  le souhaite déchiffrer les messages qui ont été chiffrés avec cette clef publique en utilisant sa clef secrète.
+Pour créer le certificat de révocation il faut ouvrir le terminal et lancer la commande : 
+
+où revoque.asc est le fichier de révocation crée puis stocké dans le repertoire courant et ma\_clef est l'identifiant de la clef pour
+aquelle on crée le certificat de révocation.
+Cette commande est interactive et donc on est appelé a donner les motifs de creation du certificat de revocation avant confirmation et 
+création du fichier revoque.asc .
+Il est bien conseillé de stocker ce certificat dans un endroit tres sûr car quiconque a acces a ce certificat peut le diffuser a votre 
+et rendre la clef non valide pour chiffrement même s'il est preferable de perdre son certificat de revocation que sa clef privée.
+Lorsque vous devez revoquer votre clef il faut lancer depuis un terminal la commande:
+\texttt{gpg --import revoke.asc } \\
+
+
+
+
+

@@ -67,7 +67,6 @@ void GPGManager::execute() {
     m_gpg.start("./getPrettyGoodPty", QStringList("sh"));
     m_gpg.waitForReadyRead();
     m_prompt = m_gpg.readAllStandardOutput();
-
     QByteArray cmd(m_profile->getGPGExecutable().toLatin1());
     cmd.append(args);
     if (!cmd.endsWith("\n")) {
@@ -78,6 +77,10 @@ void GPGManager::execute() {
     m_gpg.waitForReadyRead();
     m_output = m_gpg.readAllStandardOutput();
     connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
+    if (m_output.endsWith(m_prompt)) {
+        m_output = m_output.split(m_prompt).at(0);
+        m_gpg.kill();
+    }
 }
 
 void GPGManager::readOutput() {
@@ -99,7 +102,10 @@ const QString& GPGManager::getOutput() const {
 
 void GPGManager::terminate(int s, QProcess::ExitStatus status) {
     disconnect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
+    qDebug() << "emit ok";
     emit finished(s, m_output);
+    //emit finishedNoParam();
+
 }
 
 void GPGManager::setAction(const Action &a) {
