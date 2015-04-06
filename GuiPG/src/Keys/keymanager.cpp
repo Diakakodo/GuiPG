@@ -1,4 +1,5 @@
 #include "keymanager.h"
+#include "QEventLoop"
 
 KeyManager::KeyManager(const Profile *p) : m_gpg(new GPGManager(p)) {
     connect(m_gpg, &GPGManager::finished, this, &KeyManager::gpgFinished);
@@ -23,7 +24,10 @@ void KeyManager::load() {
     Action a("--edit-key", QStringList("order"), opt, interact);
     //*/
     m_gpg->setAction(a);
+    QEventLoop loop;
+    connect(m_gpg, &GPGManager::finished, &loop, &QEventLoop::quit);
     m_gpg->execute();
+    loop.exec();
 }
 
 void KeyManager::gpgFinished(int s, const QString &output) {

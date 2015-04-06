@@ -7,6 +7,7 @@
 #include "QDebug"
 #include "QEventLoop"
 
+
 KeyExport::KeyExport(MainWindow*parent, Type mode, QStringList keys) :
     QDialog(parent),
     ui(new Ui::KeyExport),
@@ -85,7 +86,7 @@ void KeyExport::exportFunction(ExportMode mode, QString keyserver, QString path)
     connect(manager, &GPGManager::finished, &loop, &QEventLoop::quit);
     manager->execute();
     loop.exec();
-
+    delete manager;
     close();
 }
 

@@ -6,10 +6,12 @@
 #include "../Model/mainwindowmodel.h"
 #include "../View/mainwindow.h"
 #include "../View/keyexport.h"
-#include <unistd.h>
-#include <chrono>
-#include <thread>
+#include "../View/Profil/profilecreation.h"
+#include "stdlib.h"
+#include <stdio.h>
+#include "unistd.h"
 #include "QEventLoop"
+#include "QDebug"
 
 class MainTest : public QObject
 {
@@ -18,17 +20,28 @@ class MainTest : public QObject
 public:
     MainTest();
 
+private:
+    Configuration* m_config;
+    GuiPGApp* m_app;
+
 private Q_SLOTS:
     void testCase_u11();
     void testCase_u13();
-    void testCase_nr2();
     void testCase_nr1();
+    void testCase_nr2();
     void testLoadConfig();
 
 };
 
 MainTest::MainTest()
 {
+    Configuration* config = new Configuration("../config.xml");
+    config->load();
+    m_config = config;
+    int argc = 1;
+    char* argv[] = {"/home/pierre/projet_pgp/GuiPG/build/GuiPG"};
+    GuiPGApp* app = new GuiPGApp(argc, argv);
+    m_app = app;
 }
 
 void MainTest::testCase_u11()
@@ -61,43 +74,38 @@ void MainTest::testCase_u13()
 
 void MainTest::testCase_nr1()
 {
-    remove("~/TEST");
+    remove("/tmp/TEST");
 
-    Configuration config("../config.xml");
-    config.load();
 
-    int argc = 2;
-    char* argv[] = {"GuiPG", NULL};
-    GuiPGApp app(argc, argv);
-    Launcher launcher(&app, &config, config.getDefaultProfileId());
-    MainWindowModel model(&launcher, &app, &config, config.getDefaultProfile());
+    Launcher launcher(m_app, m_config, m_config->getDefaultProfileId());
+    MainWindowModel model(&launcher, m_app, m_config, m_config->getDefaultProfile());
     MainWindow mainWindow(&model);
-    KeyExport keyExport(&mainWindow);
-    keyExport.exportFunction(KeyExport::FILE, "", "/tmp/TEST");
+    KeyExport* keyExport = new KeyExport(&mainWindow);
+    keyExport->exportFunction(KeyExport::FILE, "", "/tmp/TEST");
     QVERIFY(remove("/tmp/TEST") != -1);
 }
 
 void MainTest::testCase_nr2()
 {
 
-    Configuration config("../config.xml");
-    config.load();
-
-    int argc = 2;
-    char* argv[] = {"GuiPG", NULL};
-    GuiPGApp app(argc, argv);
-    Launcher launcher(&app, &config, config.getDefaultProfileId());
-    MainWindowModel model(&launcher, &app, &config, config.getDefaultProfile());
+    Launcher launcher(m_app, m_config, m_config->getDefaultProfileId());
+    MainWindowModel model(&launcher, m_app, m_config, m_config->getDefaultProfile());
     MainWindow mainWindow(&model);
-    for (int i=0; i < 100; i++) {
+    Profile* p = new Profile(1234, "test");
+    p->setConfigurationPath("/tmp");
+    p->setGPGExecutable("/usr/bin/gpg");
+    m_config->addProfile(p);
+    m_config->save();
+    m_config->load();
+    for (int i=0; i < 20; i++) {
         mainWindow.changeProfil(1);
-        mainWindow.changeProfil(2);
+        mainWindow.changeProfil(1234);
     }
 }
 
 void MainTest::testLoadConfig()
 {
-    Configuration config("config.xml");
+    Configuration config("../config.xml");
     QVERIFY(config.load() == true);
 }
 
