@@ -101,6 +101,7 @@ void MainTest::testCase_nr2()
         mainWindow.changeProfil(1);
         mainWindow.changeProfil(1234);
     }
+    m_config->deleteProfile(p->getId());
 }
 
 void MainTest::testLoadConfig()
