@@ -22,6 +22,15 @@ bool GPGManager::askInteraction() {
     return false;
 }
 
+GPGManager::~GPGManager() {
+    if (m_gpg.state() != QProcess::NotRunning) {
+        m_gpg.waitForFinished();
+        if (m_gpg.state() != QProcess::NotRunning) {
+            m_gpg.kill();
+        }
+    }
+}
+
 void GPGManager::sendInteraction() {
     if (m_gpg.state() != QProcess::Running
             || !askInteraction()) {
@@ -61,7 +70,7 @@ void GPGManager::execute() {
     for (QString argument : m_action.getArgs()) {
         args.append(argument + " ");
     }
-    qDebug() << m_profile->getGPGExecutable() << args;
+    //qDebug() << m_profile->getGPGExecutable() << args;
     // TODO definir proprement le chemin vers getPrettyGoodPty
     // Ainsi que le nom du shell a lancer (éventuellement la variable d'env SHELL).
     m_gpg.start("./getPrettyGoodPty", QStringList("sh"));
@@ -102,7 +111,6 @@ const QString& GPGManager::getOutput() const {
 
 void GPGManager::terminate(int s, QProcess::ExitStatus status) {
     disconnect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
-    qDebug() << "emit ok";
     emit finished(s, m_output);
     //emit finishedNoParam();
 
