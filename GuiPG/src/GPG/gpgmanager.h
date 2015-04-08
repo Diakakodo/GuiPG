@@ -12,7 +12,7 @@ class GPGManager : public QObject {
 
     public:
         explicit GPGManager(const Profile* p);
-
+        ~GPGManager();
         void execute();
         const QString& getOutput() const;
         void setAction(const Action& a);
