@@ -213,22 +213,23 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
   Les différents types de tests utilisés sont :
   \begin{itemize}
    \item Les tests unitaires, préfixés par u,
-   \item Les tests de non-régression, préfixés par nr
+   \item Les tests de non-régression, préfixés par nr,
+   \item Les tests d'intégration, préfixés par i.
   \end{itemize}
   
 
 \subsection{Tests unitaires}
 
 \begin{center}
-    %---------------------------------------Test N° 1------------------------------------------------------------------------------
+    %---------------------------------------Test N° U1------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Création de clé}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une clé & commande lancée : \texttt{"gpg -\-gen-key"} &  & NOK \\
+      1 & Créer une clé a & La clé a été créée &  & NOK \\
       2 &  &  &  & \\
       3 &  &  &  & \\ 
       4 &  &  &  & \\
@@ -243,37 +244,12 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \vskip 2.2cm
 
 
-
- %---------------------------------------Test N° 2------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé : Toile de confiance} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Tout changement de confiance est répercuté sur la toile de confiance.}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Changer la confiance d'une clé & La représentation de cette clé a changé de couleur en fonction de la nouvelle confiance &  & NOK \\
-      2 &  &  &  & \\
-      3 &  &  &  & \\ 
-	  4 &  &  &  & \\
-      5 &  &  &  & \\
-	  6 &  &  &  & \\
-      7 &  &  &  & \\
-      8 &  &  &  & \\
-      9 &  &  &  & \\
-      10 &  &  &  &\\ 
-	\hline
-    \end{tabular}
-    \vskip 2.2cm
-
-
-
- %---------------------------------------Test N° 3------------------------------------------------------------------------------
+ %---------------------------------------Test N° U2------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Attaque seconde pré-image} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : La clé produite a la même seconde pré-image que celle donnée.}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u3} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Donner une clé publique au programme d'attaque & Le programme renvoie une clé différente avec la même pré-image &  & NOK \\
@@ -292,159 +268,43 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
 
 
 
- %---------------------------------------Test N° 4------------------------------------------------------------------------------
+
+
+ %---------------------------------------Test N° U3------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
-      \multicolumn{3}{|l|}{Objet testé : Editeur de texte de l'interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Test de la zone de copier/coller}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u4} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Objet testé : GuiPG} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Tester les classes liées à la gestion de profil}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U3} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Coller du texte dans la zone de texte & Le texte s'affiche dans la zone de texte &  & NOK \\
-      2 & Cliquer sur "Chiffrer et signer" & La commande exécutée est "gpg -es <texte>" &  & NOK \\
-      3 &  &  &  & \\ 
-	  4 &  &  &  & \\
+      1 & Demander la liste des profils & On récupère une liste de profils &  & NOK \\
+      2 & Créer un profil & Le profil est créé &  & NOK \\
+      3 & Supprimer ce profil & Le profil est supprimé &  & NOK \\ 
+      4 & Demander la liste des profils & La même liste est renvoyée qu'au début &  & \\
       5 &  &  &  & \\
-	  6 &  &  &  & \\
+      6 &  &  &  & \\
       7 &  &  &  & \\
       8 &  &  &  & \\
       9 &  &  &  & \\
       10 &  &  &  &\\ 
-	\hline
+  \hline
     \end{tabular}
     \vskip 2.2cm
 
 
-
- %---------------------------------------Test N° 5------------------------------------------------------------------------------
+ %---------------------------------------Test N° U4------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
-      \multicolumn{3}{|l|}{Objet testé : Editeur de texte de l'interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Test de la zone de copier/coller}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u5} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Coller du texte chiffré et signé dans la zone de texte & Le texte s'affiche dans la zone de texte &  & NOK \\
-      2 & Cliquer sur "Déchiffrer et vérifier" & La commande exécutée est "gpg -dv <texte>" &  & NOK \\
-      3 &  &  &  & \\ 
-	  4 &  &  &  & \\
-      5 &  &  &  & \\
-	  6 &  &  &  & \\
-      7 &  &  &  & \\
-      8 &  &  &  & \\
-      9 &  &  &  & \\
-      10 &  &  &  &\\ 
-	\hline
-    \end{tabular}
-    \vskip 2.2cm
-
-
-
- %---------------------------------------Test N° 6------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Affichage des commandes et retours gpg}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u6} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Activer l'affichage des commandes gpg dans l'interface graphique &  &  & NOK \\
-      2 & Lancer une commande gpg via l'interface graphique & La commande et les retours sont affichés &  & NOK \\
-      3 &  &  &  & \\ 
-	  4 &  &  &  & \\
-      5 &  &  &  & \\
-	  6 &  &  &  & \\
-      7 &  &  &  & \\
-      8 &  &  &  & \\
-      9 &  &  &  & \\
-      10 &  &  &  &\\ 
-	\hline
-    \end{tabular}
-    \vskip 2.2cm
-
-
-
- %---------------------------------------Test N° 7------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Tester la sélection du profil}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u7} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Lancer l'interface graphique en ligne de commande avec l'option -P & On peut choisir son profil, et en créer un si besoin &  & NOK \\
-      2 & Choisir un profil & L'interface graphique s'affiche &  & NOK \\
-      3 & Cliquer sur le bouton "Changer de profil" & On peut choisir son profil, et en créer un si besoin &  & NOK \\ 
-	  4 &  &  &  & \\
-      5 &  &  &  & \\
-	  6 &  &  &  & \\
-      7 &  &  &  & \\
-      8 &  &  &  & \\
-      9 &  &  &  & \\
-      10 &  &  &  &\\ 
-	\hline
-    \end{tabular}
-    \vskip 2.2cm
-
-
-
- %---------------------------------------Test N° 8------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé : Toile de confiance} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Affichage des couleurs de la toile de confiance}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u8} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Ouvrir la toile de confiance & Toile de confiance affichée &  & NOK \\
-      2 & Vérifier que chaque niveau de confiance est représenté par une couleur & Chaque niveau de confiance est représenté par une couleur différente &  & NOK \\
-      3 &  &  &  & \\ 
-	  4 &  &  &  & \\
-      5 &  &  &  & \\
-	  6 &  &  &  & \\
-      7 &  &  &  & \\
-      8 &  &  &  & \\
-      9 &  &  &  & \\
-      10 &  &  &  &\\ 
-	\hline
-    \end{tabular}
-    \vskip 2.2cm
-    
-    
- %---------------------------------------Test N° 9------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé : Editeur de texte de l'interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Vérification de la fonction chiffrement/déchiffrement}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u9} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Coller du texte dans la zone de texte & Le texte collé s'affiche dans la zone de texte &  & NOK \\
-      2 & Cliquer sur "Chiffrer" & Le texte chiffré s'affiche dans la zone de texte &  & NOK \\
-      3 & Cliquer sur "Déchiffrer" & Le texte collé original s'affiche dans la zone de texte &  & NOK \\
-	  4 &  &  &  & \\
-      5 &  &  &  & \\
-	  6 &  &  &  & \\
-      7 &  &  &  & \\
-      8 &  &  &  & \\
-      9 &  &  &  & \\
-      10 &  &  &  &\\ 
-    \hline
-    \end{tabular}
-    \vskip 2.2cm
-
- %---------------------------------------Test N° 10------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé : Classe Launcher} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
+      \multicolumn{3}{|l|}{Objet testé : Classe KeyImport} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u10} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U4} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction alreadyRun & La fonction renvoie false &  & NOK \\
-      3 & Utiliser la fonction start & L'application graphique se lance &  & NOK \\
-      4 & Utiliser la fonction alreadyRun & La fonction renvoie true &  & NOK \\
+      2 & Utiliser la fonction importFunction & L'affichage des clés est modifié et affiche les nouvelles clés si il y en a &  & NOK \\
+      3 &  &  &  & \\
+      4 &  &  &  & \\
       5 &  &  &  & \\
 	    6 &  &  &  & \\
       7 &  &  &  & \\
@@ -455,58 +315,59 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \end{tabular}
     \vskip 2.2cm
     
-    
- %---------------------------------------Test N° 11------------------------------------------------------------------------------
+        %---------------------------------------Test N° U5------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe Profile} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u11} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & OK \\
-      2 & Utiliser la fonction getID & La fonction renvoie false &  & OK \\
-      3 & Utiliser la fonction getName & La fonction renvoie le nom donné au constructeur &  & OK \\
-      4 & Utiliser la fonction getPath & La fonction renvoie le path donné au constructeur &  & OK \\
-      5 & Utiliser la fonction setPath &  &  & OK \\
-      6 & Utiliser la fonction getPath & La fonction renvoie le path donné à setPath &  & OK \\
-      7 &  &  &  & \\
-      8 &  &  &  & \\
-      9 &  &  &  & \\
-      10 &  &  &  &\\ 
-    \hline
-    \end{tabular}
-    \vskip 2.2cm
-	
-%---------------------------------------Test N° 12------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé : Classe ProfileManager} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u12} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U5} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction setPath, puis la fonction getPath & La fonction renvoie le path donné à setPath  &  & NOK \\
-      3 & Utiliser la fonction createProfile & Un profil p est créé &  & NOK \\
-      4 & Utiliser la fonction profileAvailable(p) & La fonction renvoie true &  & NOK \\
-      5 & Utiliser la fonction runProfile(p) & Une nouvelle fenêtre s'ouvre avec le profil p &  & NOK \\
-	  6 & Utiliser la fonction profileAvailable(p) & La fonction renvoie false &  & NOK \\
-      7 & Utiliser la fonction Save &  &  & NOK \\
-      8 & Utiliser la fonction Load &  &  & NOK \\
-      9 & Utiliser la fonction getProfiles & La QList renvoyée contient p &  & NOK \\
+      2 & Utiliser la fonction getId & La fonction renvoie l'id donnée au constructeur &  & NOK \\
+      3 & Utiliser la fonction setConfigurationPath &  &  & NOK \\
+      4 & Utiliser la fonction getConfigurationPath & La fonction renvoie le path donné à l'étape précédente &  & NOK \\
+      5 & Utiliser la fonction setGPGExecutable &  &  & NOK \\
+      6 & Utiliser la fonction getGPGExecutable & La fonction renvoie le path donné à l'étape précédente &  & NOK \\
+      7 & Utiliser la fonction getName & La fonction renvoie le nom donné au constructeur &  & NOK \\
+      8 &  &  &  &  \\
+      9 &  &  &  & \\
       10 &  &  &  &\\ 
+  \hline
+    \end{tabular}
+    \vskip 2.2cm
+    
+	
+%---------------------------------------Test N° U6------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Classe Launcher} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U6} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Créer une instance de la classe &  &  & NOK \\
+      2 & Utiliser la fonction alreadyRun & La fonction renvoie false &  & NOK \\
+      3 & Utiliser la fonction run & Une exception IllegalArgumentException est levée &  & NOK \\
+      4 & Utiliser la fonction addMainWindow avec un argument à NULL & Une exception IllegalArgumentException est levée &  & NOK \\
+      5 & Utiliser la fonction addMainWindow & &  & NOK \\
+	    6 & Utiliser la fonction run &  &  & NOK \\
+      7 & Utiliser la fonction alreadyRun & La fonction renvoie true &  & NOK \\
+      8 & Utiliser la fonction profileIsLoad avec le même Profile que pour addMainWindow & La fonction ne renvoie pas NULL &  & NOK \\
+      9 & Utiliser la fonction unloadProfileWithWindow avec le même Profile que pour addMainWindow &  &  & NOK \\
+      10 & Utiliser la fonction stop &  &  & NOK \\
+      11 & Utiliser la fonction alreadyRun & La fonction renvoie false &  &\\ 
 	\hline
     \end{tabular}
     \vskip 2.2cm
 	
 	
-%---------------------------------------Test N° 13------------------------------------------------------------------------------
+%---------------------------------------Test N° U7------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe Action} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u13} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U7} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & OK \\
@@ -523,78 +384,35 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \end{tabular}
     \vskip 2.2cm
 	
-%---------------------------------------Test N° 14------------------------------------------------------------------------------
+%---------------------------------------Test N° U8------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe GPGManager} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u14} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U8} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction isRunning & La fonction renvoie false &  & NOK \\
-      3 & Utiliser la fonction getAction & La fonction renvoie NULL &  & NOK \\
-      4 & Utiliser la fonction setAction &  &  & NOK \\
-      5 & Utiliser la fonction execute &  &  & NOK \\
-	  6 & Utiliser la fonction isRunning & La fonction renvoie true &  & NOK \\
-      7 & Utiliser la fonction getQuestionType & La fonction renvoie un QuestionType correspondant au type de réponse de GPG à l'action donnée en argument à setAction &  & NOK \\
-      8 & Utiliser la fonction getOutput & La fonction renvoie le texte renvoyé par gpg quand exécute l'action donnée en argument à setAction &  & NOK \\
+      2 & Utiliser la fonction setAction &  &  & NOK \\
+      3 & Utiliser la fonction execute &  &  & NOK \\
+      4 & Attendre le signal finished & Le signal finished est reçu &  & NOK \\
+      5 & Utiliser la fonction getOutput & La fonction renvoie le texte renvoyé par gpg quand gpg exécute l'action donnée en argument à setAction &  & NOK \\
+	    6 & &  &  & NOK \\
+      7 &  &  &  & NOK \\
+      8 &  &  &  & NOK \\
       9 &  &  &  & \\
-      10 &  &  &  &\\ 
+      10 &  &  &  & \\ 
 	\hline
     \end{tabular}
     \vskip 2.2cm
 	
-%---------------------------------------Test N° 15------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé : Classe Instance} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u15} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction getProfile & La fonction renvoie le profil donné au constructeur &  & NOK \\
-      3 &  &  &  & \\
-      4 &  &  &  & \\
-      5 &  &  &  & \\
-	  6 &  &  &  & \\
-      7 &  &  &  & \\
-      8 &  &  &  & \\
-      9 &  &  &  & \\
-      10 &  &  &  &\\ 
-	\hline
-    \end{tabular}
-    \vskip 2.2cm
 
-%---------------------------------------Test N° 16------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé : Classe GPGKeyLevel} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u16} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & \\
-      2 & Utiliser la fonction getName & La fonction renvoie un QString représentant le nom donné du niveau au constructeur &  & NOK \\
-      3 & Utiliser la fonction getLevel & La fonction renvoie un entier représentant le niveau donné au constructeur &  & NOK \\
-      4 &  &  &  & \\
-      5 &  &  &  & \\
-	  6 &  &  &  & \\
-      7 &  &  &  & \\
-      8 &  &  &  & \\
-      9 &  &  &  & \\
-      10 &  &  &  &\\ 
-	\hline
-    \end{tabular}
-    \vskip 2.2cm
-	
-%---------------------------------------Test N° 17------------------------------------------------------------------------------
+%---------------------------------------Test N° U9------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe GPGKey} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u17} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U9} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & NOK \\
@@ -602,46 +420,120 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       3 & Utiliser la fonction getEmail & La fonction renvoie un QString correspondant à l'email associé à la clé donnée au constructeur &  & NOK \\
       4 & Utiliser la fonction getName & La fonction renvoie un QString correspondant au nom associé à la clé donnée au constructeur &  & NOK \\
       5 & Utiliser la fonction getDate & La fonction renvoie une QDate correspondant à la date de création de la clé donnée au constructeur &  & NOK \\
-	    6 & Utiliser la fonction getId & La fonction renvoie un QString correspondant au keyID de la clé donnée au constructeur &  & NOK \\
+      6 & Utiliser la fonction getId & La fonction renvoie un QString correspondant au keyID de la clé donnée au constructeur &  & NOK \\
       7 & Utiliser la fonction getComments & La fonction renvoie un QString correspondant au commentaire associé à la clé donnée au constructeur &  & NOK \\
       8 & Utiliser la fonction getTrust & La fonction renvoie un GPGKeyLevel correspondant au niveau de confiance de la clé donnée au constructeur &  & NOK \\
       9 & Utiliser la fonction addSubKey, puis la fonction getSubKeys & La fonction getSubKeys renvoie une QList<GPGKey> contenant la clé donnée à addSubKey &  & NOK \\
       10 & Utiliser la fonction removeSubKey, puis la fonction getSubKeys & La fonction getSubKeys renvoie une QList<GPGKey> ne contenant pas la clé donnée à addSubKey &  & NOK \\ 
-	    11 & Utiliser la fonction setTrust, puis la fonction getTrust & La fonction getTrust renvoie un GPGKeyLevel contenant au niveau donné à setTrust &  & NOK \\ 
-	\hline
+      11 & Utiliser la fonction setTrust, puis la fonction getTrust & La fonction getTrust renvoie un GPGKeyLevel contenant au niveau donné à setTrust &  & NOK \\ 
+  \hline
     \end{tabular}
     \vskip 2.2cm
 
-%---------------------------------------Test N° 18------------------------------------------------------------------------------
+%---------------------------------------Test N° U10------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
-      \multicolumn{3}{|l|}{Objet testé : Classe GPGKeyManager} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
+      \multicolumn{3}{|l|}{Objet testé : Classe MainWindowModel} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° u18} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U10} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & \\
-      2 & Utiliser la fonction createKey, puis la fonction getKeys & La fonction getKeys renvoie une QList<GPGKey> contenant la clé donnée à createKey &  & NOK  \\
-      3 & Utiliser la fonction deleteKey, puis la fonction getKeys  & La fonction getKeys renvoie une QList<GPGKey> ne contenant pas la clé donnée à deleteKey &  & NOK \\
-      4 &  &  &  & \\
+      1 & Créer une instance de la classe &  &  & NOK \\
+      2 & Utiliser la fonction getLauncher & La fonction renvoie le Launcher donné au constructeur &  & NOK \\
+      3 & Utiliser la fonction getGuiPGApp & La fonction renvoie le GuiPGApp donné au constructeur &  & NOK \\
+      4 & Utiliser la fonction getConf & La fonction renvoie la Configuration donnée au constructeur &  & NOK \\
+      5 & Utiliser la fonction getProfile & La fonction renvoie le Profile donné au constructeur &  & NOK \\
+      6 & Utiliser la fonction loadProfile &  &  & NOK \\
+      7 & Utiliser la fonction initKeyManager &  &  & NOK \\
+      8 & Utiliser la fonction getKeyManager & La fonction renvoie un KeyManager &  & NOK \\
+      9 &  &  &  & NOK \\
+      10 &  &  &  & NOK \\ 
+  \hline
+    \end{tabular}
+    \vskip 2.2cm
+
+
+
+%TESTS D'INTEGRATION%
+\subsection{Tests d'intégration}
+
+
+ %---------------------------------------Test N° I1------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Tester la sélection du profil}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Lancer l'interface graphique en ligne de commande avec l'option -P & On peut choisir son profil, et en créer un si besoin &  & NOK \\
+      2 & Choisir un profil & L'interface graphique s'affiche &  & NOK \\
+      3 & Cliquer sur le bouton "Changer de profil" & On peut changer, créer, modifier ou supprimer un profil &  & NOK \\ 
+    4 &  &  &  & \\
       5 &  &  &  & \\
-	  6 &  &  &  & \\
+    6 &  &  &  & \\
       7 &  &  &  & \\
       8 &  &  &  & \\
       9 &  &  &  & \\
       10 &  &  &  &\\ 
-	\hline
+  \hline
     \end{tabular}
     \vskip 2.2cm
-	
+
+ %---------------------------------------Test N° I2------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Tester le mécanisme multi-instance}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Lancer GuiPG & GuiPG se lance &  & NOK \\
+      2 & Lancer un autre GuiPG & La fenêtre de sélection de profil apparait &  & NOK \\
+      3 & Sélectionner un profil non utilisé & Il y a deux fenêtres GuiPG ouvertes, chacune avec un profil différent &  & NOK \\ 
+      4 & Lancer un autre GuiPG & La fenêtre de sélection de profil apparait &  & \\
+      5 & Sélectionner un profil utilisé & La fenêtre GuiPG utilisant ce profil apparaît en premier plan &  & \\
+      6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+  \hline
+    \end{tabular}
+    \vskip 2.2cm
+
+
+ %---------------------------------------Test N° I3------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Affichage des commandes et retours gpg}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I3} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Activer l'affichage des commandes gpg dans l'interface graphique &  &  & NOK \\
+      2 & Lancer une commande gpg via l'interface graphique & La commande et les retours sont affichés &  & NOK \\
+      3 &  &  &  & \\ 
+      4 &  &  &  & \\
+      5 &  &  &  & \\
+      6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+  \hline
+    \end{tabular}
+    \vskip 2.2cm
+
+%TESTS DE NON REGRESSION%
 \subsection{Tests de non-régression}
 
-    %---------------------------------------Test N° 1------------------------------------------------------------------------------
+    %---------------------------------------Test N° NR1------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe KeyExport} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test d'un bug rencontré}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° nr1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° NR1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & NOK \\
@@ -649,12 +541,34 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       3 &  &  &  & \\
       4 &  &  &  & \\
       5 &  &  &  & \\
-	  6 &  &  &  & \\
+	    6 &  &  &  & \\
       7 &  &  &  & \\
       8 &  &  &  & \\
       9 &  &  &  & \\
       10 &  &  &  &\\ 
 	\hline
+    \end{tabular}
+    \vskip 2.2cm
+
+%---------------------------------------Test N° NR2------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Classe KeyManager} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Test d'un bug rencontré lors du changement rapide de profils}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° NR2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Lancer GuiPG avec un profil & GuiPG se lance &  & NOK \\
+      2 & Créer un nouveau profil & Le nouveau profil a été créé. &  & NOK \\
+      3 & Changer 20 fois entre le nouveau profil et l'ancien & GuiPG ne crashe pas &  & \\
+      4 &  &  &  & \\
+      5 &  &  &  & \\
+      6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+  \hline
     \end{tabular}
     \vskip 2.2cm
     
@@ -815,6 +729,17 @@ Rappel des codes utilisés dans la STB :
   \cr
   \hline
 \end{tabular}\\
+
+\section{Journal de test}
+
+\begin{center}
+    \begin{tabular}{|p{2cm}|p{3.1cm}|p{3.1cm}|p{3.1cm}|p{3.1cm}|}
+      \hline
+      Date & Tests auto OK & Tests manuels OK & Tests auto NOK & Tests manuels NOK\\ \hline
+      09/04/2015 &  &  &  &\\ \hline
+
+  \end{tabular}  
+\end{center}
 
 
 \end{document}

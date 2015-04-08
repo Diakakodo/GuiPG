@@ -1,7 +1,8 @@
 #include "keymanager.h"
+#include "QDebug"
 
 KeyManager::KeyManager(const Profile *p) : m_gpg(new GPGManager(p)) {
-    connect(m_gpg, &GPGManager::finished, this, &KeyManager::gpgFinished);
+
 }
 
 KeyManager::~KeyManager() {
@@ -23,6 +24,7 @@ void KeyManager::load() {
     Action a("--edit-key", QStringList("order"), opt, interact);
     //*/
     m_gpg->setAction(a);
+    connect(m_gpg, &GPGManager::finished, this, &KeyManager::gpgFinished);
     m_gpg->execute();
 }
 
