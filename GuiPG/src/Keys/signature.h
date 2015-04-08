@@ -3,37 +3,61 @@
 
 #include <QObject>
 #include <QDate>
+#include "gpgobject.h"
+#include "uid.h"
 
-class Signature : public QObject {
+class Signature : public GpgObject {
     Q_OBJECT
 
     public:
-        enum Algorithm {
-            ALGO_RSA,
-            ALGO_DSA,
-            ALGO_DSA_SIG,
-            ALGO_RSA_SIG
+
+        enum SigClass {
+            SIGCLASS_BINARY             = "00",
+            SIGCLASS_CANONICAL          = "01",
+            SIGCLASS_STANDALONE         = "02",
+            SIGCLASS_GENERIC            = "10",
+            SIGCLASS_PERSONA            = "11",
+            SIGCLASS_CASUAL             = "12",
+            SIGCLASS_POSITIVE           = "13",
+            SIGCLASS_SUBKEY             = "18",
+            SIGCLASS_PRIMARY            = "19",
+            SIGCLASS_DIRECTLY           = "1F",
+            SIGCLASS_KEY_REVOCATION     = "20",
+            SIGCLASS_SUBKEY_REVOCATION  = "28",
+            SIGCLASS_CERT_REVOCATION    = "30",
+            SIGCLASS_TIMESTAMP          = "40",
+            SIGCLASS_THIRD_PARTY        = "50"
         };
 
-        explicit Signature(Algorithm a,
-                           const QString& id,
-                           const QDate& creation,
-                           const QString& owner);
+        enum SigScope {
+            SIGSCOPE_LOCAL  = "l",
+            SIGSCOPE_EXPORT = "x"
+        };
 
-        const QString& getOwner() const;
-        Algorithm getAlgorithm() const;
-        const QDate& getCreationDate() const;
-        const QString& getId() const;
+        enum HashAlgo {
+            HASH_ALGO_SHA1    = 2,
+            HASH_ALGO_SHA256  = 8
+        };
+
+        explicit Signature(PubkeyAlgo pubAlgo,
+                           QString keyId,
+                           QDate creationDate,
+                           Uid uid,
+                           SigClass sigclass,
+                           HashAlgo hashAlgo);
+
+        const Uid getUid() const;
+        const SigClass getSigClass() const;
+        const HashAlgo getHashAlgo() const;
 
     signals:
 
     public slots:
 
     private:
-        Algorithm m_algo;
-        QString m_id;
-        QDate m_creation;
-        QString m_owner;
+        Uid m_uid;
+        SigClass m_sigClass;
+        HashAlgo m_hashAlgo;
 };
 
 #endif // SIGNATURE_H

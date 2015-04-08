@@ -8,7 +8,7 @@
 #include "../GPG/gpgmanager.h"
 
 class KeyManager : public QObject {
-        Q_OBJECT
+    Q_OBJECT
 
     public:
         explicit KeyManager(const Profile* p);
