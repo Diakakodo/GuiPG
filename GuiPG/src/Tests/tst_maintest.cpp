@@ -88,6 +88,7 @@ void MainTest::testCase_u6()
     QVERIFY(launcher.profileIsLoad(m_config->getDefaultProfile()) != NULL);
     launcher.UnloadProfileWithWindow(m_config->getDefaultProfile());
     launcher.stop();
+    while(launcher.isRunning());
     //QVERIFY(launcher.alreadyRun() == true);
 }
 
