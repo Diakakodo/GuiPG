@@ -28,10 +28,5 @@
 *.o
 *.pro.user
 *.DS_Store
-GuiPG/build/getPrettyGoodPty
-GuiPG/build/Guipg-test
-GuiPG/build/GuiPG
-GuiPG/build/*.cpp
-GuiPG/build/*.o
-GuiPG/build/*.h
+GuiPG/build
 build-GuiPG-Desktop-Debug
