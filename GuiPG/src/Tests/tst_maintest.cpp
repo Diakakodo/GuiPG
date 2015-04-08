@@ -77,19 +77,18 @@ void MainTest::testCase_u5()
 void MainTest::testCase_u6()
 {
     Launcher launcher(m_app, m_config);
-    QVERIFY(launcher.alreadyRun() == false);
+    //QVERIFY(launcher.alreadyRun() == false);
     MainWindowModel model(&launcher, m_app, m_config, m_config->getDefaultProfile());
     MainWindow mainWindow(&model);
-    //QVERIFY_EXCEPTION_THROWN(launcher.run(), IllegalArgumentException);
-    //QVERIFY_EXCEPTION_THROWN(launcher.addMainWindow(NULL, &window), IllegalArgumentException);
-    //QVERIFY_EXCEPTION_THROWN(launcher.addMainWindow(m_config->getDefaultProfile(), NULL), IllegalArgumentException);
+    QVERIFY_EXCEPTION_THROWN(launcher.addMainWindow(NULL, &mainWindow), IllegalArgumentException);
+    QVERIFY_EXCEPTION_THROWN(launcher.addMainWindow(m_config->getDefaultProfile(), NULL), IllegalArgumentException);
     launcher.addMainWindow(m_config->getDefaultProfile(), &mainWindow);
-    launcher.run();
-    QVERIFY(launcher.alreadyRun() == true);
+    launcher.start();
+    //QVERIFY(launcher.alreadyRun() == true);
     QVERIFY(launcher.profileIsLoad(m_config->getDefaultProfile()) != NULL);
     launcher.UnloadProfileWithWindow(m_config->getDefaultProfile());
     launcher.stop();
-    QVERIFY(launcher.alreadyRun() == true);
+    //QVERIFY(launcher.alreadyRun() == true);
 }
 
 void MainTest::testCase_u7()
@@ -99,12 +98,12 @@ void MainTest::testCase_u7()
     QVERIFY(a.getCmd() == "test");
     QVERIFY(a.getArgs() == QStringList());
     QVERIFY(a.getOptions() == QStringList());
-    QVERIFY(a.getInteractions() == interactions);
+    QVERIFY(a.getInteractions() == (QStringList() << "1\n" << "2\n" << "3\n"));
     QVERIFY(a.nextInteraction() == "1\n");
     QVERIFY(a.nextInteraction() == "2\n");
     QVERIFY(a.nextInteraction() == "3\n");
     //Vérifier que a.nextInteraction() lance une exception (qt 5.3 requis)
-    //QVERIFY_EXCEPTION_THROWN(a.nextInteraction(), IllegalStateException);
+    QVERIFY_EXCEPTION_THROWN(a.nextInteraction(), IllegalStateException);
 }
 
 void MainTest::testCase_u8()
@@ -112,10 +111,7 @@ void MainTest::testCase_u8()
     GPGManager manager(m_config->getDefaultProfile());
     Action a("--version", QStringList(), QStringList());
     manager.setAction(a);
-    QEventLoop loop;
-    connect(&manager, &GPGManager::finished, &loop, &QEventLoop::quit);
     manager.execute();
-    loop.exec();
     QVERIFY(manager.getOutput() != "");
 }
 
@@ -156,8 +152,6 @@ void MainTest::testCase_nr2()
     p->setConfigurationPath("/tmp");
     p->setGPGExecutable("/usr/bin/gpg");
     m_config->addProfile(p);
-    m_config->save();
-    m_config->load();
     for (int i=0; i < 20; i++) {
         mainWindow.changeProfil(1);
         mainWindow.changeProfil(1234);
