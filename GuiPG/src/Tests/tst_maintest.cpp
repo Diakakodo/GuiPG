@@ -139,7 +139,7 @@ void MainTest::testCase_nr1()
     MainWindowModel model(&launcher, m_app, m_config, m_config->getDefaultProfile());
     MainWindow mainWindow(&model);
     KeyExport* keyExport = new KeyExport(&mainWindow);
-    keyExport->exportFunction(KeyExport::FILE, "", "/tmp/TEST");
+    keyExport->exportFunction(KeyExport::EXPORT_FILE, "", "/tmp/TEST");
     QVERIFY(remove("/tmp/TEST") != -1);
 }
 
