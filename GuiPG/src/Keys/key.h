@@ -18,7 +18,7 @@ class Key : public GpgObject {
             KEYSCOPT_SUB_SECRET    = REC_SECRET_SUBKEY
         };
 
-        enum Capabilities {
+        enum Capabilitie {
             CAP_PRIM_ENCRYPT            = 'E',
             CAP_PRIM_SIGN               = 'S',
             CAP_PRIM_CERTIFY            = 'C',
@@ -32,8 +32,6 @@ class Key : public GpgObject {
             CAP_NONE                    = 256
         };
 
-        static QString keyScopeToStr(KeyScope ks);
-
         explicit Key(const KeyScope keyScope,
                      const Validity validity,
                      const unsigned length,
@@ -41,11 +39,12 @@ class Key : public GpgObject {
                      const QString keyId,
                      const QDate creationDate,
                      const QDate expirationDate,
-                     const QString capabilities
+                     const QString capabilities,
+                     QString fpr = ""
                      );
         virtual ~Key() = 0;
 
-        KeyScope getScope() const;
+        KeyScope getKeyScope() const;
         Validity getValidity() const;
         unsigned getLength() const;
         Algorithm getAlgo() const;
@@ -54,12 +53,12 @@ class Key : public GpgObject {
         QString getCapabilities() const;
 
     private:
-        KeyScope m_scope;
-        Validity m_val;
+        KeyScope m_keyScope;
+        Validity m_validity;
         unsigned m_length;
         Algorithm m_algo;
         QString m_keyId;
-        QDate m_expiration;
+        QDate m_expirationDate;
         QString m_capabilities;
 };
 

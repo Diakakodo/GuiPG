@@ -38,3 +38,15 @@ PubKey::~PubKey()
 
 }
 
+PubKey::Trust PubKey::getTrust() const {
+    return m_trust;
+}
+
+const QList<SubKey*> PubKey::getSubKeys() const {
+    return m_subKeys;
+}
+
+void PubKey::addSubKey(SubKey* sub) {
+    m_subKeys.append(sub);
+}
+

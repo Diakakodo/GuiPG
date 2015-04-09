@@ -36,12 +36,13 @@ class PubKey : public Key {
                const QDate creationDate,
                const QDate expirationDate,
                const Trust trust,
-               const QString capabilities);
+               const QString capabilities,
+               QString fpr = "");
         ~PubKey();
 
         Trust getTrust() const;
-        QList<SubKey*> getSubKeys() const;
-        QList<Uid*> getUids() const;
+        const QList<SubKey*> getSubKeys() const;
+        const QList<Uid*> getUids() const;
 
         void addSubKey(SubKey* sub);
         void addUid(Uid* uid);

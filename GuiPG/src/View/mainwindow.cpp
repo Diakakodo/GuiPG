@@ -93,52 +93,52 @@ void MainWindow::showDialogConfiguration(){
 }
 
 void MainWindow::buildTree() {
-    ui->treeWidgetKey->clear();
-    const QList<Key*>& keys = m_model->getKeyManager()->getKeys();
-    for (Key* k : keys) {
-        QTreeWidgetItem* item = createKeyItem(k, ui->treeWidgetKey);
-        for (Key* sk : k->getSubKeys()) {
-            QTreeWidgetItem* sub = createKeyItem(sk);
-            createSignatureItem(sk, sub);
-            item->addChild(sub);
-        }
-        createSignatureItem(k, item);
-    }
+    //ui->treeWidgetKey->clear();
+    //const QList<Key*>& keys = m_model->getKeyManager()->getKeys();
+    //for (Key* k : keys) {
+    //    QTreeWidgetItem* item = createKeyItem(k, ui->treeWidgetKey);
+    //    for (Key* sk : k->getSubKeys()) {
+    //        QTreeWidgetItem* sub = createKeyItem(sk);
+    //        createSignatureItem(sk, sub);
+    //        item->addChild(sub);
+    //    }
+    //    createSignatureItem(k, item);
+    //}
 }
 
 QTreeWidgetItem* MainWindow::createKeyItem(Key *k, QTreeWidget* tree) {
     QStringList infos;
-    const QDate& e = k->getExpirationDate();
-    infos
-            << k->getId()
-            << k->getOwner()
-            << QString::number(k->getLength())
-            << k->getCreationDate().toString("dd/MM/yyyy")
-            << (e.isNull() ? "Aucune" : k->getExpirationDate().toString("dd/MM/yyyy"))
-            << Key::validityToStr(k->getValidity())
-            << Key::validityToStr(k->getTrust())
-    ;
+    //const QDate& e = k->getExpirationDate();
+    //infos
+    //        << k->getId()
+    //        << k->getOwner()
+    //        << QString::number(k->getLength())
+    //        << k->getCreationDate().toString("dd/MM/yyyy")
+    //        << (e.isNull() ? "Aucune" : k->getExpirationDate().toString("dd/MM/yyyy"))
+    //        << Key::validityToStr(k->getValidity())
+    //        << Key::validityToStr(k->getTrust())
+    //;
     QTreeWidgetItem* item = tree == nullptr ? new QTreeWidgetItem(infos) : new QTreeWidgetItem(tree, infos);
     setItemColor(item, m_model->getProfile()->getValidityColor(k->getValidity()));
     return item;
 }
 
 void MainWindow::createSignatureItem(Key* k, QTreeWidgetItem* item) {
-    for (Signature* s : k->getSignatures()) {
-        QStringList infos;
-        infos
-                << s->getId()
-                << s->getOwner()
-                << ""
-                << s->getCreationDate().toString("dd/MM/yyyy")
-                << ""
-                << ""
-                << ""
-        ;
-        QTreeWidgetItem* sig = new QTreeWidgetItem(infos);
-        setItemColor(sig, m_model->getProfile()->getSignatureColor());
-        item->addChild(sig);
-    }
+    //for (Signature* s : k->getSignatures()) {
+    //    QStringList infos;
+    //    infos
+    //            << s->getId()
+    //            << s->getOwner()
+    //            << ""
+    //            << s->getCreationDate().toString("dd/MM/yyyy")
+    //            << ""
+    //            << ""
+    //            << ""
+    //    ;
+    //    QTreeWidgetItem* sig = new QTreeWidgetItem(infos);
+    //    setItemColor(sig, m_model->getProfile()->getSignatureColor());
+    //    item->addChild(sig);
+    //}
 }
 
 void MainWindow::on_actionImporter_triggered()

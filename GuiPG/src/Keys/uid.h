@@ -52,7 +52,7 @@ class Uid : public GpgObject {
         QString getName() const;
         QString getComment() const;
         QString getMail() const;
-        QList<Signature*> getSigList() const;
+        const QList<Signature*> getSigList() const;
 
         void addSignature(Signature* sig);
 

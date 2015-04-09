@@ -55,20 +55,20 @@ class GpgObject : public QObject {
             ALGO_ELGAMAL    = 20
         };
 
-        static QString validityToStr(Validity v);
         static QString recordToStr(Record r);
+        static QString validityToStr(Validity v);
         static QString algoToStr(Algorithm a);
 
-        explicit GpgObject(QDate creationDate, QString fpr);
+        explicit GpgObject(const QDate creationDate, QString fpr = "");
         virtual ~GpgObject() = 0;
 
-        const QDate getCreationDate() const;
-        const QString getFpr() const;
+        QDate getCreationDate() const;
+        QString getFpr() const;
 
         void setFpr(QString fpr);
 
     protected:
-        QDate m_creationDate;
+        const QDate m_creationDate;
         QString m_fpr;
 
     signals:

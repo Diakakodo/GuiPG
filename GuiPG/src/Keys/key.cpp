@@ -1,34 +1,44 @@
 #include "key.h"
 
-QString Key::keyScopeToStr(KeyScope ks) {
+//Key::Key(Scope s,
+//         Algorithm a,
+//         unsigned length,
+//         Validity v,
+//         const QString& id,
+//         const QDate &creation,
+//         const QDate &expiration,
+//         const QString& owner,
+//         Validity trust)
+//        : Signature(a, id, creation, owner),
+//          m_length(length),
+//          m_val(v),
+//          m_scope(s),
+//          m_expiration(expiration),
+//          m_trust(trust) {
+//
+//}
 
-    return "";
-}
-
-Key::Key(Scope s,
-         Algorithm a,
-         unsigned length,
-         Validity v,
-         const QString& id,
-         const QDate &creation,
-         const QDate &expiration,
-         const QString& owner,
-         Validity trust)
-        : Signature(a, id, creation, owner),
-          m_length(length),
-          m_val(v),
-          m_scope(s),
-          m_expiration(expiration),
-          m_trust(trust) {
-
-}
+Key::Key(const KeyScope keyScope,
+        const Validity validity,
+        const unsigned length,
+        const Algorithm algo,
+        const QString keyId,
+        const QDate creationDate,
+        const QDate expirationDate,
+        const QString capabilities,
+        QString fpr
+        ) : GpgObject(creationDate, fpr),
+            m_keyScope(keyScope),
+            m_validity(validity),
+            m_length(length),
+            m_algo(algo),
+            m_keyId(keyId),
+            m_expirationDate(expirationDate),
+            m_capabilities(capabilities)
+{}
 
 Key::~Key() {
-    qDeleteAll(m_sigs); // à virer car destructeur virtuel pure
-}
-
-const QList<Key*> Key::getSubKeys() const {
-    return m_subkeys;
+    //qDeleteAll(m_sigs);
 }
 
 unsigned Key::getLength() const {
@@ -36,37 +46,13 @@ unsigned Key::getLength() const {
 }
 
 Key::Validity Key::getValidity() const {
-    return m_val;
+    return m_validity;
 }
 
-Key::Scope Key::getScope() const {
-    return m_scope;
+Key::KeyScope Key::getKeyScope() const {
+    return m_keyScope;
 }
 
-const QDate& Key::getExpirationDate() const {
-    return m_expiration;
-}
-
-void Key::addSubKey(Key *k) {
-    m_subkeys.append(k);
-}
-
-void Key::removeSubKey(Key *k) {
-    m_subkeys.removeAll(k);
-}
-
-void Key::setExpirationDate(const QDate &dt) {
-    m_expiration = dt;
-}
-
-void Key::addSignature(Signature *s) {
-    m_sigs.append(s);
-}
-
-const QList<Signature*>& Key::getSignatures() const {
-    return m_sigs;
-}
-
-Key::Validity Key::getTrust() const {
-    return m_trust;
+QDate Key::getExpirationDate() const {
+    return m_expirationDate;
 }

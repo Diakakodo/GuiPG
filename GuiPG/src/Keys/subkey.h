@@ -11,8 +11,8 @@ class SubKey : public Key {
         SubKey();
         ~SubKey();
 
-        const QList<Signature*> getSigs() const;
-        void addSig(Signature* sig);
+        const QList<Signature*> getSignatures() const;
+        void addSignature(Signature* sig);
 
     private:
         QList<Signature*> m_sigs;
