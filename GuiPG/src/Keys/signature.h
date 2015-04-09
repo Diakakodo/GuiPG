@@ -41,26 +41,26 @@ class Signature : public GpgObject {
 
         static QString sigClassToStr(SigClass sc);
 
-        explicit Signature(PubkeyAlgo pubAlgo,
+        explicit Signature(Algorithm algo,
                            QString keyId,
                            QDate creationDate,
                            Uid uid,
                            SigClass sigclass,
                            HashAlgo hashAlgo);
 
-        const Algorithme getAlgo() const;
-        const QString getKeyId() const;
-        const Uid getUid() const;
-        const SigClass getSigClass() const;
-        const SigScope getSigScope() const;
-        const HashAlgo getHashAlgo() const;
+        Algorithm getAlgo() const;
+        QString getKeyId() const;
+        Uid getUid() const;
+        SigClass getSigClass() const;
+        SigScope getSigScope() const;
+        HashAlgo getHashAlgo() const;
 
     signals:
 
     public slots:
 
     private:
-        Algorithme m_algo;
+        Algorithm m_algo;
         QString m_keyId;
         Uid m_uid;
         SigClass m_sigClass;

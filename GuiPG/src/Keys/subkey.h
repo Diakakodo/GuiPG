@@ -2,6 +2,7 @@
 #define SUBKEY_H
 
 #include "key.h"
+#include "signature.h"
 
 class SubKey : public Key {
     Q_OBJECT

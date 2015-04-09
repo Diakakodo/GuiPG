@@ -39,9 +39,9 @@ class PubKey : public Key {
                const QString capabilities);
         ~PubKey();
 
-        const Trust getTrust() const;
-        const QList<SubKey*> getSubKeys() const;
-        const QList<Uid*> getUids() const;
+        Trust getTrust() const;
+        QList<SubKey*> getSubKeys() const;
+        QList<Uid*> getUids() const;
 
         void addSubKey(SubKey* sub);
         void addUid(Uid* uid);

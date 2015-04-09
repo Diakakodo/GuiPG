@@ -2,7 +2,7 @@
 #define UID_H
 
 #include <QObject>
-#include "signature.h"
+class Signature;
 
 class Uid : public GpgObject {
     Q_OBJECT
@@ -48,11 +48,11 @@ class Uid : public GpgObject {
         Uid(QString name, QString comment, QString mail);
         ~Uid();
 
-        const Validity getValidity() const;
-        const QString getName() const;
-        const QString getComment() const;
-        const QString getMail() const;
-        const QList<Signature*> getSigList() const;
+        Validity getValidity() const;
+        QString getName() const;
+        QString getComment() const;
+        QString getMail() const;
+        QList<Signature*> getSigList() const;
 
         void addSignature(Signature* sig);
 
