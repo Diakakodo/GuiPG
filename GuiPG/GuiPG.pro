@@ -29,7 +29,8 @@ HEADERS += \
     src/Keys/signature.h \
     src/Keys/gpgobject.h \
     src/Keys/uid.h \
-    src/Keys/publickey.h
+    src/Keys/subkey.h \
+    src/Keys/pubkey.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -59,7 +60,8 @@ SOURCES += \
     src/Keys/signature.cpp \
     src/Keys/gpgobject.cpp \
     src/Keys/uid.cpp \
-    src/Keys/publickey.cpp
+    src/Keys/subkey.cpp \
+    src/Keys/pubkey.cpp
 
 FORMS += \
     src/View/mainwindow.ui \

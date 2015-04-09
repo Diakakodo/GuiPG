@@ -1,58 +1,7 @@
 #include "key.h"
 
-QString Key::validityToStr(Validity v) {
-    switch (v) {
-        case VAL_UNKNOWN:
-            return "Inconnue";
-        case VAL_MISSING_SSIG:
-            return "Invalide (signature manquante)";
-        case VAL_DISABLE:
-            return "Désactivée";
-        case VAL_REVOKED:
-            return "Révoquée";
-        case VAL_EXPIRED:
-            return "Expirée";
-        case VAL_NO_VALUE:
-            return "Inconnue";
-        case VAL_UNDEFINED:
-            return "Non définie";
-        case VAL_VALID:
-            return "Valide"
-        case VAL_MARGINAL:
-            return "Marginale",
-        case VAL_FULLY:
-            return "Complète";
-        case VAL_ULTIMATELY:
-            return "Ultime";
-    }
-    return "";
-}
+QString Key::keyScopeToStr(KeyScope ks) {
 
-QString Key::trustToStr(Trust t) {
-    switch (t) {
-        case VAL_UNKNOWN:
-            return "Inconnue";
-        case VAL_MISSING_SSIG:
-            return "Invalide (signature manquante)";
-        case VAL_DISABLE:
-            return "Désactivée";
-        case VAL_REVOKED:
-            return "Révoquée";
-        case VAL_EXPIRED:
-            return "Expirée";
-        case VAL_NO_VALUE:
-            return "Inconnue";
-        case VAL_UNDEFINED:
-            return "Ne sais pas";
-        case VAL_VALID:
-            return "Pas confiance"
-        case VAL_MARGINAL:
-            return "Légère",
-        case VAL_FULLY:
-            return "Complète";
-        case VAL_ULTIMATELY:
-            return "Ultime";
-    }
     return "";
 }
 
@@ -75,7 +24,7 @@ Key::Key(Scope s,
 }
 
 Key::~Key() {
-    qDeleteAll(m_sigs);
+    qDeleteAll(m_sigs); // à virer car destructeur virtuel pure
 }
 
 const QList<Key*> Key::getSubKeys() const {
