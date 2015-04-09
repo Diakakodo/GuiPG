@@ -90,6 +90,54 @@
       </item>
      </layout>
     </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item>
+       <widget class="QLabel" name="warningLabel">
+        <property name="palette">
+         <palette>
+          <active>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>217</red>
+              <green>42</green>
+              <blue>42</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </active>
+          <inactive>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>217</red>
+              <green>42</green>
+              <blue>42</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </inactive>
+          <disabled>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>133</red>
+              <green>133</green>
+              <blue>133</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </disabled>
+         </palette>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
   <widget class="QWidget" name="horizontalLayoutWidget_5">
@@ -131,6 +179,9 @@
     </item>
    </layout>
   </widget>
+  <zorder>verticalLayoutWidget</zorder>
+  <zorder>horizontalLayoutWidget_5</zorder>
+  <zorder>horizontalLayoutWidget</zorder>
  </widget>
  <resources/>
  <connections/>
