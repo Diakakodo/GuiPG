@@ -229,7 +229,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° U1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une clé & La clé a été créée &  & NOK \\
+      1 & Créer une clé a & La clé a été créée &  & NOK \\
       2 &  &  &  & \\
       3 &  &  &  & \\ 
       4 &  &  &  & \\
@@ -296,15 +296,15 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
  %---------------------------------------Test N° U4------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
-      \multicolumn{3}{|l|}{Objet testé : Classe Launcher} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
+      \multicolumn{3}{|l|}{Objet testé : Classe KeyImport} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
       \multicolumn{3}{|l|}{Procédure n° U4} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction alreadyRun & La fonction renvoie false &  & NOK \\
-      3 & Utiliser la fonction start & L'application graphique se lance &  & NOK \\
-      4 & Utiliser la fonction alreadyRun & La fonction renvoie true &  & NOK \\
+      2 & Utiliser la fonction importFunction & L'affichage des clés est modifié et affiche les nouvelles clés si il y en a &  & NOK \\
+      3 &  &  &  & \\
+      4 &  &  &  & \\
       5 &  &  &  & \\
 	    6 &  &  &  & \\
       7 &  &  &  & \\
@@ -729,6 +729,17 @@ Rappel des codes utilisés dans la STB :
   \cr
   \hline
 \end{tabular}\\
+
+\section{Journal de test}
+
+\begin{center}
+    \begin{tabular}{|p{2cm}|p{3.1cm}|p{3.1cm}|p{3.1cm}|p{3.1cm}|}
+      \hline
+      Date & Tests auto OK & Tests manuels OK & Tests auto NOK & Tests manuels NOK\\ \hline
+      09/04/2015 &  &  &  &\\ \hline
+
+  \end{tabular}  
+\end{center}
 
 
 \end{document}

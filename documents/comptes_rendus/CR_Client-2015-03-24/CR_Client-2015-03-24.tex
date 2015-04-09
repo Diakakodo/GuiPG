@@ -1,0 +1,75 @@
+\documentclass{CR-projet}
+
+%Import des packages utilisés pour le document
+\usepackage[T1]{fontenc}
+
+
+\definecolor{gris}{rgb}{0.95, 0.95, 0.95}
+\definecolor{vert}{rgb}{0.14, 0.69, 0.11}
+
+%Variables
+\logo{logo_univ.png}
+\title{Compte rendu - Réunion Client}
+\author{Matthieu \bsc{FIN}}
+\projet{Projet PGP}
+\projdesc{Étude et implantation d'un outil graphique de gestion de clé PGP}
+\filiere{Master 1 SSI }
+\matiere{Conduite de projet}
+\date{24 mars 2015}
+
+\context{Réunion hebdomadaire}
+
+\presentry{\bsc{Balmelle}}{Pierre}{\textbf{Présent}}{vert}
+\presentry{\bsc{Barbay}}{Lucas}{\textbf{Présent}}{vert}
+\presentry{\bsc{Barry}}{Ibrahima Sory}{\textbf{Présent}}{vert}
+\presentry{\bsc{Bouillie}}{Bertille}{\textbf{Absente}}{red}
+\presentry{\bsc{Fin}}{Matthieu}{\textbf{Présent}}{vert}
+\presentry{\bsc{Leroy}}{Guillaume}{\textbf{Absent}}{red}
+\presentry{\bsc{Thibault}}{Olivier}{\textbf{Présent}}{vert}
+
+% -- Début du document -- %
+\begin{document}
+
+%Page de garde
+\maketitle
+\newpage
+%La table des matières
+%\tableofcontents
+
+\newpage
+
+\section{Ordre d'implantation des commandes gpg revue avec le client}
+
+\begin{enumerate}
+	\item Changer la confiance (update-trustdb).
+	\item Signature de clefs (basique).
+	\item Ajout d'une sous clef.
+	\item Ajout d'un uid.
+	\item Pouvoir déchiffrer un fichier.
+	\item Chiffrer un fichier.
+	\item Signature de fichier.
+	\item Vérifier les signatures fichiers.
+	\item Clef par défaut.
+	\item Afficher/modifier la préférence d'algo d'un uid.
+	\item passwd (changer la passphrase).
+	\item Suppression de clés.
+	\item Suppression de signature de base.
+	\item Suppression d'un uid.
+	\item Suppression d'une sous clef.
+	\item Révocation d'une clé. 
+	\item Changer la date d'expiration.
+\end{enumerate}
+
+\section{Actions}
+
+\begin{itemize}
+	\item On abandonne toute la partie serveur.
+	\item Réalisation de tests complets.
+	\item Ajout du cahier de recette dans le livrable, avec possibilité de reproduire l'intégralité des tests.
+	\item Pour l'attaque utiliser la version 4 (pour avoir la prise en compte des dates des clés sur le haché de celles-ci).
+	\item Commencer l'implantation de l'attaque.
+	\item 
+\end{itemize}
+
+\end{document}
+
