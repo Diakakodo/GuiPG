@@ -1,6 +1,7 @@
 #include "keycreation.h"
 #include "ui_keycreation.h"
 #include <QRegExp>
+#include <QScrollBar>
 #include "../GPG/action.h"
 #include "../Profile/profile.h"
 #include "../GPG/gpgmanager.h"
@@ -10,6 +11,7 @@ KeyCreation::KeyCreation(MainWindow*parent) :
     ui(new Ui::KeyCreation)
 {
     m_profile = parent->getProfil();
+    m_manager = new GPGManager(m_profile);
     m_model = parent->getModel();
     m_window = parent;
     ui->setupUi(this);
@@ -21,6 +23,7 @@ KeyCreation::KeyCreation(MainWindow*parent) :
 
 KeyCreation::~KeyCreation()
 {
+    delete m_manager;
     delete ui;
 }
 
@@ -106,13 +109,19 @@ void KeyCreation::on_pushButton_2_clicked()
         opt << "--status-fd=1" << "--command-fd=0";
         Action keyCreation(QString("--gen-key"), QStringList(), opt, interactions);
 
-        GPGManager* manager = new GPGManager(m_profile);
-        manager->setAction(keyCreation);
-        connect(manager, &GPGManager::finished, this, &KeyCreation::keyCreationFinished);
-        manager->execute();
+        connect(m_manager, &GPGManager::newData, this, &KeyCreation::addData);
+        m_manager->setAction(keyCreation);
+        connect(m_manager, &GPGManager::finished, this, &KeyCreation::keyCreationFinished);
+        m_manager->execute();
         errorLabel->setText("Veuillez patienter pendant la création de la clé...\n");
-
     }
+}
+
+void KeyCreation::addData(const QString& data) {
+    // On ajoute les nouvelles données
+    ui->dataBrowser->setText(ui->dataBrowser->toPlainText() + data);
+    // On scroll vers le bas.
+    ui->dataBrowser->verticalScrollBar()->setValue(ui->dataBrowser->verticalScrollBar()->maximum());
 }
 
 void KeyCreation::keyCreationFinished()
@@ -123,6 +132,7 @@ void KeyCreation::keyCreationFinished()
 
 void KeyCreation::on_pushButton_clicked()
 {
+    m_manager->cancelProcess();
     close();
 }
 

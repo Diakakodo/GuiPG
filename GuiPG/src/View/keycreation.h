@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "mainwindow.h"
+#include "../GPG/gpgmanager.h"
 
 namespace Ui {
 class KeyCreation;
@@ -38,11 +39,14 @@ private slots:
 
     void on_radioButton_4_clicked();
 
+    void addData(const QString& data);
+
 private:
     Ui::KeyCreation *ui;
     Profile* m_profile;
     MainWindowModel* m_model;
     MainWindow* m_window;
+    GPGManager* m_manager;
 };
 
 #endif // KEYCREATION_H
