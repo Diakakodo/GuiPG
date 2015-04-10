@@ -84,7 +84,10 @@ void GPGManager::execute() {
     m_gpg.write(cmd);
 
     m_gpg.waitForReadyRead();
-    m_output = m_gpg.readAllStandardOutput();
+    QString data;
+    data = m_gpg.readAllStandardOutput();
+    emit newData(data);
+    m_output = data;
     connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
     if (m_output.endsWith(m_prompt)) {
         m_output = m_output.split(m_prompt).at(0);
@@ -93,11 +96,17 @@ void GPGManager::execute() {
 }
 
 void GPGManager::readOutput() {
-    QString tmp = m_gpg.readAllStandardOutput();
-    m_output += tmp;
-    if (tmp.endsWith(m_prompt)) {
+    QString data = m_gpg.readAllStandardOutput();
+    m_output += data;
+    if (data.endsWith(m_prompt)) {
         m_output = m_output.split(m_prompt).at(0);
         m_gpg.kill();
+        QString tmp = data.split(m_prompt).at(0);
+        if (tmp != "") {
+            emit newData(tmp);
+        }
+    } else {
+        emit newData(data);
     }
     if (m_gpg.state() == QProcess::Running
             && askInteraction()) {
@@ -119,4 +128,9 @@ void GPGManager::terminate(int s, QProcess::ExitStatus status) {
 void GPGManager::setAction(const Action &a) {
     m_action = a;
 }
+
+void GPGManager::cancelProcess() {
+    m_gpg.kill();
+}
+
 

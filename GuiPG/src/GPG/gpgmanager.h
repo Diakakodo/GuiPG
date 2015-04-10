@@ -16,9 +16,11 @@ class GPGManager : public QObject {
         void execute();
         const QString& getOutput() const;
         void setAction(const Action& a);
+        void cancelProcess();
 
     signals:
         void finished(int s, const QString& output);
+        void newData(const QString& data);
         void finishedNoParam();
 
     private slots:
