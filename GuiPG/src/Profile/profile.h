@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QHash>
-#include "../Keys/key.h"
+#include "../Keys/subseckey.h"
 #include <QColor>
 
 class Profile : public QObject {

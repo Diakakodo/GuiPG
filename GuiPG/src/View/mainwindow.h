@@ -6,7 +6,7 @@
 #include "../Configuration/configuration.h"
 #include "../Model/mainwindowmodel.h"
 #include <QTreeWidget>
-#include "../Keys/key.h"
+#include "../Keys/subseckey.h"
 
 class MainWindowModel;
 

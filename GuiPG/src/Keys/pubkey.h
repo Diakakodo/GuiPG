@@ -1,32 +1,26 @@
-#ifndef PUBLICKEY_H
-#define PUBLICKEY_H
+#ifndef PUBKEY_H
+#define PUBKEY_H
 
-#include "key.h"
-#include "subkey.h"
-#include "uid.h"
+#include "subseckey.h"
 
-class PubKey : public Key {
+class PubKey : public SubSecKey {
     Q_OBJECT
 
     public:
 
-        enum Trust {
-            TRUST_UNKNOWN         = 'o',
-            TRUST_MISSING_SSIG    = 'i',
-            TRUST_DISABLE         = 'd',
-            TRUST_REVOKED         = 'r',
-            TRUST_EXPIRED         = 'e',
-            TRUST_NO_VALUE        = '-',
-            TRUST_UNDEFINED       = 'q',
-            TRUST_INVALID         = 'n',
-            TRUST_MARGINAL        = 'm',
-            TRUST_FULLY           = 'f',
-            TRUST_ULTIMATELY      = 'u',
-            TRUST_PRIVATE_PART    = 'w',
-            TRUST_SPECIAL         = 's'
+        enum Capabilitie {
+            CAP_PRIM_ENCRYPT            = 'E',
+            CAP_PRIM_SIGN               = 'S',
+            CAP_PRIM_CERTIFY            = 'C',
+            CAP_PRIM_AUTHENTIFICATION   = 'A',
+            CAP_PRIM_DISABLE            = 'D',
+            CAP_ENCRYPT                 = 'e',
+            CAP_SIGN                    = 's',
+            CAP_CERTIFY                 = 'c',
+            CAP_AUTHENTIFICATION        = 'a',
+            CAP_UNKNOWN                 = '?',
+            CAP_NONE                    = 256
         };
-
-        static QString trustToStr(Trust t);
 
         PubKey(const KeyScope keyScope,
                const Validity validity,
@@ -35,22 +29,20 @@ class PubKey : public Key {
                const QString keyId,
                const QDate creationDate,
                const QDate expirationDate,
-               const Trust trust,
                const QString capabilities,
-               QString fpr = "");
-        ~PubKey();
+               QString fpr = ""
+               );
+        vitural ~PubKey() = 0;
 
-        Trust getTrust() const;
-        const QList<SubKey*> getSubKeys() const;
-        const QList<Uid*> getUids() const;
-
-        void addSubKey(SubKey* sub);
-        void addUid(Uid* uid);
+        Validity getValidity() const;
+        QDate getExpirationDate() const;
+        QString getCapabilities() const;
 
     private:
-        Trust m_trust;
-        QList<SubKey*> m_subKeys;
-        QList<Uid*> m_uids;
+        Validity m_validity;
+        QDate m_expirationDate;
+        QString m_capabilities;
+
 };
 
-#endif // PUBLICKEY_H
+#endif // PUBKEY_H

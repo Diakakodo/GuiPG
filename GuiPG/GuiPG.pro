@@ -10,7 +10,6 @@ HEADERS += \
     src/Launcher/launcher.h \
     src/GPG/gpgmanager.h \
     src/GPG/action.h \
-    src/Keys/key.h \
     src/Keys/keymanager.h \
     src/View/keycreation.h \
     src/Model/mainwindowmodel.h \
@@ -29,8 +28,12 @@ HEADERS += \
     src/Keys/signature.h \
     src/Keys/gpgobject.h \
     src/Keys/uid.h \
-    src/Keys/subkey.h \
-    src/Keys/pubkey.h
+    src/Keys/seckey.h \
+    src/Keys/primapubkey.h \
+    src/Keys/pubkey.h \
+    src/Keys/subpubkey.h \
+    src/Keys/subseckey.h \
+    src/Keys/primaseckey.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -42,7 +45,6 @@ SOURCES += \
     src/Launcher/launcher.cpp \
     src/GPG/gpgmanager.cpp \
     src/GPG/action.cpp \
-    src/Keys/key.cpp \
     src/Keys/keymanager.cpp \
     src/View/keycreation.cpp \
     src/Model/mainwindowmodel.cpp \
@@ -60,8 +62,12 @@ SOURCES += \
     src/Keys/signature.cpp \
     src/Keys/gpgobject.cpp \
     src/Keys/uid.cpp \
-    src/Keys/subkey.cpp \
-    src/Keys/pubkey.cpp
+    src/Keys/seckey.cpp \
+    src/Keys/primapubkey.cpp \
+    src/Keys/pubkey.cpp \
+    src/Keys/subpubkey.cpp \
+    src/Keys/subseckey.cpp \
+    src/Keys/primaseckey.cpp
 
 FORMS += \
     src/View/mainwindow.ui \

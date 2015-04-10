@@ -1,52 +1,33 @@
 #include "pubkey.h"
 
-QString PubKey::trustToStr(Trust t) {
-    switch (t) {
-        case TRUST_UNKNOWN:
-            return "Inconnue";
-        case TRUST_MISSING_SSIG:
-            return "Invalide (signature manquante)";
-        case TRUST_DISABLE:
-            return "Désactivée";
-        case TRUST_REVOKED:
-            return "Révoquée";
-        case TRUST_EXPIRED:
-            return "Expirée";
-        case TRUST_NO_VALUE:
-            return "Pas de valeur";
-        case TRUST_UNDEFINED:
-            return "Sans avis";
-        case TRUST_INVALID:
-            return "Aucune";
-        case TRUST_MARGINAL:
-            return "Légère";
-        case TRUST_FULLY:
-            return "Complète";
-        case TRUST_ULTIMATELY:
-            return "Ultime";
-    }
-    return "";
-}
-
-PubKey::PubKey()
-{
-
-}
+PubKey::PubKey(const KeyScope keyScope,
+               const Validity validity,
+               const unsigned length,
+               const Algorithm algo,
+               const QString keyId,
+               const QDate creationDate,
+               const QDate expirationDate,
+               const QString capabilities,
+               QString fpr
+               ) : SubSecKey(keyScope, length, algo, keyId, creationDate),
+                   m_validity(validity),
+                   m_expirationDate(expirationDate),
+                   m_capabilities(capabilities)
+{}
 
 PubKey::~PubKey()
 {
 
 }
 
-PubKey::Trust PubKey::getTrust() const {
-    return m_trust;
+GpgObject::Validity PubKey::getValidity() const {
+    return m_validity;
 }
 
-const QList<SubKey*> PubKey::getSubKeys() const {
-    return m_subKeys;
+QDate PubKey::getExpirationDate() const {
+    return m_expirationDate;
 }
 
-void PubKey::addSubKey(SubKey* sub) {
-    m_subKeys.append(sub);
+QString PubKey::getCapabilities() const {
+    return m_capabilities;
 }
-

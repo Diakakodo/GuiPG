@@ -1,15 +1,15 @@
-#ifndef SUBKEY_H
-#define SUBKEY_H
+#ifndef SUBPUBKEY_H
+#define SUBPUBKEY_H
 
-#include "key.h"
+#include "subseckey.h"
 #include "signature.h"
 
-class SubKey : public Key {
+class SubPubKey : public Key {
     Q_OBJECT
 
     public:
-        SubKey();
-        ~SubKey();
+        SubPubKey();
+        ~SubPubKey();
 
         const QList<Signature*> getSignatures() const;
         void addSignature(Signature* sig);
@@ -18,4 +18,4 @@ class SubKey : public Key {
         QList<Signature*> m_sigs;
 };
 
-#endif // SUBKEY_H
+#endif // SUBPUBKEY_H

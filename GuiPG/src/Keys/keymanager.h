@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QList>
 #include <QHash>
-#include "pubkey.h"
+#include "primapubkey.h"
 #include "../GPG/gpgmanager.h"
 
 class KeyManager : public QObject {
