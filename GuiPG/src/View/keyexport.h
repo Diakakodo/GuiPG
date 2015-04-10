@@ -20,13 +20,13 @@ public:
     };
 
     enum ExportMode {
-        KEYSERVER,
-        FILE
+        EXPORT_KEYSERVER,
+        EXPORT_FILE
     };
 
     explicit KeyExport(MainWindow* parent = 0, Type mode = PUBLIC_KEYS, QStringList keys = QStringList());
     ~KeyExport();
-    void exportFunction(ExportMode mode, QString keyserver, QString path);
+    int exportFunction(ExportMode mode, QString keyserver, QString path);
 
 private slots:
     void on_cancelButton_clicked();
