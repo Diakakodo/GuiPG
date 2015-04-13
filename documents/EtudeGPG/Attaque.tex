@@ -1,0 +1,38 @@
+\section{Attaque}
+\subsection{Structure des clefs}
+
+Il existe deux formats de clefs utilisés aujourd'hui : 
+\begin{itemize}
+\item L'OpenPGP V3
+\item L'OpenPGP V4
+\end{itemize}
+
+Le format de clefs de l'OpenPGP V3 est déprécié, il est conseillé de ne pas l'utiliser lors de création de clefs. Dans ce format, chaque signature certifie la clef
+publique RSA et le précédent ID user. La clef RSA peut avoir plusieurs ID user et chaque ID user peut avoir plusieurs signatures.
+
+Le format actuel est l'OpenPGP V4. Ce format utilise des clefs publiques multiples. La différence qui existe avec le précédent format est l'ajout des nouvelles clefs
+en tant que "sous-clefs" de la clef primaire.
+Une sous-clef a toujours une seule signature qui peut être en format V3 ou V4, mais il est conseillé d'utiliser la dernière version.
+
+
+\subsection{Structure des Keys ID et des fingerprints}
+
+La structure des Keys ID et des fingerprints varie selon la version de la clef (V3 ou V4). 
+Le fingerprint de la clef V3 est formé du haché du corps de la clef (module n et exposant e) avec l'algorithme MD5. On remarque qu'en plus du format V3, le MD5 
+est lui aussi déprécié. 
+
+Le fingerprint de la clef V4 est formé des 160 bits hachés par SHA-1 de l'octet 0x99 suivi par la longueur des paquets de deux octets suivis par la totalité du paquet
+de la clef publique commençant par la version.
+Le Key ID est composé de 64 bits du fingerprint.
+Voici les champs qui composent le haché de la Key ID :
+
+a.1) 0x99 (1 octet)
+a.2) L'octet de poids fort de (b)-(e) (1 octet)
+a.3) L'octet de poids faible de (b)-(e) (1 octet)
+  b) Numéro de version = 4 (1 octet)
+  c) Date de création(4 octets)
+  d) Algorithme (1 octet)
+  e) Champs spécifiques de l'algorithme
+
+
+C'est la partie c qui va nous intéresser, la date de création est incluse dans le haché, nous allons donc pouvoir faire varier cette valeur pour lancer une attaque.
