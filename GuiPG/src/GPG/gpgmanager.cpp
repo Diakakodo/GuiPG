@@ -1,5 +1,6 @@
 #include "gpgmanager.h"
-#include "QDebug"
+#include <QDebug>
+
 
 GPGManager::GPGManager(const Profile *p) : m_profile(p) {
     connect(&m_gpg, (void (QProcess::*)(int, QProcess::ExitStatus)) &QProcess::finished,
@@ -56,58 +57,49 @@ void GPGManager::stateChanged(QProcess::ProcessState newState) {
 }
 
 void GPGManager::errorGPG(QProcess::ProcessError error) {
+    if (error) {
+        // slot not used.
+    }
 }
 
 void GPGManager::execute() {
-    QByteArray args = " ";
+    QStringList args;
     if (m_profile->getConfigurationPath() != "") {
-        args.append("--homedir " + m_profile->getConfigurationPath() + " ");
+        args.append("--homedir");
+        args.append(m_profile->getConfigurationPath());
     }
     for (QString option : m_action.getOptions()) {
-        args.append(option + " ");
+        args.append(option);
     }
-    args.append(m_action.getCmd() + " ");
+    args.append(m_action.getCmd());
     for (QString argument : m_action.getArgs()) {
-        args.append(argument + " ");
+        args.append(argument);
     }
-    //qDebug() << m_profile->getGPGExecutable() << args;
-    // TODO definir proprement le chemin vers getPrettyGoodPty
-    // Ainsi que le nom du shell a lancer (éventuellement la variable d'env SHELL).
-    m_gpg.start("./getPrettyGoodPty", QStringList("sh"));
-    m_gpg.waitForReadyRead();
-    m_prompt = m_gpg.readAllStandardOutput();
-    QByteArray cmd(m_profile->getGPGExecutable().toLatin1());
+    QStringList cmd(m_profile->getGPGExecutable());
     cmd.append(args);
-    if (!cmd.endsWith("\n")) {
-        cmd.append("\n");
-    }
-    m_gpg.write(cmd);
-
-    m_gpg.waitForReadyRead();
-    QString data;
-    data = m_gpg.readAllStandardOutput();
-    emit newData(data);
-    m_output = data;
+    //qDebug() << cmd;
+    // TODO definir proprement le chemin vers getPrettyGoodPty
     connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
-    if (m_output.endsWith(m_prompt)) {
-        m_output = m_output.split(m_prompt).at(0);
-        m_gpg.kill();
+    m_gpg.start("./getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
+    m_gpg.waitForStarted();
+    if (m_action.getOptions().contains("--batch")) {
+        while (m_action.hasInteraction()) {
+            m_gpg.write(m_action.nextInteraction().toLatin1());
+        }
+        m_gpg.write("%commit\n");
+        m_gpg.write("%echo done\n");
+
+        m_gpg.closeWriteChannel();
     }
 }
-
 void GPGManager::readOutput() {
     QString data = m_gpg.readAllStandardOutput();
+    //qDebug() << data;
     m_output += data;
-    if (data.endsWith(m_prompt)) {
-        m_output = m_output.split(m_prompt).at(0);
+    if (m_action.getOptions().contains("--batch") && m_output.endsWith(": done\n")) {
         m_gpg.kill();
-        QString tmp = data.split(m_prompt).at(0);
-        if (tmp != "") {
-            emit newData(tmp);
-        }
-    } else {
-        emit newData(data);
     }
+    emit newData(data);
     if (m_gpg.state() == QProcess::Running
             && askInteraction()) {
         sendInteraction();
@@ -119,9 +111,11 @@ const QString& GPGManager::getOutput() const {
 }
 
 void GPGManager::terminate(int s, QProcess::ExitStatus status) {
+    if (status) {
+        // variable not used.
+    }
     disconnect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
     emit finished(s, m_output);
-    //emit finishedNoParam();
 
 }
 
