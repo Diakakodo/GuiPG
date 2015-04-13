@@ -1,5 +1,5 @@
 #include "gpgmanager.h"
-
+#include <QDebug>
 
 
 GPGManager::GPGManager(const Profile *p) : m_profile(p) {
@@ -80,7 +80,8 @@ void GPGManager::execute() {
     //qDebug() << cmd;
     // TODO definir proprement le chemin vers getPrettyGoodPty
     connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
-    m_gpg.start("./getPrettyGoodPty", cmd);
+    m_gpg.start("./getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
+    m_gpg.waitForStarted();
     if (m_action.getOptions().contains("--batch")) {
         while (m_action.hasInteraction()) {
             m_gpg.write(m_action.nextInteraction().toLatin1());
@@ -93,8 +94,9 @@ void GPGManager::execute() {
 }
 void GPGManager::readOutput() {
     QString data = m_gpg.readAllStandardOutput();
+    //qDebug() << data;
     m_output += data;
-    if (m_action.getOptions().contains("--batch") && data.endsWith(": done\n")) {
+    if (m_action.getOptions().contains("--batch") && m_output.endsWith(": done\n")) {
         m_gpg.kill();
     }
     emit newData(data);
