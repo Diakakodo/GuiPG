@@ -278,10 +278,10 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° U3} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Demander la liste des profils & On récupère une liste de profils &  & NOK \\
-      2 & Créer un profil & Le profil est créé &  & NOK \\
-      3 & Supprimer ce profil & Le profil est supprimé &  & NOK \\ 
-      4 & Demander la liste des profils & La même liste est renvoyée qu'au début &  & \\
+      1 & Demander la liste des profils & On récupère une liste de profils &  & OK \\
+      2 & Créer un profil & Le profil est créé &  & OK \\
+      3 & Supprimer ce profil & Le profil est supprimé &  & OK \\ 
+      4 & Demander la liste des profils & La même liste est renvoyée qu'au début &  & OK \\
       5 &  &  &  & \\
       6 &  &  &  & \\
       7 &  &  &  & \\
@@ -323,13 +323,13 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° U5} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction getId & La fonction renvoie l'id donnée au constructeur &  & NOK \\
-      3 & Utiliser la fonction setConfigurationPath &  &  & NOK \\
-      4 & Utiliser la fonction getConfigurationPath & La fonction renvoie le path donné à l'étape précédente &  & NOK \\
-      5 & Utiliser la fonction setGPGExecutable &  &  & NOK \\
-      6 & Utiliser la fonction getGPGExecutable & La fonction renvoie le path donné à l'étape précédente &  & NOK \\
-      7 & Utiliser la fonction getName & La fonction renvoie le nom donné au constructeur &  & NOK \\
+      1 & Créer une instance de la classe &  &  & OK \\
+      2 & Utiliser la fonction getId & La fonction renvoie l'id donnée au constructeur &  & OK \\
+      3 & Utiliser la fonction setConfigurationPath &  &  & OK \\
+      4 & Utiliser la fonction getConfigurationPath & La fonction renvoie le path donné à l'étape précédente &  & OK \\
+      5 & Utiliser la fonction setGPGExecutable &  &  & OK \\
+      6 & Utiliser la fonction getGPGExecutable & La fonction renvoie le path donné à l'étape précédente &  & OK \\
+      7 & Utiliser la fonction getName & La fonction renvoie le nom donné au constructeur &  & OK \\
       8 &  &  &  &  \\
       9 &  &  &  & \\
       10 &  &  &  &\\ 
@@ -346,17 +346,17 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° U6} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction alreadyRun & La fonction renvoie false &  & NOK \\
-      3 & Utiliser la fonction run & Une exception IllegalArgumentException est levée &  & NOK \\
-      4 & Utiliser la fonction addMainWindow avec un argument à NULL & Une exception IllegalArgumentException est levée &  & NOK \\
-      5 & Utiliser la fonction addMainWindow & &  & NOK \\
-	    6 & Utiliser la fonction run &  &  & NOK \\
-      7 & Utiliser la fonction alreadyRun & La fonction renvoie true &  & NOK \\
-      8 & Utiliser la fonction profileIsLoad avec le même Profile que pour addMainWindow & La fonction ne renvoie pas NULL &  & NOK \\
-      9 & Utiliser la fonction unloadProfileWithWindow avec le même Profile que pour addMainWindow &  &  & NOK \\
-      10 & Utiliser la fonction stop &  &  & NOK \\
-      11 & Utiliser la fonction alreadyRun & La fonction renvoie false &  &\\ 
+      1 & Créer une instance de la classe &  &  & OK \\
+      2 & Utiliser la fonction alreadyRun & La fonction renvoie false &  & OK \\
+      3 & Utiliser la fonction run & Une exception IllegalArgumentException est levée &  & OK \\
+      4 & Utiliser la fonction addMainWindow avec un argument à NULL & Une exception IllegalArgumentException est levée &  & OK \\
+      5 & Utiliser la fonction addMainWindow & &  & OK \\
+	    6 & Utiliser la fonction run &  &  & OK \\
+      7 & Utiliser la fonction alreadyRun & La fonction renvoie true &  & OK \\
+      8 & Utiliser la fonction profileIsLoad avec le même Profile que pour addMainWindow & La fonction ne renvoie pas NULL &  & OK \\
+      9 & Utiliser la fonction unloadProfileWithWindow avec le même Profile que pour addMainWindow &  &  & OK \\
+      10 & Utiliser la fonction stop &  &  & OK \\
+      11 & Utiliser la fonction alreadyRun & La fonction renvoie false &  & OK \\ 
 	\hline
     \end{tabular}
     \vskip 2.2cm
@@ -392,14 +392,14 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° U8} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction setAction &  &  & NOK \\
-      3 & Utiliser la fonction execute &  &  & NOK \\
-      4 & Attendre le signal finished & Le signal finished est reçu &  & NOK \\
-      5 & Utiliser la fonction getOutput & La fonction renvoie le texte renvoyé par gpg quand gpg exécute l'action donnée en argument à setAction &  & NOK \\
-	    6 & &  &  & NOK \\
-      7 &  &  &  & NOK \\
-      8 &  &  &  & NOK \\
+      1 & Créer une instance de la classe &  &  & OK \\
+      2 & Utiliser la fonction setAction &  &  & OK \\
+      3 & Utiliser la fonction execute &  &  & OK \\
+      4 & Attendre le signal finished & Le signal finished est reçu &  & OK \\
+      5 & Utiliser la fonction getOutput & La fonction renvoie le texte renvoyé par gpg quand gpg exécute l'action donnée en argument à setAction &  & OK \\
+	    6 & &  &  &  \\
+      7 &  &  &  &  \\
+      8 &  &  &  &  \\
       9 &  &  &  & \\
       10 &  &  &  & \\ 
 	\hline
@@ -438,20 +438,64 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° U10} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction getLauncher & La fonction renvoie le Launcher donné au constructeur &  & NOK \\
-      3 & Utiliser la fonction getGuiPGApp & La fonction renvoie le GuiPGApp donné au constructeur &  & NOK \\
-      4 & Utiliser la fonction getConf & La fonction renvoie la Configuration donnée au constructeur &  & NOK \\
-      5 & Utiliser la fonction getProfile & La fonction renvoie le Profile donné au constructeur &  & NOK \\
-      6 & Utiliser la fonction loadProfile &  &  & NOK \\
-      7 & Utiliser la fonction initKeyManager &  &  & NOK \\
-      8 & Utiliser la fonction getKeyManager & La fonction renvoie un KeyManager &  & NOK \\
-      9 &  &  &  & NOK \\
-      10 &  &  &  & NOK \\ 
+      1 & Créer une instance de la classe &  &  & OK \\
+      2 & Utiliser la fonction getLauncher & La fonction renvoie le Launcher donné au constructeur &  & OK \\
+      3 & Utiliser la fonction getGuiPGApp & La fonction renvoie le GuiPGApp donné au constructeur &  & OK \\
+      4 & Utiliser la fonction getConf & La fonction renvoie la Configuration donnée au constructeur &  & OK \\
+      5 & Utiliser la fonction getProfile & La fonction renvoie le Profile donné au constructeur &  & OK \\
+      6 & Utiliser la fonction loadProfile &  &  & OK \\
+      7 & Utiliser la fonction initKeyManager &  &  & OK \\
+      8 & Utiliser la fonction getKeyManager & La fonction renvoie un KeyManager &  & OK \\
+      9 &  &  &  &  \\
+      10 &  &  &  &  \\ 
   \hline
     \end{tabular}
     \vskip 2.2cm
 
+
+    %---------------------------------------Test N° U11------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Classe KeyExport} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U11} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Avoir un trousseau de clés non vide &  &  & NOK \\
+      2 & Créer une instance de la classe &  &  & NOK \\
+      3 & Utiliser la fonction exportKey sur /tmp & Le fichier correspondant au path a été créé. &  & NOK \\
+      4 & Utiliser la fonction exportKey sur un fichier non accessible en écriture & La fonction renvoie -1 &  & NOK \\
+      5 & Utiliser la fonction exportKey sur un chemin inexistant & la fonction renvoie -1 &  & NOK \\
+      6 & Utiliser la fonction exportKey sur un fichier déjà existant & Le fichier a été remplacé &  & NOK \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  & \\ 
+  \hline
+    \end{tabular}
+    \vskip 2.2cm
+
+    %---------------------------------------Test N° U12------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Classe KeyImport} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U12} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Créer une instance de la classe &  &  & NOK \\
+      2 & Utiliser la fonction import sur un fichier valide & Les clés contenues dans le fichier ont été importées &  & NOK \\
+      3 &  &  &  &  \\
+      4 &  &  &  &  \\
+      5 &  &  &  &  \\
+      6 &  &  &  &  \\
+      7 &  &  &  &  \\
+      8 &  &  &  &  \\
+      9 &  &  &  & \\
+      10 &  &  &  & \\ 
+  \hline
+    \end{tabular}
+    \vskip 2.2cm    
 
 
 %TESTS D'INTEGRATION%
@@ -558,9 +602,9 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° NR2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Lancer GuiPG avec un profil & GuiPG se lance &  & NOK \\
-      2 & Créer un nouveau profil & Le nouveau profil a été créé. &  & NOK \\
-      3 & Changer 20 fois entre le nouveau profil et l'ancien & GuiPG ne crashe pas &  & \\
+      1 & Lancer GuiPG avec un profil & GuiPG se lance &  & OK \\
+      2 & Créer un nouveau profil & Le nouveau profil a été créé. &  & OK \\
+      3 & Changer 20 fois entre le nouveau profil et l'ancien & GuiPG ne crashe pas &  & OK \\
       4 &  &  &  & \\
       5 &  &  &  & \\
       6 &  &  &  & \\
@@ -736,7 +780,7 @@ Rappel des codes utilisés dans la STB :
     \begin{tabular}{|p{2cm}|p{3.1cm}|p{3.1cm}|p{3.1cm}|p{3.1cm}|}
       \hline
       Date & Tests auto OK & Tests manuels OK & Tests auto NOK & Tests manuels NOK\\ \hline
-      09/04/2015 &  &  &  &\\ \hline
+      09/04/2015 & U3 U5 U6 U7 U8 U10 NR1 NR2 &  &  &\\ \hline
 
   \end{tabular}  
 \end{center}
