@@ -5,32 +5,63 @@ use warnings;
 use Crypt::OpenSSL::RSA;
 use Digest::SHA;
 
+sub fingerprint {
+  my $key = shift;
+  my $key_timestamp = shift;
+
+  my $rsabody = make_rsa_body($key, $key_timestamp);
+
+  return Digest::SHA::sha1(pack('Cn', 0x99, length($rsabody)).$rsabody); #On utilise le SHA-1 pour retrouver la clef, c'est donc une clef de type V4
+}
+
+
 my $fingerprint;
 my $uid = shift;
-defined($uid) or die "Vous devez mettre le nom de la clef en paramètre.\n";
+defined($uid) or die "Vous devez mettre l'ID de l'utilisateur en paramètre.\n";
 
 my $target_keyid = shift;
 defined($target_keyid) or die "Vous devez entrer une clé ID de 8 caractères.\n";
 
 my $rsa;
-my $ts = time();
+my $tries = 0; #Pour calculer le nombre d'essais nécéssaires pour trouver une pré-image
+my $tries_per_sec;
+
+my $ts_now = time();
+my $ts_three_years = $ts_now - 60*60*24*365*3; #temps qui vas nous permettre d'altérer le fingerprint de la clef
+
+
+
 
 while(1) {
 	print("Génération d'une nouvelle clé RSA\n");
-    $rsa = Crypt::OpenSSL::RSA->generate_key(4096);
-    $fingerprint = uc(unpack("H*", fingerprint($rsa, $ts)));
-    $keyid = substr($fingerprint, 32, 8);
+    $rsa = Crypt::OpenSSL::RSA->generate_key(4096); #Une clef créée qui va être modifier ensuite jusqu'a concordence avec le fingerprint espéré.
 
-    if ($target_keyid eq $keyid) {
-    	#Ecrire une fonction pour transformer la clé avec les bons octets en suivant la RFC section 4.2
-    	
-    	#open(FILE, ">$keyid.gpg");
-        #print FILE $openpgp_key;
-        #close(FILE);
+    $ts = ts_now;
+    while (ts >= ts_three_years) {
 
-        die "Fin de la collision\n" ;
+        $fingerprint = uc(unpack("H*", fingerprint($rsa, $ts))); #On calcule le fingerprint de la clef
+        $keyid = substr($fingerprint, 32, 8); #On recupère les 8 octets qui constitue la key ID
+
+        if ($target_keyid eq $keyid) {
+        	#Ecrire une fonction pour transformer la clé avec les bons octets en suivant la RFC section 4.2
+
+            open(FILE, ">$keyid.gpg"); #Si la seconde pré-image est trouvée, on ecrit la clef dans un fichier. Cette clef doit pouvoir être importée.
+            print FILE $openpgp_key;
+            close(FILE);
+
+            die "Fin de la recherche pour la seconde pré-image\n" ;
+        }
+        $tries++; 
+        if($tries % 100 == 0) {
+            $time_diff = time() - $ts_now;
+            if($time_diff == 0) {
+                $tries_per_sec = 0;
+            } else {
+                $tries_per_sec = int($tries / $time_diff);
+            }
+            print("\r$tries essais [$tries_per_sec / sec]"); #Affiche le nombre d'essais par seconde
+        }
+        $ts--;
     }
-
-	
+    print("\n");
 }
-#print($fingerprint."\n");
