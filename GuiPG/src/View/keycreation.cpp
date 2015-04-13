@@ -130,7 +130,8 @@ void KeyCreation::addData(const QString& data) {
 void KeyCreation::keyCreationFinished()
 {
     m_window->refreshKeys();
-    close();
+    ui->pushButton->setText("Fermer");
+    //close();
 }
 
 void KeyCreation::on_pushButton_clicked()
