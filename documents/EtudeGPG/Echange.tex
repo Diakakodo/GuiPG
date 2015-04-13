@@ -1,42 +1,37 @@
 \section{Échange de clefs}
 
-
-
-
-
-
 Pour pouvoir échanger avec nos correspondants, il faut bien leur faire parvenir notre clef publique pour qu'il puisse chiffrer des
 messages à notre destination puis vérifier nos signatures en utilisant cette clef publique. À cet effet après la génération de la 
-paire de clef et la création du certificat de re-vocation correspondant, nous allons à présent exporter notre clef publique vers un 
-serveur de clef publique ( ou les transmettre à nos correspondants directement à travers un email ou sur un support amovible).
+paire de clefs et la création du certificat de revocation correspondant, nous allons à présent exporter notre clef publique vers un 
+serveur de clef publique (ou les transmettre à nos correspondants directement à travers un email ou sur un support amovible).
 
 \subsection{Exporter une clef}
-Avant de pouvoir envoyer nos clefs aux correspondants nous allons tout d'abord l'exporter dans notre repertoire avec l'option
+Avant de pouvoir envoyer nos clefs aux correspondants nous allons tout d'abord l'exporter dans notre répertoire avec l'option
  \texttt{--export } de gpg.\\
 La commande est la suivante : \\
 
 
 \texttt{gpg --output pb\_clef.gpg --armor --export id\_clef } où id\_clef est l'identifiant de la clef et pb\_clef.gpg est la clef 
-publique . 
+publique. 
 
-Une fois la clef publique exportée vous pouvez la publier partout où vous le voulez que ce soit sur votre blog personnel ou sur les 
-servers de clefs publique . Chacun peut alors accéder à votre clé publique et l'utiliser pour vous envoyer des message puis verifier 
-vos signatures pour authentifier vos messages.\\
+Une fois la clef publique exportée, vous pouvez la publier partout où vous le voulez que ce soit sur votre blog personnel ou sur les
+serveurs de clefs publiques. Chacun peut alors accéder à votre clé publique et l'utiliser pour vous envoyer des messages puis vérifier 
+vos signatures permettant l'authentification de vos messages.\\
 
-On peut publier notre clef sur le serveur de clef a travers la commande:\\
+On peut publier notre clef sur le serveur de clef à travers la commande:\\
 
 \texttt{gpg --keyserver pgp.mit.edu --send-keys  mon\_id } dans cet exemple nous avons choisi le serveur de clef du du MIT
   (Massachusetts Institute of Technology)
 \subsection{Importer une clé publique}
 
 
-Pour pouvoir ajouter une clef publique à notre trousseau de clef il faut ajouter l'option --import  de gpg.
+Pour pouvoir ajouter une clef publique à notre trousseau de clefs, il faut ajouter l'option --import  de gpg.
 
 %\texttt{gpg --import pb_clef.gpg}
 
-c) Supprimer ou retirer une clef publique de votre trousseau de clef:
-À l'aide de la commande \texttt{gpg --delete-key info-clef } on peut supprimer une clef publique de notre trousseau de clef.
+c) Supprimer ou retirer une clef publique de votre trousseau de clefs:
+À l'aide de la commande \texttt{gpg --delete-key info-clef }, on peut supprimer une clef publique de notre trousseau de clefs.
 
-À savoir egalement qu'avec l'option \texttt{--delet-secrete-key} on peut aussi supprimer la clef privée dont l'identifiant est en entrée.
+À savoir également qu'avec l'option \texttt{--delet-secrete-key} on peut aussi supprimer la clef privée dont l'identifiant est en entrée.
 
 
