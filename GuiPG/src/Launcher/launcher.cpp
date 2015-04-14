@@ -4,6 +4,9 @@
 
 using namespace std;
 
+
+QHash<Profile*, MainWindow*> Launcher::m_profileMainWindowHash = QHash<Profile*, MainWindow*>();
+
 /**
  * @brief Launcher::Launcher
  * @param app
@@ -15,7 +18,7 @@ Launcher::Launcher(GuiPGApp* app, Configuration* conf, int profileId)
 
     m_shm = new QSharedMemory(SHM_NAME, this);
     m_profileId = profileId;
-    m_profileMainWindowHash = QHash<Profile*, MainWindow*>();
+    //m_profileMainWindowHash = QHash<Profile*, MainWindow*>();
     m_stop = false;
     // TODO vérifier la compatibilité Windows/Unix pour le mode d'accés.
     m_systemSem = new QSystemSemaphore(SYS_SEM_NAME, 0, QSystemSemaphore::Create);

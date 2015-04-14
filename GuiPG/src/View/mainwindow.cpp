@@ -14,7 +14,7 @@ MainWindow::MainWindow(MainWindowModel* model)
     : ui(new Ui::MainWindow), m_model(model) {
 
     ui->setupUi(this);
-    ui->textBrowser->setVisible(false);
+    ui->bigBrowser->setVisible(false);
     this->setWindowTitle("GuiPG - " + m_model->getProfile()->getName());
 
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
@@ -57,7 +57,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 void MainWindow::setGpgCommandsVisible(bool b) {
-    ui->textBrowser->setVisible(b);
+    ui->bigBrowser->setVisible(b);
     if (b == true) {
         ui->toolButton->setArrowType(Qt::DownArrow);
     } else {
@@ -170,4 +170,9 @@ void MainWindow::setItemColor(QTreeWidgetItem* item, const QColor& color) {
     for (int i = 0; i < ui->treeWidgetKey->columnCount(); ++i) {
         item->setTextColor(i, color);
     }
+}
+
+
+void MainWindow::updateBigBrother(QString cmd, QString output) {
+    this->ui->bigBrowser->setText(cmd + "\n" + output);
 }
