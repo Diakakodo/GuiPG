@@ -14,7 +14,7 @@ MainWindow::MainWindow(MainWindowModel* model)
     : ui(new Ui::MainWindow), m_model(model) {
 
     ui->setupUi(this);
-    ui->bigBrowser->setVisible(false);
+    ui->bigBrother->setVisible(false);
     this->setWindowTitle("GuiPG - " + m_model->getProfile()->getName());
 
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
@@ -57,7 +57,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 void MainWindow::setGpgCommandsVisible(bool b) {
-    ui->bigBrowser->setVisible(b);
+    ui->bigBrother->setVisible(b);
     if (b == true) {
         ui->toolButton->setArrowType(Qt::DownArrow);
     } else {
@@ -172,7 +172,10 @@ void MainWindow::setItemColor(QTreeWidgetItem* item, const QColor& color) {
     }
 }
 
-
 void MainWindow::updateBigBrother(QString cmd, QString output) {
-    this->ui->bigBrowser->setText(cmd + "\n" + output);
+    QTreeWidgetItem* cmdItem = new QTreeWidgetItem(QStringList(cmd));
+    if (output != "") {
+        cmdItem->addChild(new QTreeWidgetItem(cmdItem, QStringList(output)));
+    }
+    ui->bigBrother->addTopLevelItem(cmdItem);
 }
