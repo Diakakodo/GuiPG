@@ -1,6 +1,21 @@
 #include "uid.h"
 
-Uid::Uid(Validity validity,
+QString Uid::cipherToStr(QString cipherAlgo) {
+    // TODO
+    return "";
+}
+
+QString Uid::digestToStr(QString digestAlgo) {
+    // TODO
+    return "";
+}
+
+QString Uid::compressToStr(QString compressAlgo) {
+    // TODO
+    return "";
+}
+
+Uid::Uid(QString validity,
          QDate creationDate,
          QString fpr,
          QString name,
@@ -18,7 +33,7 @@ Uid::~Uid()
 
 }
 
-GpgObject::Validity Uid::getValidity() const {
+QString Uid::getValidity() const {
     return m_validity;
 }
 

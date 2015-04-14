@@ -8,10 +8,10 @@ class SubPubKey : public SubSecKey {
     Q_OBJECT
 
     public:
-        SubPubKey(const KeyScope keyScope,
-                  const Validity validity,
+        SubPubKey(const QString keyScope,
+                  const QString validity,
                   const unsigned length,
-                  const Algorithm algo,
+                  const QString algo,
                   const QString keyId,
                   const QDate creationDate,
                   const QDate expirationDate,
@@ -25,7 +25,7 @@ class SubPubKey : public SubSecKey {
 
     private:
         QList<Signature*> m_sigs;
-        Validity m_validity;
+        QString m_validity;
         QDate m_expirationDate;
         QString m_capabilities;
 };

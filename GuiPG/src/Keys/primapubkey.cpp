@@ -1,42 +1,39 @@
 #include "primapubkey.h"
 
-QString PrimaPubKey::trustToStr(Trust t) {
-    switch (t) {
-        case TRUST_UNKNOWN:
-            return "Inconnue";
-        case TRUST_MISSING_SSIG:
-            return "Invalide (signature manquante)";
-        case TRUST_DISABLE:
-            return "Désactivée";
-        case TRUST_REVOKED:
-            return "Révoquée";
-        case TRUST_EXPIRED:
-            return "Expirée";
-        case TRUST_NO_VALUE:
-            return "Pas de valeur";
-        case TRUST_UNDEFINED:
-            return "Sans avis";
-        case TRUST_INVALID:
-            return "Aucune";
-        case TRUST_MARGINAL:
-            return "Légère";
-        case TRUST_FULLY:
-            return "Complète";
-        case TRUST_ULTIMATELY:
-            return "Ultime";
-        default:
-            return "";
-    }
+QString PrimaPubKey::trustToStr(QString t) {
+    if (t == TRUST_UNKNOWN)
+        return "Inconnue";
+    if (t == TRUST_MISSING_SSIG)
+        return "Invalide (signature manquante)";
+    if (t == TRUST_DISABLE)
+        return "Désactivée";
+    if (t == TRUST_REVOKED)
+        return "Révoquée";
+    if (t == TRUST_EXPIRED)
+        return "Expirée";
+    if (t == TRUST_NO_VALUE)
+        return "Pas de valeur";
+    if (t == TRUST_UNDEFINED)
+        return "Sans avis";
+    if (t == TRUST_INVALID)
+        return "Aucune";
+    if (t == TRUST_MARGINAL)
+        return "Légère";
+    if (t == TRUST_FULLY)
+        return "Complète";
+    if (t == TRUST_ULTIMATELY)
+        return "Ultime";
+    return "";
 }
 
-PrimaPubKey::PrimaPubKey(const KeyScope keyScope,
-                         const Validity validity,
+PrimaPubKey::PrimaPubKey(const QString keyScope,
+                         const QString validity,
                          const unsigned length,
-                         const Algorithm algo,
+                         const QString algo,
                          const QString keyId,
                          const QDate creationDate,
                          const QDate expirationDate,
-                         const Trust trust,
+                         const QString trust,
                          const QString capabilities,
                          QString fpr) : PubKey(keyScope,
                                                validity,
@@ -56,7 +53,7 @@ PrimaPubKey::~PrimaPubKey()
 
 }
 
-PrimaPubKey::Trust PrimaPubKey::getTrust() const {
+QString PrimaPubKey::getTrust() const {
     return m_trust;
 }
 

@@ -1,9 +1,9 @@
 #include "subpubkey.h"
 
-SubPubKey::SubPubKey(const KeyScope keyScope,
-                     const Validity validity,
+SubPubKey::SubPubKey(const QString keyScope,
+                     const QString validity,
                      const unsigned length,
-                     const Algorithm algo,
+                     const QString algo,
                      const QString keyId,
                      const QDate creationDate,
                      const QDate expirationDate,

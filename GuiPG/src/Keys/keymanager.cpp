@@ -91,14 +91,14 @@ void KeyManager::gpgFinished(int s, const QString &output) {
         QStringList split = line.split(":");
         if (line.startsWith("pub:")) {
             PrimaPubKey* pub = new PrimaPubKey(
-                        PrimaPubKey::KEYSCOPE_PUBLIC,
-                        (GpgObject::Validity) split.at(1).at(0).toLatin1(),
+                        GPG_PUB_KEY,
+                        (QString) split.at(1).at(0).toLatin1(),
                         split.at(2).toLong(),
-                        (GpgObject::Algorithm) split.at(3).toInt(),
+                        (QString) split.at(3).toInt(),
                         split.at(4),
                         QDate(),// TODO
                         QDate(),// TODO
-                        PrimaPubKey::TRUST_UNKNOWN,//TODO
+                        TRUST_UNKNOWN,//TODO
                         "");
         } else if (line.startsWith("")) {
 

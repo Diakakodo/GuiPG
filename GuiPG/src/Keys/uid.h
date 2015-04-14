@@ -5,48 +5,42 @@
 #include "gpgobject.h"
 class Signature;
 
+#define CIPHER_ALGO_NONE        "S0"
+#define CIPHER_ALGO_IDEA        "S1"
+#define CIPHER_ALGO_3DES        "S2"
+#define CIPHER_ALGO_CAST5       "S3"
+#define CIPHER_ALGO_BLOWFISH    "S4"
+#define CIPHER_ALGO_AES         "S7"
+#define CIPHER_ALGO_AES192      "S8"
+#define CIPHER_ALGO_AES256      "S9"
+#define CIPHER_ALGO_TWOFISH     "S10"
+#define CIPHER_ALGO_CAMELLIA128 "S11"
+#define CIPHER_ALGO_CAMELLIA192 "S12"
+#define CIPHER_ALGO_CAMELLIA256 "S13"
+
+#define DIGEST_ALGO_MD5     "H1"
+#define DIGEST_ALGO_SHA1    "H2"
+#define DIGEST_ALGO_RMD160  "H3"
+#define DIGEST_ALGO_SHA256  "H8"
+#define DIGEST_ALGO_SHA384  "H9"
+#define DIGEST_ALGO_SHA512  "H10"
+#define DIGEST_ALGO_SHA224  "H11"
+
+#define COMPRESS_ALGO_NONE  "Z0"
+#define COMPRESS_ALGO_ZIP   "Z1"
+#define COMPRESS_ALGO_ZLIB  "Z2"
+#define COMPRESS_ALGO_BZIP2 "Z3"
+
 class Uid : public GpgObject {
     Q_OBJECT
 
     public:
 
-        enum CipherAlgo {
-            CIPHER_ALGO_NONE        = 0, // S0
-            CIPHER_ALGO_IDEA        = 1, // S1
-            CIPHER_ALGO_3DES        = 2, // S2
-            CIPHER_ALGO_CAST5       = 3, // S3
-            CIPHER_ALGO_BLOWFISH    = 4, // S4
-            CIPHER_ALGO_AES         = 7, // S7
-            CIPHER_ALGO_AES192      = 8, // S8
-            CIPHER_ALGO_AES256      = 9, // S9
-            CIPHER_ALGO_TWOFISH     = 10,// S10
-            CIPHER_ALGO_CAMELLIA128 = 11,// S11
-            CIPHER_ALGO_CAMELLIA192 = 12,// S12
-            CIPHER_ALGO_CAMELLIA256 = 13 // S13
-        };
+        static QString cipherToStr(QString cipherAlgo);
+        static QString digestToStr(QString digestAlgo);
+        static QString compressToStr(QString compressAlgo);
 
-        enum DigestAlgo {
-            DIGEST_ALGO_MD5     = 1, // H1
-            DIGEST_ALGO_SHA1    = 2, // H2
-            DIGEST_ALGO_RMD160  = 3, // H3
-            DIGEST_ALGO_SHA256  = 8, // H8
-            DIGEST_ALGO_SHA384  = 9, // H9
-            DIGEST_ALGO_SHA512  = 10,// H10
-            DIGEST_ALGO_SHA224  = 11 // H11
-        };
-
-        enum CompressAlgo {
-            COMPRESS_ALGO_NONE  = 0, // Z0
-            COMPRESS_ALGO_ZIP   = 1, // Z1
-            COMPRESS_ALGO_ZLIB  = 2, // Z2
-            COMPRESS_ALGO_BZIP2 = 3  // Z3
-        };
-
-        static QString cipherToStr(CipherAlgo cipherAlgo);
-        static QString digestToStr(DigestAlgo digestAlgo);
-        static QString compressToStr(CompressAlgo compressAlgo);
-
-        Uid(Validity validity,
+        Uid(QString validity,
             QDate creationDate,
             QString fpr,
             QString name,
@@ -54,19 +48,21 @@ class Uid : public GpgObject {
             QString mail);
         ~Uid();
 
-        Validity getValidity() const;
+        QString getValidity() const;
         QString getName() const;
         QString getComment() const;
         QString getMail() const;
+        QString getPref() const;
         const QList<Signature*> getSigList() const;
 
         void addSignature(Signature* sig);
 
     private:
-        Validity m_validity;
+        QString m_validity;
         QString m_name;
         QString m_comment;
         QString m_mail;
+        QString m_pref;
         QList<Signature*> m_sigList;
 };
 

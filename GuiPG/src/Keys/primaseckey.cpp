@@ -1,8 +1,8 @@
 #include "primaseckey.h"
 
-PrimaSecKey::PrimaSecKey(const KeyScope keyScope,
+PrimaSecKey::PrimaSecKey(const QString keyScope,
                          const unsigned length,
-                         const Algorithm algo,
+                         const QString algo,
                          const QString keyId,
                          const QDate creationDate,
                          const QDate expirationDate,

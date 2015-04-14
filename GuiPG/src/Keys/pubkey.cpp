@@ -1,9 +1,9 @@
 #include "pubkey.h"
 
-PubKey::PubKey(const KeyScope keyScope,
-               const Validity validity,
+PubKey::PubKey(const QString keyScope,
+               const QString validity,
                const unsigned length,
-               const Algorithm algo,
+               const QString algo,
                const QString keyId,
                const QDate creationDate,
                const QDate expirationDate,
@@ -22,7 +22,7 @@ PubKey::~PubKey()
 
 }
 
-GpgObject::Validity PubKey::getValidity() const {
+QString PubKey::getValidity() const {
     return m_validity;
 }
 

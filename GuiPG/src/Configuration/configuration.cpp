@@ -69,7 +69,7 @@ bool Configuration::load() {
                                         ae.attribute(GREEN_ATTRIBUTE).toInt(),
                                         ae.attribute(BLUE_ATTRIBUTE).toInt()
                             );
-                            p->setValidityColor((GpgObject::Validity) ae.attribute(VALUE_ATTRIBUTE).toInt(), c);
+                            p->setValidityColor((QString) ae.attribute(VALUE_ATTRIBUTE).toInt(), c);
                         } else if (ae.tagName() == SIG_COLOR_TAG_NAME) {
                             QColor c(
                                         ae.attribute(RED_ATTRIBUTE).toInt(),
@@ -109,10 +109,10 @@ bool Configuration::save() {
         pe.setAttribute(NAME_ATTR_NAME, p->getName());
         addNode(EXEC_TAG_NAME, p->getGPGExecutable(), doc, pe);
         addNode(PATH_TAG_NAME, p->getConfigurationPath(), doc, pe);
-        const QHash<GpgObject::Validity, QColor> validityColors = p->getValidityColors();
-        for (GpgObject::Validity v : validityColors.keys()) {
+        const QHash<QString, QColor> validityColors = p->getValidityColors();
+        for (QString v : validityColors.keys()) {
             QDomElement e = createColorElement(VALIDITY_COLOR_TAG_NAME, validityColors.value(v), doc);
-            e.setAttribute(VALUE_ATTRIBUTE, (int) v);
+            e.setAttribute(VALUE_ATTRIBUTE, (QString) v);
             pe.appendChild(e);
         }
         pe.appendChild(createColorElement(SIG_COLOR_TAG_NAME, p->getSignatureColor(), doc));

@@ -11,32 +11,25 @@ class SubSecKey : public GpgObject {
 
     public:
 
-        enum KeyScope {
-            KEYSCOPE_PUBLIC        = REC_PUB_KEY,
-            KEYSCOPE_SECRET        = REC_SECRETE_KEY,
-            KEYSCOPE_SUB_PUBLIC    = REC_SUB_KEY,
-            KEYSCOPT_SUB_SECRET    = REC_SECRET_SUBKEY
-        };
-
-        explicit SubSecKey(const KeyScope keyScope,
+        explicit SubSecKey(const QString keyScope,
                      const unsigned length,
-                     const Algorithm algo,
+                     const QString algo,
                      const QString keyId,
                      const QDate creationDate,
                      QString fpr = ""
                      );
         ~SubSecKey();
 
-        KeyScope getKeyScope() const;
+        QString getKeyScope() const;
         unsigned getLength() const;
-        Algorithm getAlgo() const;
+        QString getAlgo() const;
         QString getKeyId() const;
-        Validity getValidity();
+        QString getValidity();
 
     private:
-        const KeyScope m_keyScope;
+        const QString m_keyScope;
         const unsigned m_length;
-        const Algorithm m_algo;
+        const QString m_algo;
         const QString m_keyId;
 };
 

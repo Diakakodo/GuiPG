@@ -5,42 +5,40 @@
 #include "subpubkey.h"
 #include "uid.h"
 
+#define TRUST_UNKNOWN         "o"
+#define TRUST_MISSING_SSIG    "i"
+#define TRUST_DISABLE         "d"
+#define TRUST_REVOKED         "r"
+#define TRUST_EXPIRED         "e"
+#define TRUST_NO_VALUE        "-"
+#define TRUST_UNDEFINED       "q"
+#define TRUST_INVALID         "n"
+#define TRUST_MARGINAL        "m"
+#define TRUST_FULLY           "f"
+#define TRUST_ULTIMATELY      "u"
+#define TRUST_PRIVATE_PART    "w"
+#define TRUST_SPECIAL         "s"
+
 class PrimaPubKey : public PubKey {
     Q_OBJECT
 
     public:
 
-        enum Trust {
-            TRUST_UNKNOWN         = 'o',
-            TRUST_MISSING_SSIG    = 'i',
-            TRUST_DISABLE         = 'd',
-            TRUST_REVOKED         = 'r',
-            TRUST_EXPIRED         = 'e',
-            TRUST_NO_VALUE        = '-',
-            TRUST_UNDEFINED       = 'q',
-            TRUST_INVALID         = 'n',
-            TRUST_MARGINAL        = 'm',
-            TRUST_FULLY           = 'f',
-            TRUST_ULTIMATELY      = 'u',
-            TRUST_PRIVATE_PART    = 'w',
-            TRUST_SPECIAL         = 's'
-        };
+        static QString trustToStr(QString t);
 
-        static QString trustToStr(Trust t);
-
-        PrimaPubKey (const KeyScope keyScope,
-               const Validity validity,
+        PrimaPubKey (const QString keyScope,
+               const QString validity,
                const unsigned length,
-               const Algorithm algo,
+               const QString algo,
                const QString keyId,
                const QDate creationDate,
                const QDate expirationDate,
-               const Trust trust,
+               const QString trust,
                const QString capabilities,
                QString fpr = "");
         ~PrimaPubKey();
 
-        Trust getTrust() const;
+        QString getTrust() const;
         const QList<SubPubKey*> getSubPubKeyList() const;
         const QList<Uid*> getUidList() const;
 
@@ -48,7 +46,7 @@ class PrimaPubKey : public PubKey {
         void addUid(Uid* uid);
 
     private:
-        Trust m_trust;
+        QString m_trust;
         QList<SubPubKey*> m_subPubKeyList;
         QList<Uid*> m_uidList;
 };

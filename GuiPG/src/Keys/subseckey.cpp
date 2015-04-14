@@ -1,8 +1,8 @@
 #include "subseckey.h"
 
-SubSecKey::SubSecKey(const KeyScope keyScope,
+SubSecKey::SubSecKey(const QString keyScope,
                 const unsigned length,
-                const Algorithm algo,
+                const QString algo,
                 const QString keyId,
                 const QDate creationDate,
                 QString fpr
@@ -17,7 +17,7 @@ SubSecKey::~SubSecKey() {
     //qDeleteAll(m_sigs);
 }
 
-SubSecKey::KeyScope SubSecKey::getKeyScope() const {
+QString SubSecKey::getKeyScope() const {
     return m_keyScope;
 }
 
@@ -25,7 +25,7 @@ unsigned SubSecKey::getLength() const {
     return m_length;
 }
 
-GpgObject::Algorithm SubSecKey::getAlgo() const {
+QString SubSecKey::getAlgo() const {
     return m_algo;
 }
 
@@ -33,6 +33,6 @@ QString SubSecKey::getKeyId() const {
     return m_keyId;
 }
 
-GpgObject::Validity SubSecKey::getValidity() {
-    return Validity::VAL_NO_VALUE;
+QString SubSecKey::getValidity() {
+    return VALIDITY_EMPTY;
 }

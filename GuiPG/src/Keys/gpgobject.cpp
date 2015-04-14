@@ -1,93 +1,92 @@
 #include "gpgobject.h"
 
-QString GpgObject::recordToStr(Record r) {
-    switch (r) {
-        case REC_PUB_KEY:
-            return "pub";
-        case REC_CERT:
-            return "crt";
-        case REC_CERT_AND_PRIVATE:
-            return "crs";
-        case REC_SUB_KEY:
-            return "sub";
-        case REC_SECRETE_KEY:
-            return "sec";
-        case REC_SECRET_SUBKEY:
-            return "ssb";
-        case REC_USER_ID:
-            return "uid";
-        case REC_USER_ATT:
-            return "uat";
-        case REC_SIGNATURE:
-            return "sig";
-        case REC_REVOCATION_SIG:
-            return "rev";
-        case REC_FINGERPRINT:
-            return "fpr";
-        case REC_PUB_KEY_DATA:
-            return "pkd";
-        case REC_KEYGRIP:
-            return "grp";
-        case REC_REVOCATION_KEY:
-            return "rvk";
-        case REC_TRUST_DB:
-            return "tru";
-        case REC_SIG_PACKET:
-            return "spk";
-        case REC_CONFIG_DATA:
-            return "cfg";
-    }
+QString GpgObject::recordToStr(const QString rec) {
+    if (rec == GPG_PUB_KEY)
+        return "Clé primaire publique";
+    if (rec == GPG_CERT)
+        return "crt";
+    if (rec == GPG_CERT_AND_PRIVATE)
+        return "crs";
+    if (rec == GPG_SUB_KEY)
+        return "Sous clé publique";
+    if (rec == GPG_SECRETE_KEY)
+        return "Clé primaire secrète";
+    if (rec == GPG_SECRET_SUBKEY)
+        return "Sous clé secrète";
+    if (rec == GPG_USER_ID)
+        return "Identifiant utilisateur";
+    if (rec == GPG_USER_ATT)
+        return "uat";
+    if (rec == GPG_SIGNATURE)
+        return "Signature";
+    if (rec == GPG_REVOCATION_SIG)
+        return "Signature de révocation";
+    if (rec == GPG_FINGERPRINT)
+        return "Empreinte";
+    if (rec == GPG_PUB_KEY_DATA)
+        return "pkd";
+    if (rec == GPG_KEYGRIP)
+        return "grp";
+    if (rec == GPG_REVOCATION_KEY)
+        return "rvk";
+    if (rec == GPG_TRUST_DB)
+        return "tru";
+    if (rec == GPG_SIG_PACKET)
+        return "spk";
+    if (rec == GPG_CONFIG_DATA)
+        return "cfg";
     return "";
 }
 
-QString GpgObject::validityToStr(Validity v) {
-    switch (v) {
-        case VAL_UNKNOWN:
-            return "Inconnue";
-        case VAL_MISSING_SSIG:
-            return "Invalide (signature manquante)";
-        case VAL_DISABLE:
-            return "Désactivée";
-        case VAL_REVOKED:
-            return "Révoquée";
-        case VAL_EXPIRED:
-            return "Expirée";
-        case VAL_NO_VALUE:
-            return "Inconnue";
-        case VAL_UNDEFINED:
-            return "Non définie";
-        case VAL_INVALID:
-            return "Invalide";
-        case VAL_MARGINAL:
-            return "Marginale";
-        case VAL_FULLY:
-            return "Complète";
-        case VAL_ULTIMATELY:
-            return "Ultime";
-    }
+QString GpgObject::validityToStr(QString v) {
+    if (v == VALIDITY_UNKNOWN)
+        return "Inconnue";
+    if (v == VALIDITY_MISSING_SSIG)
+        return "Invalide (signature manquante)";
+    if (v == VALIDITY_DISABLE)
+        return "Désactivée";
+    if (v == VALIDITY_REVOKED)
+        return "Révoquée";
+    if (v == VALIDITY_EXPIRED)
+        return "Expirée";
+    if (v == VALIDITY_NO_VALUE)
+        return "Inconnue";
+    if (v == VALIDITY_UNDEFINED)
+        return "Non définie";
+    if (v == VALIDITY_INVALID)
+        return "Invalide";
+    if (v == VALIDITY_MARGINAL)
+        return "Marginale";
+    if (v == VALIDITY_FULLY)
+        return "Complète";
+    if (v == VALIDITY_ULTIMATELY)
+        return "Ultime";
 
+    // Ne sais pas vraiment à quoi correspondent les deux suivantes
+    if (v == VALIDITY_PRIVATE_PART)
+        return "Privée";
+    if (v == VALIDITY_SPECIAL)
+        return "Spécial";
     return "";
 }
 
-QString GpgObject::algoToStr(Algorithm a) {
-    switch (a) {
-        case ALGO_RSA:
-            return "RSA";
-        case ALGO_RSA_E:
-            return "RSA - Chiffrement seulement";
-        case ALGO_RSA_S:
-            return "RSA - Signature seulement";
-        case ALGO_ELGAMAL_E:
-            return "Elgamal - Chiffrement seulement";
-        case ALGO_DSA:
-            return "DSA";
-        case ALGO_ECDH:
-            return "Courbe éliptique Diffie-Hellman";
-        case ALGO_ECDSA:
-            return "Courbe éliptique DSA";
-        case ALGO_ELGAMAL:
-            return "Elgamal";
-    }
+QString GpgObject::algoToStr(QString a) {
+    if (a == ALGO_RSA)
+        return "RSA";
+    if (a == ALGO_RSA_E)
+        return "RSA - Chiffrement seulement";
+    if (a == ALGO_RSA_S)
+        return "RSA - Signature seulement";
+    if (a == ALGO_ELGAMAL_E)
+        return "Elgamal - Chiffrement seulement";
+    if (a == ALGO_DSA)
+        return "DSA";
+    if (a == ALGO_ECDH)
+        return "Courbe éliptique Diffie-Hellman";
+    if (a == ALGO_ECDSA)
+        return "Courbe éliptique DSA";
+    if (a == ALGO_ELGAMAL)
+        return "Elgamal";
     return "";
 }
 
@@ -108,6 +107,6 @@ void GpgObject::setFpr(QString fpr) {
     m_fpr = fpr;
 }
 
-GpgObject::Validity GpgObject::getValidity() {
-    return Validity::VAL_NO_VALUE;
+QString GpgObject::getValidity() {
+    return VALIDITY_EMPTY;
 }
