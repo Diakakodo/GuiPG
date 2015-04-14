@@ -16,10 +16,13 @@ class GPGManager : public QObject {
         void execute();
         const QString& getOutput() const;
         void setAction(const Action& a);
+        void cancelProcess();
 
     signals:
         void finished(int s, const QString& output);
+        void newData(const QString& data);
         void finishedNoParam();
+        void isWatchingYou(QString cmd, QString output);
 
     private slots:
         void readOutput();
@@ -31,6 +34,7 @@ class GPGManager : public QObject {
         QProcess m_gpg;
         const Profile* m_profile;
         QString m_output;
+        QString m_cmd;
         Action m_action;
 
         /**
@@ -46,7 +50,6 @@ class GPGManager : public QObject {
          * @return un booléen indiquant si gpg attend des données.
          */
         bool askInteraction();
-        QString m_prompt;
 };
 
 #endif // GPGMANAGER_H

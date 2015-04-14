@@ -34,6 +34,7 @@ private Q_SLOTS:
     void testCase_u7();
     void testCase_u8();
     void testCase_u10();
+    void testCase_u11();
     void testCase_nr1();
     void testCase_nr2();
     void testLoadConfig();
@@ -130,6 +131,21 @@ void MainTest::testCase_u10()
     QVERIFY(model.getKeyManager() != NULL);
 }
 
+void MainTest::testCase_u11()
+{
+    remove("/tmp/TEST");
+    Launcher launcher(m_app, m_config, m_config->getDefaultProfileId());
+    MainWindowModel model(&launcher, m_app, m_config, m_config->getDefaultProfile());
+    MainWindow mainWindow(&model);
+    KeyExport* keyExport = new KeyExport(&mainWindow);
+    keyExport->exportFunction(KeyExport::EXPORT_FILE, "", "/tmp/TEST");
+    QVERIFY(remove("/tmp/TEST") != -1);
+    QVERIFY(keyExport->exportFunction(KeyExport::EXPORT_FILE, "", "/tmp/gaijgz/kjqnonzb/zzozop") == -1);
+    QVERIFY(remove("/tmp/gaijgz/kjqnonzb/zzozop") == -1);
+    QVERIFY(keyExport->exportFunction(KeyExport::EXPORT_FILE, "", "/etc/test") == -1);
+    QVERIFY(remove("/etc/test") == -1);
+}
+
 void MainTest::testCase_nr1()
 {
     remove("/tmp/TEST");
@@ -139,7 +155,7 @@ void MainTest::testCase_nr1()
     MainWindowModel model(&launcher, m_app, m_config, m_config->getDefaultProfile());
     MainWindow mainWindow(&model);
     KeyExport* keyExport = new KeyExport(&mainWindow);
-    keyExport->exportFunction(KeyExport::FILE, "", "/tmp/TEST");
+    keyExport->exportFunction(KeyExport::EXPORT_FILE, "", "/tmp/TEST");
     QVERIFY(remove("/tmp/TEST") != -1);
 }
 

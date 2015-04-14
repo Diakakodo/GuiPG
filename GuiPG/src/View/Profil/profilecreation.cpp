@@ -2,6 +2,7 @@
 #include "ui_profilecreation.h"
 #include <QFileDialog>
 #include <iostream>
+#include "unistd.h"
 
 ProfileCreation::ProfileCreation(DialogProfile *parent, unsigned profileId) :
     QDialog(parent), ui(new Ui::ProfileCreation), m_parent(parent), m_profileId(profileId)
@@ -54,6 +55,12 @@ void ProfileCreation::on_acceptButton_clicked()
             if (l->getId() > max) {
                 max = l->getId();
             }
+        }
+        QByteArray ba = ui->storagePathEdit->text().toLocal8Bit();
+        const char *directory = ba.data();
+        if  (access(directory, W_OK) != 0) {
+           ui->warningLabel->setText("Vous n'avez pas le droit d'écrire à cet emplacement.");
+           return;
         }
         Profile* p = new Profile(max + 1, ui->nameEdit->text());
         p->setConfigurationPath(ui->storagePathEdit->text());

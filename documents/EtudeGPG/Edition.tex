@@ -1,119 +1,140 @@
 \section{Édition de clefs}
 
-la commande gpg --edit-key id\_clef
-présente un menu qui nous permet d’effectuer toutes sortes de tâches relatives aux clés:\\
-\begin{itemize}
-\item Empreinte de la clef:\\
+La commande gpg --edit-key id\_clef 
+présente un menu qui nous permet d’effectuer des tâches relatives aux clefs:\\
+\begin{enumerate}
 
+\item Signer une clef:\\
+Il est très important de bien vérifier l'identité des personnes dont vous signez les clefs. Si l'identité de la personne n'est pas 
+vérifiée correctement, et que vous signez la clef, cela signifie que vous avez confiance en cette personne, et par conséquent que 
+toute personne qui a confiance en vous a dorénavant confiance en cette personne. Autrement dit, en signant n'importe quelle clef, vous détruisez
+votre réseau de confiance.
+
+Une fois que vous êtes sûr d'avoir la bonne clef publique, vous pouvez à présent procéder à sa signature avec la commande.
+
+\texttt{Command> sign}\\ 
+
+\item Visualiser les signatures d'une clef\\
+On peut vérifier l'ensemble des signatures sur une clef avec la commande check
+\texttt{Command> check }
+\item Vérifier l'empreinte d'une clef:\\
 Après avoir importé une clef publique, il est nécessaire, voire indispensable, de vérifier l'empreinte de la clef avec le fingerprint 
 pour s'assurer que nous avons la bonne clef. Cette procédure se fait avec le propriétaire de la clef publique pour qu'ensemble vous 
-comparez les résultats de vos empreintes si y a conformité. l'empreinte est vérifiée avec la commande:
+compariez les résultats de vos empreintes s’ il y a conformité. l'empreinte est vérifiée avec la commande:
 
 \texttt{gpg> fpr\\
 pub   2048R/81079E92 2015-02-05 mamou (mamouclef) <bb@y.com>\\
  Primary key fingerprint: A133 004C E06A 3DEC C8C6  26F5 593F 0033 8107 9E92} \\
 
-\item Signer une clef:\\
-Il est très important de bien vérifier l'identité des personnes dont vous signez les clefs. Si l'identité de la personne n'est pas 
-vérifiée correctement, et que vous signez la clef, cela signifie que vous avez confiance en cette personne, et par conséquent que 
-toute personne qui a confiance en vous a alors confiance en cette personne. Autrement en signant n'importe quelle clef, vous détruisez
-votre réseau de confiance.
 
-Une fois que vous êtes sûr d'avoir la bonne clef publique, vous pouvez à présent procéder à sa signature avec la commande.
 
-\texttt{Command> sign}
 
-\item On peut verifier l'ensemble des signatures sur une clef avec la commande check
-\texttt{Command> check }
-\end{itemize}
 
-- Avec la commande \texttt{lsign} on crée des signatures non exportable donc qu'on ne peut utiliser que localement.
+\item Créer une signature locale\\
+Avec la commande \texttt{lsign}, on crée des signatures non exportables donc qu'on ne peut utiliser que localement.
 
--Avec la commande \texttt{nrsign} la signature est marquée sur la clef comme non-revocable donc cette signature ne peut etre revoquée apres.
+\item Rendre une signature non révocable\\
+Avec la commande \texttt{nrsign,} la signature est marquée sur la clef comme non révocable donc cette signature ne peut être 
+révoquée après.
 
--Lorsque nous voulons créer une signature non revocable et non exportable ( utilisable en local uniquement ) on utilise \texttt{nrlsign}
- qui combien les deux precedentes.
--On peut également utiliser la commande \texttt{delsign} qui permet de supprimer une signature sachant bien entendu qu'une fois la signature
- deposée en public elle ne peut plus être  retractée.
--Lorsque nous voulons révoquer une signature on utilise la commande \texttt{revsig}.
--On peut bien evidemment ajouter un identifiant c'est à dire un nom une adresse email et un commentaire à notre clef avec 
+\item Signature locale et non révocable\\
+Lorsque nous voulons créer une signature non révocable et non exportable (utilisable en local uniquement) on utilise \texttt{nrlsign}
+ qui combien les deux précédentes.
+\item Supprimer une signature\\
+Il arrive qu'on signe la mauvaise clef et dans ce cas de figure nous puissions la supprimer (cette signature)  pour éviter de compromettre
+ notre trousseau de clefs, on utilise dans ce cas la commande \texttt{delsign} qui permet de supprimer une signature sachant bien
+ entendu qu'une fois la signature déposée en public elle ne peut plus être  rétractée.
+\item Révoquer une signature\\
+Lorsque nous voulons révoquer une signature, on utilise la commande \texttt{revsig}.
+\item Modifier les informations d'une clef\\
+On peut bien évidemment ajouter un identifiant c'est-à-dire un nom une adresse email et un commentaire à notre clef avec 
 la commande \texttt{adduid} comme on peut aussi  ajouter une photo à la clef avec la commande \texttt{addphoto} et également afficher 
 cette photo à l'aide la commande \texttt{showphoto} puis enfin supprimer l'identifiant avec la commande \texttt{deluid}
 
--Avec la commande \texttt{pref} on peut lister les preferences de l'utilisateur selectionné sachant que la commande \texttt{showpref}
- donne beaucoup plus de details sur les préférences que la prémière.
--On peut egalement ajouter une sous-clef à l'aide de la commande \texttt{addkey} comme on peut en supprimer avec la commande \texttt{delkey}.
-Il est impossible de supprimer cette sous-clef avec \texttt{delkey} une fois qu'elle a été deposée sur un serveur de clefs.
+-\item Afficher les préférences d'une clef\\
+Avec la commande \texttt{pref} on peut lister les préférences de l'utilisateur sélectionné sachant que la commande \texttt{showpref}
+ donne beaucoup plus de détails sur les préférences que la première.
+\item Ajout de sous-clefs\\
+Les sous-clefs peuvent être considérées comme des paires de clefs séparées,mais automatiquement associées à votre paire de clefs 
+principale donc essentiellement dédiées au chiffrement et déchiffrement.
+On peut ajouter une sous-clef à l'aide de la commande \texttt{addkey} comme on peut en supprimer avec la commande \texttt{delkey}.
+Il est impossible de supprimer cette sous-clef avec \texttt{delkey} une fois qu'elle a été déposée sur un serveur de clefs.
 
--On peut egalement changer la date d'expiration des sous-clefs à l'aide la commande \texttt{expire}.
--On peut attribuer un degré de confiance à une clef avec la commande \texttt{trust}.\\
+\item Changer la date d'expiration d'une clef\\
+Lorsque vous créez une clef gpg vous choisissez une date d'expiration et une fois l'échéance arrive alors si vous avez toujours besoin 
+d'utiliser cette clef, vous pouvez modifier cette date pour rendre la clef encore utilisable pour un délai supplémentaire
+en fonction de vos besoins. Cette modification de la date d'expiration des sous-clefs se fait avec la commande  \texttt{expire}.
+
+\item Degré de confiance d'une clef 
+On peut attribuer un degré de confiance à une clef avec la commande \texttt{trust}.\\
   1 = je ne sais pas\\
   2 = ne fais pas confiance\\
   3 = je fais un peu confiance\\
   4 = je fais confiance\\
-  5 = j'ai une confiance absolue ( choix le plus souvent reservé pour ses propres clefs)\\
-  m = retourner au menu precedent\\
+  5 = j'ai une confiance absolue ( choix le plus souvent réservé pour ses propres clefs)\\
+  m = retourner au menu précédent\\
   
--On peut aussi désactiver ou activer une clef respectivement avec la commande \texttt{disable} et \texttt{enable}.
--On peut aussi changer la phrase de passe de la clef secrète avec la commande \texttt{passwd}.
+
+\item Activer et désactiver une clef
+On peut aussi désactiver ou activer une clef respectivement avec la commande \texttt{disable} et \texttt{enable}.
+
+\item Changer la phrase de passe\\
+On peut aussi changer la phrase de passe de la clef secrète avec la commande \texttt{passwd}.
 
 
-Cette liste est loin d'être complète donc pour plus d'information se reférer au man de gpg dans la section --edit-key.\\
-
+Cette liste est loin d'être complète donc pour plus d'information se référer au man de gpg dans la section --edit-key.\\
+\end{enumerate}
 \section{Chiffrer et déchiffrer des documents}
   
-Ggp fonctionne avec le principe de clef publique clef privée. Ce principe répose sur le fait que votre interlocuteur
-utilise votre clef publique puis chiffre le message et vous envoi le chiffré que vous dechiffré en utilisant 
+Ggp fonctionne avec le principe de clef publique clef privée. Ce principe repose sur le fait que votre interlocuteur
+utilise votre clef publique puis chiffre le message et vous envoi le chiffré que vous déchiffré en utilisant 
 la clef sécrète correspondante.
 
 
 \subsection {Chiffrement}:\\
-Cette méthode permet de transmettre des données de façon illisible par le commun des mortels sauf la personne detentrice de la clef 
-secrète pouvant dechiffrer le message pour enfin avoir accès au message clair.\\
+Cette méthode permet de transmettre des données de façon illisible par le commun des mortels sauf la personne détentrice de la clef 
+secrète pouvant déchiffrer le message pour enfin avoir accès au message clair.\\
 
 la commande pour chiffrer un message est la suivante:\\
 \texttt{gpg --armor --output "mon\_fichier\_chiffré" --encrypt "mon\_fichier\_à\_chiffrer"}
-où on utilise l'option \texttt{--armor } pour pouvoir generer le fichier crypté en code ASCII à fin de pouvoir le transmettre en 
+où on utilise l'option \texttt{--armor } pour pouvoir générer le fichier crypté en code ASCII à fin de pouvoir le transmettre en 
 format texte et non obligatoirement en fichier joint uniquement.
-Cette commande démande l'identifiant de la clef publique de la personne pour laquelle le message est adressé.
+Cette commande demande l'identifiant de la clef publique de la personne pour laquelle le message est adressé.
 
 
-\subsection {Dechiffrement}:\\
-A l'aide de la commande \texttt{gpg --output <mon\_fichier> --decrypt <mon\_fichier.gpg>} , on peut bien decryper le message 
+\subsection {Déchiffrement}:\\
+À l'aide de la commande \texttt{gpg --output <mon\_fichier> --decrypt <mon\_fichier.gpg>}, on peut bien déchiffrer le message 
 mon\_fichier.gpg dont le contenu est mis en clair dans le fichier  mon\_fichier.\\
 
-Cette commande commande demande la phrase de passe pour dechiffrer le message .
+Cette commande demande la phrase de passe pour déchiffrer le message .
 
 
 \section {Signer et vérifier des signatures} :\\
 
 Une signature numérique d'un document nous permet de certifier et de dater un document. Si le document fait l'objet d'une quelconque
-modification une vérification de signature echouera donc on peut bien dire qu'une signature numérique contrairement à la signature 
+modification, une vérification de signature échouera donc on peut bien dire qu'une signature numérique contrairement à la signature 
 manuscrite ne peut être contrefaite.
 
-Cette signature utilise la paire de clef privée/publique comme le fait l'opération de chiffrement et de déchiffrement.
-La personne qui signae le document le signe avec sa clef privée pour vous l'envoyer ensuite vous utiliser sa clef publique
-pour certifier exactement que le document a bien été signé par lui donc son conténu n'a pas été alteré par une quelconque 
-autre personne.Une conséquence de l'utilisation des signatures numériques est qu'il est difficile d'infirmer que vous avez fait
-une signature numérique car cela impliquerait que votre clé privée a été compromise.
-Pour générer une signature numerique la ligne de commande est la suivante :
+Cette signature utilise la paire de clefs privée/publique comme le fait l'opération de chiffrement et de déchiffrement.
+La personne qui signe le document le signe avec sa clef privée pour vous l'envoyer ensuite vous utilisez sa clef publique
+pour certifier exactement que le document a bien été signé par lui donc son contenu n'a pas été altéré par une quelconque 
+autre personne. Une conséquence de l'utilisation des signatures numériques est qu'il est difficile d'infirmer que vous avez fait
+une signature numérique, car cela impliquerait que votre clé privée a été compromise.
+Pour générer une signature numérique, la ligne de commande est la suivante :
 
- \texttt{gpg --output doc\_signe --sign doc\_a\_signer } où doc\_signe est le document signé et doc\_a\_signer est le document 
- dont on souhaite signé.\\
+\texttt{gpg --output doc\_signe --sign doc\_a\_signer } où doc\_signe est le document signé et doc\_a\_signer est le document 
+dont on souhaite signé.\\
  
- Cette commande nous démande la phrase de passe pour enfin signé le document donc on ne peut plus nié être à l'origine du 
- document.
+Cette commande nous demande la phrase de passe pour enfin signer le document donc on ne peut plus nier être à l'origine du
+document.
  
- Un fois le document signé on peut soit avoir  bésoin juste de verifier la signature  ou de d'aller un peu plus loin en verifiant
- la signature du document mais aussi à extraire son conténu.
- Pour simplement verifier la signature on utilise l'option \texttt{--verify} et pour verifier et extraire en même temps on utilise l'option
-  \texttt{--decrypt }.
- Dans cet exemple je vais montré comment verifier la signature et extraire en même temps le document avec la commande suivante:
-  \texttt{gpg --output doc --decrypt doc.sig}  où doc est le fichier decrypé mis dans le repertore courant et doc.sig est le document signé.
+Une fois le document signé, on peut soit avoir besoin juste de vérifier la signature ou d'aller un peu plus loin en vérifiant la signature du document, mais aussi extraire son contenu.
+Pour simplement vérifier la signature, on utilise l'option \texttt{--verify} et pour vérifier et extraire en même temps on utilise l'option
+\texttt{--decrypt }.
+Dans cet exemple je vais montrer comment vérifier la signature et extraire en même temps le document avec la commande suivante:
+ \texttt{gpg --output doc --decrypt doc.sig} où doc est le fichier déchiffré mis dans le répertoire courant et doc.sig est le document signé.
  
- ----VII-Les documents signés en clair
- 
- ----VIII-Signatures détachées  
+
  
 
 

@@ -39,6 +39,7 @@ class Launcher : public QThread {
         void loadProfile(Profile* p, MainWindow* window);
 
         void UnloadProfileWithWindow(Profile* p);
+        static QHash<Profile*, MainWindow*> m_profileMainWindowHash;
 
     signals:
         void runApp(Launcher* launcher, GuiPGApp* app, Configuration* conf, unsigned profileId);
@@ -52,7 +53,6 @@ class Launcher : public QThread {
         QSemaphore* m_sem;
         Configuration* m_conf;
         QSharedMemory* m_shm;
-        QHash<Profile*, MainWindow*> m_profileMainWindowHash;
         int m_profileId;
         QSystemSemaphore* m_systemSem;
         bool m_stop;

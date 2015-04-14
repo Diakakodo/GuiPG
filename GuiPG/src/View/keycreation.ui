@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>365</height>
+    <width>489</width>
+    <height>492</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -285,10 +285,10 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>20</x>
      <y>260</y>
-     <width>311</width>
-     <height>61</height>
+     <width>441</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="palette">
@@ -714,7 +714,7 @@
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>320</y>
+     <y>450</y>
      <width>85</width>
      <height>27</height>
     </rect>
@@ -727,7 +727,7 @@
    <property name="geometry">
     <rect>
      <x>230</x>
-     <y>320</y>
+     <y>450</y>
      <width>85</width>
      <height>27</height>
     </rect>
@@ -771,6 +771,28 @@
    <property name="echoMode">
     <enum>QLineEdit::Password</enum>
    </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>311</y>
+     <width>491</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTextBrowser" name="dataBrowser">
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
