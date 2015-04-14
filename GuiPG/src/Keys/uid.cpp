@@ -1,11 +1,11 @@
 #include "uid.h"
 
-Uid::Uid(const Validity validity,
-         const QDate creationDate,
-         const QString fpr,
-         const QString name,
-         const QString comment,
-         const QString mail) : GpgObject (creationDate,
+Uid::Uid(Validity validity,
+         QDate creationDate,
+         QString fpr,
+         QString name,
+         QString comment,
+         QString mail) : GpgObject (creationDate,
                                     fpr),
             m_validity(validity),
             m_name(name),

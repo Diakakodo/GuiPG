@@ -51,11 +51,11 @@ class Profile : public QObject {
          */
         void setConfigurationPath(const QString& path);
 
-        QColor getValidityColor(Key::Validity v) const;
+        QColor getValidityColor(GpgObject::Validity v) const;
 
-        void setValidityColor(Key::Validity v, const QColor& c);
+        void setValidityColor(GpgObject::Validity v, const QColor& c);
 
-        const QHash<Key::Validity, QColor>& getValidityColors() const;
+        const QHash<GpgObject::Validity, QColor>& getValidityColors() const;
 
         const QColor& getSignatureColor() const;
         void setSignatureColor(const QColor& c);
@@ -66,7 +66,7 @@ class Profile : public QObject {
         QString m_name;
         QString m_exec;
         QString m_path;
-        QHash<Key::Validity, QColor> m_validityColors;
+        QHash<GpgObject::Validity, QColor> m_validityColors;
         QColor m_signColor;
 };
 

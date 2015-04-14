@@ -13,7 +13,9 @@ PubKey::PubKey(const KeyScope keyScope,
                    m_validity(validity),
                    m_expirationDate(expirationDate),
                    m_capabilities(capabilities)
-{}
+{
+    m_fpr = fpr;
+}
 
 PubKey::~PubKey()
 {

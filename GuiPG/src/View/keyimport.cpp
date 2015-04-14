@@ -32,11 +32,17 @@ void KeyImport::on_browseButton_clicked()
 
 void KeyImport::on_pathEdit_textChanged(const QString &arg1)
 {
+    if (arg1 == "") {
+        // not used.
+    }
     ui->fileRadioButton->click();
 }
 
 void KeyImport::on_keyIdEdit_textChanged(const QString &arg1)
 {
+    if (arg1 == "") {
+        // not used.
+    }
     ui->keyServerButton->click();
 }
 
@@ -63,6 +69,9 @@ void KeyImport::on_importButton_clicked()
 
 void KeyImport::keyImportFinished(int a, QString s)
 {
+    if (a || s == "") {
+        // not used.
+    }
     m_window->refreshKeys();
     close();
 }

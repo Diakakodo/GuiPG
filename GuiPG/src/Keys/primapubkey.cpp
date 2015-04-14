@@ -24,8 +24,9 @@ QString PrimaPubKey::trustToStr(Trust t) {
             return "Complète";
         case TRUST_ULTIMATELY:
             return "Ultime";
+        default:
+            return "";
     }
-    return "";
 }
 
 PrimaPubKey::PrimaPubKey(const KeyScope keyScope,
@@ -59,7 +60,7 @@ PrimaPubKey::Trust PrimaPubKey::getTrust() const {
     return m_trust;
 }
 
-const QList<SubKey*> PrimaPubKey::getSubPubKeyList() const {
+const QList<SubPubKey*> PrimaPubKey::getSubPubKeyList() const {
     return m_subPubKeyList;
 }
 

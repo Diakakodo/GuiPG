@@ -38,7 +38,7 @@ class PrimaPubKey : public PubKey {
                const Trust trust,
                const QString capabilities,
                QString fpr = "");
-        ~PubKey();
+        ~PrimaPubKey();
 
         Trust getTrust() const;
         const QList<SubPubKey*> getSubPubKeyList() const;

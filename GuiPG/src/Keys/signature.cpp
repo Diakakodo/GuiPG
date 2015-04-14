@@ -1,7 +1,7 @@
 #include "signature.h"
 
 // TODO : Mettre des chaines plus parlantes.
-static QString Signature::sigClassToStr(SigClass sc) {
+QString Signature::sigClassToStr(SigClass sc) {
     switch(sc) {
         case SIGCLASS_BINARY:
             return "00";
@@ -37,7 +37,7 @@ static QString Signature::sigClassToStr(SigClass sc) {
     return "";
 }
 
-static QString Signature::sigScopeToStr(SigScope ss) {
+QString Signature::sigScopeToStr(SigScope ss) {
     switch (ss) {
         case SIGSCOPE_LOCAL:
             return "Locale";
@@ -47,7 +47,7 @@ static QString Signature::sigScopeToStr(SigScope ss) {
     return "";
 }
 
-static QString Signature::hashAlgoToStr(HashAlgo ha) {
+QString Signature::hashAlgoToStr(HashAlgo ha) {
     switch (ha) {
         case HASH_ALGO_SHA1:
             return "SHA-1";
@@ -57,21 +57,21 @@ static QString Signature::hashAlgoToStr(HashAlgo ha) {
     return "";
 }
 
-Signature::Signature(const Algorithm algo,
-                     const QString keyId,
-                     const QDate creationDate,
-                     const Uid uid,
-                     const SigClass sigClass,
-                     const HashAlgo hashAlgo,
-                     QString fpr) : GpgObject (creationDate,
-                                               fpr),
-                      m_algo(algo),
-                      m_keyId(keyId),
-                      m_creationDate(creationDate),
-                      m_uid(uid),
-                      m_sigClass(sigClass),
-                      m_hashAlgo(hashAlgo)
-{}
+Signature::Signature(Algorithm algo,
+                     QString keyId,
+                     QDate creationDate,
+                     Uid* uid,
+                     SigClass sigClass,
+                     HashAlgo hashAlgo,
+                     QString fpr) : GpgObject (creationDate, fpr)
+{
+    m_algo = algo;
+    m_keyId = keyId;
+    m_creationDate = creationDate;
+    m_uid = uid;
+    m_sigClass = sigClass;
+    m_hashAlgo = hashAlgo;
+}
 
 GpgObject::Algorithm Signature::getAlgo() const {
     return m_algo;
@@ -81,7 +81,7 @@ QString Signature::getKeyId() const {
     return m_keyId;
 }
 
-Uid Signature::getUid() const {
+Uid* Signature::getUid() const {
     return m_uid;
 }
 

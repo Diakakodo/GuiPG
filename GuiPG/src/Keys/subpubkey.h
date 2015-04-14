@@ -25,6 +25,9 @@ class SubPubKey : public SubSecKey {
 
     private:
         QList<Signature*> m_sigs;
+        Validity m_validity;
+        QDate m_expirationDate;
+        QString m_capabilities;
 };
 
 #endif // SUBPUBKEY_H

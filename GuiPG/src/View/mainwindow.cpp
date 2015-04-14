@@ -106,7 +106,7 @@ void MainWindow::buildTree() {
     //}
 }
 
-QTreeWidgetItem* MainWindow::createKeyItem(Key *k, QTreeWidget* tree) {
+QTreeWidgetItem* MainWindow::createKeyItem(GpgObject *k, QTreeWidget* tree) {
     QStringList infos;
     //const QDate& e = k->getExpirationDate();
     //infos
@@ -123,7 +123,7 @@ QTreeWidgetItem* MainWindow::createKeyItem(Key *k, QTreeWidget* tree) {
     return item;
 }
 
-void MainWindow::createSignatureItem(Key* k, QTreeWidgetItem* item) {
+void MainWindow::createSignatureItem(GpgObject* k, QTreeWidgetItem* item) {
     //for (Signature* s : k->getSignatures()) {
     //    QStringList infos;
     //    infos

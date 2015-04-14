@@ -32,3 +32,7 @@ GpgObject::Algorithm SubSecKey::getAlgo() const {
 QString SubSecKey::getKeyId() const {
     return m_keyId;
 }
+
+GpgObject::Validity SubSecKey::getValidity() {
+    return Validity::VAL_NO_VALUE;
+}

@@ -31,6 +31,7 @@ class SubSecKey : public GpgObject {
         unsigned getLength() const;
         Algorithm getAlgo() const;
         QString getKeyId() const;
+        Validity getValidity();
 
     private:
         const KeyScope m_keyScope;

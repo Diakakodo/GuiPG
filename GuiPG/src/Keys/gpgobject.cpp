@@ -56,8 +56,8 @@ QString GpgObject::validityToStr(Validity v) {
             return "Inconnue";
         case VAL_UNDEFINED:
             return "Non définie";
-        case VAL_VALID:
-            return "Valide";
+        case VAL_INVALID:
+            return "Invalide";
         case VAL_MARGINAL:
             return "Marginale";
         case VAL_FULLY:
@@ -65,6 +65,7 @@ QString GpgObject::validityToStr(Validity v) {
         case VAL_ULTIMATELY:
             return "Ultime";
     }
+
     return "";
 }
 
@@ -107,3 +108,6 @@ void GpgObject::setFpr(QString fpr) {
     m_fpr = fpr;
 }
 
+GpgObject::Validity GpgObject::getValidity() {
+    return Validity::VAL_NO_VALUE;
+}

@@ -56,11 +56,17 @@ void KeyExport::on_exportButton_clicked()
 
 void KeyExport::on_keyServerList_activated(const QString &arg1)
 {
+    if (arg1 == ""){
+        // not used.
+    }
     ui->keyServerRadioButton->click();
 }
 
 void KeyExport::on_pathEdit_textChanged(const QString &arg1)
 {
+    if (arg1 == ""){
+        // not used.
+    }
     ui->fileRadioButton->click();
 }
 

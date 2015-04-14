@@ -8,16 +8,16 @@ SubPubKey::SubPubKey(const KeyScope keyScope,
                      const QDate creationDate,
                      const QDate expirationDate,
                      const QString capabilities,
-                     QString fpr) : PubKey(keyScope,
-                                           validity,
-                                           length,
-                                           algo,
-                                           keyId,
-                                           creationDate,
-                                           expirationDate,
-                                           capabilities,
-                                           fpr)
+                     QString fpr) : SubSecKey(keyScope,
+                                              length,
+                                              algo,
+                                              keyId,
+                                              creationDate,
+                                              fpr)
 {
+    m_validity = validity;
+    m_expirationDate = expirationDate;
+    m_capabilities = capabilities;
 
 }
 
@@ -26,7 +26,7 @@ SubPubKey::~SubPubKey()
 
 }
 
-const QList<Signature*>& SubPubKey::getSignatures() const {
+const QList<Signature*> SubPubKey::getSignatures() const {
     return m_sigs;
 }
 

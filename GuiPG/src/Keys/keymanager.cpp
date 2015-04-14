@@ -89,7 +89,7 @@ void KeyManager::gpgFinished(int s, const QString &output) {
     //emit keysLoaded();
 }
 
-const QList<Key *> &KeyManager::getKeys() const {
+const QList<GpgObject *> &KeyManager::getKeys() const {
     return m_keys;
 }
 

@@ -47,8 +47,8 @@ protected:
      void closeEvent(QCloseEvent *event);
 
 private:
-        QTreeWidgetItem* createKeyItem(Key* k, QTreeWidget* tree = nullptr);
-        void createSignatureItem(Key* k, QTreeWidgetItem* item);
+        QTreeWidgetItem* createKeyItem(GpgObject* k, QTreeWidget* tree = nullptr);
+        void createSignatureItem(GpgObject* k, QTreeWidgetItem* item);
         void setItemColor(QTreeWidgetItem* item, const QColor& color);
 
         Ui::MainWindow* ui;

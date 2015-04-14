@@ -32,7 +32,7 @@ class PubKey : public SubSecKey {
                const QString capabilities,
                QString fpr = ""
                );
-        vitural ~PubKey() = 0;
+        virtual ~PubKey() = 0;
 
         Validity getValidity() const;
         QDate getExpirationDate() const;

@@ -2,6 +2,7 @@
 #define GPGOBJECT_H
 
 #include <QObject>
+#include <QDate>
 
 class GpgObject : public QObject {
     Q_OBJECT
@@ -62,13 +63,15 @@ class GpgObject : public QObject {
         explicit GpgObject(const QDate creationDate, QString fpr = "");
         virtual ~GpgObject() = 0;
 
+        virtual Validity getValidity();
+
         QDate getCreationDate() const;
         QString getFpr() const;
 
         void setFpr(QString fpr);
 
     protected:
-        const QDate m_creationDate;
+        QDate m_creationDate;
         QString m_fpr;
 
     signals:

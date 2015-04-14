@@ -46,12 +46,12 @@ class Uid : public GpgObject {
         static QString digestToStr(DigestAlgo digestAlgo);
         static QString compressToStr(CompressAlgo compressAlgo);
 
-        Uid(const Validity validity = 0,
-            const QDate creationDate,
-            const QString fpr,
-            const QString name,
-            const QString comment,
-            const QString mail);
+        Uid(Validity validity,
+            QDate creationDate,
+            QString fpr,
+            QString name,
+            QString comment,
+            QString mail);
         ~Uid();
 
         Validity getValidity() const;
@@ -63,10 +63,10 @@ class Uid : public GpgObject {
         void addSignature(Signature* sig);
 
     private:
-        const Validity m_validity;
-        const QString m_name;
-        const QString m_comment;
-        const QString m_mail;
+        Validity m_validity;
+        QString m_name;
+        QString m_comment;
+        QString m_mail;
         QList<Signature*> m_sigList;
 };
 

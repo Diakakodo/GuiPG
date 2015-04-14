@@ -13,13 +13,21 @@
 Profile::Profile(unsigned id, const QString& name) : m_id(id), m_name(name),
     m_exec(DEFAULT_EXEC), m_path(DEFAULT_PATH), m_signColor(0, 0, 255) {
 
-    m_validityColors.insert(Key::VAL_MISSING_SSIG, QColor(255, 0, 0));
-    m_validityColors.insert(Key::VAL_REVOKED, QColor(255, 0, 0));
-    m_validityColors.insert(Key::VAL_EXPIRED, QColor(255, 0, 0));
-    m_validityColors.insert(Key::VAL_INVALID, QColor(255, 0, 0));
-    m_validityColors.insert(Key::VAL_MARGINAL, QColor(255, 165, 0));
-    m_validityColors.insert(Key::VAL_FULLY, QColor(0, 255, 0));
-    m_validityColors.insert(Key::VAL_ULTIMATELY, QColor(0, 255, 0));
+    m_validityColors.insert(GpgObject::VAL_UNKNOWN     , QColor(255,   0,   0));
+    m_validityColors.insert(GpgObject::VAL_MISSING_SSIG, QColor(255,   0,   0));
+    m_validityColors.insert(GpgObject::VAL_DISABLE     , QColor(255,   0,   0));
+    m_validityColors.insert(GpgObject::VAL_REVOKED     , QColor(255,   0,   0));
+    m_validityColors.insert(GpgObject::VAL_EXPIRED     , QColor(255,   0,   0));
+    m_validityColors.insert(GpgObject::VAL_NO_VALUE    , QColor(255,   0,   0));
+    m_validityColors.insert(GpgObject::VAL_UNDEFINED   , QColor(255,   0,   0));
+    m_validityColors.insert(GpgObject::VAL_INVALID     , QColor(255,   0,   0));
+    m_validityColors.insert(GpgObject::VAL_MARGINAL    , QColor(255, 165,   0));
+    m_validityColors.insert(GpgObject::VAL_FULLY       , QColor(  0, 255,   0));
+    m_validityColors.insert(GpgObject::VAL_ULTIMATELY  , QColor(  0, 255,   0));
+    m_validityColors.insert(GpgObject::VAL_PRIVATE_PART, QColor(255,   0,   0));
+    m_validityColors.insert(GpgObject::VAL_SPECIAL     , QColor(255,   0,   0));
+
+
 }
 
 unsigned Profile::getId() const {
@@ -46,15 +54,15 @@ void Profile::setConfigurationPath(const QString& path) {
     m_path = path;
 }
 
-QColor Profile::getValidityColor(Key::Validity v) const {
+QColor Profile::getValidityColor(GpgObject::Validity v) const {
     return m_validityColors.value(v);
 }
 
-void Profile::setValidityColor(Key::Validity v, const QColor &c) {
+void Profile::setValidityColor(GpgObject::Validity v, const QColor &c) {
     m_validityColors.insert(v, c);
 }
 
-const QHash<Key::Validity, QColor>& Profile::getValidityColors() const {
+const QHash<GpgObject::Validity, QColor>& Profile::getValidityColors() const {
     return m_validityColors;
 }
 
