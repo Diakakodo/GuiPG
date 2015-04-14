@@ -7,7 +7,12 @@ PrimaSecKey::PrimaSecKey(const KeyScope keyScope,
                          const QDate creationDate,
                          const QDate expirationDate,
                          QString fpr
-                         ) : SubSecKey(keyScope, length, algo, keyId, creationDate),
+                         ) : SubSecKey(keyScope,
+                                       length,
+                                       algo,
+                                       keyId,
+                                       creationDate,
+                                       fpr),
                              m_expirationDate(expirationDate)
    {}
 
@@ -24,14 +29,14 @@ Uid PrimaSecKey::getUid() const {
     return m_uid;
 }
 
-QList<SubSecKey*> PrimaSecKey::getSubSecKeyList() const {
+const QList<SubSecKey*> PrimaSecKey::getSubSecKeyList() const {
     return m_subSecKeyList;
 }
 
-void PrimaSecKey::addUid(Uid uid) {
-
+void PrimaSecKey::setUid(Uid uid) {
+    m_uid = uid;
 }
 
 void PrimaSecKey::addSubSecKey(SubSecKey* subSecKey) {
-
+    m_subSecKeyList.append(subSecKey);
 }

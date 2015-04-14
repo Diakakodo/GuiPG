@@ -40,13 +40,16 @@ class Signature : public GpgObject {
         };
 
         static QString sigClassToStr(SigClass sc);
+        static QString sigScopeToStr(SigScope ss);
+        static QString hashAlgoToStr(HashAlgo ha);
 
-        explicit Signature(Algorithm algo,
-                           QString keyId,
-                           QDate creationDate,
-                           Uid uid,
-                           SigClass sigclass,
-                           HashAlgo hashAlgo);
+        explicit Signature(const Algorithm algo,
+                           const QString keyId,
+                           const QDate creationDate,
+                           const Uid uid,
+                           const SigClass sigClass,
+                           const HashAlgo hashAlgo,
+                           QString fpr = "");
 
         Algorithm getAlgo() const;
         QString getKeyId() const;
@@ -60,12 +63,12 @@ class Signature : public GpgObject {
     public slots:
 
     private:
-        Algorithm m_algo;
-        QString m_keyId;
-        Uid m_uid;
-        SigClass m_sigClass;
-        SigScope m_sigScope;
-        HashAlgo m_hashAlgo;
+        const Algorithm m_algo;
+        const QString m_keyId;
+        const Uid m_uid;
+        const SigClass m_sigClass;
+        const SigScope m_sigScope;
+        const HashAlgo m_hashAlgo;
 };
 
 #endif // SIGNATURE_H

@@ -44,7 +44,8 @@ PrimaPubKey::PrimaPubKey(const KeyScope keyScope,
                                                keyId,
                                                creationDate,
                                                expirationDate,
-                                               capabilities),
+                                               capabilities,
+                                               fpr),
                             m_trust(trust)
 
 {}
@@ -58,11 +59,19 @@ PrimaPubKey::Trust PrimaPubKey::getTrust() const {
     return m_trust;
 }
 
-const QList<SubKey*> PrimaPubKey::getSubKeys() const {
-    return m_subKeys;
+const QList<SubKey*> PrimaPubKey::getSubPubKeyList() const {
+    return m_subPubKeyList;
 }
 
-void PrimaPubKey::addSubKey(SubKey* sub) {
-    m_subKeys.append(sub);
+const QList<Uid*> PrimaPubKey::getUidList() const {
+    return m_uidList;
+}
+
+void PrimaPubKey::addSubPubKey(SubPubKey* subPubKey) {
+    m_subPubKeyList.append(subPubKey);
+}
+
+void PrimaPubKey::addUid(Uid* uid) {
+    m_uidList.append(uid);
 }
 

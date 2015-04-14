@@ -23,7 +23,7 @@ class PrimaSecKey : public SubSecKey {
         Uid getUid() const;
         const QList<SubSecKey*> getSubSecKeyList() const;
 
-        void addUid(Uid uid);
+        void setUid(Uid uid);
         void addSubSecKey(SubSecKey* subSecKey);
 
     private:

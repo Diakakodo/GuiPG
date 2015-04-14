@@ -4,14 +4,23 @@
 #include "subseckey.h"
 #include "signature.h"
 
-class SubPubKey : public Key {
+class SubPubKey : public SubSecKey {
     Q_OBJECT
 
     public:
-        SubPubKey();
+        SubPubKey(const KeyScope keyScope,
+                  const Validity validity,
+                  const unsigned length,
+                  const Algorithm algo,
+                  const QString keyId,
+                  const QDate creationDate,
+                  const QDate expirationDate,
+                  const QString capabilities,
+                  QString fpr = "");
         ~SubPubKey();
 
         const QList<Signature*> getSignatures() const;
+
         void addSignature(Signature* sig);
 
     private:
