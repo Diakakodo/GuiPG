@@ -93,15 +93,20 @@ void GPGManager::execute() {
         while (m_action.hasInteraction()) {
             QString data = m_action.nextInteraction();
             m_gpg.write(data.toLatin1());
+            QString dataAvailable;
             if (data.startsWith("Passphrase:")) {
-                emit newData("Passphrase: *****\n");
+                dataAvailable = "Passphrase: *****\n";
             } else {
-                emit newData(data);
+                dataAvailable = data;
             }
+            m_output += dataAvailable;
+            emit newData(dataAvailable);
         }
         m_gpg.write("%commit\n");
+        m_output += "%commit\n";
         emit newData("%commit\n");
         m_gpg.write("%echo done\n");
+        m_output += "%echo done\n";
         emit newData("%echo done\n");
 
         connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
