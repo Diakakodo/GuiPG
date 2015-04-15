@@ -35,7 +35,7 @@
 \title{Spécification Technique de Besoin}
 \author{Ibrahima-Sory \bsc{Barry}, Bertille \bsc{Bouillie}}
 \projet{Projet PGP}
-\projdesc{Étude et implantation d'un outil graphique de gestion de clé PGP}
+\projdesc{Étude et implantation d'un outil graphique de gestion de clefs PGP}
 \filiere{Master 1 SSI }
 \matiere{Conduite de projet}
 \version{0.4}
@@ -63,7 +63,7 @@
 \section{Objet}
 
 % Présentation succinte du sujet et hyp de travail.
-Le document présent est la spécification technique de besoin d'une étude et implantation d'un outil graphique de gestion de clés PGP.
+Le document présent est la spécification technique de besoin d'une étude et implantation d'un outil graphique de gestion de clefs PGP.
 
 Le projet sera réalisé par une équipe de sept étudiants du master SSI de Rouen, pour le compte de Madame Magali BARDET responsable de ce même master. 
 
@@ -74,7 +74,7 @@ Il est ensuite demandé de proposer une interface graphique pour GnuPG, accompag
 Enfin, il est demandé d'effectuer des recherches sur les limites cryptographiques de PGP et de produire un document d'analyse de ces limites. \`{A} l'issue de ces recherches, une implantation de l'attaque sur les KeyID sera à fournir.
 
 \subsection{Besoins opérationnels}
-L'interface graphique doit proposer l'accès à un maximum de commandes GPG. Le but étant de pouvoir se passer totalement de la ligne de commande GPG dans un terminal. De plus, elle doit permettre à un utilisateur novice en PGP, mais averti en sécurité, de faire facilement des réglages techniques sur ses clefs ainsi que mettre en place sa toile de confiance et la visualiser graphiquement.
+L'interface graphique doit proposer l'accès à certaines commandes GPG comme la création, l'édition ou encore l'importation. Le but étant de faciliter l'utilisation de ces commandes par le biais de l'interface. De plus, elle doit permettre à l'utilisateur d'avoir plusieurs profils et de pouvoir ouvrir plusieurs de ces profils simultanément.
 
 L'interface devra donc être à la fois pédagogique et précise, notamment en ce qui concerne la partie toile de confiance, où le but est de faire comprendre un concept essentiel de PGP.
 
@@ -82,9 +82,9 @@ L'interface devra donc être à la fois pédagogique et précise, notamment en c
 
 Les objectifs techniques de l'interface graphique pour GnuPG sont :
 \begin{itemize}
- \item la gestion fine des clés : choix de la taille, de l'algorithme de chiffrement symétrique,
+ \item la gestion des clefs : création, édition, importation,
  \item la gestion de la toile de confiance,
- \item le chiffrement et le déchiffrement pour le webmailing,
+ \item le signature et la vérification pour établir le réseau de confiance
  \item la visualisation de la ou des lignes de commande GnuPG équivalentes pour chaque action lancée.
 \end{itemize}
 
@@ -132,15 +132,15 @@ Différents documents de référence :
 \umlactor[x=6]{Utilisateur}
 
 \begin{umlsystem}[fill=red!10]{Interface graphique}
- \umlusecase[y=4, width=3cm]{Exécution d'actions GPG}
- \umlusecase[y=2, width=3cm]{Chiffrer/déchiffrer Signer/Vérifier}
+ \umlusecase[y=4, width=3cm]{Exécution de certaines actions GPG}
+ \umlusecase[y=2, width=3cm]{Signer/Vérifier}
  \umlusecase[y=0, width=3cm]{Affichage des commandes, des retours et des erreurs}
  \umlusecase[y=-2, width=3cm]{Choix du profil utilisateur}
  \umlusecase[y=-4, width=3cm]{Modification de la toile de confiance}
 \end{umlsystem}
 
 \begin{umlsystem}[x=10, fill=red!10]{Attaque sur les KeyId}
- \umlusecase[width=3cm]{Calcul d'une seconde pré image pour une clé donnée}
+ \umlusecase[width=3cm]{Calcul d'une seconde pré image pour une clef donnée}
 \end{umlsystem}
 
 \umlassoc{Utilisateur}{usecase-1}
@@ -169,7 +169,7 @@ Différents documents de référence :
   \cr
   \hline
   EF\_2&
-  Chiffrer/déchiffrer/Signer/Vérifier&
+  Signer/Vérifier&
   Utilisateur&
   Indispensable
   \cr
@@ -204,7 +204,7 @@ Différents documents de référence :
   \cr
   \hline
   EF\_6&
-  Calcul d'une seconde pré image pour une clé donnée&
+  Calcul d'une seconde pré image pour une clef donnée&
   Utilisateur&
   Indispensable
   \cr
@@ -218,7 +218,7 @@ Différents documents de référence :
 \subsubsection{Cas d'utilisation 1}
 \ficheGraphic
 % Nom du cas d'utilisation
-{Exécution d'actions GPG}
+{Exécution de certaines actions GPG}
 % Acteurs concernés
 {Utilisateur}
 % Description
@@ -245,18 +245,18 @@ Différents documents de référence :
 \subsubsection{Cas d'utilisation 2}
 \ficheGraphic
 % Nom du cas d'utilisation
-{Chiffrer/déchiffrer/Signer/Vérifier}
+{Signer/Vérifier}
 % Acteurs concernés
 {Utilisateur}
 % Description
-{Chiffrer ou déchiffrer ou signer ou vérifier un message copié dans l'éditeur de l'interface. Il est possible d'exporter le résultat dans un fichier, ou d'importer un fichier. Dans ce dernier cas, le résultat est affiché via l'interface.}
+{Signer ou vérifier une clef permettra la mise en place d'un réseau de confiance}
 % Préconditions
 {
   Il existe plusieurs préconditions :
   \begin{itemize}
-    \item Pour déchiffrer ou signer, l'utilisateur possède sa clé privée.
-    \item Pour chiffrer, l'utilisateur possède la clé publique du destinataire.
-    \item Pour vérifier, l'utilisateur possède la clé publique de l'émetteur.
+    \item Pour déchiffrer ou signer, l'utilisateur possède sa clef privée.
+    \item Pour chiffrer, l'utilisateur possède la clef publique du destinataire.
+    \item Pour vérifier, l'utilisateur possède la clef publique de l'émetteur.
   \end{itemize}
 }
 % Evénements déclenchants
@@ -270,7 +270,7 @@ Différents documents de référence :
 % Fin de la fiche du cas d'utilisation 2.
 \vspace{0.5cm}
 
-Au moment de la demande de clé et de l'entrée/sortie, l'utilisateur doit saisir la clé, et éventuellement un fichier pour l'entrée, s'il désire une autre entrée que l'éditeur de l'interface, ou la sortie, s'il désire rediriger la sortie vers ce fichier.
+Au moment de la demande de clef et de l'entrée/sortie, l'utilisateur doit saisir la clef, et éventuellement un fichier pour l'entrée, s'il désire une autre entrée que l'éditeur de l'interface, ou la sortie, s'il désire rediriger la sortie vers ce fichier.
 
 Le cadre optionnel permet, lors d'une signature détachée, à l'utilisateur de pouvoir préciser le fichier pour la signature.
 
@@ -332,7 +332,7 @@ Chaque profil possède un trousseau de clefs qui lui est propre.}
 % Acteurs concernés
 {Utilisateur}
 % Description
-{Modification de la Toile de confiance, par un changement de niveau de confiance, l'ajout d'une nouvelle clé ou la modification d'une clé, via l'interface de GnuPG
+{Modification de la Toile de confiance, par un changement de niveau de confiance, l'ajout d'une nouvelle clef ou la modification d'une clef, via l'interface de GnuPG
 uniquement }
 % Préconditions
 {La représentation de la toile de confiance doit apparaître sur l'interface par un changement de couleur.}
@@ -348,18 +348,18 @@ uniquement }
 \vspace{0.5cm}
   
 
-\subsection{Calcul d'une seconde pré image pour une clé donnée}
+\subsection{Calcul d'une seconde pré image pour une clef donnée}
   
 \subsubsection{Cas d'utilisation 6}
 \ficheGraphic
 % Nom du cas d'utilisation
-{Calcul d'une seconde pré image pour une clé donnée}
+{Calcul d'une seconde pré image pour une clef donnée}
 % Acteurs concernés
 {Utilisateur}
 % Description
 {Calcul d'une seconde pré image sur 4 octets, selon la méthode décrite dans le numéro 75 du MISC, dans l'article à propos de l'attaque sur les KeyId.}
 % Préconditions
-{Fixer une clé.}
+{Fixer une clef.}
 % Evénements déclenchants
 {Lancement du calcul.}
 % Conditions d'arrêt
@@ -386,7 +386,7 @@ De plus, comme un manuel d'utilisation, il doit décrire l'intégralité des fon
 \iffalse
 \subsection{Document d'analyse des limites cryptographiques de PGP}
 
-Dans le document d'analyse des limites cryptographiques de PGP doivent figurer les attaques connues sur PGP, répertoriées sur des sites web de veille sur la sécurité informatique. Il devra y figurer aussi les conséquences possibles de la diffusion de la toile de confiance sur les serveurs, au travers de la signature des clés.
+Dans le document d'analyse des limites cryptographiques de PGP doivent figurer les attaques connues sur PGP, répertoriées sur des sites web de veille sur la sécurité informatique. Il devra y figurer aussi les conséquences possibles de la diffusion de la toile de confiance sur les serveurs, au travers de la signature des clefs.
 \fi
 
 \newpage
@@ -441,12 +441,12 @@ Dans le document d'analyse des limites cryptographiques de PGP doivent figurer l
   \cr
   \hline
   EO\_8&
-  Connexion SSH : Authentification via une clé signée par GPG&
+  Connexion SSH : Authentification via une clef signée par GPG&
   Secondaire
   \cr
   \hline
   EO\_9&
-  Recherche des clés en local&
+  Recherche des clefs en local&
   Important
   \cr
   \hline
@@ -510,7 +510,7 @@ Le client n'a aucune exigence opérationnelle d'interface.
 \iffalse
 Le client souhaite recevoir quatre livrables, améliorés au fur et à mesure, incluant ces caractéristiques dans cet ordre :
 \begin{itemize}
- \item L'interface avec gestion de clés, vue des commandes et retours, gestion de profils utilisateur et configuration.
+ \item L'interface avec gestion de clefs, vue des commandes et retours, gestion de profils utilisateur et configuration.
  \item L'interface avec chiffrement, déchiffrement, signature, vérification, éditeur de texte avec import et export de fichier.
  \item L'interface avec toile de confiance et implantation de l'attaque sur les KeyId.
  \item L'interface, les rapports et la documentation finalisés.
