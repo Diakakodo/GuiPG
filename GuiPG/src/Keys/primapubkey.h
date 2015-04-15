@@ -27,7 +27,7 @@ class PrimaPubKey : public PubKey {
         static QString trustToStr(QString t);
 
         PrimaPubKey (const QString keyScope,
-               const QString validity,
+               QString validity,
                const unsigned length,
                const QString algo,
                const QString keyId,

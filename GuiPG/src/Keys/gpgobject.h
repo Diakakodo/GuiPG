@@ -60,8 +60,6 @@ class GpgObject : public QObject {
         explicit GpgObject(const QDate creationDate, QString fpr = "");
         virtual ~GpgObject() = 0;
 
-        virtual QString getValidity();
-
         QDate getCreationDate() const;
         QString getFpr() const;
 

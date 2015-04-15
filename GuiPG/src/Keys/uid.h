@@ -44,13 +44,11 @@ class Uid : public GpgObject {
             QDate creationDate,
             QString fpr,
             QString name,
-            QString comment,
             QString mail);
         ~Uid();
 
         QString getValidity() const;
         QString getName() const;
-        QString getComment() const;
         QString getMail() const;
         QString getPref() const;
         const QList<Signature*> getSigList() const;
@@ -60,7 +58,6 @@ class Uid : public GpgObject {
     private:
         QString m_validity;
         QString m_name;
-        QString m_comment;
         QString m_mail;
         QString m_pref;
         QList<Signature*> m_sigList;

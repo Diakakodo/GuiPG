@@ -27,7 +27,7 @@ QString PrimaPubKey::trustToStr(QString t) {
 }
 
 PrimaPubKey::PrimaPubKey(const QString keyScope,
-                         const QString validity,
+                         QString validity,
                          const unsigned length,
                          const QString algo,
                          const QString keyId,

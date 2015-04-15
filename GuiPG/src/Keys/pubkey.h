@@ -21,7 +21,7 @@ class PubKey : public SubSecKey {
     public:
 
         PubKey(const QString keyScope,
-               const QString validity,
+               QString validity,
                const unsigned length,
                const QString algo,
                const QString keyId,
@@ -36,7 +36,7 @@ class PubKey : public SubSecKey {
         QDate getExpirationDate() const;
         QString getCapabilities() const;
 
-    private:
+    protected:
         QString m_validity;
         QDate m_expirationDate;
         QString m_capabilities;

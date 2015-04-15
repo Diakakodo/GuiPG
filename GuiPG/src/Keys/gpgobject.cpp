@@ -106,7 +106,3 @@ QString GpgObject::getFpr() const {
 void GpgObject::setFpr(QString fpr) {
     m_fpr = fpr;
 }
-
-QString GpgObject::getValidity() {
-    return VALIDITY_EMPTY;
-}

@@ -19,12 +19,10 @@ Uid::Uid(QString validity,
          QDate creationDate,
          QString fpr,
          QString name,
-         QString comment,
          QString mail) : GpgObject (creationDate,
                                     fpr),
             m_validity(validity),
             m_name(name),
-            m_comment(comment),
             m_mail(mail)
 {}
 
@@ -39,10 +37,6 @@ QString Uid::getValidity() const {
 
 QString Uid::getName() const {
     return m_name;
-}
-
-QString Uid::getComment() const {
-    return m_comment;
 }
 
 QString Uid::getMail() const {

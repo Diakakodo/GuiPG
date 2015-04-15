@@ -54,7 +54,7 @@ QString Signature::hashAlgoToStr(QString ha) {
 Signature::Signature(QString algo,
                      QString keyId,
                      QDate creationDate,
-                     Uid* uid,
+                     QString uid,
                      QString sigClass,
                      QString sigScope,
                      QString hashAlgo,
@@ -77,7 +77,7 @@ QString Signature::getKeyId() const {
     return m_keyId;
 }
 
-Uid* Signature::getUid() const {
+QString Signature::getUid() const {
     return m_uid;
 }
 

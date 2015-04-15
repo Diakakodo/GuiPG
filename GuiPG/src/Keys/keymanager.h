@@ -15,16 +15,16 @@ class KeyManager : public QObject {
         ~KeyManager();
 
         void load();
-        const QList<GpgObject*>& getKeys() const;
+        const QList<PrimaPubKey *> &getPubKeys() const;
 
     signals:
-        void keysLoaded();
+        void PubKeysLoaded();
 
     private:
-        void gpgFinished(int s, const QString& output);
+        void gpgFinishedPublicKeys(int s, const QString& output);
         QDate strToDate(const QString& d) const;
 
-        QList<GpgObject*> m_keys;
+        QList<PrimaPubKey*> m_primaPubKeys;
         GPGManager* m_gpg;
 };
 

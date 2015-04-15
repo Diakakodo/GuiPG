@@ -119,7 +119,7 @@ QTreeWidgetItem* MainWindow::createKeyItem(GpgObject *k, QTreeWidget* tree) {
     //        << Key::validityToStr(k->getTrust())
     //;
     QTreeWidgetItem* item = tree == nullptr ? new QTreeWidgetItem(infos) : new QTreeWidgetItem(tree, infos);
-    setItemColor(item, m_model->getProfile()->getValidityColor(k->getValidity()));
+    //setItemColor(item, m_model->getProfile()->getValidityColor(k->getValidity()));
     return item;
 }
 

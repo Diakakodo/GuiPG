@@ -1,7 +1,7 @@
 #include "pubkey.h"
-
+#include <QDebug>
 PubKey::PubKey(const QString keyScope,
-               const QString validity,
+               QString validity,
                const unsigned length,
                const QString algo,
                const QString keyId,
