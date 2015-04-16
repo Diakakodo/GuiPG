@@ -8,8 +8,11 @@
 SubPubKeyItem::SubPubKeyItem(SubPubKey* sub) : GpgItem(sub)
 {
     m_sub = sub;
+
     setText(COL_ALGO, sub->getAlgo());
     setText(COL_CREATION, sub->getCreationDate().toString("dd/MM/yyyy"));
+    setText(COL_EXPIRATION, sub->getExpirationDate().toString("dd/MM/yyyy"));
+    setText(COL_CAPACITY, sub->getCapabilities());
     setText(COL_ID, sub->getKeyId());
     setText(COL_LENGTH, QString::number(sub->getLength()));
     setText(COL_VALIDITY, sub->getValidity());
