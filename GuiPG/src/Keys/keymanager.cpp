@@ -25,6 +25,17 @@ void KeyManager::load() {
     m_gpg->execute();
 }
 
+QString extractNameOfUidStr(QString uidStr) {
+    QString name = uidStr.split("<").first();
+    name.truncate(name.lastIndexOf(' '));
+    return name;
+}
+QString extractMailOfUidStr(QString uidStr) {
+    QString mail = uidStr.split("<").last();
+    mail.truncate(mail.lastIndexOf('>'));
+    return mail;
+}
+
 void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
     if (s) {
         // not used.
@@ -74,13 +85,16 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
             lastPrimaPubKey->addSubPubKey(sub);
         } else if (line.startsWith("fpr:")) {
             last->setFpr(split.at(10));
-        } else if (line.startsWith("sig")
+        } else if (line.startsWith("sig:")
                    || line.startsWith("rev:")) {
+            QString name = extractNameOfUidStr(split.at(9));
+            QString mail = extractMailOfUidStr(split.at(9));
             Signature* sig = new Signature(
                         split.at(3), // algo
                         split.at(4), // keyid
                         QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(), // create
-                        split.at(9), // uid
+                        name, // uid name
+                        mail, // uid mail
                         split.at(10), // sigClass
                         (QString) split.at(10).at(2), // sigscope
                         split.at(15), // hashAlgo
@@ -93,12 +107,8 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
             }
         } else if (line.startsWith("uid")) {
             lastsub = nullptr;
-            QString infos = split.at(9);
-            QString name = infos.split("<").first();
-            name.truncate(name.lastIndexOf(' '));
-            QString mail = infos.split("<").last();
-            mail.truncate(mail.lastIndexOf('>'));
-
+            QString name = extractNameOfUidStr(split.at(9));
+            QString mail = extractMailOfUidStr(split.at(9));
             Uid* uid = new Uid(split.at(1),
                                QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(), // create
                                split.at(7),
