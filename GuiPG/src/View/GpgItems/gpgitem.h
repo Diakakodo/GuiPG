@@ -7,16 +7,16 @@
 
 // X(nom de l'enum, nom de la colone)
 #define X_COLUMNS               \
-X(NAME_COL,       "Nom")        \
-X(MAIL_COL,       "Email")      \
-X(VALIDITY_COL,   "Validité")   \
-X(TRUST_COL,      "Confiance")  \
-X(CREATION_COL,   "Création")   \
-X(EXPIRATION_COL, "Expiration") \
-X(LENGTH_COL,     "Taille")     \
-X(ALGO_COL,       "Algo")       \
-X(CAPACITY_COL,   "Capacité")   \
-X(ID_COL,         "ID")
+X(COL_NAME,       "Nom")        \
+X(COL_MAIL,       "Email")      \
+X(COL_VALIDITY,   "Validité")   \
+X(COL_TRUST,      "Confiance")  \
+X(COL_CREATION,   "Création")   \
+X(COL_EXPIRATION, "Expiration") \
+X(COL_LENGTH,     "Taille")     \
+X(COL_ALGO,       "Algo")       \
+X(COL_CAPACITY,   "Capacité")   \
+X(COL_ID,         "ID")
 
 
 class GpgItem : public QTreeWidgetItem {
