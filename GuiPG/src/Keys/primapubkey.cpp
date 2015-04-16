@@ -53,6 +53,14 @@ PrimaPubKey::~PrimaPubKey()
 
 }
 
+Uid* PrimaPubKey::getPrimaryUid() {
+    return m_primaryUid;
+}
+
+void PrimaPubKey::setPrimaryUid(Uid* uid) {
+    m_primaryUid = uid;
+}
+
 QString PrimaPubKey::getTrust() const {
     return m_trust;
 }

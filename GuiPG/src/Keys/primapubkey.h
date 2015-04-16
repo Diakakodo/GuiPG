@@ -44,11 +44,14 @@ class PrimaPubKey : public PubKey {
 
         void addSubPubKey(SubPubKey* subPubKey);
         void addUid(Uid* uid);
+        Uid* getPrimaryUid();
+        void setPrimaryUid(Uid* uid);
 
     private:
         QString m_trust;
         QList<SubPubKey*> m_subPubKeyList;
         QList<Uid*> m_uidList;
+        Uid* m_primaryUid;
 };
 
 #endif // PRIMAPUBKEY_H
