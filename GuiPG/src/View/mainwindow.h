@@ -32,6 +32,7 @@ class MainWindow : public QMainWindow {
         void changeProfil(unsigned profileId);
         void showManuel();
         void showDialogConfiguration();
+        void updateBigBrother(QString cmd, QString output);
 
 private slots:
         void on_actionG_n_rer_une_paire_de_clefs_triggered();
