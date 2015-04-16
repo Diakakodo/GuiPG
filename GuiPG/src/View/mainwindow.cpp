@@ -11,6 +11,8 @@
 #include "GpgItems/gpgitem.h"
 #include "GpgItems/primapubkeyitem.h"
 #include <QCloseEvent>
+#include <QTextEdit>
+#include <QLineEdit>
 
 MainWindow::MainWindow(MainWindowModel* model)
     : ui(new Ui::MainWindow), m_model(model) {
@@ -145,9 +147,20 @@ void MainWindow::setItemColor(QTreeWidgetItem* item, const QColor& color) {
 }
 
 void MainWindow::updateBigBrother(QString cmd, QString output) {
+
     QTreeWidgetItem* cmdItem = new QTreeWidgetItem(QStringList(cmd));
     if (output != "") {
-        cmdItem->addChild(new QTreeWidgetItem(cmdItem, QStringList(output)));
+        QTextEdit* textOutput = new QTextEdit();
+        textOutput->setReadOnly(true);
+        textOutput->setAcceptRichText(true);
+        textOutput->setText(output);
+        QTreeWidgetItem* outputItem = new QTreeWidgetItem();
+        cmdItem->addChild(outputItem);
+        ui->bigBrother->setItemWidget(outputItem, 0, textOutput);
     }
+    QLineEdit* textCmd = new QLineEdit();
+    textCmd->setReadOnly(true);
+    textCmd->setText(cmd);
     ui->bigBrother->addTopLevelItem(cmdItem);
+    ui->bigBrother->setItemWidget(cmdItem, 0, textCmd);
 }
