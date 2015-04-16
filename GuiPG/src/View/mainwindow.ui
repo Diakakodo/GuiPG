@@ -321,7 +321,7 @@
   <customwidget>
    <class>GpgTreeWidget</class>
    <extends>QTreeWidget</extends>
-   <header>gpgtreewidget.h</header>
+   <header>src/View/gpgtreewidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
