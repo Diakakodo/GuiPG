@@ -9,7 +9,7 @@ PubKeyItem::PubKeyItem(PubKey* pub) : SubSecKeyItem(pub)
 
     setText(COL_CAPACITY, pub->getCapabilities());
     setText(COL_EXPIRATION, pub->getExpirationDate().toString("dd/MM/yyyy"));
-    setText(COL_VALIDITY, pub->getValidity());
+    setText(COL_VALIDITY, GpgObject::validityToStr(pub->getValidity()));
 }
 
 PubKeyItem::~PubKeyItem()

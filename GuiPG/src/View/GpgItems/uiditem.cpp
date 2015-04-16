@@ -7,7 +7,7 @@ UidItem::UidItem(Uid* uid) : GpgItem (uid)
     m_uid = uid;
     setText(COL_NAME, uid->getName());
     setText(COL_MAIL, uid->getMail());
-    setText(COL_VALIDITY, uid->getValidity());
+    setText(COL_VALIDITY, GpgObject::validityToStr(uid->getValidity()));
     for (Signature* sig : uid->getSigList()) {
         addChild(new SignatureItem(sig));
     }

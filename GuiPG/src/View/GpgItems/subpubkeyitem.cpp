@@ -5,13 +5,10 @@
 #include "../../Keys/signature.h"
 #include "signatureitem.h"
 
-SubPubKeyItem::SubPubKeyItem(SubPubKey* sub) : SubSecKeyItem(sub)
+SubPubKeyItem::SubPubKeyItem(SubPubKey* sub) : PubKeyItem(sub)
 {
     m_sub = sub;
 
-    setText(COL_EXPIRATION, sub->getExpirationDate().toString("dd/MM/yyyy"));
-    setText(COL_CAPACITY, sub->getCapabilities());
-    setText(COL_VALIDITY, sub->getValidity());
     for (Signature* sig : sub->getSignatures()) {
         addChild(new SignatureItem(sig));
     }

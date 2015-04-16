@@ -1,10 +1,10 @@
 #ifndef SUBPUBKEYITEM_H
 #define SUBPUBKEYITEM_H
 
-#include "subseckeyitem.h"
+#include "pubkeyitem.h"
 #include "../../Keys/subpubkey.h"
 
-class SubPubKeyItem : public SubSecKeyItem
+class SubPubKeyItem : public PubKeyItem
 {
     public:
         SubPubKeyItem(SubPubKey* sub);

@@ -7,14 +7,19 @@ PrimaPubKeyItem::PrimaPubKeyItem(PrimaPubKey *pub) : PubKeyItem(pub)
 {
     m_pub = pub;
 
-    setText(COL_TRUST, pub->getTrust());
+    Uid* primaryUid = pub->getPrimaryUid();
+    if (primaryUid != nullptr) {
+        setText(COL_NAME, primaryUid->getName());
+        setText(COL_MAIL, primaryUid->getMail());
+    }
+    setText(COL_TRUST, PrimaPubKey::trustToStr(pub->getTrust()));
     for (Uid* uid : pub->getUidList()) {
         addChild(new UidItem(uid));
     }
-
     for (SubPubKey* sub : pub->getSubPubKeyList()) {
         addChild(new SubPubKeyItem(sub));
     }
+
 }
 
 PrimaPubKeyItem::~PrimaPubKeyItem()

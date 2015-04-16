@@ -8,10 +8,9 @@ SignatureItem::SignatureItem(Signature* sig) : GpgItem(sig)
     m_uidName = sig->getUidName();
     m_uidMail = sig->getUidMail();
 
-    setText(COL_CREATION, sig->getCreationDate().toString("dd/MM/yyyy"));
     setText(COL_NAME, m_uidName);
     setText(COL_MAIL, m_uidMail);
-    setText(COL_ALGO, sig->getAlgo());
+    setText(COL_ALGO, GpgObject::algoToStr(sig->getAlgo()));
 }
 
 SignatureItem::~SignatureItem()

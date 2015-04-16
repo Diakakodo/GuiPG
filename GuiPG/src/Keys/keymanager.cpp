@@ -53,7 +53,7 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
                         GPG_PUB_KEY,                            // keyscope
                         split.at(1),                            // validity
                         split.at(2).toLong(),                   // length
-                        (QString) split.at(3).toInt(),          // algo
+                        (QString) split.at(3),          // algo
                         split.at(4),                            // keyId
                         QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),     // Date de création
                         split.at(6).isEmpty() ?                                                  //
@@ -72,7 +72,7 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
                     GPG_SUB_KEY,                            // keyscope
                     split.at(1),                            // validity
                     split.at(2).toLong(),                   // length
-                    (QString) split.at(3).toInt(),          // algo
+                    (QString) split.at(3),          // algo
                     split.at(4),                            // keyId
                     QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),     // Date de création
                     split.at(6).isEmpty() ?                                                  //

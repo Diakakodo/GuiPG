@@ -1,10 +1,10 @@
 #ifndef SUBPUBKEY_H
 #define SUBPUBKEY_H
 
-#include "subseckey.h"
+#include "pubkey.h"
 #include "signature.h"
 
-class SubPubKey : public SubSecKey {
+class SubPubKey : public PubKey {
     Q_OBJECT
 
     public:
@@ -23,15 +23,9 @@ class SubPubKey : public SubSecKey {
 
         void addSignature(Signature* sig);
 
-        QString getValidity();
-        QDate getExpirationDate();
-        QString getCapabilities();
 
     private:
         QList<Signature*> m_sigs;
-        QString m_validity;
-        QDate m_expirationDate;
-        QString m_capabilities;
 };
 
 #endif // SUBPUBKEY_H
