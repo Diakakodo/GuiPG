@@ -28,9 +28,19 @@ MainWindow::MainWindow(MainWindowModel* model)
     for (int i = 0; i < GpgItem::NB_COLUMNS; ++i) {
         m_TreeHeader << GpgItem::columns.value(i);
     }
-
     ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
+    ui->treeWidgetKey->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->treeWidgetKey, &QTreeWidget::customContextMenuRequested,
+            this, &MainWindow::onCustomContextMenuRequested);
+
     connect(m_model, &MainWindowModel::keysChanged, this, &MainWindow::buildTree);
+}
+
+void MainWindow::onCustomContextMenuRequested(const QPoint& pos) {
+    GpgItem* item = (GpgItem*) ui->treeWidgetKey->itemAt(pos);
+    if (item) {
+        item->showMenu(pos);
+    }
 }
 
 Profile* MainWindow::getProfil() const {
