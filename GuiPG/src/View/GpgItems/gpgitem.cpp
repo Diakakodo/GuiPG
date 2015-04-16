@@ -10,6 +10,7 @@ QHash<int, QString> GpgItem::columns = []() -> QHash<int, QString> {
         X_COLUMNS
         NULL
     };
+    #undef X
     QHash<int, QString> hash;
     for (int i = 0; i < GpgItem::NB_COLUMNS; ++i) {
         hash.insert(i, columnsName[i]);

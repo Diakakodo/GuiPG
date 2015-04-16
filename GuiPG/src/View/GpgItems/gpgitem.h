@@ -38,7 +38,6 @@ class GpgItem : public QTreeWidgetItem {
         };
         #undef X
 
-
         static QHash<int, QString> columns;
 
     protected:
