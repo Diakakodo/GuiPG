@@ -9,6 +9,7 @@
 #include "Profil/profilecreation.h"
 #include "config.h"
 #include "GpgItems/gpgitem.h"
+#include "GpgItems/primapubkeyitem.h"
 #include <QCloseEvent>
 
 MainWindow::MainWindow(MainWindowModel* model)
@@ -90,7 +91,11 @@ void MainWindow::showDialogConfiguration(){
 }
 
 void MainWindow::buildTree() {
-    //ui->treeWidgetKey->clear();
+    ui->treeWidgetKey->clear();
+    const QList<PrimaPubKey*> pubKeys = m_model->getKeyManager()->getPubKeys();
+    for (PrimaPubKey* pub : pubKeys) {
+        ui->treeWidgetKey->addTopLevelItem(new PrimaPubKeyItem(pub));
+    }
     //const QList<Key*>& keys = m_model->getKeyManager()->getKeys();
     //for (Key* k : keys) {
     //    QTreeWidgetItem* item = createKeyItem(k, ui->treeWidgetKey);
