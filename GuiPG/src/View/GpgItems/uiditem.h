@@ -9,6 +9,7 @@ class UidItem : public GpgItem
     public:
         UidItem(Uid *uid);
         ~UidItem();
+        void showMenu(const QPoint &pos);
     private:
         Uid* m_uid;
 };
