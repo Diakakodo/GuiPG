@@ -78,6 +78,9 @@ void PrimaPubKey::addSubPubKey(SubPubKey* subPubKey) {
 }
 
 void PrimaPubKey::addUid(Uid* uid) {
+    if (m_primaryUid == nullptr) {
+        m_primaryUid = uid;
+    }
     m_uidList.append(uid);
 }
 
