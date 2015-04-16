@@ -3,10 +3,10 @@
 
 SubSecKeyItem::SubSecKeyItem(SubSecKey* subSecKey) : GpgItem (subSecKey)
 {
-    setText(4, subSecKey->getCreationDate().toString("dd/MM/yyyy"));
-    setText(6, QString::number(subSecKey->getLength()));
-    setText(7, GpgObject::algoToStr(subSecKey->getAlgo()));
-    setText(9, subSecKey->getKeyId());
+    setText(COL_CREATION, subSecKey->getCreationDate().toString("dd/MM/yyyy"));
+    setText(COL_LENGTH, QString::number(subSecKey->getLength()));
+    setText(COL_ALGO, GpgObject::algoToStr(subSecKey->getAlgo()));
+    setText(COL_ID, subSecKey->getKeyId());
 }
 
 SubSecKeyItem::~SubSecKeyItem()
