@@ -1,12 +1,20 @@
 #ifndef PRIMAPUBKEYITEM_H
 #define PRIMAPUBKEYITEM_H
 
+#include "pubkeyitem.h"
+#include "../../Keys/primapubkey.h"
 
-class PrimaPubKeyItem
+class PrimaPubKeyItem : public PubKeyItem
 {
-public:
-    PrimaPubKeyItem();
-    ~PrimaPubKeyItem();
+    public:
+        PrimaPubKeyItem(PrimaPubKey* pub);
+        ~PrimaPubKeyItem();
+
+        void showMenu(const QPoint &pos);
+
+    private:
+        PrimaPubKey* m_pub;
+
 };
 
 #endif // PRIMAPUBKEYITEM_H
