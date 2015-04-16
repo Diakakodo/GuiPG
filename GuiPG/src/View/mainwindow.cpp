@@ -34,6 +34,8 @@ MainWindow::MainWindow(MainWindowModel* model)
     connect(ui->treeWidgetKey, &QTreeWidget::customContextMenuRequested,
             this, &MainWindow::onCustomContextMenuRequested);
 
+    ui->bigBrother->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+
     connect(m_model, &MainWindowModel::keysChanged, this, &MainWindow::buildTree);
 }
 
