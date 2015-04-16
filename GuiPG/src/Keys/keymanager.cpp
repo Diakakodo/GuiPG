@@ -30,6 +30,7 @@ QString extractNameOfUidStr(QString uidStr) {
     name.truncate(name.lastIndexOf(' '));
     return name;
 }
+
 QString extractMailOfUidStr(QString uidStr) {
     QString mail = uidStr.split("<").last();
     mail.truncate(mail.lastIndexOf('>'));

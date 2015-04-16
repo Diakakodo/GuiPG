@@ -8,6 +8,7 @@
 #include "keyexport.h"
 #include "Profil/profilecreation.h"
 #include "config.h"
+#include "GpgItems/gpgitem.h"
 #include <QCloseEvent>
 
 MainWindow::MainWindow(MainWindowModel* model)
@@ -23,14 +24,10 @@ MainWindow::MainWindow(MainWindowModel* model)
     connect(ui->actionManuel_utilisateur_de_GuiPG, &QAction::triggered, this, &MainWindow::showManuel);
 
     QStringList m_TreeHeader;
-    m_TreeHeader
-            << "ID"
-            << "Propriétaire"
-            << "Taille"
-            << "Création"
-            << "Expiration"
-            << "Validité"
-            << "Confiance";
+    for (int i = 0; i < GpgItem::NB_COLUMNS; ++i) {
+        m_TreeHeader << GpgItem::columns.value(i);
+    }
+
     ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
     connect(m_model, &MainWindowModel::keysChanged, this, &MainWindow::buildTree);
 }
