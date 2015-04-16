@@ -32,7 +32,7 @@ void MainWindowModel::initKeyManager() {
         delete m_keyManager;
     }
     m_keyManager = new KeyManager(m_profile);
-    connect(m_keyManager, &KeyManager::keysLoaded, this, &MainWindowModel::emitKeysChanged);
+    connect(m_keyManager, &KeyManager::PubKeysLoaded, this, &MainWindowModel::emitKeysChanged);
     m_keyManager->load();
 }
 

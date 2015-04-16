@@ -10,7 +10,6 @@ HEADERS += \
     src/Launcher/launcher.h \
     src/GPG/gpgmanager.h \
     src/GPG/action.h \
-    src/Keys/key.h \
     src/Keys/keymanager.h \
     src/View/keycreation.h \
     src/Model/mainwindowmodel.h \
@@ -26,7 +25,23 @@ HEADERS += \
     src/Exception/badinteraction.h \
     src/Exception/notenoughinteraction.h \
     src/View/keyedition.h \
-    src/Keys/signature.h
+    src/Keys/signature.h \
+    src/Keys/gpgobject.h \
+    src/Keys/uid.h \
+    src/Keys/primapubkey.h \
+    src/Keys/pubkey.h \
+    src/Keys/subpubkey.h \
+    src/Keys/subseckey.h \
+    src/Keys/primaseckey.h \
+    src/View/GpgItems/gpgitem.h \
+    src/View/GpgItems/primapubkeyitem.h \
+    src/View/GpgItems/primaseckeyitem.h \
+    src/View/GpgItems/pubkeyitem.h \
+    src/View/GpgItems/signatureitem.h \
+    src/View/GpgItems/subpubkeyitem.h \
+    src/View/GpgItems/subseckeyitem.h \
+    src/View/GpgItems/uiditem.h \
+    src/View/gpgtreewidget.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -38,7 +53,6 @@ SOURCES += \
     src/Launcher/launcher.cpp \
     src/GPG/gpgmanager.cpp \
     src/GPG/action.cpp \
-    src/Keys/key.cpp \
     src/Keys/keymanager.cpp \
     src/View/keycreation.cpp \
     src/Model/mainwindowmodel.cpp \
@@ -53,7 +67,23 @@ SOURCES += \
     src/Exception/gpgexception.cpp \
     src/Exception/notenoughinteraction.cpp \
     src/View/keyedition.cpp \
-    src/Keys/signature.cpp
+    src/Keys/signature.cpp \
+    src/Keys/gpgobject.cpp \
+    src/Keys/uid.cpp \
+    src/Keys/primapubkey.cpp \
+    src/Keys/pubkey.cpp \
+    src/Keys/subpubkey.cpp \
+    src/Keys/subseckey.cpp \
+    src/Keys/primaseckey.cpp \
+    src/View/GpgItems/gpgitem.cpp \
+    src/View/GpgItems/primapubkeyitem.cpp \
+    src/View/GpgItems/primaseckeyitem.cpp \
+    src/View/GpgItems/pubkeyitem.cpp \
+    src/View/GpgItems/signatureitem.cpp \
+    src/View/GpgItems/subpubkeyitem.cpp \
+    src/View/GpgItems/subseckeyitem.cpp \
+    src/View/GpgItems/uiditem.cpp \
+    src/View/gpgtreewidget.cpp
 
 FORMS += \
     src/View/mainwindow.ui \

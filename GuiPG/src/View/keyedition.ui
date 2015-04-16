@@ -158,7 +158,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Algorithme :</string>
+     <string>QStringe :</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_13">

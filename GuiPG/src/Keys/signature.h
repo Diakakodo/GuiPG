@@ -3,37 +3,71 @@
 
 #include <QObject>
 #include <QDate>
+#include "gpgobject.h"
+#include "uid.h"
 
-class Signature : public QObject {
+#define SIGCLASS_BINARY             "00"
+#define SIGCLASS_CANONICAL          "01"
+#define SIGCLASS_STANDALONE         "02"
+#define SIGCLASS_GENERIC            "10"
+#define SIGCLASS_PERSONA            "11"
+#define SIGCLASS_CASUAL             "12"
+#define SIGCLASS_POSITIVE           "13"
+#define SIGCLASS_SUBKEY             "18"
+#define SIGCLASS_PRIMARY            "19"
+#define SIGCLASS_DIRECTLY           "1F"
+#define SIGCLASS_KEY_REVOCATION     "20"
+#define SIGCLASS_SUBKEY_REVOCATION  "28"
+#define SIGCLASS_CERT_REVOCATION    "30"
+#define SIGCLASS_TIMESTAMP          "40"
+#define SIGCLASS_THIRD_PARTY        "50"
+
+#define SIGSCOPE_LOCAL      "l"
+#define SIGSCOPE_EXPORTABLE "x"
+
+#define HASH_ALGO_SHA1    "2"
+#define HASH_ALGO_SHA256  "8"
+
+class Signature : public GpgObject {
     Q_OBJECT
 
     public:
-        enum Algorithm {
-            ALGO_RSA,
-            ALGO_DSA,
-            ALGO_DSA_SIG,
-            ALGO_RSA_SIG
-        };
 
-        explicit Signature(Algorithm a,
-                           const QString& id,
-                           const QDate& creation,
-                           const QString& owner);
+        static QString sigClassToStr(QString sc);
+        static QString sigScopeToStr(QString ss);
+        static QString hashAlgoToStr(QString ha);
 
-        const QString& getOwner() const;
-        Algorithm getAlgorithm() const;
-        const QDate& getCreationDate() const;
-        const QString& getId() const;
+        explicit Signature(QString algo,
+                           QString keyId,
+                           QDate creationDate,
+                           QString uidName,
+                           QString uidMail,
+                           QString sigClass,
+                           QString sigScope,
+                           QString hashAlgo,
+                           QString fpr = "");
+
+        QString getAlgo() const;
+        QString getKeyId() const;
+        QString getUidName() const;
+        QString getUidMail() const;
+        QString getSigClass() const;
+        QString getSigScope() const;
+        QString getHashAlgo() const;
 
     signals:
 
     public slots:
 
     private:
-        Algorithm m_algo;
-        QString m_id;
-        QDate m_creation;
-        QString m_owner;
+        QString m_algo;
+        QString m_keyId;
+        QString m_uidName;
+        QString m_uidMail;
+        QString m_sigClass;
+        QString m_sigScope;
+        QString m_hashAlgo;
+        QDate m_creationDate;
 };
 
 #endif // SIGNATURE_H
