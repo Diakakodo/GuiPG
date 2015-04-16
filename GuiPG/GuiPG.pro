@@ -40,7 +40,8 @@ HEADERS += \
     src/View/GpgItems/signatureitem.h \
     src/View/GpgItems/subpubkeyitem.h \
     src/View/GpgItems/subseckeyitem.h \
-    src/View/GpgItems/uiditem.h
+    src/View/GpgItems/uiditem.h \
+    src/View/gpgtreewidget.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -81,7 +82,8 @@ SOURCES += \
     src/View/GpgItems/signatureitem.cpp \
     src/View/GpgItems/subpubkeyitem.cpp \
     src/View/GpgItems/subseckeyitem.cpp \
-    src/View/GpgItems/uiditem.cpp
+    src/View/GpgItems/uiditem.cpp \
+    src/View/gpgtreewidget.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
