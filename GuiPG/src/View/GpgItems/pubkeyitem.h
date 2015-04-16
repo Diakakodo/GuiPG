@@ -2,9 +2,9 @@
 #define PUBKEYITEM_H
 
 #include "../../Keys/pubkey.h"
-#include "gpgitem.h"
+#include "subseckeyitem.h"
 
-class PubKeyItem : public GpgItem
+class PubKeyItem : public SubSecKeyItem
 {
     public:
         PubKeyItem(PubKey* pud);

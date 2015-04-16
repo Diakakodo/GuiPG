@@ -12,7 +12,6 @@ SignatureItem::SignatureItem(Signature* sig) : GpgItem(sig)
     setText(COL_NAME, m_uidName);
     setText(COL_MAIL, m_uidMail);
     setText(COL_ALGO, sig->getAlgo());
-    setText(COL_ID, sig->getFpr());
 }
 
 SignatureItem::~SignatureItem()

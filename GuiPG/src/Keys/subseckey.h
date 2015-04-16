@@ -24,7 +24,6 @@ class SubSecKey : public GpgObject {
         unsigned getLength() const;
         QString getAlgo() const;
         QString getKeyId() const;
-        QString getValidity();
 
     protected:
         const QString m_keyScope;

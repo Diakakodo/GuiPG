@@ -32,7 +32,3 @@ QString SubSecKey::getAlgo() const {
 QString SubSecKey::getKeyId() const {
     return m_keyId;
 }
-
-QString SubSecKey::getValidity() {
-    return VALIDITY_EMPTY;
-}

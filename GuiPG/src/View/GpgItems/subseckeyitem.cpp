@@ -5,11 +5,9 @@ SubSecKeyItem::SubSecKeyItem(SubSecKey* subSecKey) : GpgItem (subSecKey)
 {
     m_sec = subSecKey;
 
-    setText(COL_CREATION, subSecKey->getCreationDate().toString("dd/MM/yyyy"));
     setText(COL_LENGTH, QString::number(subSecKey->getLength()));
     setText(COL_ALGO, GpgObject::algoToStr(subSecKey->getAlgo()));
     setText(COL_ID, subSecKey->getKeyId());
-    setText(COL_VALIDITY, subSecKey->getValidity());
 }
 
 SubSecKeyItem::~SubSecKeyItem()
