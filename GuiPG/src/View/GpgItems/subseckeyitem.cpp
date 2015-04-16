@@ -9,6 +9,7 @@ SubSecKeyItem::SubSecKeyItem(SubSecKey* subSecKey) : GpgItem (subSecKey)
     setText(COL_LENGTH, QString::number(subSecKey->getLength()));
     setText(COL_ALGO, GpgObject::algoToStr(subSecKey->getAlgo()));
     setText(COL_ID, subSecKey->getKeyId());
+    setText(COL_VALIDITY, subSecKey->getValidity());
 }
 
 SubSecKeyItem::~SubSecKeyItem()
