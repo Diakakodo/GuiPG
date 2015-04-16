@@ -11,6 +11,9 @@ class SubSecKeyItem : public GpgItem {
         ~SubSecKeyItem();
 
         void showMenu(const QPoint &pos);
+
+    private:
+        SubSecKey* m_sec;
 };
 
 #endif // SUBSECKEYITEM_H
