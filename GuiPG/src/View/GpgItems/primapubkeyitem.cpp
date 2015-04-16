@@ -6,15 +6,7 @@
 PrimaPubKeyItem::PrimaPubKeyItem(PrimaPubKey *pub) : PubKeyItem(pub)
 {
     m_pub = pub;
-    /*
-    CAPACITY
-    EXPIRATION
-    VALIDITY
-    LENGTH
-    ALGO
-    ID
-    CREATE
-    */
+
     setText(COL_TRUST, pub->getTrust());
     for (Uid* uid : pub->getUidList()) {
         addChild(new UidItem(uid));
