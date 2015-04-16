@@ -6,7 +6,7 @@
 #include "../Configuration/configuration.h"
 #include "../Model/mainwindowmodel.h"
 #include <QTreeWidget>
-#include "../Keys/key.h"
+#include "../Keys/subseckey.h"
 
 class MainWindowModel;
 
@@ -33,6 +33,7 @@ class MainWindow : public QMainWindow {
         void showManuel();
         void showDialogConfiguration();
         void updateBigBrother(QString cmd, QString output);
+        void onCustomContextMenuRequested(const QPoint& pos);
 
 private slots:
         void on_actionG_n_rer_une_paire_de_clefs_triggered();
@@ -47,12 +48,11 @@ protected:
      void closeEvent(QCloseEvent *event);
 
 private:
-        QTreeWidgetItem* createKeyItem(Key* k, QTreeWidget* tree = nullptr);
-        void createSignatureItem(Key* k, QTreeWidgetItem* item);
         void setItemColor(QTreeWidgetItem* item, const QColor& color);
 
         Ui::MainWindow* ui;
         MainWindowModel* m_model;
+        int currentBigBrotherHeight;
 };
 
 #endif // MAINWINDOW_H

@@ -8,7 +8,11 @@
 #include "keyexport.h"
 #include "Profil/profilecreation.h"
 #include "config.h"
+#include "GpgItems/gpgitem.h"
+#include "GpgItems/primapubkeyitem.h"
 #include <QCloseEvent>
+#include <QTextEdit>
+#include <QLineEdit>
 
 MainWindow::MainWindow(MainWindowModel* model)
     : ui(new Ui::MainWindow), m_model(model) {
@@ -23,16 +27,28 @@ MainWindow::MainWindow(MainWindowModel* model)
     connect(ui->actionManuel_utilisateur_de_GuiPG, &QAction::triggered, this, &MainWindow::showManuel);
 
     QStringList m_TreeHeader;
-    m_TreeHeader
-            << "ID"
-            << "Propriétaire"
-            << "Taille"
-            << "Création"
-            << "Expiration"
-            << "Validité"
-            << "Confiance";
+    for (int i = 0; i < GpgItem::NB_COLUMNS; ++i) {
+        m_TreeHeader << GpgItem::columns.value(i);
+    }
+    ui->treeWidgetKey->setProfile(model->getProfile());
     ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
+    ui->treeWidgetKey->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->treeWidgetKey, &QTreeWidget::customContextMenuRequested,
+            this, &MainWindow::onCustomContextMenuRequested);
+
+    ui->bigBrother->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+
     connect(m_model, &MainWindowModel::keysChanged, this, &MainWindow::buildTree);
+
+    currentBigBrotherHeight = ui->splitter_2->widget(1)->height();
+    ui->splitter_2->widget(1)->setMaximumHeight(currentBigBrotherHeight);
+}
+
+void MainWindow::onCustomContextMenuRequested(const QPoint& pos) {
+    GpgItem* item = (GpgItem*) ui->treeWidgetKey->itemAt(pos);
+    if (item) {
+        item->showMenu(pos);
+    }
 }
 
 Profile* MainWindow::getProfil() const {
@@ -60,9 +76,15 @@ void MainWindow::setGpgCommandsVisible(bool b) {
     ui->bigBrother->setVisible(b);
     if (b == true) {
         ui->toolButton->setArrowType(Qt::DownArrow);
+        ui->splitter_2->widget(1)->setMaximumHeight(this->height());
     } else {
         ui->toolButton->setArrowType(Qt::UpArrow);
+        ui->splitter_2->widget(1)->setMaximumHeight(currentBigBrotherHeight);
     }
+    QList<int> currentSizes = ui->splitter_2->sizes();
+    currentSizes[0] += ui->bigBrother->height();
+    currentSizes[1] -= ui->bigBrother->height();
+    ui->splitter_2->setSizes(currentSizes);
 }
 
 void MainWindow::showDialogProfile() {
@@ -73,6 +95,8 @@ void MainWindow::showDialogProfile() {
 
 void MainWindow::changeProfil(unsigned profileId) {
     m_model->loadProfile(profileId, this);
+    ui->treeWidgetKey->setProfile(m_model->getProfile());
+    buildTree();
 }
 
 void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()
@@ -94,50 +118,9 @@ void MainWindow::showDialogConfiguration(){
 
 void MainWindow::buildTree() {
     ui->treeWidgetKey->clear();
-    const QList<Key*>& keys = m_model->getKeyManager()->getKeys();
-    for (Key* k : keys) {
-        QTreeWidgetItem* item = createKeyItem(k, ui->treeWidgetKey);
-        for (Key* sk : k->getSubKeys()) {
-            QTreeWidgetItem* sub = createKeyItem(sk);
-            createSignatureItem(sk, sub);
-            item->addChild(sub);
-        }
-        createSignatureItem(k, item);
-    }
-}
-
-QTreeWidgetItem* MainWindow::createKeyItem(Key *k, QTreeWidget* tree) {
-    QStringList infos;
-    const QDate& e = k->getExpirationDate();
-    infos
-            << k->getId()
-            << k->getOwner()
-            << QString::number(k->getLength())
-            << k->getCreationDate().toString("dd/MM/yyyy")
-            << (e.isNull() ? "Aucune" : k->getExpirationDate().toString("dd/MM/yyyy"))
-            << Key::validityToStr(k->getValidity())
-            << Key::validityToStr(k->getTrust())
-    ;
-    QTreeWidgetItem* item = tree == nullptr ? new QTreeWidgetItem(infos) : new QTreeWidgetItem(tree, infos);
-    setItemColor(item, m_model->getProfile()->getValidityColor(k->getValidity()));
-    return item;
-}
-
-void MainWindow::createSignatureItem(Key* k, QTreeWidgetItem* item) {
-    for (Signature* s : k->getSignatures()) {
-        QStringList infos;
-        infos
-                << s->getId()
-                << s->getOwner()
-                << ""
-                << s->getCreationDate().toString("dd/MM/yyyy")
-                << ""
-                << ""
-                << ""
-        ;
-        QTreeWidgetItem* sig = new QTreeWidgetItem(infos);
-        setItemColor(sig, m_model->getProfile()->getSignatureColor());
-        item->addChild(sig);
+    const QList<PrimaPubKey*> pubKeys = m_model->getKeyManager()->getPubKeys();
+    for (PrimaPubKey* pub : pubKeys) {
+        ui->treeWidgetKey->addTopLevelItem(new PrimaPubKeyItem(pub));
     }
 }
 
@@ -173,9 +156,20 @@ void MainWindow::setItemColor(QTreeWidgetItem* item, const QColor& color) {
 }
 
 void MainWindow::updateBigBrother(QString cmd, QString output) {
+
     QTreeWidgetItem* cmdItem = new QTreeWidgetItem(QStringList(cmd));
     if (output != "") {
-        cmdItem->addChild(new QTreeWidgetItem(cmdItem, QStringList(output)));
+        QTextEdit* textOutput = new QTextEdit();
+        textOutput->setReadOnly(true);
+        textOutput->setAcceptRichText(true);
+        textOutput->setText(output);
+        QTreeWidgetItem* outputItem = new QTreeWidgetItem();
+        cmdItem->addChild(outputItem);
+        ui->bigBrother->setItemWidget(outputItem, 0, textOutput);
     }
+    QLineEdit* textCmd = new QLineEdit();
+    textCmd->setReadOnly(true);
+    textCmd->setText(cmd);
     ui->bigBrother->addTopLevelItem(cmdItem);
+    ui->bigBrother->setItemWidget(cmdItem, 0, textCmd);
 }

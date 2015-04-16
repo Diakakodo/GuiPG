@@ -21,6 +21,33 @@
 
 using namespace std;
 
+QHash<QString, QColor> Configuration::m_defaultValidityColors(
+{
+            {VALIDITY_EMPTY,        QColor(  0,   0,   0)},
+            {VALIDITY_UNKNOWN,      QColor(  0,   0,   0)},
+            {VALIDITY_MISSING_SSIG, QColor(255,   0,   0)},
+            {VALIDITY_DISABLE,      QColor(194, 194, 194)},
+            {VALIDITY_REVOKED,      QColor( 25,  86,  25)},
+            {VALIDITY_EXPIRED,      QColor(109,  51,  80)},
+            {VALIDITY_NO_VALUE,     QColor(255, 102,   0)},
+            {VALIDITY_UNDEFINED,    QColor(255, 143,  69)},
+            {VALIDITY_INVALID,      QColor(  0,   0,   0)},
+            {VALIDITY_MARGINAL,     QColor(255, 255,   0)},
+            {VALIDITY_FULLY,        QColor(  0, 255,   0)},
+            {VALIDITY_ULTIMATELY,   QColor(  0,   0, 255)},
+            {VALIDITY_PRIVATE_PART, QColor(  0,   0,   0)},
+            {VALIDITY_SPECIAL,      QColor(  0,   0,   0)}
+});
+
+QHash<QString, QColor> getDefaultValidityColors() {
+    return Configuration::m_defaultValidityColors;
+}
+
+QColor Configuration::getDefaultValidityColor(QString key) {
+    return Configuration::m_defaultValidityColors.value(key);
+}
+
+
 Configuration::Configuration(const QString& filePath)
     : m_filePath(filePath) {
 }
@@ -69,7 +96,7 @@ bool Configuration::load() {
                                         ae.attribute(GREEN_ATTRIBUTE).toInt(),
                                         ae.attribute(BLUE_ATTRIBUTE).toInt()
                             );
-                            p->setValidityColor((Key::Validity) ae.attribute(VALUE_ATTRIBUTE).toInt(), c);
+                            p->setValidityColor((QString) ae.attribute(VALUE_ATTRIBUTE).toInt(), c);
                         } else if (ae.tagName() == SIG_COLOR_TAG_NAME) {
                             QColor c(
                                         ae.attribute(RED_ATTRIBUTE).toInt(),
@@ -109,10 +136,10 @@ bool Configuration::save() {
         pe.setAttribute(NAME_ATTR_NAME, p->getName());
         addNode(EXEC_TAG_NAME, p->getGPGExecutable(), doc, pe);
         addNode(PATH_TAG_NAME, p->getConfigurationPath(), doc, pe);
-        const QHash<Key::Validity, QColor> validityColors = p->getValidityColors();
-        for (Key::Validity v : validityColors.keys()) {
+        const QHash<QString, QColor> validityColors = p->getValidityColors();
+        for (QString v : validityColors.keys()) {
             QDomElement e = createColorElement(VALIDITY_COLOR_TAG_NAME, validityColors.value(v), doc);
-            e.setAttribute(VALUE_ATTRIBUTE, (int) v);
+            e.setAttribute(VALUE_ATTRIBUTE, (QString) v);
             pe.appendChild(e);
         }
         pe.appendChild(createColorElement(SIG_COLOR_TAG_NAME, p->getSignatureColor(), doc));

@@ -1,0 +1,107 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+GpgObject	gpgobject.h	51;"	c	inherits:QObject
+GpgObject	gpgobject.h	60;"	p	class:GpgObject	access:public
+PrimaPubKey	primapubkey.h	22;"	c	inherits:PubKey
+PrimaPubKey	primapubkey.h	29;"	p	class:PrimaPubKey	access:public
+PrimaSecKey	primaseckey.h	12;"	p	class:PrimaSecKey	access:public
+PrimaSecKey	primaseckey.h	7;"	c	inherits:SubSecKey
+PubKey	pubkey.h	18;"	c	inherits:SubSecKey
+PubKey	pubkey.h	23;"	p	class:PubKey	access:public
+Signature	signature.h	31;"	c	inherits:GpgObject
+Signature	signature.h	40;"	p	class:Signature	access:public
+Signature	uid.h	6;"	x
+SubPubKey	subpubkey.h	11;"	p	class:SubPubKey	access:public
+SubPubKey	subpubkey.h	7;"	c	inherits:PubKey
+SubSecKey	subseckey.h	14;"	p	class:SubSecKey	access:public
+SubSecKey	subseckey.h	9;"	c	inherits:GpgObject
+Uid	uid.h	34;"	c	inherits:GpgObject
+Uid	uid.h	43;"	p	class:Uid	access:public
+addSignature	subpubkey.h	24;"	p	class:SubPubKey	access:public
+addSignature	uid.h	56;"	p	class:Uid	access:public
+addSubPubKey	primapubkey.h	45;"	p	class:PrimaPubKey	access:public
+addSubSecKey	primaseckey.h	27;"	p	class:PrimaSecKey	access:public
+addUid	primapubkey.h	46;"	p	class:PrimaPubKey	access:public
+algoToStr	gpgobject.h	58;"	p	class:GpgObject	access:public
+cipherToStr	uid.h	39;"	p	class:Uid	access:public
+compressToStr	uid.h	41;"	p	class:Uid	access:public
+digestToStr	uid.h	40;"	p	class:Uid	access:public
+getAlgo	signature.h	50;"	p	class:Signature	access:public
+getAlgo	subseckey.h	25;"	p	class:SubSecKey	access:public
+getCapabilities	pubkey.h	37;"	p	class:PubKey	access:public
+getCreationDate	gpgobject.h	63;"	p	class:GpgObject	access:public
+getExpirationDate	primaseckey.h	22;"	p	class:PrimaSecKey	access:public
+getExpirationDate	pubkey.h	36;"	p	class:PubKey	access:public
+getFpr	gpgobject.h	64;"	p	class:GpgObject	access:public
+getHashAlgo	signature.h	56;"	p	class:Signature	access:public
+getKeyId	signature.h	51;"	p	class:Signature	access:public
+getKeyId	subseckey.h	26;"	p	class:SubSecKey	access:public
+getKeyScope	subseckey.h	23;"	p	class:SubSecKey	access:public
+getLength	subseckey.h	24;"	p	class:SubSecKey	access:public
+getMail	uid.h	52;"	p	class:Uid	access:public
+getName	uid.h	51;"	p	class:Uid	access:public
+getPref	uid.h	53;"	p	class:Uid	access:public
+getPrimaryUid	primapubkey.h	47;"	p	class:PrimaPubKey	access:public
+getSigClass	signature.h	54;"	p	class:Signature	access:public
+getSigList	uid.h	54;"	p	class:Uid	access:public
+getSigScope	signature.h	55;"	p	class:Signature	access:public
+getSignatures	subpubkey.h	22;"	p	class:SubPubKey	access:public
+getSubPubKeyList	primapubkey.h	42;"	p	class:PrimaPubKey	access:public
+getSubSecKeyList	primaseckey.h	24;"	p	class:PrimaSecKey	access:public
+getTrust	primapubkey.h	41;"	p	class:PrimaPubKey	access:public
+getUid	primaseckey.h	23;"	p	class:PrimaSecKey	access:public
+getUidList	primapubkey.h	43;"	p	class:PrimaPubKey	access:public
+getUidMail	signature.h	53;"	p	class:Signature	access:public
+getUidName	signature.h	52;"	p	class:Signature	access:public
+getValidity	pubkey.h	35;"	p	class:PubKey	access:public
+getValidity	uid.h	50;"	p	class:Uid	access:public
+hashAlgoToStr	signature.h	38;"	p	class:Signature	access:public
+m_algo	signature.h	63;"	m	class:Signature	access:private
+m_algo	subseckey.h	31;"	m	class:SubSecKey	access:protected
+m_capabilities	pubkey.h	42;"	m	class:PubKey	access:protected
+m_creationDate	gpgobject.h	69;"	m	class:GpgObject	access:protected
+m_creationDate	signature.h	70;"	m	class:Signature	access:private
+m_expirationDate	primaseckey.h	31;"	m	class:PrimaSecKey	access:private
+m_expirationDate	pubkey.h	41;"	m	class:PubKey	access:protected
+m_fpr	gpgobject.h	70;"	m	class:GpgObject	access:protected
+m_hashAlgo	signature.h	69;"	m	class:Signature	access:private
+m_keyId	signature.h	64;"	m	class:Signature	access:private
+m_keyId	subseckey.h	32;"	m	class:SubSecKey	access:protected
+m_keyScope	subseckey.h	29;"	m	class:SubSecKey	access:protected
+m_length	subseckey.h	30;"	m	class:SubSecKey	access:protected
+m_mail	uid.h	61;"	m	class:Uid	access:private
+m_name	uid.h	60;"	m	class:Uid	access:private
+m_pref	uid.h	62;"	m	class:Uid	access:private
+m_primaryUid	primapubkey.h	54;"	m	class:PrimaPubKey	access:private
+m_sigClass	signature.h	67;"	m	class:Signature	access:private
+m_sigList	uid.h	63;"	m	class:Uid	access:private
+m_sigScope	signature.h	68;"	m	class:Signature	access:private
+m_sigs	subpubkey.h	28;"	m	class:SubPubKey	access:private
+m_subPubKeyList	primapubkey.h	52;"	m	class:PrimaPubKey	access:private
+m_subSecKeyList	primaseckey.h	33;"	m	class:PrimaSecKey	access:private
+m_trust	primapubkey.h	51;"	m	class:PrimaPubKey	access:private
+m_uid	primaseckey.h	32;"	m	class:PrimaSecKey	access:private
+m_uidList	primapubkey.h	53;"	m	class:PrimaPubKey	access:private
+m_uidMail	signature.h	66;"	m	class:Signature	access:private
+m_uidName	signature.h	65;"	m	class:Signature	access:private
+m_validity	pubkey.h	40;"	m	class:PubKey	access:protected
+m_validity	uid.h	59;"	m	class:Uid	access:private
+recordToStr	gpgobject.h	56;"	p	class:GpgObject	access:public
+setFpr	gpgobject.h	66;"	p	class:GpgObject	access:public
+setPrimaryUid	primapubkey.h	48;"	p	class:PrimaPubKey	access:public
+setUid	primaseckey.h	26;"	p	class:PrimaSecKey	access:public
+sigClassToStr	signature.h	36;"	p	class:Signature	access:public
+sigScopeToStr	signature.h	37;"	p	class:Signature	access:public
+trustToStr	primapubkey.h	27;"	p	class:PrimaPubKey	access:public
+validityToStr	gpgobject.h	57;"	p	class:GpgObject	access:public
+~GpgObject	gpgobject.h	61;"	p	class:GpgObject	access:public	implementation:pure virtual
+~PrimaPubKey	primapubkey.h	39;"	p	class:PrimaPubKey	access:public
+~PrimaSecKey	primaseckey.h	20;"	p	class:PrimaSecKey	access:public
+~PubKey	pubkey.h	33;"	p	class:PubKey	access:public	implementation:pure virtual
+~SubPubKey	subpubkey.h	20;"	p	class:SubPubKey	access:public
+~SubSecKey	subseckey.h	21;"	p	class:SubSecKey	access:public
+~Uid	uid.h	48;"	p	class:Uid	access:public
