@@ -28,6 +28,7 @@ MainWindow::MainWindow(MainWindowModel* model)
     for (int i = 0; i < GpgItem::NB_COLUMNS; ++i) {
         m_TreeHeader << GpgItem::columns.value(i);
     }
+    ui->treeWidgetKey->setProfile(model->getProfile());
     ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
     ui->treeWidgetKey->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->treeWidgetKey, &QTreeWidget::customContextMenuRequested,
@@ -81,6 +82,8 @@ void MainWindow::showDialogProfile() {
 
 void MainWindow::changeProfil(unsigned profileId) {
     m_model->loadProfile(profileId, this);
+    ui->treeWidgetKey->setProfile(m_model->getProfile());
+    buildTree();
 }
 
 void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()
@@ -106,51 +109,6 @@ void MainWindow::buildTree() {
     for (PrimaPubKey* pub : pubKeys) {
         ui->treeWidgetKey->addTopLevelItem(new PrimaPubKeyItem(pub));
     }
-    //const QList<Key*>& keys = m_model->getKeyManager()->getKeys();
-    //for (Key* k : keys) {
-    //    QTreeWidgetItem* item = createKeyItem(k, ui->treeWidgetKey);
-    //    for (Key* sk : k->getSubKeys()) {
-    //        QTreeWidgetItem* sub = createKeyItem(sk);
-    //        createSignatureItem(sk, sub);
-    //        item->addChild(sub);
-    //    }
-    //    createSignatureItem(k, item);
-    //}
-}
-
-QTreeWidgetItem* MainWindow::createKeyItem(GpgObject *k, QTreeWidget* tree) {
-    QStringList infos;
-    //const QDate& e = k->getExpirationDate();
-    //infos
-    //        << k->getId()
-    //        << k->getOwner()
-    //        << QString::number(k->getLength())
-    //        << k->getCreationDate().toString("dd/MM/yyyy")
-    //        << (e.isNull() ? "Aucune" : k->getExpirationDate().toString("dd/MM/yyyy"))
-    //        << Key::validityToStr(k->getValidity())
-    //        << Key::validityToStr(k->getTrust())
-    //;
-    QTreeWidgetItem* item = tree == nullptr ? new QTreeWidgetItem(infos) : new QTreeWidgetItem(tree, infos);
-    //setItemColor(item, m_model->getProfile()->getValidityColor(k->getValidity()));
-    return item;
-}
-
-void MainWindow::createSignatureItem(GpgObject* k, QTreeWidgetItem* item) {
-    //for (Signature* s : k->getSignatures()) {
-    //    QStringList infos;
-    //    infos
-    //            << s->getId()
-    //            << s->getOwner()
-    //            << ""
-    //            << s->getCreationDate().toString("dd/MM/yyyy")
-    //            << ""
-    //            << ""
-    //            << ""
-    //    ;
-    //    QTreeWidgetItem* sig = new QTreeWidgetItem(infos);
-    //    setItemColor(sig, m_model->getProfile()->getSignatureColor());
-    //    item->addChild(sig);
-    //}
 }
 
 void MainWindow::on_actionImporter_triggered()

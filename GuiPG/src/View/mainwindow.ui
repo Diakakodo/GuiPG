@@ -39,7 +39,7 @@
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <widget class="QTreeWidget" name="treeWidgetKey">
+       <widget class="GpgTreeWidget" name="treeWidgetKey">
         <property name="sortingEnabled">
          <bool>true</bool>
         </property>
@@ -317,6 +317,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GpgTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>gpgtreewidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
