@@ -6,6 +6,22 @@
 #include <QHash>
 #include "../Profile/profile.h"
 
+/* Couleur RGB par défaut:  TODO
+
+o   Unknow          aucune
+i   Missing-Sig     255 0   0
+d   Disable         194 194 194
+r   Revoked         25  86  25
+e   Expired         109 51  80
+-   No-Value        255 102 0
+q   Undefined       255 143 69
+n   Invalid         0   0   0
+m   Marginal        255 255 0
+f   Fully           0   255 0
+u   Ultimate        0   0   255
+
+*/
+
 /**
  * Configuration du logiciel.
  */
@@ -74,6 +90,11 @@ class Configuration : public QObject {
 
         void setDefaultProfileId(unsigned profileId);
 
+        static QHash<QString, QColor> getDefaultValidityColors();
+
+        static QColor getDefaultValidityColor(QString key);
+
+        static QHash<QString, QColor> m_defaultValidityColors;
 
     private:
         /**

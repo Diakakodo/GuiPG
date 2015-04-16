@@ -4,27 +4,27 @@
 #include <QObject>
 #include <QList>
 #include <QHash>
-#include "key.h"
+#include "primapubkey.h"
 #include "../GPG/gpgmanager.h"
 
 class KeyManager : public QObject {
-        Q_OBJECT
+    Q_OBJECT
 
     public:
         explicit KeyManager(const Profile* p);
         ~KeyManager();
 
         void load();
-        const QList<Key*>& getKeys() const;
+        const QList<PrimaPubKey *> &getPubKeys() const;
 
     signals:
-        void keysLoaded();
+        void PubKeysLoaded();
 
     private:
-        void gpgFinished(int s, const QString& output);
+        void gpgFinishedPublicKeys(int s, const QString& output);
         QDate strToDate(const QString& d) const;
 
-        QList<Key*> m_keys;
+        QList<PrimaPubKey*> m_primaPubKeys;
         GPGManager* m_gpg;
 };
 

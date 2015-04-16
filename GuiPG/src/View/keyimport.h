@@ -31,8 +31,8 @@ private slots:
 
 private:
     Ui::KeyImport *ui;
-    Profile* m_profile;
     MainWindow* m_window;
+    Profile* m_profile;
 };
 
 #endif // KEYIMPORT_H

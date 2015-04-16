@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Algorithme</string>
+    <string>QStringe</string>
    </property>
   </widget>
   <widget class="QRadioButton" name="radioButton">
