@@ -32,7 +32,15 @@ HEADERS += \
     src/Keys/pubkey.h \
     src/Keys/subpubkey.h \
     src/Keys/subseckey.h \
-    src/Keys/primaseckey.h
+    src/Keys/primaseckey.h \
+    src/View/GpgItems/gpgitem.h \
+    src/View/GpgItems/primapubkeyitem.h \
+    src/View/GpgItems/primaseckeyitem.h \
+    src/View/GpgItems/pubkeyitem.h \
+    src/View/GpgItems/signatureitem.h \
+    src/View/GpgItems/subpubkeyitem.h \
+    src/View/GpgItems/subseckeyitem.h \
+    src/View/GpgItems/uiditem.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -65,7 +73,15 @@ SOURCES += \
     src/Keys/pubkey.cpp \
     src/Keys/subpubkey.cpp \
     src/Keys/subseckey.cpp \
-    src/Keys/primaseckey.cpp
+    src/Keys/primaseckey.cpp \
+    src/View/GpgItems/gpgitem.cpp \
+    src/View/GpgItems/primapubkeyitem.cpp \
+    src/View/GpgItems/primaseckeyitem.cpp \
+    src/View/GpgItems/pubkeyitem.cpp \
+    src/View/GpgItems/signatureitem.cpp \
+    src/View/GpgItems/subpubkeyitem.cpp \
+    src/View/GpgItems/subseckeyitem.cpp \
+    src/View/GpgItems/uiditem.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
