@@ -52,6 +52,7 @@ private:
 
         Ui::MainWindow* ui;
         MainWindowModel* m_model;
+        int currentBigBrotherHeight;
 };
 
 #endif // MAINWINDOW_H

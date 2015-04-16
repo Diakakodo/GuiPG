@@ -39,6 +39,9 @@ MainWindow::MainWindow(MainWindowModel* model)
     ui->bigBrother->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
     connect(m_model, &MainWindowModel::keysChanged, this, &MainWindow::buildTree);
+
+    currentBigBrotherHeight = ui->splitter_2->widget(1)->height();
+    ui->splitter_2->widget(1)->setMaximumHeight(currentBigBrotherHeight);
 }
 
 void MainWindow::onCustomContextMenuRequested(const QPoint& pos) {
@@ -73,9 +76,15 @@ void MainWindow::setGpgCommandsVisible(bool b) {
     ui->bigBrother->setVisible(b);
     if (b == true) {
         ui->toolButton->setArrowType(Qt::DownArrow);
+        ui->splitter_2->widget(1)->setMaximumHeight(this->height());
     } else {
         ui->toolButton->setArrowType(Qt::UpArrow);
+        ui->splitter_2->widget(1)->setMaximumHeight(currentBigBrotherHeight);
     }
+    QList<int> currentSizes = ui->splitter_2->sizes();
+    currentSizes[0] += ui->bigBrother->height();
+    currentSizes[1] -= ui->bigBrother->height();
+    ui->splitter_2->setSizes(currentSizes);
 }
 
 void MainWindow::showDialogProfile() {
