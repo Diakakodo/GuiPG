@@ -65,7 +65,7 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
             lastPrimaPubKey = pub;
             last = pub;
             m_primaPubKeys.append(pub);
-        } else if (line.startsWith("sub")) {
+        } else if (line.startsWith("sub:")) {
             lastuid = nullptr;
             SubPubKey* sub = new SubPubKey(
                     GPG_SUB_KEY,                            // keyscope

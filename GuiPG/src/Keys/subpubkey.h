@@ -23,6 +23,10 @@ class SubPubKey : public SubSecKey {
 
         void addSignature(Signature* sig);
 
+        QString getValidity();
+        QDate getExpirationDate();
+        QString getCapabilities();
+
     private:
         QList<Signature*> m_sigs;
         QString m_validity;

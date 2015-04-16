@@ -34,3 +34,15 @@ void SubPubKey::addSignature(Signature *sig) {
     m_sigs.append(sig);
 }
 
+
+QString SubPubKey::getValidity() {
+    return m_validity;
+}
+
+QDate SubPubKey::getExpirationDate() {
+    return m_expirationDate;
+}
+
+QString SubPubKey::getCapabilities() {
+    return m_capabilities;
+}
