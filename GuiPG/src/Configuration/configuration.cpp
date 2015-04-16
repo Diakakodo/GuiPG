@@ -21,6 +21,33 @@
 
 using namespace std;
 
+QHash<QString, QColor> Configuration::m_defaultValidityColors(
+{
+            {VALIDITY_EMPTY,        QColor(  0,   0,   0)},
+            {VALIDITY_UNKNOWN,      QColor(  0,   0,   0)},
+            {VALIDITY_MISSING_SSIG, QColor(255,   0,   0)},
+            {VALIDITY_DISABLE,      QColor(194, 194, 194)},
+            {VALIDITY_REVOKED,      QColor( 25,  86,  25)},
+            {VALIDITY_EXPIRED,      QColor(109,  51,  80)},
+            {VALIDITY_NO_VALUE,     QColor(255, 102,   0)},
+            {VALIDITY_UNDEFINED,    QColor(255, 143,  69)},
+            {VALIDITY_INVALID,      QColor(  0,   0,   0)},
+            {VALIDITY_MARGINAL,     QColor(255, 255,   0)},
+            {VALIDITY_FULLY,        QColor(  0, 255,   0)},
+            {VALIDITY_ULTIMATELY,   QColor(  0,   0, 255)},
+            {VALIDITY_PRIVATE_PART, QColor(  0,   0,   0)},
+            {VALIDITY_SPECIAL,      QColor(  0,   0,   0)}
+});
+
+QHash<QString, QColor> getDefaultValidityColors() {
+    return Configuration::m_defaultValidityColors;
+}
+
+QColor Configuration::getDefaultValidityColor(QString key) {
+    return Configuration::m_defaultValidityColors.value(key);
+}
+
+
 Configuration::Configuration(const QString& filePath)
     : m_filePath(filePath) {
 }

@@ -90,6 +90,11 @@ class Configuration : public QObject {
 
         void setDefaultProfileId(unsigned profileId);
 
+        static QHash<QString, QColor> getDefaultValidityColors();
+
+        static QColor getDefaultValidityColor(QString key);
+
+        static QHash<QString, QColor> m_defaultValidityColors;
 
     private:
         /**
@@ -107,7 +112,6 @@ class Configuration : public QObject {
         QString m_filePath;
         QList<Profile*> m_profiles;
         unsigned m_defaultProfileId;
-        QHash<QString, QColor> m_defaultValidityColors;
 };
 
 #endif // CONFIGURATION_H
