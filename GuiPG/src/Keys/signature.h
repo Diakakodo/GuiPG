@@ -40,7 +40,8 @@ class Signature : public GpgObject {
         explicit Signature(QString algo,
                            QString keyId,
                            QDate creationDate,
-                           QString uid,
+                           QString uidName,
+                           QString uidMail,
                            QString sigClass,
                            QString sigScope,
                            QString hashAlgo,
@@ -48,7 +49,8 @@ class Signature : public GpgObject {
 
         QString getAlgo() const;
         QString getKeyId() const;
-        QString getUid() const;
+        QString getUidName() const;
+        QString getUidMail() const;
         QString getSigClass() const;
         QString getSigScope() const;
         QString getHashAlgo() const;
@@ -60,7 +62,8 @@ class Signature : public GpgObject {
     private:
         QString m_algo;
         QString m_keyId;
-        QString m_uid;
+        QString m_uidName;
+        QString m_uidMail;
         QString m_sigClass;
         QString m_sigScope;
         QString m_hashAlgo;
