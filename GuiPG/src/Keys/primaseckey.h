@@ -29,7 +29,7 @@ class PrimaSecKey : public SubSecKey {
     private:
 
         QDate m_expirationDate;
-        Uid* m_uid;
+        Uid* m_uid = nullptr;
         QList<SubSecKey*> m_subSecKeyList;
 
 

@@ -51,7 +51,7 @@ class PrimaPubKey : public PubKey {
         QString m_trust;
         QList<SubPubKey*> m_subPubKeyList;
         QList<Uid*> m_uidList;
-        Uid* m_primaryUid;
+        Uid* m_primaryUid = nullptr;
 };
 
 #endif // PRIMAPUBKEY_H
