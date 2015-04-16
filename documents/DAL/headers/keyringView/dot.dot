@@ -1,0 +1,12 @@
+graph G {
+	QTreeWidgetItem -- GpgItem;
+	QTreeWidget -- GpgTreeWidget;
+	PubKeyItem -- PrimaPubKeyItem;
+	SubSecKeyItem -- PrimaSecKeyItem;
+	SubSecKeyItem -- PubKeyItem;
+	GpgItem -- SignatureItem;
+	PubKeyItem -- SubPubKeyItem;
+	GpgItem -- SubSecKeyItem;
+	GpgItem -- UidItem;
+}
+

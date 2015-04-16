@@ -1,0 +1,18 @@
+graph G {
+	QObject -- GpgObject;
+	PubKey -- PrimaPubKey;
+	SubSecKey -- PrimaSecKey;
+	SubSecKey -- PubKey;
+	GpgObject -- Signature;
+	PubKey -- SubPubKey;
+	GpgObject -- SubSecKey;
+	GpgObject -- Uid;
+	Uid -- PrimaSecKey [style=dotted];
+	Signature -- Uid [style=dotted];
+	SubPubKey -- PrimaPubKey [style=dotted];
+	SubSecKey -- PrimaSecKey [style=dotted];
+	Signature -- SubPubKey [style=dotted];
+	Uid -- PrimaPubKey [style=dotted];
+	Uid -- PrimaPubKey [style=dotted];
+}
+

@@ -1,0 +1,59 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+GpgItem	gpgitem.h	22;"	c	inherits:QTreeWidgetItem
+GpgItem	gpgitem.h	26;"	p	class:GpgItem	access:public
+GpgItem	gpgitem.h	27;"	p	class:GpgItem	access:public
+GpgTreeWidget	gpgtreewidget.h	11;"	p	class:GpgTreeWidget	access:public
+GpgTreeWidget	gpgtreewidget.h	8;"	c	inherits:QTreeWidget
+NB_COLUMNS	gpgitem.h	37;"	e	enum:GpgItem::columnsNumber
+PrimaPubKeyItem	primapubkeyitem.h	10;"	p	class:PrimaPubKeyItem	access:public
+PrimaPubKeyItem	primapubkeyitem.h	7;"	c	inherits:PubKeyItem
+PrimaSecKeyItem	primaseckeyitem.h	10;"	p	class:PrimaSecKeyItem	access:public
+PrimaSecKeyItem	primaseckeyitem.h	7;"	c	inherits:SubSecKeyItem
+PubKeyItem	pubkeyitem.h	10;"	p	class:PubKeyItem	access:public
+PubKeyItem	pubkeyitem.h	7;"	c	inherits:SubSecKeyItem
+SignatureItem	signatureitem.h	10;"	p	class:SignatureItem	access:public
+SignatureItem	signatureitem.h	7;"	c	inherits:GpgItem
+SubPubKeyItem	subpubkeyitem.h	10;"	p	class:SubPubKeyItem	access:public
+SubPubKeyItem	subpubkeyitem.h	7;"	c	inherits:PubKeyItem
+SubSecKeyItem	subseckeyitem.h	10;"	p	class:SubSecKeyItem	access:public
+SubSecKeyItem	subseckeyitem.h	7;"	c	inherits:GpgItem
+UidItem	uiditem.h	10;"	p	class:UidItem	access:public
+UidItem	uiditem.h	7;"	c	inherits:GpgItem
+X_COLUMNS	gpgitem.h	36;"	e	enum:GpgItem::columnsNumber
+columns	gpgitem.h	41;"	m	class:GpgItem	access:public
+columnsNumber	gpgitem.h	35;"	g	class:GpgItem	access:public
+getProfile	gpgtreewidget.h	14;"	p	class:GpgTreeWidget	access:public
+m_gpgObject	gpgitem.h	44;"	m	class:GpgItem	access:protected
+m_profile	gpgtreewidget.h	17;"	m	class:GpgTreeWidget	access:private
+m_pub	primapubkeyitem.h	16;"	m	class:PrimaPubKeyItem	access:private
+m_pub	pubkeyitem.h	15;"	m	class:PubKeyItem	access:private
+m_sec	primaseckeyitem.h	16;"	m	class:PrimaSecKeyItem	access:private
+m_sec	subseckeyitem.h	16;"	m	class:SubSecKeyItem	access:private
+m_sig	signatureitem.h	15;"	m	class:SignatureItem	access:private
+m_sub	subpubkeyitem.h	14;"	m	class:SubPubKeyItem	access:private
+m_uid	uiditem.h	14;"	m	class:UidItem	access:private
+m_uidMail	signatureitem.h	17;"	m	class:SignatureItem	access:private
+m_uidName	signatureitem.h	16;"	m	class:SignatureItem	access:private
+setProfile	gpgtreewidget.h	13;"	p	class:GpgTreeWidget	access:public
+showMenu	gpgitem.h	30;"	p	class:GpgItem	access:public	implementation:pure virtual
+showMenu	primapubkeyitem.h	13;"	p	class:PrimaPubKeyItem	access:public
+showMenu	primaseckeyitem.h	13;"	p	class:PrimaSecKeyItem	access:public
+showMenu	pubkeyitem.h	12;"	p	class:PubKeyItem	access:public
+showMenu	signatureitem.h	12;"	p	class:SignatureItem	access:public
+showMenu	subpubkeyitem.h	12;"	p	class:SubPubKeyItem	access:public
+showMenu	subseckeyitem.h	13;"	p	class:SubSecKeyItem	access:public
+showMenu	uiditem.h	12;"	p	class:UidItem	access:public
+~GpgItem	gpgitem.h	28;"	p	class:GpgItem	access:public	implementation:pure virtual
+~GpgTreeWidget	gpgtreewidget.h	12;"	p	class:GpgTreeWidget	access:public
+~PrimaPubKeyItem	primapubkeyitem.h	11;"	p	class:PrimaPubKeyItem	access:public
+~PrimaSecKeyItem	primaseckeyitem.h	11;"	p	class:PrimaSecKeyItem	access:public
+~PubKeyItem	pubkeyitem.h	11;"	p	class:PubKeyItem	access:public
+~SignatureItem	signatureitem.h	11;"	p	class:SignatureItem	access:public
+~SubPubKeyItem	subpubkeyitem.h	11;"	p	class:SubPubKeyItem	access:public
+~SubSecKeyItem	subseckeyitem.h	11;"	p	class:SubSecKeyItem	access:public
+~UidItem	uiditem.h	11;"	p	class:UidItem	access:public
