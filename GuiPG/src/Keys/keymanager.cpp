@@ -45,12 +45,18 @@ void KeyManager::loadSecretKeys() {
 }
 
 QString extractNameOfUidStr(QString uidStr) {
+    if (!uidStr.contains("<")) {
+        return uidStr;
+    }
     QString name = uidStr.split("<").first();
     name.truncate(name.lastIndexOf(' '));
     return name;
 }
 
 QString extractMailOfUidStr(QString uidStr) {
+    if (!uidStr.contains("<")) {
+        return "";
+    }
     QString mail = uidStr.split("<").last();
     mail.truncate(mail.lastIndexOf('>'));
     return mail;
