@@ -30,6 +30,14 @@ Profile::Profile(unsigned id, const QString& name) : m_id(id), m_name(name),
 
 }
 
+int Profile::getNbCmd() {
+    return NB_CMD;
+}
+
+void Profile::setNbCmd(int nb) {
+    NB_CMD = nb;
+}
+
 unsigned Profile::getId() const {
     return m_id;
 }

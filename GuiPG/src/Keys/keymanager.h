@@ -11,7 +11,7 @@ class KeyManager : public QObject {
     Q_OBJECT
 
     public:
-        explicit KeyManager(const Profile* p);
+        explicit KeyManager(Profile *p);
         ~KeyManager();
 
         void load();
@@ -20,8 +20,12 @@ class KeyManager : public QObject {
     signals:
         void PubKeysLoaded();
 
+    private slots:
+        void loadSecretKeys();
+
     private:
         void gpgFinishedPublicKeys(int s, const QString& output);
+        void gpgFinishedSecretKeys(int s, const QString& output);
         QDate strToDate(const QString& d) const;
 
         QList<PrimaPubKey*> m_primaPubKeys;

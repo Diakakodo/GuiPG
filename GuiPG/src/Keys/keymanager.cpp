@@ -2,7 +2,7 @@
 #include "QDebug"
 #include <QRegularExpression>
 
-KeyManager::KeyManager(const Profile *p) : m_gpg(new GPGManager(p)) {
+KeyManager::KeyManager(Profile *p) : m_gpg(new GPGManager(p)) {
 
 }
 
@@ -12,16 +12,33 @@ KeyManager::~KeyManager() {
 }
 
 void KeyManager::load() {
-    QStringList opt;
-    /*
-    opt << "--fixed-list-mode" << "--with-colons";
-    Action a("--list-sigs", QStringList(), opt);
-    /*/
-    opt << "--fixed-list-mode" << "--with-colons" << "--with-fingerprint" << "--with-fingerprint" << "--with-key-data";
-    Action a("--list-sigs", QStringList(), opt);
-    //*/
-    m_gpg->setAction(a);
+    QStringList optionsPubKeys;
+    optionsPubKeys << "--fixed-list-mode"
+                   << "--with-colons"
+                   << "--with-fingerprint"
+                   << "--with-fingerprint"
+                   << "--with-key-data";
+    Action actionPubKeys("--list-sigs", QStringList(), optionsPubKeys);
+
+    m_gpg->setAction(actionPubKeys);
     connect(m_gpg, &GPGManager::finished, this, &KeyManager::gpgFinishedPublicKeys);
+    m_gpg->execute();
+
+
+}
+
+void KeyManager::loadSecretKeys() {
+    QStringList optionsSecKeys;
+    optionsSecKeys << "--fixed-list-mode"
+                   << "--with-colons"
+                   << "--with-fingerprint"
+                   << "--with-fingerprint"
+                   << "--with-key-data";
+    Action actionSeckeys("--list-secret-keys", QStringList(), optionsSecKeys);
+
+    //GPGManager gpg(m_gpg->getProfile());
+    m_gpg->setAction(actionSeckeys);
+    connect(m_gpg, &GPGManager::finished, this, &KeyManager::gpgFinishedSecretKeys);
     m_gpg->execute();
 }
 
@@ -37,7 +54,14 @@ QString extractMailOfUidStr(QString uidStr) {
     return mail;
 }
 
+void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
+    disconnect(m_gpg, &GPGManager::finished, this, &KeyManager::gpgFinishedSecretKeys);
+
+    //emit truc TOTO
+}
+
 void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
+    disconnect(m_gpg, &GPGManager::finished, this, &KeyManager::gpgFinishedPublicKeys);
     if (s) {
         // not used.
     }
@@ -122,6 +146,7 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
         }
     }
     emit PubKeysLoaded();
+    loadSecretKeys();
 }
 
 const QList<PrimaPubKey *> &KeyManager::getPubKeys() const {

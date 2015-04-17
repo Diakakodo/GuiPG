@@ -158,8 +158,8 @@ void MainWindow::setItemColor(QTreeWidgetItem* item, const QColor& color) {
         item->setTextColor(i, color);
     }
 }
-#include <QDebug>
-void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt) {
+
+void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
     QString cmd = gpg->getCmd();
     QString output = gpg->getOutput();
     if (fisrt) {
@@ -169,7 +169,6 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt) {
         QMovie* movie = new QMovie(QCoreApplication::applicationDirPath() + ICON_BIG_BROTHER_LOAD_PATH);
         movie->setScaledSize(ICON_BIG_BROTHER_SIZE);
         label->setMovie(movie);
-        //cmdItem->setTextAlignment(1, Qt::AlignLeft);
         ui->bigBrother->addTopLevelItem(cmdItem);
         ui->bigBrother->setItemWidget(cmdItem, 0, label);
         QLineEdit* textCmd = new QLineEdit();
@@ -178,10 +177,9 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt) {
         textCmd->setFixedWidth(textCmd->fontMetrics().boundingRect(cmd).width() + 20);
         ui->bigBrother->setItemWidget(cmdItem, 1, textCmd);
         movie->start();
-        //*/
     } else {
         QTreeWidgetItem* cmdItem;
-        cmdItem = ui->bigBrother->topLevelItem(gpg->getId());
+        cmdItem = ui->bigBrother->topLevelItem(id);
         if (output != "") {
             QTextEdit* textOutput = new QTextEdit();
             textOutput->setReadOnly(true);

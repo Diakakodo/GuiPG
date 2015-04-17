@@ -37,7 +37,7 @@ class MainWindow : public QMainWindow {
         void changeProfil(unsigned profileId);
         void showManuel();
         void showDialogConfiguration();
-        void updateBigBrother(GPGManager* gpg, bool fisrt);
+        void updateBigBrother(GPGManager* gpg, bool fisrt, int id);
         void onCustomContextMenuRequested(const QPoint& pos);
 
 private slots:
