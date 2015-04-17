@@ -19,9 +19,12 @@ MainWindow::MainWindow(MainWindowModel* model)
     : ui(new Ui::MainWindow), m_model(model) {
 
     ui->setupUi(this);
+    QList<int> splitterSize = ui->splitter->sizes();
+    splitterSize[1]=0;
+    ui->splitter->setSizes(splitterSize);
+
     ui->bigBrother->setVisible(false);
     this->setWindowTitle("GuiPG - " + m_model->getProfile()->getName());
-
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
     connect(ui->actionProfil, &QAction::triggered, this, &MainWindow::showDialogProfile);
     connect(ui->actionConfiguration, SIGNAL(triggered()), this, SLOT(showDialogConfiguration()));
@@ -31,8 +34,10 @@ MainWindow::MainWindow(MainWindowModel* model)
     for (int i = 0; i < GpgItem::NB_COLUMNS; ++i) {
         m_TreeHeader << GpgItem::columns.value(i);
     }
-    ui->treeWidgetKey->setProfile(model->getProfile());
     ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
+    ui->treeWidgetKey->setColumnWidth(GpgItem::COL_NAME, 150);
+    ui->treeWidgetKey->setColumnWidth(GpgItem::COL_MAIL, 150);
+    ui->treeWidgetKey->setProfile(model->getProfile());
     ui->treeWidgetKey->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->treeWidgetKey, &QTreeWidget::customContextMenuRequested,
             this, &MainWindow::onCustomContextMenuRequested);

@@ -4,6 +4,7 @@
 #include <QTreeWidgetItem>
 #include "../../Keys/gpgobject.h"
 #include <QPoint>
+#include "../../Configuration/configuration.h"
 
 // X(nom de l'enum, nom de la colone)
 #define X_COLUMNS               \

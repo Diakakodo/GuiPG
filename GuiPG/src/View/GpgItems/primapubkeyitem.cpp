@@ -13,6 +13,10 @@ PrimaPubKeyItem::PrimaPubKeyItem(PrimaPubKey *pub) : PubKeyItem(pub)
         setText(COL_MAIL, primaryUid->getMail());
     }
     setText(COL_TRUST, PrimaPubKey::trustToStr(pub->getTrust()));
+    if (pub->getTrust() == TRUST_INVALID) {
+        setTextColor(COL_TRUST, QColor(255,255,255));
+    }
+    setBackgroundColor(COL_TRUST, Configuration::getDefaultValidityColor(pub->getTrust()));
     for (Uid* uid : pub->getUidList()) {
         addChild(new UidItem(uid));
     }
