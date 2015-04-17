@@ -8,7 +8,7 @@
 SubPubKeyItem::SubPubKeyItem(SubPubKey* sub) : PubKeyItem(sub)
 {
     m_sub = sub;
-
+    setText(COL_NAME, "Sous clef " + GpgObject::algoToStr(sub->getAlgo()));
     for (Signature* sig : sub->getSignatures()) {
         addChild(new SignatureItem(sig));
     }
