@@ -181,7 +181,7 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt) {
         //*/
     } else {
         QTreeWidgetItem* cmdItem;
-        cmdItem = ui->bigBrother->topLevelItem(gpg->getId() - 1);
+        cmdItem = ui->bigBrother->topLevelItem(gpg->getId());
         if (output != "") {
             QTextEdit* textOutput = new QTextEdit();
             textOutput->setReadOnly(true);

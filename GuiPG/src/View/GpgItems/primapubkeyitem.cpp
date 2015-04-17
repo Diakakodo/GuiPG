@@ -29,6 +29,6 @@ PrimaPubKeyItem::~PrimaPubKeyItem()
 
 void PrimaPubKeyItem::showMenu(const QPoint &pos) {
     QMenu* menu = new QMenu(treeWidget());
-    menu->addAction("Test Clef Publique primaire");
+    menu->addAction("Signer");
     menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
 }

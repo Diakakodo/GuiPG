@@ -4,7 +4,7 @@
 
 
 
-int GPGManager::nb = 0;
+int GPGManager::nb = -1;
 
 
 GPGManager::GPGManager(const Profile *p) : m_profile(p) {
