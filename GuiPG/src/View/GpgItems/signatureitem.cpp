@@ -13,7 +13,8 @@ SignatureItem::SignatureItem(Signature* sig) : GpgItem(sig)
     setText(COL_MAIL, m_uidMail);
     setText(COL_ALGO, GpgObject::algoToStr(sig->getAlgo()));
     setIcon(COL_NAME, QIcon(QCoreApplication::applicationDirPath() + ICON_SIGNATURE_PATH));
-    setTextAlignment(COL_NAME, Qt::AlignLeft);
+
+    setTextAlignment(COL_NAME, Qt::AlignVCenter | Qt::AlignLeft);
 }
 
 SignatureItem::~SignatureItem()
