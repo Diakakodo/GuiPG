@@ -12,7 +12,7 @@ class KeyManager : public QObject {
     Q_OBJECT
 
     public:
-        explicit KeyManager(Profile *p);
+        explicit KeyManager(Profile *p, MainWindow* window = nullptr);
         ~KeyManager();
 
         void load();

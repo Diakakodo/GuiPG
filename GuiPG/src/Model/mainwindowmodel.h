@@ -24,7 +24,7 @@ class MainWindowModel : public QObject {
         Profile* getProfile() const;
         void loadProfile(unsigned profileId, MainWindow* window);
         KeyManager* getKeyManager() const;
-        void initKeyManager();
+        void initKeyManager(MainWindow *window = nullptr);
 
     signals:
         void keysChanged();

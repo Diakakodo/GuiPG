@@ -51,6 +51,7 @@ MainWindow::MainWindow(MainWindowModel* model)
 
     ui->bigBrother->setColumnWidth(0, ICON_BIG_BROTHER_SIZE.width() * 3);
     ui->bigBrother->setHeaderLabels(QStringList() << "" << "Commandes" << "Début" << "Fin");
+    model->initKeyManager(this);
 }
 
 void MainWindow::onCustomContextMenuRequested(const QPoint& pos) {

@@ -4,7 +4,6 @@
 MainWindowModel::MainWindowModel(Launcher* launcher, GuiPGApp *app, Configuration* conf, Profile* profile)
         : m_launcher(launcher), m_app(app), m_conf(conf), m_profile(profile) {
     m_keyManager = nullptr;
-    initKeyManager();
 }
 
 MainWindowModel::~MainWindowModel() {
@@ -27,11 +26,11 @@ Profile* MainWindowModel::getProfile() const {
     return m_profile;
 }
 
-void MainWindowModel::initKeyManager() {
+void MainWindowModel::initKeyManager(MainWindow* window) {
     if (m_keyManager != nullptr) {
         delete m_keyManager;
     }
-    m_keyManager = new KeyManager(m_profile);
+    m_keyManager = new KeyManager(m_profile, window);
     connect(m_keyManager, &KeyManager::PubKeysLoaded, this, &MainWindowModel::emitKeysChanged);
     m_keyManager->load();
 }

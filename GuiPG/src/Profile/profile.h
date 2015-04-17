@@ -70,7 +70,7 @@ class Profile : public QObject {
         QString m_path;
         QHash<QString, QColor> m_validityColors;
         QColor m_signColor;
-        int NB_CMD = -2;
+        int NB_CMD = 0;
 };
 
 #endif // PROFILE_H

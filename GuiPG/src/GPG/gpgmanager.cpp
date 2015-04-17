@@ -4,7 +4,7 @@
 
 
 
-GPGManager::GPGManager(Profile *p) : m_profile(p) {
+GPGManager::GPGManager(Profile *p, MainWindow* window) : m_profile(p) {
     connect(&m_gpg, (void (QProcess::*)(int, QProcess::ExitStatus)) &QProcess::finished,
             this, &GPGManager::terminate);
     connect(&m_gpg, (void (QProcess::*)(QProcess::ProcessError)) &QProcess::error, this, &GPGManager::errorGPG);
@@ -13,7 +13,8 @@ GPGManager::GPGManager(Profile *p) : m_profile(p) {
     QHash<Profile*, MainWindow*> hash = Launcher::m_profileMainWindowHash;
     if (hash.contains((Profile* const)p)) {
         MainWindow* window = hash.value((Profile* const) p);
-        // TODO se connecter au bigbrother !
+        connect(this, &GPGManager::isWatchingYou, window, &MainWindow::updateBigBrother);
+    } else if (window) {
         connect(this, &GPGManager::isWatchingYou, window, &MainWindow::updateBigBrother);
     }
 

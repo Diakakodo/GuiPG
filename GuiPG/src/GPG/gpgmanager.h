@@ -6,12 +6,13 @@
 #include "../Profile/profile.h"
 #include "action.h"
 #include <QSemaphore>
+class MainWindow;
 
 class GPGManager : public QObject {
         Q_OBJECT
 
     public:
-        explicit GPGManager(Profile* p);
+        explicit GPGManager(Profile* p, MainWindow* window = nullptr);
         ~GPGManager();
         void execute();
         const QString& getOutput() const;

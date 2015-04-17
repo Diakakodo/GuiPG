@@ -2,7 +2,7 @@
 #include "QDebug"
 #include <QRegularExpression>
 
-KeyManager::KeyManager(Profile *p) : m_gpg(new GPGManager(p)) {
+KeyManager::KeyManager(Profile *p, MainWindow *window) : m_gpg(new GPGManager(p, window)) {
     m_hashprimaPubKeys = new QHash<QString, PrimaPubKey*>();
     m_hashprimaSecKeys = new QHash<QString, PrimaSecKey*>();
 }
