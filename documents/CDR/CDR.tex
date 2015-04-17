@@ -617,22 +617,26 @@ Elles suivent le schéma de signature décrit ci-dessous :
     \begin{tabular}{|p{2.8cm}|p{4.2cm}|p{3cm}|p{5cm}|}
       \hline
       Id Exigence STB & Méthode de vérification & Procédure(s) utilisée(s) & Commentaire\\ \hline
-      EF\_01 & La commande demandée a été exécutée avec les bons paramètres. & 1 & \\ \hline
-      EF\_02 & Le chiffrement - déchiffrement - signature - vérification a été exécuté avec les bons paramètres. Un texte chiffré puis déchiffré doit être identique au texte de base. & 4,5,9 & \\ \hline
-      EF\_03 & Chaque commande effectuée est affichée, avec retours et erreurs. & 6 & \\ \hline
-      EF\_04 & Il doit y avoir au démarrage de l'application et à tout moment, la possibilité de changer de profil & 7 & \\ \hline
-      EF\_05 & Tout changement de confiance est répercuté sur la toile de confiance. & 2 & \\ \hline
-      EF\_06 & Pour une clé pgp donnée, on peut produire une autre clé ayant la même seconde pré-image. & 3 & \\ \hline
-      EO\_01 & Effectuer tous les tests avec GnuPG 2.0.* & Toutes & \\ \hline
-      EO\_02 & Effectuer tous les tests avec GnuPG 1.4.* & Toutes & \\ \hline
-      EO\_03 & Effectuer tous les tests avec KDE 4.* et 5 & Toutes & \\ \hline
-      EO\_04 & Effectuer tous les tests avec Gnome 3.* & Toutes & \\ \hline
-      EO\_05 & Vérifier que la toile de confiance s'affiche et représente correctement les niveaux de confiance. & 8 & \\ \hline
-      EO\_06 & Ouvrir deux interfaces avec des profils différents sur la même session. & Toutes & \\ \hline
-      EO\_07 & Vérifier que l'on peut s'authentifier en SSH via une clé signée par GPG. &  & \\ \hline
-      EO\_08 & Rechercher des clés en local. &  & \\ \hline
-      EQ\_01 & Chaque niveau de confiance est représenté par une couleur. & 8 & \\ \hline
-      EQ\_03 & Effectuer tous les tests avec le paquet fourni. & Toutes & \\ \hline
+      EF\_01 & Tests unitaires et d'intégration & U3, U5, I1 & \\ \hline
+      EF\_02 & Tests unitaires et d'intégration & U3, U5, I1 & \\ \hline
+      EF\_03 & Tests unitaires et d'intégration & U3, U5, I1 & \\ \hline
+      EF\_04 & Tests unitaires, d'intégration et de non-régression & U3, U5, I1, NR2 & \\ \hline
+      EF\_05 & Test d'intégration & I1 & \\ \hline
+      EF\_06 & Test d'intégration & I2 & \\ \hline
+      EF\_07 & Test d'intégration &  & \\ \hline
+      EF\_08 & Test unitaire & U1 & \\ \hline
+      EF\_09 & Test unitaire & U12 & \\ \hline
+      EF\_10 & Test unitaire et de non-régression & NR1, U11 & \\ \hline
+      EF\_11 & Test unitaire &  & \\ \hline
+      EF\_12 & Test unitaire &  & \\ \hline
+      EF\_13 & Test unitaire &  & \\ \hline
+      EF\_14 & Test unitaire &  & \\ \hline
+      EF\_15 & Test d'intégration & I3 & \\ \hline
+      EO\_06 & Test unitaire et d'intégration &  & \\ \hline
+      EO\_07 & Test d'intégration & I2 & \\ \hline
+      EO\_11 & Test d'intégration &  & \\ \hline
+      EQ\_01 & Test d'intégration &  & \\ \hline
+      EQ\_04 & Test d'intégration &  & \\ \hline
   \end{tabular}  
 \end{center}
 
@@ -642,7 +646,8 @@ Elles suivent le schéma de signature décrit ci-dessous :
 
 Rappel des codes utilisés dans la STB :
 
-\begin{tabular}{|>{\centering}p{1cm}|>{}p{8,5cm}|>{\centering}p{2cm}|>{\centering}p{2cm}|}
+
+\begin{tabular}{|>{\centering}p{1cm}|>{}p{9,1cm}|>{\centering}p{2cm}|>{\centering}p{2cm}|}
   \hline
   \color{white}\cellcolor{blue}\bfseries{Id}&
   \color{white}\cellcolor{blue}\bfseries{Intitulé}&
@@ -651,37 +656,91 @@ Rappel des codes utilisés dans la STB :
   \cr
   \hline
   EF\_1&
-  Exécution d'actions GPG&
+  Créer un profil utilisateur&
   Utilisateur&
-  Indispensable
+  Important
   \cr
   \hline
   EF\_2&
-  Chiffrer/déchiffrer/Signer/Vérifier&
+  Éditer un profil utilisateur&
   Utilisateur&
-  Indispensable
+  Important
   \cr
   \hline
   EF\_3&
-  Affichage des commandes, des retours et des erreurs&
+  Supprimer un profil utilisateur&
   Utilisateur&
-  Indispensable
+  Important
   \cr
   \hline
   EF\_4&
-  Choix du profil utilisateur&
+  Charger un profil utilisateur&
   Utilisateur&
-  Indispensable
+  Important
   \cr
   \hline
   EF\_5&
-  Modification de la toile de confiance graphique&
+  Choisir un profil par défaut&
   Utilisateur&
   Important
   \cr
   \hline
   EF\_6&
-  Calcul d'une seconde pré-image pour une clé donnée&
+  Gérer simultanément plusieurs trousseaux de clefs&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  EF\_7&
+  Lister le contenu d'un trousseau de clefs&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  EF\_8&
+  Générer une paire de clefs&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  EF\_9&
+  Importer une ou plusieurs clefs depuis un fichier&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  EF\_10&
+  Exporter une ou toutes les clefs vers un fichier&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  EF\_11&
+  Signer un ou plusieurs identifiants utilisateur&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  EF\_12&
+  Modifier la confiance d'une clef principale&
+  Utilisateur&
+  Indispensable
+  \cr
+  \hline
+  EF\_13&
+  Ajouter une sous clef à une clef principale&
+  Utilisateur&
+  Important
+  \cr
+  \hline
+  EF\_14&
+  Ajouter un uid à une clef principale&
+  Utilisateur&
+  Important
+  \cr
+  \hline
+  EF\_15&
+  Afficher les commandes exécutées, les retours et les erreurs de GPG.&
   Utilisateur&
   Indispensable
   \cr
@@ -703,7 +762,7 @@ Rappel des codes utilisés dans la STB :
   \hline
   EO\_2&
   Compatibilité GnuPG 1.4.*&
-  Secondaire
+  Important
   \cr
   \hline
   EO\_3&
@@ -719,21 +778,41 @@ Rappel des codes utilisés dans la STB :
   EO\_5&
   Fonctionnement sous Gnome 3.*&
   Important
+  %\cr
+  %\hline
+  %EO\_6&
+  %Fonctionnement sous Windows&
+  %Secondaire
   \cr
   \hline
   EO\_6&
-  Fonctionnement sous Windows&
-  Secondaire
-  \cr
-  \hline
-  EO\_7&
-  Visualisation graphique de la Toile de confiance&
+  Visualisation de la Toile de confiance (non sous forme de graphe)&
   Indispensable
   \cr
   \hline
-  EO\_8&
-  Ouverture de deux interfaces avec des profils différents sur une même session&
+  EO\_7&
+  Ouverture de deux interfaces graphiques avec des profils différents simultanément&
   Important
+  \cr
+  \hline
+  EO\_8&
+  Connexion SSH : Authentification via une clef signée par GPG&
+  Secondaire
+  \cr
+  \hline
+  EO\_9&
+  Recherche des clefs en local&
+  Important
+  \cr
+  \hline
+  EO\_10&
+  Choix du logiciel comme logiciel par défaut pour PGP&
+  Secondaire
+  \cr
+  \hline
+  EO\_11&
+  Choix des couleurs pour les niveaux de confiance et de validité&
+  Secondaire
   \cr
   \hline
 \end{tabular}\\
@@ -751,9 +830,19 @@ Rappel des codes utilisés dans la STB :
   Indispensable
   \cr
   \hline
+  EQ\_2&
+  Temps d'exécution pour l'interface : < temps d'exécution GPG + 100 ms&
+  Important
+  \cr
+  \hline
   EQ\_3&
   Interface livrée sous forme de paquet Ubuntu&
   Important
+  \cr
+  \hline
+  EQ\_4&
+  Les pass phrases ne sont jamais affichées en clair&
+  Indispensable
   \cr
   \hline
 \end{tabular}\\
@@ -777,8 +866,8 @@ Si un test n'est pas indiqué comme OK ou NOK, c'est qu'il n'était pas impléme
     \begin{tabular}{|p{1.9cm}|p{1.9cm}|p{9cm}|p{1.9cm}|}
       \hline
       Date de détection & Date de correction & Description & Test NR associé\\ \hline
-       &  & La fonction d'exportation ne faisait rien & NR1\\ \hline
-       &  & Changer de profil rapidement faisait crasher GuiPG & NR2\\ \hline
+      02/03/2015 & 28/03/2015 & La fonction d'exportation ne faisait rien & NR1\\ \hline
+      02/04/2015 & 09/04/2015 & Changer de profil rapidement faisait crasher GuiPG & NR2\\ \hline
   \end{tabular}  
 \end{center}
 
