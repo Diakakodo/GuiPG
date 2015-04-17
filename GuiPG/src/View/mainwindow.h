@@ -9,6 +9,10 @@
 #include "../Keys/subseckey.h"
 #include "../GPG/gpgmanager.h"
 
+#define ICON_BIG_BROTHER_SIZE QSize(16, 16)
+#define ICON_BIG_BROTHER_LOAD_PATH "/../src/Icones/chargement.gif"
+#define DATE_BIG_BROTHER_FORMAT "hh:mm:ss.z"
+
 class MainWindowModel;
 
 namespace Ui {

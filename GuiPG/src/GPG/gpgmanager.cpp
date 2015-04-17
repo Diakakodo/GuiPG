@@ -104,6 +104,7 @@ void GPGManager::execute() {
     m_cmd = cmd.join(" ");
     //qDebug() << cmd;
     // TODO definir proprement le chemin vers getPrettyGoodPty
+    m_startTime = QTime::currentTime();
     if (m_action.getOptions().contains("--batch")) {
         m_gpg.start("./getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
         m_gpg.waitForStarted();
@@ -159,6 +160,7 @@ void GPGManager::terminate(int s, QProcess::ExitStatus status) {
     if (status) {
         // variable not used.
     }
+    m_endTime = QTime::currentTime();
     disconnect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
     emit finished(s, m_output);
 
@@ -174,3 +176,10 @@ void GPGManager::cancelProcess() {
 }
 
 
+const QTime& GPGManager::getStartTime() const {
+    return m_startTime;
+}
+
+const QTime& GPGManager::getEndTime() const {
+    return m_endTime;
+}

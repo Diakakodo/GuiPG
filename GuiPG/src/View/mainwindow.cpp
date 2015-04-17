@@ -13,6 +13,7 @@
 #include <QCloseEvent>
 #include <QTextEdit>
 #include <QLineEdit>
+#include <QMovie>
 
 MainWindow::MainWindow(MainWindowModel* model)
     : ui(new Ui::MainWindow), m_model(model) {
@@ -42,6 +43,9 @@ MainWindow::MainWindow(MainWindowModel* model)
 
     currentBigBrotherHeight = ui->splitter_2->widget(1)->height();
     ui->splitter_2->widget(1)->setMaximumHeight(currentBigBrotherHeight);
+
+    ui->bigBrother->setColumnWidth(0, ICON_BIG_BROTHER_SIZE.width() * 3);
+    ui->bigBrother->setHeaderLabels(QStringList() << "" << "Commandes" << "Début" << "Fin");
 }
 
 void MainWindow::onCustomContextMenuRequested(const QPoint& pos) {
@@ -154,26 +158,41 @@ void MainWindow::setItemColor(QTreeWidgetItem* item, const QColor& color) {
         item->setTextColor(i, color);
     }
 }
-
+#include <QDebug>
 void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt) {
     QString cmd = gpg->getCmd();
     QString output = gpg->getOutput();
     if (fisrt) {
-        QTreeWidgetItem* cmdItem = new QTreeWidgetItem(QStringList(cmd));
+        QTreeWidgetItem* cmdItem = new QTreeWidgetItem();
+        cmdItem->setText(2, gpg->getStartTime().toString(DATE_BIG_BROTHER_FORMAT));
+        QLabel* label = new QLabel();
+        QMovie* movie = new QMovie(QCoreApplication::applicationDirPath() + ICON_BIG_BROTHER_LOAD_PATH);
+        movie->setScaledSize(ICON_BIG_BROTHER_SIZE);
+        label->setMovie(movie);
+        //cmdItem->setTextAlignment(1, Qt::AlignLeft);
+        ui->bigBrother->addTopLevelItem(cmdItem);
+        ui->bigBrother->setItemWidget(cmdItem, 0, label);
         QLineEdit* textCmd = new QLineEdit();
         textCmd->setReadOnly(true);
         textCmd->setText(cmd);
-        ui->bigBrother->addTopLevelItem(cmdItem);
-        ui->bigBrother->setItemWidget(cmdItem, 0, textCmd);
-    } else if (output != "") {
+        textCmd->setFixedWidth(textCmd->fontMetrics().boundingRect(cmd).width() + 20);
+        ui->bigBrother->setItemWidget(cmdItem, 1, textCmd);
+        movie->start();
+        //*/
+    } else {
         QTreeWidgetItem* cmdItem;
         cmdItem = ui->bigBrother->topLevelItem(gpg->getId() - 1);
-        QTextEdit* textOutput = new QTextEdit();
-        textOutput->setReadOnly(true);
-        textOutput->setAcceptRichText(true);
-        textOutput->setText(output);
-        QTreeWidgetItem* outputItem = new QTreeWidgetItem();
-        cmdItem->insertChild(0, outputItem);
-        ui->bigBrother->setItemWidget(outputItem, 0, textOutput);
+        if (output != "") {
+            QTextEdit* textOutput = new QTextEdit();
+            textOutput->setReadOnly(true);
+            textOutput->setAcceptRichText(true);
+            textOutput->setText(output);
+            QTreeWidgetItem* outputItem = new QTreeWidgetItem();
+            cmdItem->insertChild(0, outputItem);
+            ui->bigBrother->setItemWidget(outputItem, 1, textOutput);
+        }
+        cmdItem->setText(3, gpg->getEndTime().toString(DATE_BIG_BROTHER_FORMAT));
+        ui->bigBrother->setItemWidget(cmdItem, 0, NULL);
     }
+    ui->bigBrother->resizeColumnToContents(1);
 }

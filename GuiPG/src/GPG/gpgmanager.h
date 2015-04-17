@@ -20,6 +20,8 @@ class GPGManager : public QObject {
         void cancelProcess();
         int getId();
         bool isRunning();
+        const QTime& getStartTime() const;
+        const QTime& getEndTime() const;
 
     signals:
         void finished(int s, const QString& output);
@@ -41,6 +43,8 @@ class GPGManager : public QObject {
         Action m_action;
         static int nb;
         int m_id;
+        QTime m_startTime;
+        QTime m_endTime;
 
         /**
          * @brief sendInteraction
