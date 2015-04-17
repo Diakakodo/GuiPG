@@ -7,6 +7,7 @@
 #include "../Model/mainwindowmodel.h"
 #include <QTreeWidget>
 #include "../Keys/subseckey.h"
+#include "../GPG/gpgmanager.h"
 
 class MainWindowModel;
 
@@ -32,7 +33,7 @@ class MainWindow : public QMainWindow {
         void changeProfil(unsigned profileId);
         void showManuel();
         void showDialogConfiguration();
-        void updateBigBrother(QString cmd, QString output);
+        void updateBigBrother(GPGManager* gpg, bool fisrt);
         void onCustomContextMenuRequested(const QPoint& pos);
 
 private slots:

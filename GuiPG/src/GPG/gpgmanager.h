@@ -15,14 +15,17 @@ class GPGManager : public QObject {
         ~GPGManager();
         void execute();
         const QString& getOutput() const;
+        const QString& getCmd() const;
         void setAction(const Action& a);
         void cancelProcess();
+        int getId();
+        bool isRunning();
 
     signals:
         void finished(int s, const QString& output);
         void newData(const QString& data);
         void finishedNoParam();
-        void isWatchingYou(QString cmd, QString output);
+        void isWatchingYou(GPGManager* gpg, bool first);
 
     private slots:
         void readOutput();
@@ -36,6 +39,8 @@ class GPGManager : public QObject {
         QString m_output;
         QString m_cmd;
         Action m_action;
+        static int nb;
+        int m_id;
 
         /**
          * @brief sendInteraction

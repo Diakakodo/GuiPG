@@ -155,21 +155,25 @@ void MainWindow::setItemColor(QTreeWidgetItem* item, const QColor& color) {
     }
 }
 
-void MainWindow::updateBigBrother(QString cmd, QString output) {
-
-    QTreeWidgetItem* cmdItem = new QTreeWidgetItem(QStringList(cmd));
-    if (output != "") {
+void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt) {
+    QString cmd = gpg->getCmd();
+    QString output = gpg->getOutput();
+    if (fisrt) {
+        QTreeWidgetItem* cmdItem = new QTreeWidgetItem(QStringList(cmd));
+        QLineEdit* textCmd = new QLineEdit();
+        textCmd->setReadOnly(true);
+        textCmd->setText(cmd);
+        ui->bigBrother->addTopLevelItem(cmdItem);
+        ui->bigBrother->setItemWidget(cmdItem, 0, textCmd);
+    } else if (output != "") {
+        QTreeWidgetItem* cmdItem;
+        cmdItem = ui->bigBrother->topLevelItem(gpg->getId() - 1);
         QTextEdit* textOutput = new QTextEdit();
         textOutput->setReadOnly(true);
         textOutput->setAcceptRichText(true);
         textOutput->setText(output);
         QTreeWidgetItem* outputItem = new QTreeWidgetItem();
-        cmdItem->addChild(outputItem);
+        cmdItem->insertChild(0, outputItem);
         ui->bigBrother->setItemWidget(outputItem, 0, textOutput);
     }
-    QLineEdit* textCmd = new QLineEdit();
-    textCmd->setReadOnly(true);
-    textCmd->setText(cmd);
-    ui->bigBrother->addTopLevelItem(cmdItem);
-    ui->bigBrother->setItemWidget(cmdItem, 0, textCmd);
 }

@@ -2,6 +2,11 @@
 #include <QDebug>
 #include "../Launcher/launcher.h"
 
+
+
+int GPGManager::nb = 0;
+
+
 GPGManager::GPGManager(const Profile *p) : m_profile(p) {
     connect(&m_gpg, (void (QProcess::*)(int, QProcess::ExitStatus)) &QProcess::finished,
             this, &GPGManager::terminate);
@@ -55,6 +60,10 @@ void GPGManager::sendInteraction() {
     }
 }
 
+bool GPGManager::isRunning() {
+    return m_gpg.state() == QProcess::Running;
+}
+
 void GPGManager::stateChanged(QProcess::ProcessState newState) {
     if (newState == QProcess::Running
             && m_action.hasInteraction()
@@ -67,6 +76,14 @@ void GPGManager::errorGPG(QProcess::ProcessError error) {
     if (error) {
         // slot not used.
     }
+}
+
+const QString &GPGManager::getCmd() const {
+    return m_cmd;
+}
+
+int GPGManager::getId() {
+    return m_id;
 }
 
 void GPGManager::execute() {
@@ -116,6 +133,9 @@ void GPGManager::execute() {
         m_gpg.waitForStarted();
         connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
     }
+    m_id = GPGManager::nb;
+    GPGManager::nb = m_id + 1;
+    emit isWatchingYou(this, true);
 }
 void GPGManager::readOutput() {
     QString data = m_gpg.readAllStandardOutput();
@@ -141,7 +161,8 @@ void GPGManager::terminate(int s, QProcess::ExitStatus status) {
     }
     disconnect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
     emit finished(s, m_output);
-    emit isWatchingYou(m_cmd, m_output);
+
+    emit isWatchingYou(this, false);//m_cmd, m_output);
 }
 
 void GPGManager::setAction(const Action &a) {
