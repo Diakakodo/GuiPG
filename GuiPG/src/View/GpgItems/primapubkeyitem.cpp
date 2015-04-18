@@ -3,6 +3,26 @@
 #include "subpubkeyitem.h"
 #include <QMenu>
 #include <QAction>
+#include <QDebug>
+
+// Initialisation de la hash map (action -> numéro de la confiance)
+// Les noms sont défini dans la X_Maccro X_COLUMNS et le numéro est donné par
+// l'ordre de définition des collones dans la X_MACRO.
+QHash<int, QAction*> PrimaPubKeyItem::trustActions = []() -> QHash<int, QAction*> {
+    // Ce tableau permet de récupérer le nom de l'action a partir de son numéro d'enum.
+    #define X(id, str) str,
+    QString actionName[NB_TRUST + 1] = {
+        X_TRUSTS
+        NULL
+    };
+    #undef X
+    QHash<int, QAction*> hash;
+    for (int i = 0; i < PrimaPubKeyItem::NB_TRUST; ++i) {
+        hash.insert(i, new QAction(actionName[i], nullptr));
+    }
+    return hash;
+}();
+
 
 PrimaPubKeyItem::PrimaPubKeyItem(PrimaPubKey *pub) : PubKeyItem(pub)
 {
@@ -35,9 +55,23 @@ PrimaPubKeyItem::~PrimaPubKeyItem()
 void PrimaPubKeyItem::showMenu(const QPoint &pos) {
     QMenu* menu = new QMenu(treeWidget());
     menu->addAction("Signer", this, SLOT(sign()));
+
+    QMenu* changeTrust = new QMenu("Modifier la confiance", menu);
+    for (int i = 0; i < NB_TRUST; i++) {
+        QAction* a = new QAction(trustActions.value(i)->text(), changeTrust);
+        if (PrimaPubKey::trustToStr(m_pub->getTrust()) == a->text()) {
+            a->setCheckable(true);
+            a->setChecked(true);
+        }
+        a->setParent(changeTrust);
+        changeTrust->addAction(a);
+    }
+
+    menu->addMenu(changeTrust);
+
     menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
 }
-#include <QDebug>
+
 void PrimaPubKeyItem::sign() {
     qDebug() << "sign";
 }
