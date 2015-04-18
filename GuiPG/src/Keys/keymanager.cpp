@@ -114,7 +114,7 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
             lastPrimaSecKey->addSubSecKey(ssb);
             m_hashsubSecKeys->insert(ssb->getKeyId(), ssb);
         } else if (line.startsWith("fpr")) {
-            last->setFpr(split.at(10));
+            last->setFpr(split.at(9));
         } else if (line.startsWith("uid")) {
             //lastssb = nullptr;
             QString name = extractNameOfUidStr(split.at(9));
@@ -186,7 +186,7 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
             lastPrimaPubKey->addSubPubKey(sub);
             m_hashsubPubKeys->insert(sub->getKeyId(), sub);
         } else if (line.startsWith("fpr:")) {
-            last->setFpr(split.at(10));
+            last->setFpr(split.at(9));
         } else if (line.startsWith("sig:")
                    || line.startsWith("rev:")) {
             QString name = extractNameOfUidStr(split.at(9));
