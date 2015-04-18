@@ -53,6 +53,18 @@ PrimaPubKey::~PrimaPubKey()
 
 }
 
+void PrimaPubKey::setPrimarySecKey(PrimaSecKey* sec) {
+    m_sec = sec;
+}
+
+PrimaSecKey* PrimaPubKey::getPrimarySecKey() {
+    return m_sec;
+}
+
+bool PrimaPubKey::hasPrimaSecKey() {
+    return m_sec != nullptr;
+}
+
 Uid* PrimaPubKey::getPrimaryUid() {
     return m_primaryUid;
 }

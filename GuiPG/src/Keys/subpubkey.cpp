@@ -26,10 +26,3 @@ SubPubKey::~SubPubKey()
 
 }
 
-const QList<Signature*> SubPubKey::getSignatures() const {
-    return m_sigs;
-}
-
-void SubPubKey::addSignature(Signature *sig) {
-    m_sigs.append(sig);
-}

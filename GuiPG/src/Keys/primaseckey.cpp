@@ -22,6 +22,20 @@ PrimaSecKey::~PrimaSecKey()
 
 }
 
+
+void PrimaSecKey::setPrimaryPubKey(PrimaPubKey* pub) {
+    m_pub = pub;
+}
+
+PrimaPubKey* PrimaSecKey::getPrimarySecKey() {
+    return m_pub;
+}
+
+bool PrimaSecKey::hasPrimaSecKey() {
+    return m_pub != nullptr;
+}
+
+
 QDate PrimaSecKey::getExpirationDate() const {
     return m_expirationDate;
 }

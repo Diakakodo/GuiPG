@@ -33,3 +33,11 @@ QDate PubKey::getExpirationDate() const {
 QString PubKey::getCapabilities() const {
     return m_capabilities;
 }
+
+const QList<Signature*> PubKey::getSignatures() const {
+    return m_sigs;
+}
+
+void PubKey::addSignature(Signature *sig) {
+    m_sigs.append(sig);
+}

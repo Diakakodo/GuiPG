@@ -2,7 +2,6 @@
 #define SUBPUBKEY_H
 
 #include "pubkey.h"
-#include "signature.h"
 
 class SubPubKey : public PubKey {
     Q_OBJECT
@@ -18,14 +17,8 @@ class SubPubKey : public PubKey {
                   const QString capabilities,
                   QString fpr = "");
         ~SubPubKey();
-
-        const QList<Signature*> getSignatures() const;
-
-        void addSignature(Signature* sig);
-
-
     private:
-        QList<Signature*> m_sigs;
+
 };
 
 #endif // SUBPUBKEY_H

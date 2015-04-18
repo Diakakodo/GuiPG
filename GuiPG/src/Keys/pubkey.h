@@ -2,6 +2,7 @@
 #define PUBKEY_H
 
 #include "subseckey.h"
+#include "signature.h"
 
 #define CAP_PRIM_ENCRYPT            'E'
 #define CAP_PRIM_SIGN               'S'
@@ -35,11 +36,15 @@ class PubKey : public SubSecKey {
         QString getValidity() const;
         QDate getExpirationDate() const;
         QString getCapabilities() const;
+        const QList<Signature*> getSignatures() const;
+
+        void addSignature(Signature* sig);
 
     protected:
         QString m_validity;
         QDate m_expirationDate;
         QString m_capabilities;
+        QList<Signature*> m_sigs;
 
 };
 

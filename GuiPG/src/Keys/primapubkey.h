@@ -4,6 +4,7 @@
 #include "pubkey.h"
 #include "subpubkey.h"
 #include "uid.h"
+#include "primaseckey.h"
 
 #define TRUST_UNKNOWN         "o"
 #define TRUST_MISSING_SSIG    "i"
@@ -46,12 +47,16 @@ class PrimaPubKey : public PubKey {
         void addUid(Uid* uid);
         Uid* getPrimaryUid();
         void setPrimaryUid(Uid* uid);
+        void setPrimarySecKey(PrimaSecKey* sec);
+        PrimaSecKey* getPrimarySecKey();
+        bool hasPrimaSecKey();
 
     private:
         QString m_trust;
         QList<SubPubKey*> m_subPubKeyList;
         QList<Uid*> m_uidList;
         Uid* m_primaryUid = nullptr;
+        PrimaSecKey* m_sec = nullptr;
 };
 
 #endif // PRIMAPUBKEY_H

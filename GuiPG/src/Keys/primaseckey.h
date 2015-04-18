@@ -3,6 +3,7 @@
 
 #include "subseckey.h"
 #include "uid.h"
+class PrimaPubKey;
 
 class PrimaSecKey : public SubSecKey {
     Q_OBJECT
@@ -25,12 +26,16 @@ class PrimaSecKey : public SubSecKey {
 
         void setUid(Uid *uid);
         void addSubSecKey(SubSecKey* subSecKey);
+        void setPrimaryPubKey(PrimaPubKey* pub);
+        PrimaPubKey* getPrimarySecKey();
+        bool hasPrimaSecKey();
 
     private:
 
         QDate m_expirationDate;
         Uid* m_uid = nullptr;
         QList<SubSecKey*> m_subSecKeyList;
+        PrimaPubKey* m_pub = nullptr;
 
 
 };
