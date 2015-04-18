@@ -204,7 +204,7 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
                         split.at(10), // sigClass
                         (QString) split.at(10).at(2), // sigscope
                         hashAlgo, // hashAlgo
-                        split.at(12) // fingerprint
+                        split.length() > 12 ? split.at(12) : "" // fingerprint
                         );
             if (lastuid != nullptr) {
                 lastuid->addSignature(sig);
