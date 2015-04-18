@@ -36,6 +36,8 @@ class KeyManager : public QObject {
         //QList<PrimaSecKey*> m_primaSecKeys;
         QHash<QString, PrimaPubKey*>* m_hashprimaPubKeys;
         QHash<QString, PrimaSecKey*>* m_hashprimaSecKeys;
+        QHash<QString, SubPubKey*>* m_hashsubPubKeys;
+        QHash<QString, SubSecKey*>* m_hashsubSecKeys;
         GPGManager* m_gpg;
 };
 

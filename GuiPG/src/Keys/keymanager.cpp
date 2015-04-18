@@ -6,11 +6,15 @@
 KeyManager::KeyManager(Profile *p, MainWindow *window) : m_gpg(new GPGManager(p, window)) {
     m_hashprimaPubKeys = new QHash<QString, PrimaPubKey*>();
     m_hashprimaSecKeys = new QHash<QString, PrimaSecKey*>();
+    m_hashsubPubKeys = new QHash<QString, SubPubKey*>();
+    m_hashsubSecKeys = new QHash<QString, SubSecKey*>();
 }
 
 KeyManager::~KeyManager() {
     delete m_hashprimaPubKeys;
     delete m_hashprimaSecKeys;
+    delete m_hashsubPubKeys;
+    delete m_hashsubSecKeys;
     delete m_gpg;
 }
 
@@ -81,7 +85,7 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
                         split.at(2).toLong(),  // length
                         split.at(3),           // algo
                         split.at(4),           // keyId
-                        QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),     // Date de création
+                        QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),     // Date de création.
                         split.at(6).isEmpty() ?                                                  //
                             QDate()                                                              // Date d'expiration.
                           : QDateTime::fromMSecsSinceEpoch(split.at(6).toULong() * 1000).date(), //
@@ -96,11 +100,34 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
             }
             m_hashprimaSecKeys->insert(sec->getKeyId(), sec);
         } else if (line.startsWith("ssb")) {
-
+            lastUid = nullptr;
+            SubSecKey* ssb = new SubSecKey(
+                        GPG_SECRET_SUBKEY,    // keyscope
+                        split.at(2).toLong(), // length
+                        split.at(3),          // algo
+                        split.at(4),          // keyId
+                        QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),  // Date de création.
+                        ""
+                        );
+            lastUid = nullptr;
+            lastssb = ssb;
+            lastPrimaSecKey->addSubSecKey(ssb);
+            m_hashsubSecKeys->insert(ssb->getKeyId(), ssb);
         } else if (line.startsWith("fpr")) {
-
+            last->setFpr(split.at(10));
         } else if (line.startsWith("uid")) {
-
+            lastssb = nullptr;
+            QString name = extractNameOfUidStr(split.at(9));
+            QString mail = extractMailOfUidStr(split.at(9));
+            Uid* uid = new Uid(split.at(1),
+                               QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(), // create
+                               split.at(7),
+                               name, // name + comment
+                               mail  // mail
+                               );
+            lastUid = uid;
+            last = uid;
+            lastPrimaSecKey->setUid(uid);
         }
     }
     emit SecKeysLoaded();
@@ -157,6 +184,7 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
             last = sub;
             lastsub = sub;
             lastPrimaPubKey->addSubPubKey(sub);
+            m_hashsubPubKeys->insert(sub->getKeyId(), sub);
         } else if (line.startsWith("fpr:")) {
             last->setFpr(split.at(10));
         } else if (line.startsWith("sig:")
