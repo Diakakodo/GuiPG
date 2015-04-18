@@ -11,7 +11,6 @@ ProfileCreation::ProfileCreation(DialogProfile *parent, unsigned profileId) :
     if (m_profileId != 0) {
         ui->acceptButton->setText("Editer");
         ui->nameEdit->setText(m_parent->getConfig()->getProfileById(m_profileId)->getName());
-        ui->nameEdit->setReadOnly(true);
         ui->gpgPathEdit->setText(m_parent->getConfig()->getProfileById(m_profileId)->getGPGExecutable());
         ui->storagePathEdit->setText(m_parent->getConfig()->getProfileById(m_profileId)->getConfigurationPath());
     }
