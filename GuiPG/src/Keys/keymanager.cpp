@@ -1,6 +1,7 @@
 #include "keymanager.h"
 #include "QDebug"
 #include <QRegularExpression>
+#include "../Exception/exceptions.h"
 
 KeyManager::KeyManager(Profile *p, MainWindow *window) : m_gpg(new GPGManager(p, window)) {
     m_hashprimaPubKeys = new QHash<QString, PrimaPubKey*>();
@@ -88,6 +89,11 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
                         );
             lastPrimaSecKey = sec;
             last = sec;
+            if (m_hashprimaPubKeys->contains(sec->getKeyId())) {
+                PrimaPubKey* pub = m_hashprimaPubKeys->value(sec->getKeyId());
+                pub->setPrimarySecKey(sec);
+                sec->setPrimaryPubKey(pub);
+            }
             m_hashprimaSecKeys->insert(sec->getKeyId(), sec);
         } else if (line.startsWith("ssb")) {
 
@@ -114,6 +120,8 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
     for (QString line : l) {
         QStringList split = line.split(":");
         if (line.startsWith("pub:")) {
+            lastsub = nullptr;
+            lastuid = nullptr;
             PrimaPubKey* pub = new PrimaPubKey(
                         GPG_PUB_KEY,                            // keyscope
                         split.at(1),                            // validity
@@ -166,10 +174,14 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
                         split.at(15), // hashAlgo
                         split.at(12) // fingerprint
                         );
-            if (lastsub == nullptr) {
+            if (lastuid != nullptr) {
                 lastuid->addSignature(sig);
-            } else {
+            } else if (lastsub != nullptr) {
                 lastsub->addSignature(sig);
+            } else if (lastPrimaPubKey != nullptr) {
+                lastPrimaPubKey->addSignature(sig);
+            } else {
+                throw IllegalStateException("Signature pour autre chose qu'un uid ou une clé publique.");
             }
         } else if (line.startsWith("uid")) {
             lastsub = nullptr;
