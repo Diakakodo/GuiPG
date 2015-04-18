@@ -147,6 +147,10 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
     QStringList l = output.split("\n", QString::SkipEmptyParts);
     for (QString line : l) {
         QStringList split = line.split(":");
+        QString hashAlgo = "";
+        if (split.length() > 15) {
+            hashAlgo = split.at(15);
+        }
         if (line.startsWith("pub:")) {
             lastsub = nullptr;
             lastuid = nullptr;
@@ -200,8 +204,8 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
                         mail, // uid mail
                         split.at(10), // sigClass
                         (QString) split.at(10).at(2), // sigscope
-                        split.at(15), // hashAlgo
-                        split.at(12) // fingerprint
+                        hashAlgo, // hashAlgo
+                        split.length() > 12 ? split.at(12) : "" // fingerprint
                         );
             if (lastuid != nullptr) {
                 lastuid->addSignature(sig);
