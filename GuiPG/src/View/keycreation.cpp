@@ -136,6 +136,8 @@ void KeyCreation::keyCreationFinished()
 
 void KeyCreation::on_pushButton_clicked()
 {
+    // On ne refresh pas la liste si on annule.
+    disconnect(m_manager, &GPGManager::finished, this, &KeyCreation::keyCreationFinished);
     m_manager->cancelProcess();
     close();
 }

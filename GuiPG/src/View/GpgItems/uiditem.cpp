@@ -8,6 +8,10 @@ UidItem::UidItem(Uid* uid) : GpgItem (uid)
     setText(COL_NAME, uid->getName());
     setText(COL_MAIL, uid->getMail());
     setText(COL_VALIDITY, GpgObject::validityToStr(uid->getValidity()));
+    if (uid->getValidity() == VALIDITY_INVALID) {
+        setTextColor(COL_VALIDITY, QColor(255,255,255));
+    }
+    setBackground(COL_VALIDITY, Configuration::getDefaultValidityColor(uid->getValidity()));
     for (Signature* sig : uid->getSigList()) {
         addChild(new SignatureItem(sig));
     }

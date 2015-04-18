@@ -4,10 +4,7 @@
 
 
 
-int GPGManager::nb = -1;
-
-
-GPGManager::GPGManager(const Profile *p) : m_profile(p) {
+GPGManager::GPGManager(Profile *p, MainWindow* window) : m_profile(p) {
     connect(&m_gpg, (void (QProcess::*)(int, QProcess::ExitStatus)) &QProcess::finished,
             this, &GPGManager::terminate);
     connect(&m_gpg, (void (QProcess::*)(QProcess::ProcessError)) &QProcess::error, this, &GPGManager::errorGPG);
@@ -16,7 +13,8 @@ GPGManager::GPGManager(const Profile *p) : m_profile(p) {
     QHash<Profile*, MainWindow*> hash = Launcher::m_profileMainWindowHash;
     if (hash.contains((Profile* const)p)) {
         MainWindow* window = hash.value((Profile* const) p);
-        // TODO se connecter au bigbrother !
+        connect(this, &GPGManager::isWatchingYou, window, &MainWindow::updateBigBrother);
+    } else if (window) {
         connect(this, &GPGManager::isWatchingYou, window, &MainWindow::updateBigBrother);
     }
 
@@ -72,6 +70,10 @@ void GPGManager::stateChanged(QProcess::ProcessState newState) {
     }
 }
 
+Profile *GPGManager::getProfile() {
+    return m_profile;
+}
+
 void GPGManager::errorGPG(QProcess::ProcessError error) {
     if (error) {
         // slot not used.
@@ -87,6 +89,7 @@ int GPGManager::getId() {
 }
 
 void GPGManager::execute() {
+    m_output = "";
     QStringList args;
     if (m_profile->getConfigurationPath() != "") {
         args.append("--homedir");
@@ -103,10 +106,9 @@ void GPGManager::execute() {
     cmd.append(args);
     m_cmd = cmd.join(" ");
     //qDebug() << cmd;
-    // TODO definir proprement le chemin vers getPrettyGoodPty
     m_startTime = QTime::currentTime();
     if (m_action.getOptions().contains("--batch")) {
-        m_gpg.start("./getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
+        m_gpg.start(QCoreApplication::applicationDirPath() + "/getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
         m_gpg.waitForStarted();
         while (m_action.hasInteraction()) {
             QString data = m_action.nextInteraction();
@@ -130,13 +132,13 @@ void GPGManager::execute() {
         connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
         m_gpg.closeWriteChannel();
     } else {
-        m_gpg.start("./getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
+        m_gpg.start(QCoreApplication::applicationDirPath() + "/getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
         m_gpg.waitForStarted();
         connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
     }
-    m_id = GPGManager::nb;
-    GPGManager::nb = m_id + 1;
-    emit isWatchingYou(this, true);
+    m_id = m_profile->getNbCmd();
+    m_profile->setNbCmd(m_id + 1);
+    emit isWatchingYou(this, true, m_id);
 }
 void GPGManager::readOutput() {
     QString data = m_gpg.readAllStandardOutput();
@@ -162,9 +164,8 @@ void GPGManager::terminate(int s, QProcess::ExitStatus status) {
     }
     m_endTime = QTime::currentTime();
     disconnect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
+    emit isWatchingYou(this, false, m_id);
     emit finished(s, m_output);
-
-    emit isWatchingYou(this, false);//m_cmd, m_output);
 }
 
 void GPGManager::setAction(const Action &a) {

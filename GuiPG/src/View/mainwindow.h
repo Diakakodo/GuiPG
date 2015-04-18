@@ -10,7 +10,7 @@
 #include "../GPG/gpgmanager.h"
 
 #define ICON_BIG_BROTHER_SIZE QSize(16, 16)
-#define ICON_BIG_BROTHER_LOAD_PATH "/../src/Icones/chargement.gif"
+#define ICON_BIG_BROTHER_LOAD_PATH "Icones/chargement.gif"
 #define DATE_BIG_BROTHER_FORMAT "hh:mm:ss.z"
 
 class MainWindowModel;
@@ -37,7 +37,7 @@ class MainWindow : public QMainWindow {
         void changeProfil(unsigned profileId);
         void showManuel();
         void showDialogConfiguration();
-        void updateBigBrother(GPGManager* gpg, bool fisrt);
+        void updateBigBrother(GPGManager* gpg, bool fisrt, int id);
         void onCustomContextMenuRequested(const QPoint& pos);
 
 private slots:

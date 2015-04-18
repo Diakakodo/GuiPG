@@ -1,6 +1,7 @@
 #include "signatureitem.h"
 
 #include <QMenu>
+#include <QCoreApplication>
 
 SignatureItem::SignatureItem(Signature* sig) : GpgItem(sig)
 {
@@ -11,6 +12,9 @@ SignatureItem::SignatureItem(Signature* sig) : GpgItem(sig)
     setText(COL_NAME, m_uidName);
     setText(COL_MAIL, m_uidMail);
     setText(COL_ALGO, GpgObject::algoToStr(sig->getAlgo()));
+    setIcon(COL_NAME, QIcon(":/icones/res/"ICON_SIGNATURE_PATH));
+
+    setTextAlignment(COL_NAME, Qt::AlignVCenter | Qt::AlignLeft);
 }
 
 SignatureItem::~SignatureItem()

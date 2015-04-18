@@ -59,6 +59,8 @@ class Profile : public QObject {
 
         const QColor& getSignatureColor() const;
         void setSignatureColor(const QColor& c);
+        int getNbCmd();
+        void setNbCmd(int nb);
 
 
     private:
@@ -68,6 +70,7 @@ class Profile : public QObject {
         QString m_path;
         QHash<QString, QColor> m_validityColors;
         QColor m_signColor;
+        int NB_CMD = 0;
 };
 
 #endif // PROFILE_H

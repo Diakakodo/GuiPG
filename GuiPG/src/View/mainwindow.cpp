@@ -19,9 +19,12 @@ MainWindow::MainWindow(MainWindowModel* model)
     : ui(new Ui::MainWindow), m_model(model) {
 
     ui->setupUi(this);
+    QList<int> splitterSize = ui->splitter->sizes();
+    splitterSize[1]=0;
+    ui->splitter->setSizes(splitterSize);
+
     ui->bigBrother->setVisible(false);
     this->setWindowTitle("GuiPG - " + m_model->getProfile()->getName());
-
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
     connect(ui->actionProfil, &QAction::triggered, this, &MainWindow::showDialogProfile);
     connect(ui->actionConfiguration, SIGNAL(triggered()), this, SLOT(showDialogConfiguration()));
@@ -31,8 +34,10 @@ MainWindow::MainWindow(MainWindowModel* model)
     for (int i = 0; i < GpgItem::NB_COLUMNS; ++i) {
         m_TreeHeader << GpgItem::columns.value(i);
     }
-    ui->treeWidgetKey->setProfile(model->getProfile());
     ui->treeWidgetKey->setHeaderLabels(m_TreeHeader);
+    ui->treeWidgetKey->setColumnWidth(GpgItem::COL_NAME, 150);
+    ui->treeWidgetKey->setColumnWidth(GpgItem::COL_MAIL, 150);
+    ui->treeWidgetKey->setProfile(model->getProfile());
     ui->treeWidgetKey->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->treeWidgetKey, &QTreeWidget::customContextMenuRequested,
             this, &MainWindow::onCustomContextMenuRequested);
@@ -46,6 +51,7 @@ MainWindow::MainWindow(MainWindowModel* model)
 
     ui->bigBrother->setColumnWidth(0, ICON_BIG_BROTHER_SIZE.width() * 3);
     ui->bigBrother->setHeaderLabels(QStringList() << "" << "Commandes" << "Début" << "Fin");
+    model->initKeyManager(this);
 }
 
 void MainWindow::onCustomContextMenuRequested(const QPoint& pos) {
@@ -158,18 +164,17 @@ void MainWindow::setItemColor(QTreeWidgetItem* item, const QColor& color) {
         item->setTextColor(i, color);
     }
 }
-#include <QDebug>
-void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt) {
+
+void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
     QString cmd = gpg->getCmd();
     QString output = gpg->getOutput();
     if (fisrt) {
         QTreeWidgetItem* cmdItem = new QTreeWidgetItem();
         cmdItem->setText(2, gpg->getStartTime().toString(DATE_BIG_BROTHER_FORMAT));
         QLabel* label = new QLabel();
-        QMovie* movie = new QMovie(QCoreApplication::applicationDirPath() + ICON_BIG_BROTHER_LOAD_PATH);
+        QMovie* movie = new QMovie(":/icones/res/"ICON_BIG_BROTHER_LOAD_PATH);
         movie->setScaledSize(ICON_BIG_BROTHER_SIZE);
         label->setMovie(movie);
-        //cmdItem->setTextAlignment(1, Qt::AlignLeft);
         ui->bigBrother->addTopLevelItem(cmdItem);
         ui->bigBrother->setItemWidget(cmdItem, 0, label);
         QLineEdit* textCmd = new QLineEdit();
@@ -178,10 +183,9 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt) {
         textCmd->setFixedWidth(textCmd->fontMetrics().boundingRect(cmd).width() + 20);
         ui->bigBrother->setItemWidget(cmdItem, 1, textCmd);
         movie->start();
-        //*/
     } else {
         QTreeWidgetItem* cmdItem;
-        cmdItem = ui->bigBrother->topLevelItem(gpg->getId());
+        cmdItem = ui->bigBrother->topLevelItem(id);
         if (output != "") {
             QTextEdit* textOutput = new QTextEdit();
             textOutput->setReadOnly(true);

@@ -6,12 +6,13 @@
 #include "../Profile/profile.h"
 #include "action.h"
 #include <QSemaphore>
+class MainWindow;
 
 class GPGManager : public QObject {
         Q_OBJECT
 
     public:
-        explicit GPGManager(const Profile* p);
+        explicit GPGManager(Profile* p, MainWindow* window = nullptr);
         ~GPGManager();
         void execute();
         const QString& getOutput() const;
@@ -22,12 +23,13 @@ class GPGManager : public QObject {
         bool isRunning();
         const QTime& getStartTime() const;
         const QTime& getEndTime() const;
+        Profile* getProfile();
 
     signals:
         void finished(int s, const QString& output);
         void newData(const QString& data);
         void finishedNoParam();
-        void isWatchingYou(GPGManager* gpg, bool first);
+        void isWatchingYou(GPGManager* gpg, bool first, int id);
 
     private slots:
         void readOutput();
@@ -37,11 +39,10 @@ class GPGManager : public QObject {
 
     private:
         QProcess m_gpg;
-        const Profile* m_profile;
+        Profile* m_profile;
         QString m_output;
         QString m_cmd;
         Action m_action;
-        static int nb;
         int m_id;
         QTime m_startTime;
         QTime m_endTime;

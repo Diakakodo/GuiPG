@@ -103,3 +103,6 @@ test {
 
     SOURCES += src/Tests/tst_maintest.cpp
 }
+
+RESOURCES += \
+    icones.qrc

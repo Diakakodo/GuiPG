@@ -23,8 +23,8 @@ using namespace std;
 
 QHash<QString, QColor> Configuration::m_defaultValidityColors(
 {
-            {VALIDITY_EMPTY,        QColor(  0,   0,   0)},
-            {VALIDITY_UNKNOWN,      QColor(  0,   0,   0)},
+            {VALIDITY_EMPTY,        QColor(255, 255, 255)},
+            {VALIDITY_UNKNOWN,      QColor(255, 255, 255)},
             {VALIDITY_MISSING_SSIG, QColor(255,   0,   0)},
             {VALIDITY_DISABLE,      QColor(194, 194, 194)},
             {VALIDITY_REVOKED,      QColor( 25,  86,  25)},
@@ -34,7 +34,7 @@ QHash<QString, QColor> Configuration::m_defaultValidityColors(
             {VALIDITY_INVALID,      QColor(  0,   0,   0)},
             {VALIDITY_MARGINAL,     QColor(255, 255,   0)},
             {VALIDITY_FULLY,        QColor(  0, 255,   0)},
-            {VALIDITY_ULTIMATELY,   QColor(  0,   0, 255)},
+            {VALIDITY_ULTIMATELY,   QColor( 51, 153, 255)},
             {VALIDITY_PRIVATE_PART, QColor(  0,   0,   0)},
             {VALIDITY_SPECIAL,      QColor(  0,   0,   0)}
 });
@@ -59,7 +59,7 @@ Configuration::~Configuration() {
 bool Configuration::load() {
     QFile f(m_filePath);
     if (!f.exists()) {
-        return true;
+        return false;
     }
     if (!f.open(QIODevice::ReadOnly)) {
         cerr << "Unable to open '" << m_filePath.toStdString() << "'" << endl;

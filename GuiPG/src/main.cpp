@@ -35,8 +35,16 @@ int main(int argc, char** argv) {
 
     // TODO penser a tester le chargement de la configuration.
     Configuration config("../config.xml");
-    config.load();
-
+    if (!config.load()) {
+        if (!config.save()) {
+            fprintf(stderr, "Impossible de créer le fichier de configuration.");
+            return EXIT_FAILURE;
+        }
+        if (!config.load()) {
+            fprintf(stderr, "Impossible de charger le fichier de configuration.");
+            return EXIT_FAILURE;
+        }
+    }
     GuiPGApp app(argc, argv);
     Launcher launcher(&app, &config, (dashP ? 0 : config.getDefaultProfileId()));
     launcher.start();
