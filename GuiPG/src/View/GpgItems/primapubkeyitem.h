@@ -6,11 +6,16 @@
 
 class PrimaPubKeyItem : public PubKeyItem
 {
+        Q_OBJECT
     public:
         PrimaPubKeyItem(PrimaPubKey* pub);
         ~PrimaPubKeyItem();
 
         void showMenu(const QPoint &pos);
+
+    public slots:
+        void sign();
+
 
     private:
         PrimaPubKey* m_pub;

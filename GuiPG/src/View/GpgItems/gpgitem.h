@@ -1,6 +1,7 @@
 #ifndef GPGITEM_H
 #define GPGITEM_H
 
+#include <QObject>
 #include <QTreeWidgetItem>
 #include "../../Keys/gpgobject.h"
 #include <QPoint>
@@ -20,8 +21,8 @@ X(COL_CAPACITY,   "Capacité")   \
 X(COL_ID,         "ID")
 
 
-class GpgItem : public QTreeWidgetItem {
-
+class GpgItem :  public QObject, public QTreeWidgetItem {
+        Q_OBJECT
     public:
 
         GpgItem(QTreeWidget * parent, GpgObject* gpgObject);

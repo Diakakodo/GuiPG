@@ -2,6 +2,7 @@
 #include "uiditem.h"
 #include "subpubkeyitem.h"
 #include <QMenu>
+#include <QAction>
 
 PrimaPubKeyItem::PrimaPubKeyItem(PrimaPubKey *pub) : PubKeyItem(pub)
 {
@@ -33,6 +34,10 @@ PrimaPubKeyItem::~PrimaPubKeyItem()
 
 void PrimaPubKeyItem::showMenu(const QPoint &pos) {
     QMenu* menu = new QMenu(treeWidget());
-    menu->addAction("Signer");
+    menu->addAction("Signer", this, SLOT(sign()));
     menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
+}
+#include <QDebug>
+void PrimaPubKeyItem::sign() {
+    qDebug() << "sign";
 }

@@ -74,8 +74,8 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
     }
     PrimaSecKey* lastPrimaSecKey = nullptr;
     GpgObject*   last            = nullptr;
-    SubSecKey*   lastssb         = nullptr;
-    Uid*         lastUid         = nullptr;
+    //SubSecKey*   lastssb         = nullptr;
+    //Uid*         lastUid         = nullptr;
     QStringList l = output.split("\n", QString::SkipEmptyParts);
     for (QString line : l) {
         QStringList split = line.split(":");
@@ -100,7 +100,7 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
             }
             m_hashprimaSecKeys->insert(sec->getKeyId(), sec);
         } else if (line.startsWith("ssb")) {
-            lastUid = nullptr;
+            //lastUid = nullptr;
             SubSecKey* ssb = new SubSecKey(
                         GPG_SECRET_SUBKEY,    // keyscope
                         split.at(2).toLong(), // length
@@ -109,14 +109,14 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
                         QDateTime::fromMSecsSinceEpoch(split.at(5).toULong() * 1000).date(),  // Date de création.
                         ""
                         );
-            lastUid = nullptr;
-            lastssb = ssb;
+            //lastUid = nullptr;
+            //lastssb = ssb;
             lastPrimaSecKey->addSubSecKey(ssb);
             m_hashsubSecKeys->insert(ssb->getKeyId(), ssb);
         } else if (line.startsWith("fpr")) {
             last->setFpr(split.at(10));
         } else if (line.startsWith("uid")) {
-            lastssb = nullptr;
+            //lastssb = nullptr;
             QString name = extractNameOfUidStr(split.at(9));
             QString mail = extractMailOfUidStr(split.at(9));
             Uid* uid = new Uid(split.at(1),
@@ -125,7 +125,7 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
                                name, // name + comment
                                mail  // mail
                                );
-            lastUid = uid;
+            //lastUid = uid;
             last = uid;
             lastPrimaSecKey->setUid(uid);
         }

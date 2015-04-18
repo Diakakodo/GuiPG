@@ -5,7 +5,6 @@
 #include "../../Keys/subseckey.h"
 
 class SubSecKeyItem : public GpgItem {
-
     public:
         SubSecKeyItem(SubSecKey* subSecKey);
         ~SubSecKeyItem();

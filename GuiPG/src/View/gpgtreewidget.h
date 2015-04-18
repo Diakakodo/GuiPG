@@ -5,8 +5,8 @@
 
 #include "../Profile/profile.h"
 
-class GpgTreeWidget : public QTreeWidget
-{
+class GpgTreeWidget : public QTreeWidget {
+        Q_OBJECT
     public:
         GpgTreeWidget(QWidget * parent = 0);
         ~GpgTreeWidget();
