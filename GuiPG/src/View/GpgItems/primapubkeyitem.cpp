@@ -4,6 +4,8 @@
 #include <QMenu>
 #include <QAction>
 
+#include "../../GPG/action.h"
+
 PrimaPubKeyItem::PrimaPubKeyItem(PrimaPubKey *pub) : PubKeyItem(pub)
 {
     m_pub = pub;
@@ -39,5 +41,10 @@ void PrimaPubKeyItem::showMenu(const QPoint &pos) {
 }
 #include <QDebug>
 void PrimaPubKeyItem::sign() {
+    QStringList opt;
+    opt << "";
+    QStringList interactions;
+    interactions << "";
+    Action actionSign("--sign-key", QStringList(), opt, interactions);
     qDebug() << "sign";
 }
