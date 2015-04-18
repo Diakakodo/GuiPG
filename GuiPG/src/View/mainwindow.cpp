@@ -14,7 +14,7 @@
 #include <QTextEdit>
 #include <QLineEdit>
 #include <QMovie>
-
+#include <QDebug>
 MainWindow::MainWindow(MainWindowModel* model)
     : ui(new Ui::MainWindow), m_model(model) {
 
@@ -53,6 +53,8 @@ MainWindow::MainWindow(MainWindowModel* model)
     ui->bigBrother->setHeaderLabels(QStringList() << "" << "Commandes" << "Début" << "Fin");
     model->initKeyManager(this);
     ui->treeWidgetKey->setKeyManager(model->getKeyManager());
+    qDebug() << m_model->getProfile()->getConfigurationPath();
+    ui->treeWidgetKey->setProfile(m_model->getProfile());
 }
 
 void MainWindow::onCustomContextMenuRequested(const QPoint& pos) {

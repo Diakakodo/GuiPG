@@ -43,16 +43,16 @@ void PrimaPubKeyItem::showMenu(const QPoint &pos) {
 #include <QDebug>
 void PrimaPubKeyItem::sign() {
     KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
-    for (PrimaSecKey* sec : keyManager->getSecKeys()) {
-        qDebug() << "sec : " << sec->getFpr();
-        for (SubSecKey* ssb : sec->getSubSecKeyList()) {
-            qDebug() << "ssb : " << ssb->getFpr();
-        }
-    }
+
     QStringList opt;
-    opt << "";
+    opt << "--status-fd=1"
+        << "--command-fd=0";
+        //<< "--default-key"
+        //<< "" // TODO récupérer le keyId de la clé privée avec laquelle on veut signer.
     QStringList interactions;
-    interactions << "";
-    Action actionSign("--sign-key", QStringList(), opt, interactions);
-    qDebug() << "sign";
+    interactions << "o";
+    Action actionSign("--sign-key", QStringList(m_pub->getKeyId()), opt, interactions);
+    GPGManager* gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
+    gpg->setAction(actionSign);
+    gpg->execute();
 }
