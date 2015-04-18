@@ -4,7 +4,7 @@
 #include "gpgitem.h"
 #include "../../Keys/signature.h"
 
-#define ICON_SIGNATURE_PATH "/../src/Icones/signature.png"
+#define ICON_SIGNATURE_PATH "/Icones/signature.png"
 
 class SignatureItem : public GpgItem
 {

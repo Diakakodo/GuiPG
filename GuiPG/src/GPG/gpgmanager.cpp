@@ -106,10 +106,9 @@ void GPGManager::execute() {
     cmd.append(args);
     m_cmd = cmd.join(" ");
     //qDebug() << cmd;
-    // TODO definir proprement le chemin vers getPrettyGoodPty
     m_startTime = QTime::currentTime();
     if (m_action.getOptions().contains("--batch")) {
-        m_gpg.start("./getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
+        m_gpg.start(QCoreApplication::applicationDirPath() + "/getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
         m_gpg.waitForStarted();
         while (m_action.hasInteraction()) {
             QString data = m_action.nextInteraction();
@@ -133,7 +132,7 @@ void GPGManager::execute() {
         connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
         m_gpg.closeWriteChannel();
     } else {
-        m_gpg.start("./getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
+        m_gpg.start(QCoreApplication::applicationDirPath() + "/getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
         m_gpg.waitForStarted();
         connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
     }

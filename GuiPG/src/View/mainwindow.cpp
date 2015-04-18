@@ -172,7 +172,7 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
         QTreeWidgetItem* cmdItem = new QTreeWidgetItem();
         cmdItem->setText(2, gpg->getStartTime().toString(DATE_BIG_BROTHER_FORMAT));
         QLabel* label = new QLabel();
-        QMovie* movie = new QMovie(QCoreApplication::applicationDirPath() + ICON_BIG_BROTHER_LOAD_PATH);
+        QMovie* movie = new QMovie(":/icones/res/"ICON_BIG_BROTHER_LOAD_PATH);
         movie->setScaledSize(ICON_BIG_BROTHER_SIZE);
         label->setMovie(movie);
         ui->bigBrother->addTopLevelItem(cmdItem);
