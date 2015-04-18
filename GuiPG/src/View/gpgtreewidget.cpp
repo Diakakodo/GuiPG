@@ -15,8 +15,9 @@ public:
         }
 };
 
-GpgTreeWidget::GpgTreeWidget(QWidget * parent) : QTreeWidget(parent)
+GpgTreeWidget::GpgTreeWidget(QWidget * parent, KeyManager *keyManager) : QTreeWidget(parent)
 {
+    m_keyManager = keyManager;
     setItemDelegate(new myItemDelegate());
     setIconSize(QSize(24,24));
     setAlternatingRowColors(true);
@@ -25,6 +26,14 @@ GpgTreeWidget::GpgTreeWidget(QWidget * parent) : QTreeWidget(parent)
 GpgTreeWidget::~GpgTreeWidget()
 {
 
+}
+
+void GpgTreeWidget::setKeyManager(KeyManager* keyManager) {
+    m_keyManager = keyManager;
+}
+
+KeyManager* GpgTreeWidget::getKeyManager() const {
+    return m_keyManager;
 }
 
 void GpgTreeWidget::setProfile(Profile* profile) {

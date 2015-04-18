@@ -79,7 +79,7 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
     QStringList l = output.split("\n", QString::SkipEmptyParts);
     for (QString line : l) {
         QStringList split = line.split(":");
-        if (line.startsWith("sec")) {
+        if (line.startsWith("sec:")) {
             PrimaSecKey* sec = new PrimaSecKey(
                         GPG_SECRETE_KEY,       // keyscope
                         split.at(2).toLong(),  // length
@@ -99,7 +99,7 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
                 sec->setPrimaryPubKey(pub);
             }
             m_hashprimaSecKeys->insert(sec->getKeyId(), sec);
-        } else if (line.startsWith("ssb")) {
+        } else if (line.startsWith("ssb:")) {
             //lastUid = nullptr;
             SubSecKey* ssb = new SubSecKey(
                         GPG_SECRET_SUBKEY,    // keyscope
@@ -113,9 +113,9 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
             //lastssb = ssb;
             lastPrimaSecKey->addSubSecKey(ssb);
             m_hashsubSecKeys->insert(ssb->getKeyId(), ssb);
-        } else if (line.startsWith("fpr")) {
-            last->setFpr(split.at(10));
-        } else if (line.startsWith("uid")) {
+        } else if (line.startsWith("fpr:")) {
+            last->setFpr(split.at(9));
+        } else if (line.startsWith("uid:")) {
             //lastssb = nullptr;
             QString name = extractNameOfUidStr(split.at(9));
             QString mail = extractMailOfUidStr(split.at(9));
@@ -186,7 +186,7 @@ void KeyManager::gpgFinishedPublicKeys(int s, const QString &output) {
             lastPrimaPubKey->addSubPubKey(sub);
             m_hashsubPubKeys->insert(sub->getKeyId(), sub);
         } else if (line.startsWith("fpr:")) {
-            last->setFpr(split.at(10));
+            last->setFpr(split.at(9));
         } else if (line.startsWith("sig:")
                    || line.startsWith("rev:")) {
             QString name = extractNameOfUidStr(split.at(9));
