@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2015-01-12" view-index="0" gantt-divider-location="489" resource-divider-location="300" version="2.7" locale="fr">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2014-12-22" view-index="0" gantt-divider-location="146" resource-divider-location="300" version="2.7" locale="fr">
     <description/>
-    <view zooming-state="default:6" id="gantt-chart">
+    <view zooming-state="default:7" id="gantt-chart">
         <field id="tpd3" name="Nom" width="33" order="0"/>
         <field id="tpd4" name="Date de début" width="33" order="1"/>
         <field id="tpd5" name="Date de fin" width="33" order="2"/>
@@ -114,9 +114,9 @@
         <displaycolumn property-id="tpd9" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd8" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd0" order="-1" width="75" visible="false"/>
-        <displaycolumn property-id="tpd3" order="0" width="162" visible="true"/>
-        <displaycolumn property-id="tpd4" order="1" width="162" visible="true"/>
-        <displaycolumn property-id="tpd5" order="2" width="161" visible="true"/>
+        <displaycolumn property-id="tpd3" order="0" width="42" visible="true"/>
+        <displaycolumn property-id="tpd4" order="1" width="43" visible="true"/>
+        <displaycolumn property-id="tpd5" order="2" width="42" visible="true"/>
     </taskdisplaycolumns>
     <previous/>
     <roles roleset-name="Default"/>
