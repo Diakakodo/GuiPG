@@ -111,6 +111,7 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
                         );
             //lastUid = nullptr;
             //lastssb = ssb;
+            last = ssb;
             lastPrimaSecKey->addSubSecKey(ssb);
             m_hashsubSecKeys->insert(ssb->getKeyId(), ssb);
         } else if (line.startsWith("fpr:")) {
