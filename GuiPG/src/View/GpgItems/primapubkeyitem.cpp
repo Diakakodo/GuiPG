@@ -1,6 +1,7 @@
 #include "primapubkeyitem.h"
 #include "uiditem.h"
 #include "subpubkeyitem.h"
+#include "../gpgtreewidget.h"
 #include <QMenu>
 #include <QAction>
 
@@ -41,6 +42,13 @@ void PrimaPubKeyItem::showMenu(const QPoint &pos) {
 }
 #include <QDebug>
 void PrimaPubKeyItem::sign() {
+    KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
+    for (PrimaSecKey* sec : keyManager->getSecKeys()) {
+        qDebug() << "sec : " << sec->getFpr();
+        for (SubSecKey* ssb : sec->getSubSecKeyList()) {
+            qDebug() << "ssb : " << ssb->getFpr();
+        }
+    }
     QStringList opt;
     opt << "";
     QStringList interactions;
