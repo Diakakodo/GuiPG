@@ -13,8 +13,10 @@ GPGManager::GPGManager(Profile *p, MainWindow* window) : m_profile(p) {
     QHash<Profile*, MainWindow*> hash = Launcher::m_profileMainWindowHash;
     if (hash.contains((Profile* const)p)) {
         MainWindow* window = hash.value((Profile* const) p);
+        m_window = window;
         connect(this, &GPGManager::isWatchingYou, window, &MainWindow::updateBigBrother);
     } else if (window) {
+        m_window = window;
         connect(this, &GPGManager::isWatchingYou, window, &MainWindow::updateBigBrother);
     }
 
@@ -136,8 +138,11 @@ void GPGManager::execute() {
         m_gpg.waitForStarted();
         connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
     }
-    m_id = m_profile->getNbCmd();
-    m_profile->setNbCmd(m_id + 1);
+    m_id = 0;
+    if (m_window) {
+        m_id = m_window->getNbCmd();
+        m_window->setNbCmd(m_id + 1);
+    }
     emit isWatchingYou(this, true, m_id);
 }
 void GPGManager::readOutput() {

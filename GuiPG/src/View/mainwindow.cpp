@@ -175,7 +175,7 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
         QTreeWidgetItem* cmdItem = new QTreeWidgetItem();
         cmdItem->setText(2, gpg->getStartTime().toString(DATE_BIG_BROTHER_FORMAT));
         QLabel* label = new QLabel();
-        QMovie* movie = new QMovie(":/icones/res/"ICON_BIG_BROTHER_LOAD_PATH);
+        QMovie* movie = new QMovie(":/icones/res/" ICON_BIG_BROTHER_LOAD_PATH);
         movie->setScaledSize(ICON_BIG_BROTHER_SIZE);
         label->setMovie(movie);
         ui->bigBrother->addTopLevelItem(cmdItem);
@@ -202,4 +202,12 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
         ui->bigBrother->setItemWidget(cmdItem, 0, NULL);
     }
     ui->bigBrother->resizeColumnToContents(1);
+}
+
+int MainWindow::getNbCmd() {
+    return NB_CMD;
+}
+
+void MainWindow::setNbCmd(int nb) {
+    NB_CMD = nb;
 }

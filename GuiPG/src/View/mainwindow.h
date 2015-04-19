@@ -39,6 +39,8 @@ class MainWindow : public QMainWindow {
         void showDialogConfiguration();
         void updateBigBrother(GPGManager* gpg, bool fisrt, int id);
         void onCustomContextMenuRequested(const QPoint& pos);
+        int getNbCmd();
+        void setNbCmd(int nb);
 
 private slots:
         void on_actionG_n_rer_une_paire_de_clefs_triggered();
@@ -58,6 +60,7 @@ private:
         Ui::MainWindow* ui;
         MainWindowModel* m_model;
         int currentBigBrotherHeight;
+        int NB_CMD = 0;
 };
 
 #endif // MAINWINDOW_H
