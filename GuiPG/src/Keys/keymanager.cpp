@@ -248,6 +248,10 @@ MainWindow* KeyManager::getMainWindow() {
     return m_window;
 }
 
+void KeyManager::setMainWindow(MainWindow* window) {
+    m_window = window;
+}
+
 QDate KeyManager::strToDate(const QString& d) const {
     bool nb = false;
     unsigned long timestamp = d.toULong(&nb);

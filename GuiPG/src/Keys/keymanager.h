@@ -19,6 +19,7 @@ class KeyManager : public QObject {
         QList<PrimaPubKey *> getPubKeys() const;
         QList<PrimaSecKey *> getSecKeys() const;
         MainWindow* getMainWindow();
+        void setMainWindow(MainWindow* window);
 
     signals:
         void PubKeysLoaded();
