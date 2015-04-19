@@ -14,6 +14,9 @@ class PrimaSecKeyItem : public SubSecKeyItem
 
     private:
         PrimaSecKey* m_sec;
+
+    public slots:
+        void exportKey();
 };
 
 #endif // PRIMASECKEYITEM_H
