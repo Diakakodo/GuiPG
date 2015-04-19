@@ -5,6 +5,7 @@
 #include <QMenu>
 #include <QAction>
 #include <QDebug>
+#include <QSignalMapper>
 
 // Initialisation de la hash map (action -> numéro de la confiance)
 // Les noms sont défini dans la X_Maccro X_COLUMNS et le numéro est donné par
@@ -59,18 +60,21 @@ void PrimaPubKeyItem::showMenu(const QPoint &pos) {
     QMenu* menu = new QMenu(treeWidget());
     menu->addAction("Signer", this, SLOT(sign()));
 
-    QMenu* changeTrust = new QMenu("Modifier la confiance", menu);
+    QMenu* changeTrustMenu = new QMenu("Modifier la confiance", menu);
     for (int i = 0; i < NB_TRUST; i++) {
-        QAction* a = new QAction(trustActions.value(i)->text(), changeTrust);
+        QAction* a = new QAction(trustActions.value(i)->text(), this);
         if (PrimaPubKey::trustToStr(m_pub->getTrust()) == a->text()) {
             a->setCheckable(true);
             a->setChecked(true);
         }
-        a->setParent(changeTrust);
-        changeTrust->addAction(a);
+        changeTrustMenu->addAction(a);
+        QSignalMapper *pSignalMapper = new QSignalMapper(this);
+        connect(pSignalMapper, SIGNAL(mapped(int)), SLOT(trust(int)));
+        connect(a,  SIGNAL(triggered()), pSignalMapper, SLOT(map()));
+        pSignalMapper->setMapping(a,i+1);
     }
 
-    menu->addMenu(changeTrust);
+    menu->addMenu(changeTrustMenu);
 
     menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
 }
@@ -86,6 +90,20 @@ void PrimaPubKeyItem::sign() {
     QStringList interactions;
     interactions << "o";
     Action actionSign("--sign-key", QStringList(m_pub->getKeyId()), opt, interactions);
+    GPGManager* gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
+    gpg->setAction(actionSign);
+    gpg->execute();
+}
+
+void PrimaPubKeyItem::trust(int value) {
+    QStringList opt;
+    opt << "--status-fd=1"
+        << "--command-fd=0";
+    QStringList interactions;
+    interactions << "trust"
+                 << QString::number(value)
+                 << "save";
+    Action actionSign("--edit-key", QStringList(m_pub->getKeyId()), opt, interactions);
     GPGManager* gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
     gpg->setAction(actionSign);
     gpg->execute();

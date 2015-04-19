@@ -34,6 +34,7 @@ class PrimaPubKeyItem : public PubKeyItem
 
     public slots:
         void sign();
+        void trust(int value);
 
 
     private:
