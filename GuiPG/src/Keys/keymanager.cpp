@@ -8,6 +8,7 @@ KeyManager::KeyManager(Profile *p, MainWindow *window) : m_gpg(new GPGManager(p,
     m_hashprimaSecKeys = new QHash<QString, PrimaSecKey*>();
     m_hashsubPubKeys = new QHash<QString, SubPubKey*>();
     m_hashsubSecKeys = new QHash<QString, SubSecKey*>();
+    m_window = window;
 }
 
 KeyManager::~KeyManager() {
@@ -241,6 +242,10 @@ QList<PrimaPubKey *> KeyManager::getPubKeys() const {
 
 QList<PrimaSecKey *> KeyManager::getSecKeys() const {
     return m_hashprimaSecKeys->values();
+}
+
+MainWindow* KeyManager::getMainWindow() {
+    return m_window;
 }
 
 QDate KeyManager::strToDate(const QString& d) const {

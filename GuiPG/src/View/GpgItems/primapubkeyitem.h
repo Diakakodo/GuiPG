@@ -34,6 +34,7 @@ class PrimaPubKeyItem : public PubKeyItem
 
     public slots:
         void sign();
+        void exportKey();
 
 
     private:
