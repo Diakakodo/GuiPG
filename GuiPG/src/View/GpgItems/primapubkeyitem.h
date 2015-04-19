@@ -34,12 +34,17 @@ class PrimaPubKeyItem : public PubKeyItem
 
     public slots:
         void sign();
-	void trust(int value);
+        void setPossibleTrustValue(int s, QString output);
+        void trust(int value);
         void exportPublicKey();
         void exportSecretKey();
 
     private:
         PrimaPubKey* m_pub;
+        QList<int> m_possibleTrustValue;
+
+        void getPossibleTrustValue();
+
 
 };
 

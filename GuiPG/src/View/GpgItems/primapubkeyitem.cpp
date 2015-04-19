@@ -58,30 +58,14 @@ PrimaPubKeyItem::~PrimaPubKeyItem()
 }
 
 void PrimaPubKeyItem::showMenu(const QPoint &pos) {
-    QMenu* menu = new QMenu(treeWidget());
-    menu->addAction("Signer", this, SLOT(sign()));
-    menu->addAction("Exporter la clé publique", this, SLOT(exportPublicKey()));
+    m_pos = pos;
+    m_menu = new QMenu(treeWidget());
+    m_menu->addAction("Signer", this, SLOT(sign()));
+    m_menu->addAction("Exporter la clé publique", this, SLOT(exportPublicKey()));
     if (m_pub->hasPrimaSecKey()) {
-        menu->addAction("Exporter la clé secrète", this, SLOT(exportSecretKey()));
+        m_menu->addAction("Exporter la clé secrète", this, SLOT(exportSecretKey()));
     }
-
-    QMenu* changeTrustMenu = new QMenu("Modifier la confiance", menu);
-    for (int i = 0; i < NB_TRUST; i++) {
-        QAction* a = new QAction(trustActions.value(i)->text(), this);
-        if (PrimaPubKey::trustToStr(m_pub->getTrust()) == a->text()) {
-            a->setCheckable(true);
-            a->setChecked(true);
-        }
-        changeTrustMenu->addAction(a);
-        QSignalMapper *pSignalMapper = new QSignalMapper(this);
-        connect(pSignalMapper, SIGNAL(mapped(int)), SLOT(trust(int)));
-        connect(a,  SIGNAL(triggered()), pSignalMapper, SLOT(map()));
-        pSignalMapper->setMapping(a,i+1);
-    }
-
-    menu->addMenu(changeTrustMenu);
-
-    menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
+    getPossibleTrustValue();
 }
 
 void PrimaPubKeyItem::sign() {
@@ -95,10 +79,10 @@ void PrimaPubKeyItem::sign() {
     QStringList interactions;
     interactions << "y";
     Action actionSign("--sign-key", QStringList(m_pub->getKeyId()), opt, interactions);
-    GPGManager* gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
-    connect(gpg, &GPGManager::finished, this, &GpgItem::changed);
-    gpg->setAction(actionSign);
-    gpg->execute();
+    m_gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
+    connect(m_gpg, &GPGManager::finished, this, &GpgItem::changed);
+    m_gpg->setAction(actionSign);
+    m_gpg->execute();
 }
 
 void PrimaPubKeyItem::trust(int value) {
@@ -106,13 +90,23 @@ void PrimaPubKeyItem::trust(int value) {
     opt << "--status-fd=1"
         << "--command-fd=0";
     QStringList interactions;
-    interactions << "trust"
-                 << QString::number(value)
-                 << "save";
+    if (value != EDIT_TRUST_ULTIMATELY + 1) {
+        interactions << "trust"
+                     << QString::number(value)
+                     << "save";
+    } else {
+        interactions << "trust"
+                     << QString::number(value)
+                     << "y"
+                     << "save";
+    }
     Action actionSign("--edit-key", QStringList(m_pub->getKeyId()), opt, interactions);
-    GPGManager* gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
-    gpg->setAction(actionSign);
-    gpg->execute();
+    m_gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
+    m_gpg->setAction(actionSign);
+
+    KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
+    connect(m_gpg, &GPGManager::finished, keyManager, &KeyManager::load);
+    m_gpg->execute();
 }
 
 void PrimaPubKeyItem::exportPublicKey() {
@@ -127,4 +121,53 @@ void PrimaPubKeyItem::exportSecretKey() {
     KeyExport keyExport(keyManager->getMainWindow(), KeyExport::SECRET_KEYS, QStringList(m_pub->getKeyId()));
     keyExport.show();
     keyExport.exec();
+}
+
+void PrimaPubKeyItem::setPossibleTrustValue(int s, QString output) {
+    m_possibleTrustValue.clear();
+    disconnect(m_gpg, &GPGManager::finished, this, &PrimaPubKeyItem::getPossibleTrustValue);
+    delete m_gpg;
+    if (s) {
+        QStringList l = output.split("\n", QString::SkipEmptyParts);
+        for (QString line : l) {
+            if (line.length() > 5 && line.at(4) == '=') {
+                if (line.at(2).digitValue() > 0 && line.at(2).digitValue() < 6)
+                    m_possibleTrustValue.append(line.at(2).digitValue());
+            }
+        }
+    }
+    QMenu* changeTrustMenu = new QMenu("Modifier la confiance", m_menu);
+    for (int i = 0; i < NB_TRUST; i++) {
+        if (m_possibleTrustValue.contains(i+1)) {
+            QAction* a = new QAction(trustActions.value(i)->text(), this);
+            if (PrimaPubKey::trustToStr(m_pub->getTrust()) == a->text()) {
+                a->setCheckable(true);
+                a->setChecked(true);
+            }
+            changeTrustMenu->addAction(a);
+            QSignalMapper *pSignalMapper = new QSignalMapper(this);
+            connect(pSignalMapper, SIGNAL(mapped(int)), SLOT(trust(int)));
+            connect(a,  SIGNAL(triggered()), pSignalMapper, SLOT(map()));
+            pSignalMapper->setMapping(a,i+1);
+        }
+    }
+
+    m_menu->addMenu(changeTrustMenu);
+
+    m_menu->popup(treeWidget()->viewport()->mapToGlobal(m_pos));
+}
+
+void PrimaPubKeyItem::getPossibleTrustValue() {
+    QStringList opt;
+    opt << "--status-fd=1"
+        << "--command-fd=0";
+    QStringList interactions;
+    interactions << "trust"
+                 << "m"
+                 << "save";
+    Action actionSign("--edit-key", QStringList(m_pub->getKeyId()), opt, interactions);
+    m_gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
+    m_gpg->setAction(actionSign);
+    connect(m_gpg, &GPGManager::finished, this, &PrimaPubKeyItem::setPossibleTrustValue);
+    m_gpg->execute();
 }

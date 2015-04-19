@@ -6,6 +6,7 @@
 #include "../../Keys/gpgobject.h"
 #include <QPoint>
 #include "../../Configuration/configuration.h"
+#include "../../GPG/gpgmanager.h"
 
 // X(nom de l'enum, nom de la colone)
 #define X_COLUMNS               \
@@ -47,6 +48,9 @@ class GpgItem :  public QObject, public QTreeWidgetItem {
 
     protected:
         GpgObject* m_gpgObject;
+        GPGManager* m_gpg;
+        QMenu* m_menu;
+        QPoint m_pos;
 };
 
 #endif // GPGITEM_H
