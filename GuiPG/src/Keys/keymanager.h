@@ -15,11 +15,13 @@ class KeyManager : public QObject {
         explicit KeyManager(Profile *p, MainWindow* window = nullptr);
         ~KeyManager();
 
-        void load();
         QList<PrimaPubKey *> getPubKeys() const;
         QList<PrimaSecKey *> getSecKeys() const;
         MainWindow* getMainWindow();
         void setMainWindow(MainWindow* window);
+
+    public slots:
+        void load();
 
     signals:
         void PubKeysLoaded();
