@@ -107,6 +107,7 @@ void MainWindow::showDialogProfile() {
 
 void MainWindow::changeProfil(unsigned profileId) {
     m_model->loadProfile(profileId, this);
+    m_model->getKeyManager()->setMainWindow(this);
     ui->treeWidgetKey->setProfile(m_model->getProfile());
     buildTree();
 }
