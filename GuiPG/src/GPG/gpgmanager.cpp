@@ -28,7 +28,7 @@ bool GPGManager::askInteraction() {
     QStringList l = m_output.split('\n', QString::SkipEmptyParts);
     if (!l.isEmpty()) {
         QString last = l.last();
-        if (last.contains("[GNUPG:] GET_LINE") || last.contains("[GNUPG:] GET_HIDDEN")) {
+        if (last.contains("[GNUPG:] GET_")) {
             return true;
         }
     }
@@ -107,7 +107,7 @@ void GPGManager::execute() {
     QStringList cmd(m_profile->getGPGExecutable());
     cmd.append(args);
     m_cmd = cmd.join(" ");
-    qDebug() << cmd;
+    //qDebug() << cmd;
     m_startTime = QTime::currentTime();
     if (m_action.getOptions().contains("--batch")) {
         m_gpg.start(QCoreApplication::applicationDirPath() + "/getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
