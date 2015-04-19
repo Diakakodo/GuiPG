@@ -21,10 +21,8 @@ KeyExport::KeyExport(MainWindow*parent, Type mode, QStringList keys) :
 {
 
     ui->setupUi(this);
-    if (keys.length() == 0 || mode == SECRET_KEYS) {
-        ui->keyServerRadioButton->hide();
-        ui->keyServerList->hide();
-    }
+    ui->keyServerRadioButton->hide();
+    ui->keyServerList->hide();
 }
 
 KeyExport::~KeyExport()

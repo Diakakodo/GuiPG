@@ -2,6 +2,7 @@
 #include "uiditem.h"
 #include "subpubkeyitem.h"
 #include "../gpgtreewidget.h"
+#include "../keyexport.h"
 #include <QMenu>
 #include <QAction>
 #include <QDebug>
@@ -59,6 +60,10 @@ PrimaPubKeyItem::~PrimaPubKeyItem()
 void PrimaPubKeyItem::showMenu(const QPoint &pos) {
     QMenu* menu = new QMenu(treeWidget());
     menu->addAction("Signer", this, SLOT(sign()));
+    menu->addAction("Exporter la clé publique", this, SLOT(exportPublicKey()));
+    if (m_pub->hasPrimaSecKey()) {
+        menu->addAction("Exporter la clé secrète", this, SLOT(exportSecretKey()));
+    }
 
     QMenu* changeTrustMenu = new QMenu("Modifier la confiance", menu);
     for (int i = 0; i < NB_TRUST; i++) {
@@ -108,4 +113,18 @@ void PrimaPubKeyItem::trust(int value) {
     GPGManager* gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
     gpg->setAction(actionSign);
     gpg->execute();
+}
+
+void PrimaPubKeyItem::exportPublicKey() {
+    KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
+    KeyExport keyExport(keyManager->getMainWindow(), KeyExport::PUBLIC_KEYS, QStringList(m_pub->getKeyId()));
+    keyExport.show();
+    keyExport.exec();
+}
+
+void PrimaPubKeyItem::exportSecretKey() {
+    KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
+    KeyExport keyExport(keyManager->getMainWindow(), KeyExport::SECRET_KEYS, QStringList(m_pub->getKeyId()));
+    keyExport.show();
+    keyExport.exec();
 }

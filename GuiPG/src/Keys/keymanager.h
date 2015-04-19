@@ -18,6 +18,8 @@ class KeyManager : public QObject {
         void load();
         QList<PrimaPubKey *> getPubKeys() const;
         QList<PrimaSecKey *> getSecKeys() const;
+        MainWindow* getMainWindow();
+        void setMainWindow(MainWindow* window);
 
     signals:
         void PubKeysLoaded();
@@ -39,6 +41,7 @@ class KeyManager : public QObject {
         QHash<QString, SubPubKey*>* m_hashsubPubKeys;
         QHash<QString, SubSecKey*>* m_hashsubSecKeys;
         GPGManager* m_gpg;
+        MainWindow* m_window;
 };
 
 #endif // KEYMANAGER_H
