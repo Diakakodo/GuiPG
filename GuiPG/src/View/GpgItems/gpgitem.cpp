@@ -1,4 +1,6 @@
 #include "gpgitem.h"
+#include "../gpgtreewidget.h"
+
 
 // Initialisation de la hash map (nomde la colone -> numéro de la colone)
 // Les noms sont défini dans la X_Maccro X_COLUMNS et le numéro est donné par
@@ -24,6 +26,7 @@ GpgItem::GpgItem(QTreeWidget * parent,
 {
     setText(COL_CREATION, gpgObject->getCreationDate().toString("dd/MM/yyyy"));
     setText(COL_ID, gpgObject->getFpr());
+
 }
 
 GpgItem::GpgItem(GpgObject* gpgObject) : QTreeWidgetItem (),
@@ -38,3 +41,6 @@ GpgItem::~GpgItem()
 
 }
 
+void GpgItem::changed(int s, QString output) {
+    ((GpgTreeWidget*) treeWidget())->getKeyManager()->load();
+}

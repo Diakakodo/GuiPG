@@ -42,6 +42,9 @@ class GpgItem :  public QObject, public QTreeWidgetItem {
 
         static QHash<int, QString> columns;
 
+    public slots:
+        void changed(int s, QString output);
+
     protected:
         GpgObject* m_gpgObject;
 };

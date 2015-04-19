@@ -44,7 +44,7 @@ void MainWindowModel::loadProfile(unsigned profileId, MainWindow* window) {
         m_launcher->loadProfile(p, window);
         m_profile = p;
         window->setWindowTitle("GuiPG - " + p->getName());
-        window->getModel()->initKeyManager();
+        initKeyManager();
     }
 }
 
