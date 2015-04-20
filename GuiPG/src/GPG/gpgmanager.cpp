@@ -1,7 +1,13 @@
 #include "gpgmanager.h"
 #include <QDebug>
 #include "../Launcher/launcher.h"
-
+#include <QDialog>
+#include <QLayout>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QLabel>
 
 
 GPGManager::GPGManager(Profile *p, MainWindow* window) : m_profile(p) {
@@ -72,7 +78,32 @@ void GPGManager::sendInteraction() {
 }
 
 void GPGManager::sendHiddenInteraction() {
-    //qDebug() << "plop";
+    QDialog* dialog = new QDialog();
+    QLayout* HLayout = new QHBoxLayout(dialog);
+    QLayout* VLayout1 = new QVBoxLayout();
+    QLayout* VLayout2 = new QVBoxLayout();
+    HLayout->addItem(VLayout1);
+    HLayout->addItem(VLayout2);
+    VLayout1->addWidget(new QLabel("Passphrase :", dialog));
+    passphraseEdit = new QLineEdit(dialog);
+    passphraseEdit->setEchoMode(QLineEdit::Password);
+    VLayout2->addWidget(passphraseEdit);
+    VLayout1->addWidget(new QLabel("", dialog));
+    QPushButton* validButton = new QPushButton("valider", dialog);
+    VLayout2->addWidget(validButton);
+    connect(validButton, &QPushButton::clicked, this, &GPGManager::onSendHiddenInteraction);
+    connect(validButton, &QPushButton::clicked, dialog, &QDialog::accept);
+    connect(dialog, &QDialog::rejected, this, &GPGManager::onSendHiddenInteractionAborted);
+    dialog->show();
+}
+
+void GPGManager::onSendHiddenInteraction() {
+    QString pwd = passphraseEdit->text();
+    m_gpg.write(pwd.toLatin1() + "\n");
+}
+
+void GPGManager::onSendHiddenInteractionAborted() {
+    m_gpg.kill();
 }
 
 bool GPGManager::isRunning() {
