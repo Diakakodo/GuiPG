@@ -61,6 +61,8 @@ class GPGManager : public QObject {
          * @return un booléen indiquant si gpg attend des données.
          */
         bool askInteraction();
+        void sendHiddenInteraction();
+        bool askHiddenInteraction();
 };
 
 #endif // GPGMANAGER_H

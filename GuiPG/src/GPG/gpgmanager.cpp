@@ -24,6 +24,17 @@ GPGManager::GPGManager(Profile *p, MainWindow* window) : m_profile(p) {
     m_gpg.setReadChannel(QProcess::StandardOutput);
 }
 
+bool GPGManager::askHiddenInteraction() {
+    QStringList l = m_output.split('\n', QString::SkipEmptyParts);
+    if (!l.isEmpty()) {
+        QString last = l.last();
+        if (last.contains("[GNUPG:] GET_HIDDEN")) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool GPGManager::askInteraction() {
     QStringList l = m_output.split('\n', QString::SkipEmptyParts);
     if (!l.isEmpty()) {
@@ -58,6 +69,10 @@ void GPGManager::sendInteraction() {
         m_output += data;
         m_gpg.write(data);
     }
+}
+
+void GPGManager::sendHiddenInteraction() {
+    //qDebug() << "plop";
 }
 
 bool GPGManager::isRunning() {
@@ -110,7 +125,7 @@ void GPGManager::execute() {
     //qDebug() << cmd;
     m_startTime = QTime::currentTime();
     if (m_action.getOptions().contains("--batch")) {
-        m_gpg.start(QCoreApplication::applicationDirPath() + "/getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
+        m_gpg.start(QCoreApplication::applicationDirPath() + "/getPrettyGoodPty", QStringList("sh") << "-c" << QString(m_cmd + "\n"));
         m_gpg.waitForStarted();
         while (m_action.hasInteraction()) {
             QString data = m_action.nextInteraction();
@@ -134,7 +149,7 @@ void GPGManager::execute() {
         connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
         m_gpg.closeWriteChannel();
     } else {
-        m_gpg.start(QCoreApplication::applicationDirPath() + "/getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
+        m_gpg.start(QCoreApplication::applicationDirPath() + "/getPrettyGoodPty", QStringList("sh") << "-c" << QString(m_cmd + "\n"));
         m_gpg.waitForStarted();
         connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
     }
@@ -154,8 +169,13 @@ void GPGManager::readOutput() {
     }
     emit newData(data);
     if (m_gpg.state() == QProcess::Running
-            && askInteraction()) {
-        sendInteraction();
+            && askHiddenInteraction()) {
+        sendHiddenInteraction();
+    } else {
+        if (m_gpg.state() == QProcess::Running
+                && askInteraction()) {
+            sendInteraction();
+        }
     }
 }
 
