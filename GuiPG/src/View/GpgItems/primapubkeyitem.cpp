@@ -135,10 +135,11 @@ void PrimaPubKeyItem::exportSecretKey() {
 
 void PrimaPubKeyItem::deleteKey() {
     KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
-    KeyDeletion deleteManager(keyManager->getMainWindow());
-    deleteManager.deletePublicKey(m_pub->getKeyId());
+    KeyDeletion* deleteManager = new KeyDeletion(keyManager, ((GpgTreeWidget*) treeWidget())->getProfile(), m_pub->getKeyId());
     if (m_pub->hasPrimaSecKey()) {
-        deleteManager.deleteSecretKey(m_pub->getKeyId());
+        deleteManager->deleteKeys(); // On supprime les deux clés (privé/secrete).
+    } else {
+        deleteManager->deletePublicKey(); // On ne supprime que la clé publique.
     }
 }
 
