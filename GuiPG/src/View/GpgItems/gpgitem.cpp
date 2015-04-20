@@ -42,5 +42,14 @@ GpgItem::~GpgItem()
 }
 
 void GpgItem::changed(int s, QString output) {
+    Action updateAction("--update-trustdb");
+    GPGManager* gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
+    gpg->setAction(updateAction);
+    connect(gpg, &GPGManager::finished, this, &GpgItem::onGpgUpdate);
+    gpg->execute();
+}
+
+
+void GpgItem::onGpgUpdate(int s, QString output) {
     ((GpgTreeWidget*) treeWidget())->getKeyManager()->load();
 }

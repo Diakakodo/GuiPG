@@ -46,6 +46,9 @@ class GpgItem :  public QObject, public QTreeWidgetItem {
     public slots:
         void changed(int s, QString output);
 
+    private slots:
+        void onGpgUpdate(int s, QString output);
+
     protected:
         GpgObject* m_gpgObject;
         GPGManager* m_gpg;
