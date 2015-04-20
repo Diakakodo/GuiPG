@@ -1,7 +1,13 @@
 #include "gpgmanager.h"
 #include <QDebug>
 #include "../Launcher/launcher.h"
-
+#include <QDialog>
+#include <QLayout>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QLabel>
 
 
 GPGManager::GPGManager(Profile *p, MainWindow* window) : m_profile(p) {
@@ -22,6 +28,17 @@ GPGManager::GPGManager(Profile *p, MainWindow* window) : m_profile(p) {
 
     //m_gpg.setProcessChannelMode(QProcess::MergedChannels);
     m_gpg.setReadChannel(QProcess::StandardOutput);
+}
+
+bool GPGManager::askHiddenInteraction() {
+    QStringList l = m_output.split('\n', QString::SkipEmptyParts);
+    if (!l.isEmpty()) {
+        QString last = l.last();
+        if (last.contains("[GNUPG:] GET_HIDDEN")) {
+            return true;
+        }
+    }
+    return false;
 }
 
 bool GPGManager::askInteraction() {
@@ -58,6 +75,35 @@ void GPGManager::sendInteraction() {
         m_output += data;
         m_gpg.write(data);
     }
+}
+
+void GPGManager::sendHiddenInteraction() {
+    QDialog* dialog = new QDialog();
+    QLayout* HLayout = new QHBoxLayout(dialog);
+    QLayout* VLayout1 = new QVBoxLayout();
+    QLayout* VLayout2 = new QVBoxLayout();
+    HLayout->addItem(VLayout1);
+    HLayout->addItem(VLayout2);
+    VLayout1->addWidget(new QLabel("Passphrase :", dialog));
+    passphraseEdit = new QLineEdit(dialog);
+    passphraseEdit->setEchoMode(QLineEdit::Password);
+    VLayout2->addWidget(passphraseEdit);
+    VLayout1->addWidget(new QLabel("", dialog));
+    QPushButton* validButton = new QPushButton("valider", dialog);
+    VLayout2->addWidget(validButton);
+    connect(validButton, &QPushButton::clicked, this, &GPGManager::onSendHiddenInteraction);
+    connect(validButton, &QPushButton::clicked, dialog, &QDialog::accept);
+    connect(dialog, &QDialog::rejected, this, &GPGManager::onSendHiddenInteractionAborted);
+    dialog->show();
+}
+
+void GPGManager::onSendHiddenInteraction() {
+    QString pwd = passphraseEdit->text();
+    m_gpg.write(pwd.toLatin1() + "\n");
+}
+
+void GPGManager::onSendHiddenInteractionAborted() {
+    m_gpg.kill();
 }
 
 bool GPGManager::isRunning() {
@@ -110,7 +156,7 @@ void GPGManager::execute() {
     //qDebug() << cmd;
     m_startTime = QTime::currentTime();
     if (m_action.getOptions().contains("--batch")) {
-        m_gpg.start(QCoreApplication::applicationDirPath() + "/getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
+        m_gpg.start(QCoreApplication::applicationDirPath() + "/getPrettyGoodPty", QStringList("sh") << "-c" << QString(m_cmd + "\n"));
         m_gpg.waitForStarted();
         while (m_action.hasInteraction()) {
             QString data = m_action.nextInteraction();
@@ -134,7 +180,7 @@ void GPGManager::execute() {
         connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
         m_gpg.closeWriteChannel();
     } else {
-        m_gpg.start(QCoreApplication::applicationDirPath() + "/getPrettyGoodPty", QStringList("sh") << "-c" << QString("gpg " + args.join(" ") + "\n"));
+        m_gpg.start(QCoreApplication::applicationDirPath() + "/getPrettyGoodPty", QStringList("sh") << "-c" << QString(m_cmd + "\n"));
         m_gpg.waitForStarted();
         connect(&m_gpg, &QProcess::readyReadStandardOutput, this, &GPGManager::readOutput);
     }
@@ -154,8 +200,13 @@ void GPGManager::readOutput() {
     }
     emit newData(data);
     if (m_gpg.state() == QProcess::Running
-            && askInteraction()) {
-        sendInteraction();
+            && askHiddenInteraction()) {
+        sendHiddenInteraction();
+    } else {
+        if (m_gpg.state() == QProcess::Running
+                && askInteraction()) {
+            sendInteraction();
+        }
     }
 }
 

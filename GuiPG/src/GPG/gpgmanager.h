@@ -6,6 +6,7 @@
 #include "../Profile/profile.h"
 #include "action.h"
 #include <QSemaphore>
+#include <QLineEdit>
 class MainWindow;
 
 class GPGManager : public QObject {
@@ -36,6 +37,8 @@ class GPGManager : public QObject {
         void terminate(int s, QProcess::ExitStatus status);
         void errorGPG(QProcess::ProcessError error);
         void stateChanged(QProcess::ProcessState newState);
+        void onSendHiddenInteraction();
+        void onSendHiddenInteractionAborted();
 
     private:
         QProcess m_gpg;
@@ -61,6 +64,9 @@ class GPGManager : public QObject {
          * @return un booléen indiquant si gpg attend des données.
          */
         bool askInteraction();
+        void sendHiddenInteraction();
+        bool askHiddenInteraction();
+        QLineEdit* passphraseEdit;
 };
 
 #endif // GPGMANAGER_H
