@@ -209,7 +209,7 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
 }
 
 int MainWindow::getNbCmd() {
-    return 0;
+    return NB_CMD;
 }
 
 void MainWindow::setNbCmd(int nb) {
