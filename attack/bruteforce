@@ -4,10 +4,146 @@
 
 use strict;
 use warnings;
+use File::Basename;
 use Crypt::OpenSSL::RSA;
-use Digest::SHA;
 use Crypt::OpenSSL::Bignum;
 use Crypt::OpenSSL::Bignum::CTX;
+use Digest::SHA;
+use MIME::Base64;
+use POSIX;
+
+my $old_format_packet_lengths = { one => 0,
+          two => 1,
+          four => 2,
+          indeterminate => 3,
+};
+
+# see RFC 4880 section 9.1 (ignoring deprecated algorithms for now)
+my $asym_algos = { rsa => 1,
+       elgamal => 16,
+       dsa => 17,
+       };
+
+# see RFC 4880 section 9.2
+my $ciphers = { plaintext => 0,
+    idea => 1,
+    tripledes => 2,
+    cast5 => 3,
+    blowfish => 4,
+    aes128 => 7,
+    aes192 => 8,
+    aes256 => 9,
+    twofish => 10,
+        };
+
+# see RFC 4880 section 9.3
+my $zips = { uncompressed => 0,
+       zip => 1,
+       zlib => 2,
+       bzip2 => 3,
+     };
+
+# see RFC 4880 section 9.4
+my $digests = { md5 => 1,
+    sha1 => 2,
+    ripemd160 => 3,
+    sha256 => 8,
+    sha384 => 9,
+    sha512 => 10,
+    sha224 => 11,
+        };
+
+# see RFC 4880 section 5.2.3.21
+my $usage_flags = { certify => 0x01,
+        sign => 0x02,
+        encrypt_comms => 0x04,
+        encrypt_storage => 0x08,
+        encrypt => 0x0c, ## both comms and storage
+        split => 0x10, # the private key is split via secret sharing
+        authenticate => 0x20,
+        shared => 0x80, # more than one person holds the entire private key
+      };
+
+# see RFC 4880 section 4.3
+my $packet_types = { pubkey_enc_session => 1,
+         sig => 2,
+         symkey_enc_session => 3,
+         onepass_sig => 4,
+         seckey => 5,
+         pubkey => 6,
+         sec_subkey => 7,
+         compressed_data => 8,
+         symenc_data => 9,
+         marker => 10,
+         literal => 11,
+         trust => 12,
+         uid => 13,
+         pub_subkey => 14,
+         uat => 17,
+         symenc_w_integrity => 18,
+         mdc => 19,
+       };
+
+# see RFC 4880 section 5.2.1
+my $sig_types = { binary_doc => 0x00,
+      text_doc => 0x01,
+      standalone => 0x02,
+      generic_certification => 0x10,
+      persona_certification => 0x11,
+      casual_certification => 0x12,
+      positive_certification => 0x13,
+      subkey_binding => 0x18,
+      primary_key_binding => 0x19,
+      key_signature => 0x1f,
+      key_revocation => 0x20,
+      subkey_revocation => 0x28,
+      certification_revocation => 0x30,
+      timestamp => 0x40,
+      thirdparty => 0x50,
+    };
+
+
+# see RFC 4880 section 5.2.3.23
+my $revocation_reasons = { no_reason_specified => 0,
+         key_superseded => 1,
+         key_compromised => 2,
+         key_retired => 3,
+         user_id_no_longer_valid => 32,
+       };
+
+# see RFC 4880 section 5.2.3.1
+my $subpacket_types = { sig_creation_time => 2,
+      sig_expiration_time => 3,
+      exportable => 4,
+      trust_sig => 5,
+      regex => 6,
+      revocable => 7,
+      key_expiration_time => 9,
+      preferred_cipher => 11,
+      revocation_key => 12,
+      issuer => 16,
+      notation => 20,
+      preferred_digest => 21,
+      preferred_compression => 22,
+      keyserver_prefs => 23,
+      preferred_keyserver => 24,
+      primary_uid => 25,
+      policy_uri => 26,
+      usage_flags => 27,
+      signers_uid => 28,
+      revocation_reason => 29,
+      features => 30,
+      signature_target => 31,
+      embedded_signature => 32,
+           };
+
+# bitstring (see RFC 4880 section 5.2.3.24)
+my $features = { mdc => 0x01
+         };
+
+# bitstring (see RFC 4880 5.2.3.17)
+my $keyserver_prefs = { nomodify => 0x80
+          };
 
 # Génère la fingerprint en utilisant la clé (rsa) et une valeur de temps
 # Le figerprint est utilisé sur les clefs utilisant la version 4
@@ -246,18 +382,14 @@ sub gensig {
 
   return make_packet($packet_types->{sig}, $sig_body);
 }
-
 my $openpgp_key;
-my $fingerprint;
 my $keyid;
+my $fingerprint;
 my $rsa;
-my $tries = 0; #Pour calculer le nombre d'essais nécéssaires pour trouver une pré-image
-my $tries_per_sec;
 my $ts;
 my $time_diff;
-my $ts_now = time();
-my $ts_three_years = $ts_now - 60*60*24*365*3; #temps qui vas nous permettre d'altérer le fingerprint de la clef
-
+my $tries = 0; #Pour calculer le nombre d'essais nécéssaires pour trouver une pré-image
+my $tries_per_sec;
 
 my $uid = shift;
 defined($uid) or die "Vous devez mettre l'ID de l'utilisateur en paramètre.\n";
@@ -266,41 +398,47 @@ my $target_keyid = shift;
 defined($target_keyid) or die "Vous devez entrer une clé ID de 8 caractères.\n";
 
 
-while(1) {
-	print("Génération d'une nouvelle clé RSA\n");
-    $rsa = Crypt::OpenSSL::RSA->generate_key(4096); #Une clef créée qui va être modifier ensuite jusqu'a concordence avec le fingerprint espéré.
+my $ts_now = time();    
+my $ts_three_years_ago = $ts_now - 60*60*24*365*3; #temps qui vas nous permettre d'altérer le fingerprint de la clef
 
-    $ts = ts_now;
-    while (ts >= ts_three_years) {
+while (1) {
+  # generate a new RSA key
+  print("Génération d'une nouvelle clé RSA\n");
+  $rsa = Crypt::OpenSSL::RSA->generate_key(4096);
 
-        $fingerprint = uc(unpack("H*", fingerprint($rsa, $ts))); #On calcule le fingerprint de la clef
-        $keyid = substr($fingerprint, 32, 8); #On recupère les 8 octets qui constitue la key ID
+  $ts = $ts_now;
+  while ($ts >= $ts_three_years_ago) {
+    # get the key id
+    $fingerprint = uc(unpack("H*", fingerprint($rsa, $ts))); #On calcule le fingerprint de la clef
+    $keyid = substr($fingerprint, 32, 8); #On recupère les 8 octets qui constitue la key ID
 
-        if ($target_keyid eq $keyid) {
-        	#Fonction pour transformer la clé avec les bons octets en suivant la RFC section 4.2
-            $openpgp_key =
-            make_packet($packet_types->{seckey}, make_rsa_sec_key_body($rsa, $ts)).
-            make_packet($packet_types->{uid}, $uid).
-            makeselfsig( $rsa, $uid, { sig_timestamp => $ts, key_timestamp => $ts });
+    if ($target_keyid eq $keyid) {
+        #Fonction pour transformer la clé avec les bons octets en suivant la RFC section 4.2
+      $openpgp_key =
+        make_packet($packet_types->{seckey}, make_rsa_sec_key_body($rsa, $ts)).
+        make_packet($packet_types->{uid}, $uid).
+        makeselfsig( $rsa, $uid, { sig_timestamp => $ts, key_timestamp => $ts });
 
-            open(FILE, ">$keyid.gpg"); #Si la seconde pré-image est trouvée, on ecrit la clef dans un fichier. Cette clef doit pouvoir être importée.
-            print FILE $openpgp_key;
-            close(FILE);
-            $time_diff = time() - $ts_now;
-
-            die "Fin de la recherche pour la seconde pré-image\n" ;
-        }
-        $tries++; 
-        if($tries % 100 == 0) {
-            $time_diff = time() - $ts_now;
-            if($time_diff == 0) {
-                $tries_per_sec = 0;
-            } else {
-                $tries_per_sec = int($tries / $time_diff);
-            }
-            print("\r$tries essais [$tries_per_sec / sec]"); #Affiche le nombre d'essais par seconde
-        }
-        $ts--;
+      # write $openpgp_key to $keyid.gpg
+      open(FILE, ">$keyid.gpg"); #Si la seconde pré-image est trouvée, on ecrit la clef dans un fichier. Cette clef doit pouvoir être importée.
+      print FILE $openpgp_key;
+      close(FILE);
+      $time_diff = time() - $ts_now;
+      die "Fin de la recherche pour la seconde pré-image\n" ;
     }
-    print("\n");
+
+    $tries++;
+    if($tries % 100 == 0) {
+      $time_diff = time() - $ts_now;
+      if($time_diff == 0) {
+        $tries_per_sec = 0;
+      } else {
+        $tries_per_sec = int($tries / $time_diff);
+      }
+      print("\r$tries essais [$tries_per_sec / sec]"); #Affiche le nombre d'essais par seconde
+    }
+
+    $ts--;
+  }
+  print("\n");
 }
