@@ -2,41 +2,55 @@
 #include "../GPG/action.h"
 
 
-KeyDeletion::KeyDeletion(MainWindow*parent) :
-    QDialog(parent),
-    m_window(parent),
-    m_profile(parent->getProfil()),
-    m_manager(new GPGManager(m_profile))
+KeyDeletion::KeyDeletion(KeyManager* keyManager, Profile* profile, QString keyId) :
+    m_profile(profile),
+    m_keyManager(keyManager),
+    m_keyId(keyId),
+    QObject()
 {
 
 }
 
 KeyDeletion::~KeyDeletion()
 {
-    delete m_manager;
 }
 
-
-
-void KeyDeletion::deletePublicKey(QString keyId) {
+GPGManager* buildSecreteKeysDeleteGpg(Profile* profile, QString keyId) {
     QStringList interactions;
-    interactions << "o";
-    Action keyDeletion(QString("--delete-keys"), QStringList(keyId), QStringList(), interactions);
-    m_manager->setAction(keyDeletion);
-    connect(m_manager, &GPGManager::finished, this, &KeyDeletion::onDeletionCompleted);
-    m_manager->execute();
+    interactions << "y";
+    interactions << "y";
+    Action keyDeletion(QString("--delete-secret-keys"), QStringList(keyId), QStringList("--command-fd=0") << "--status-fd=1", interactions);
+    GPGManager* gpg = new GPGManager(profile);
+    gpg->setAction(keyDeletion);
+    return gpg;
 }
 
-void KeyDeletion::deleteSecretKey(QString keyId) {
+void KeyDeletion::deleteKeys() {
+    GPGManager* gpg = buildSecreteKeysDeleteGpg(m_profile, m_keyId);
+    connect(gpg, &GPGManager::finished, this, &KeyDeletion::onPrivateDeletionToPublicDeletion);
+    gpg->execute();
+}
+
+void KeyDeletion::onPrivateDeletionToPublicDeletion() {
+    deletePublicKey();
+}
+
+void KeyDeletion::deletePublicKey() {
     QStringList interactions;
-    interactions << "o";
-    interactions << "o";
-    Action keyDeletion(QString("--delete-secret-keys"), QStringList(keyId), QStringList(), interactions);
-    m_manager->setAction(keyDeletion);
-    connect(m_manager, &GPGManager::finished, this, &KeyDeletion::onDeletionCompleted);
-    m_manager->execute();
+    interactions << "y";
+    Action keyDeletion(QString("--delete-keys"), QStringList(m_keyId), QStringList("--command-fd=0") << "--status-fd=1", interactions);
+    GPGManager* gpg = new GPGManager(m_profile);
+    gpg->setAction(keyDeletion);
+    connect(gpg, &GPGManager::finished, this, &KeyDeletion::onDeletionCompleted);
+    gpg->execute();
+}
+
+void KeyDeletion::deleteSecretKey() {
+    GPGManager* gpg = buildSecreteKeysDeleteGpg(m_profile, m_keyId);
+    connect(gpg, &GPGManager::finished, this, &KeyDeletion::onDeletionCompleted);
+    gpg->execute();
 }
 
 void KeyDeletion::onDeletionCompleted() {
-    m_window->refreshKeys();
+    m_keyManager->load();
 }

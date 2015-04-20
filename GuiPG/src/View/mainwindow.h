@@ -30,6 +30,7 @@ class MainWindow : public QMainWindow {
         MainWindowModel* getModel() const;
         void refreshKeys();
 
+
     public slots:
         void buildTree();
         void setGpgCommandsVisible(bool b);
@@ -60,7 +61,9 @@ private:
         Ui::MainWindow* ui;
         MainWindowModel* m_model;
         int currentBigBrotherHeight;
+        int m_bigBrotherCmdMaxWidht = 0;
         int NB_CMD = 0;
+
 };
 
 #endif // MAINWINDOW_H

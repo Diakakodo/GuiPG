@@ -1,27 +1,30 @@
 #ifndef KEYDELETION_H
 #define KEYDELETION_H
 
-#include <QDialog>
+#include <QObject>
 #include "../Profile/profile.h"
 #include "../View/mainwindow.h"
 
-class KeyDeletion : public QDialog
+class KeyDeletion : public QObject
 {
     Q_OBJECT
 
 public:
 
-    explicit KeyDeletion(MainWindow* parent = 0);
+    explicit KeyDeletion(KeyManager* keyManager, Profile* profile, QString keyId);
     ~KeyDeletion();
-    void deletePublicKey(QString keyId);
-    void deleteSecretKey(QString keyId);
+    void deletePublicKey();
+    void deleteSecretKey();
+    void deleteKeys();
 
+private slots:
+    void onPrivateDeletionToPublicDeletion();
 
 private:
     void onDeletionCompleted();
-    GPGManager* m_manager;
-    MainWindow* m_window;
     Profile* m_profile;
+    KeyManager* m_keyManager;
+    QString m_keyId = "";
 };
 
 

@@ -183,7 +183,11 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
         QLineEdit* textCmd = new QLineEdit();
         textCmd->setReadOnly(true);
         textCmd->setText(cmd);
-        textCmd->setFixedWidth(textCmd->fontMetrics().boundingRect(cmd).width() + 20);
+        int cmdWidth = textCmd->fontMetrics().boundingRect(cmd).width() + 20;
+        if (cmdWidth > m_bigBrotherCmdMaxWidht) {
+            m_bigBrotherCmdMaxWidht = cmdWidth;
+        }
+        textCmd->setFixedWidth(m_bigBrotherCmdMaxWidht);
         ui->bigBrother->setItemWidget(cmdItem, 1, textCmd);
         movie->start();
     } else {

@@ -31,7 +31,7 @@ void MainWindowModel::initKeyManager(MainWindow* window) {
         delete m_keyManager;
     }
     m_keyManager = new KeyManager(m_profile, window);
-    connect(m_keyManager, &KeyManager::PubKeysLoaded, this, &MainWindowModel::emitKeysChanged);
+    connect(m_keyManager, &KeyManager::KeysLoaded, this, &MainWindowModel::emitKeysChanged);
     m_keyManager->load();
 }
 

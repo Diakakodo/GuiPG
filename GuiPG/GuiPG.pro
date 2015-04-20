@@ -41,7 +41,8 @@ HEADERS += \
     src/View/GpgItems/subpubkeyitem.h \
     src/View/GpgItems/subseckeyitem.h \
     src/View/GpgItems/uiditem.h \
-    src/View/gpgtreewidget.h
+    src/View/gpgtreewidget.h \
+    src/Keys/keydeletion.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -83,7 +84,8 @@ SOURCES += \
     src/View/GpgItems/subpubkeyitem.cpp \
     src/View/GpgItems/subseckeyitem.cpp \
     src/View/GpgItems/uiditem.cpp \
-    src/View/gpgtreewidget.cpp
+    src/View/gpgtreewidget.cpp \
+    src/Keys/keydeletion.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
@@ -95,6 +97,9 @@ FORMS += \
     src/View/keyimport.ui \
     src/View/keyedition.ui
 
+RESOURCES += \
+    icones.qrc
+
 test {
 
     QT += testlib
@@ -104,5 +109,4 @@ test {
     SOURCES += src/Tests/tst_maintest.cpp
 }
 
-RESOURCES += \
-    icones.qrc
+

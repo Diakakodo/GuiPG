@@ -1,35 +1,269 @@
 #!/usr/bin/perl -T
+#Script basé issu de repo https://github.com/micahflee/trollwot
+
 
 use strict;
 use warnings;
 use Crypt::OpenSSL::RSA;
 use Digest::SHA;
+use Crypt::OpenSSL::Bignum;
+use Crypt::OpenSSL::Bignum::CTX;
 
+# Génère la fingerprint en utilisant la clé (rsa) et une valeur de temps
+# Le figerprint est utilisé sur les clefs utilisant la version 4
 sub fingerprint {
   my $key = shift;
   my $key_timestamp = shift;
 
-  my $rsabody = make_rsa_body($key, $key_timestamp);
+  my $rsabody = make_rsa_pub_key_body($key, $key_timestamp);
 
   return Digest::SHA::sha1(pack('Cn', 0x99, length($rsabody)).$rsabody); #On utilise le SHA-1 pour retrouver la clef, c'est donc une clef de type V4
 }
 
+#Méthode permettant la création d'une clé publique de type RSA.
+sub make_rsa_pub_key_body {
+  my $key = shift;
+  my $key_timestamp = shift;
 
+  my ($n, $e) = $key->get_key_parameters();
+
+  return
+    pack('CN', 4, $key_timestamp).
+    pack('C', $asym_algos->{rsa}).
+    mpi_pack($n).
+    mpi_pack($e);
+}
+
+# Utilise la bibliothèque Bignum et returne un MPI "Multiprecision integer" comme expliqué dans la section 3.2 de la RFC 4880
+sub mpi_pack {
+  my $num = shift;
+
+  my $val = $num->to_bin();
+  my $mpilen = length($val)*8;
+
+  my $bitsinfirstbyte = length(sprintf("%b", ord($val)));
+
+  $mpilen -= (8 - $bitsinfirstbyte);
+
+  return pack('n', $mpilen).$val;
+}
+
+# Créé un paquet suivant la section 4.2 
+sub make_packet {
+  my $type = shift;
+  my $body = shift;
+  my $options = shift;
+
+  my $len = length($body);
+  my $pseudolen = $len;
+
+  if (defined $options && defined $options->{'packet_length'}) {
+      $pseudolen = 2**($options->{'packet_length'} * 8) - 1;
+  }
+  if ($pseudolen < $len) {
+      $pseudolen = $len;
+  }
+
+  my $lenbytes;
+  my $lencode;
+
+  if ($pseudolen < 2**8) {
+    $lenbytes = $old_format_packet_lengths->{one};
+    $lencode = 'C';
+  } elsif ($pseudolen < 2**16) {
+    $lenbytes = $old_format_packet_lengths->{two};
+    $lencode = 'n';
+  } elsif ($pseudolen < 2**31) {
+    $lenbytes = $old_format_packet_lengths->{four};
+    $lencode = 'N';
+  } else {
+    $lenbytes = $old_format_packet_lengths->{indeterminate};
+    $lencode = '';
+  }
+
+  return pack('C'.$lencode, 0x80 + ($type * 4) + $lenbytes, $len).
+    $body;
+}
+
+sub makeselfsig {
+  my $rsa = shift;
+  my $uid = shift;
+  my $args = shift;
+
+  if (! defined $args->{certification_type}) {
+    $args->{certification_type} = $sig_types->{positive_certification};
+  }
+
+  if (! defined $args->{sig_timestamp}) {
+    $args->{sig_timestamp} = time();
+  }
+  my $key_timestamp = $args->{key_timestamp} + 0;
+
+  my $flags = 0;
+  if (! defined $args->{usage_flags}) {
+    $flags = $usage_flags->{certify};
+  } else {
+    my @ff = split(",", $args->{usage_flags});
+    foreach my $f (@ff) {
+      if (! defined $usage_flags->{$f}) {
+    die "No such flag $f";
+      }
+      $flags |= $usage_flags->{$f};
+    }
+  }
+  my $usage_subpacket = pack('CCC', 2, $subpacket_types->{usage_flags}, $flags);
+
+  my $expiration_subpacket = '';
+  if (defined $args->{expiration}) {
+    my $expires_in = $args->{expiration} + 0;
+    $expiration_subpacket = pack('CCN', 5, $subpacket_types->{key_expiration_time}, $expires_in);
+  }
+
+
+  my $pref_sym_algos = pack('CCCCCCC', 6, $subpacket_types->{preferred_cipher},
+                $ciphers->{aes256},
+                $ciphers->{aes192},
+                $ciphers->{aes128},
+                $ciphers->{cast5},
+                $ciphers->{tripledes}
+               );
+
+  my $pref_hash_algos = pack('CCCCCCCC', 7, $subpacket_types->{preferred_digest},
+                 $digests->{sha512},
+                 $digests->{sha384},
+                 $digests->{sha256},
+                 $digests->{sha224},
+                 $digests->{ripemd160},
+                 $digests->{sha1}
+                );
+
+  my $pref_zip_algos = pack('CCCCC', 4, $subpacket_types->{preferred_compression},
+                $zips->{zlib},
+                $zips->{bzip2},
+                $zips->{zip}
+               );
+
+  my $feature_subpacket = pack('CCC', 2, $subpacket_types->{features},
+                   $features->{mdc});
+
+  my $keyserver_pref = pack('CCC', 2, $subpacket_types->{keyserver_prefs},
+                $keyserver_prefs->{nomodify});
+
+
+  $args->{hashed_subpackets} =
+      $usage_subpacket.
+    $expiration_subpacket.
+      $pref_sym_algos.
+        $pref_hash_algos.
+          $pref_zip_algos.
+        $feature_subpacket.
+          $keyserver_pref;
+
+  return gensig($rsa, $uid, $args);
+}
+
+
+
+
+
+sub gensig {
+  my $rsa = shift;
+  my $uid = shift;
+  my $args = shift;
+
+  $rsa->use_sha256_hash();
+
+  # Selon la page 22 de la RFC, la valeur du haché est encodé avec pkcs1
+  $rsa->use_pkcs1_padding();
+
+  if (! $rsa->check_key()) {
+    die "key does not check\n";
+  }
+
+  my $certtype = $args->{certification_type} + 0;
+
+  my $version = pack('C', 4);
+  my $sigtype = pack('C', $certtype);
+
+  my $pubkey_algo = pack('C', $asym_algos->{rsa});
+  my $hash_algo = pack('C', $digests->{sha256});
+
+  my $sig_timestamp = ($args->{sig_timestamp} + 0);
+  my $key_timestamp = ($args->{key_timestamp} + 0);
+
+  if ($key_timestamp > $sig_timestamp) {
+    die "key timestamp must not be later than signature timestamp\n";
+  }
+
+  my $creation_time_packet = pack('CCN', 5, $subpacket_types->{sig_creation_time}, $sig_timestamp);
+
+  my $hashed_subs = $creation_time_packet.$args->{hashed_subpackets};
+
+  my $subpacket_octets = pack('n', length($hashed_subs));
+
+  my $sig_data_to_be_hashed =
+    $version.
+      $sigtype.
+    $pubkey_algo.
+      $hash_algo.
+        $subpacket_octets.
+          $hashed_subs;
+
+  my $pubkey = make_rsa_pub_key_body($rsa, $key_timestamp);
+
+  my $key_data = make_packet($packet_types->{pubkey}, $pubkey, {'packet_length'=>2});
+
+  # on récupère la key d grâce au fingerprint
+  my $keyid = substr(fingerprint($rsa, $key_timestamp), 20 - 8, 8);
+
+  # la signature version 4 est composé de :
+
+  # le numéro de version, 0xff puis 4 octets des données de la signature
+  my $trailer = pack('CCN', 4, 0xff, length($sig_data_to_be_hashed));
+
+  my $uid_data =
+    pack('CN', 0xb4, length($uid)).
+      $uid;
+
+  my $datatosign =
+    $key_data.
+      $uid_data.
+    $sig_data_to_be_hashed.
+      $trailer;
+
+  my $data_hash = Digest::SHA::sha256_hex($datatosign);
+
+  my $issuer_packet = pack('CCa8', 9, $subpacket_types->{issuer}, $keyid);
+
+  my $sig = Crypt::OpenSSL::Bignum->new_from_bin($rsa->sign($datatosign));
+
+  my $sig_body =
+    $sig_data_to_be_hashed.
+      pack('n', length($issuer_packet)).
+    $issuer_packet.
+      pack('n', hex(substr($data_hash, 0, 4))).
+        mpi_pack($sig);
+
+  return make_packet($packet_types->{sig}, $sig_body);
+}
+
+my $openpgp_key;
 my $fingerprint;
+my $keyid;
+my $rsa;
+my $tries = 0; #Pour calculer le nombre d'essais nécéssaires pour trouver une pré-image
+my $tries_per_sec;
+my $ts;
+my $time_diff;
+my $ts_now = time();
+my $ts_three_years = $ts_now - 60*60*24*365*3; #temps qui vas nous permettre d'altérer le fingerprint de la clef
+
+
 my $uid = shift;
 defined($uid) or die "Vous devez mettre l'ID de l'utilisateur en paramètre.\n";
 
 my $target_keyid = shift;
 defined($target_keyid) or die "Vous devez entrer une clé ID de 8 caractères.\n";
-
-my $rsa;
-my $tries = 0; #Pour calculer le nombre d'essais nécéssaires pour trouver une pré-image
-my $tries_per_sec;
-
-my $ts_now = time();
-my $ts_three_years = $ts_now - 60*60*24*365*3; #temps qui vas nous permettre d'altérer le fingerprint de la clef
-
-
 
 
 while(1) {
@@ -43,11 +277,16 @@ while(1) {
         $keyid = substr($fingerprint, 32, 8); #On recupère les 8 octets qui constitue la key ID
 
         if ($target_keyid eq $keyid) {
-        	#Ecrire une fonction pour transformer la clé avec les bons octets en suivant la RFC section 4.2
+        	#Fonction pour transformer la clé avec les bons octets en suivant la RFC section 4.2
+            $openpgp_key =
+            make_packet($packet_types->{seckey}, make_rsa_sec_key_body($rsa, $ts)).
+            make_packet($packet_types->{uid}, $uid).
+            makeselfsig( $rsa, $uid, { sig_timestamp => $ts, key_timestamp => $ts });
 
             open(FILE, ">$keyid.gpg"); #Si la seconde pré-image est trouvée, on ecrit la clef dans un fichier. Cette clef doit pouvoir être importée.
             print FILE $openpgp_key;
             close(FILE);
+            $time_diff = time() - $ts_now;
 
             die "Fin de la recherche pour la seconde pré-image\n" ;
         }

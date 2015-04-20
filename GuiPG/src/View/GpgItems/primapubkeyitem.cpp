@@ -3,6 +3,7 @@
 #include "subpubkeyitem.h"
 #include "../gpgtreewidget.h"
 #include "../keyexport.h"
+#include "../../Keys/keydeletion.h"
 #include <QMenu>
 #include <QAction>
 #include <QDebug>
@@ -49,7 +50,16 @@ PrimaPubKeyItem::PrimaPubKeyItem(PrimaPubKey *pub) : PubKeyItem(pub)
     for (SubPubKey* sub : pub->getSubPubKeyList()) {
         addChild(new SubPubKeyItem(sub));
     }
-
+    for (int col = 0; col < NB_COLUMNS; ++col) {
+        QFont f = font(col);
+        if (pub->hasPrimaSecKey()) {
+            f.setBold(true);
+        }
+        if (pub->getValidity() == VALIDITY_EXPIRED) {
+            f.setStrikeOut(true);
+        }
+        setFont(col, f);
+    }
 }
 
 PrimaPubKeyItem::~PrimaPubKeyItem()
@@ -65,6 +75,7 @@ void PrimaPubKeyItem::showMenu(const QPoint &pos) {
     if (m_pub->hasPrimaSecKey()) {
         m_menu->addAction("Exporter la clé secrète", this, SLOT(exportSecretKey()));
     }
+    m_menu->addAction("Supprimer", this, SLOT(deleteKey()));
     getPossibleTrustValue();
 }
 
@@ -104,8 +115,7 @@ void PrimaPubKeyItem::trust(int value) {
     m_gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
     m_gpg->setAction(actionSign);
 
-    KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
-    connect(m_gpg, &GPGManager::finished, keyManager, &KeyManager::load);
+    connect(m_gpg, &GPGManager::finished, this, &GpgItem::changed);
     m_gpg->execute();
 }
 
@@ -121,6 +131,16 @@ void PrimaPubKeyItem::exportSecretKey() {
     KeyExport keyExport(keyManager->getMainWindow(), KeyExport::SECRET_KEYS, QStringList(m_pub->getKeyId()));
     keyExport.show();
     keyExport.exec();
+}
+
+void PrimaPubKeyItem::deleteKey() {
+    KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
+    KeyDeletion* deleteManager = new KeyDeletion(keyManager, ((GpgTreeWidget*) treeWidget())->getProfile(), m_pub->getKeyId());
+    if (m_pub->hasPrimaSecKey()) {
+        deleteManager->deleteKeys(); // On supprime les deux clés (privé/secrete).
+    } else {
+        deleteManager->deletePublicKey(); // On ne supprime que la clé publique.
+    }
 }
 
 void PrimaPubKeyItem::setPossibleTrustValue(int s, QString output) {

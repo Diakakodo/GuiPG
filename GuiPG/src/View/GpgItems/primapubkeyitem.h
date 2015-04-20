@@ -38,6 +38,7 @@ class PrimaPubKeyItem : public PubKeyItem
         void trust(int value);
         void exportPublicKey();
         void exportSecretKey();
+        void deleteKey();
 
     private:
         PrimaPubKey* m_pub;

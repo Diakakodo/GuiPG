@@ -21,6 +21,14 @@ KeyManager::~KeyManager() {
 
 
 void KeyManager::load() {
+    delete m_hashprimaPubKeys;
+    delete m_hashprimaSecKeys;
+    delete m_hashsubPubKeys;
+    delete m_hashsubSecKeys;
+    m_hashprimaPubKeys = new QHash<QString, PrimaPubKey*>();
+    m_hashprimaSecKeys = new QHash<QString, PrimaSecKey*>();
+    m_hashsubPubKeys = new QHash<QString, SubPubKey*>();
+    m_hashsubSecKeys = new QHash<QString, SubSecKey*>();
     QStringList optionsPubKeys;
     optionsPubKeys << "--fixed-list-mode"
                    << "--with-colons"
