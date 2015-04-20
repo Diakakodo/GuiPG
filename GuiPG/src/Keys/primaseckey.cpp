@@ -40,16 +40,16 @@ QDate PrimaSecKey::getExpirationDate() const {
     return m_expirationDate;
 }
 
-Uid *PrimaSecKey::getUid() const {
-    return m_uid;
+QList<Uid*> PrimaSecKey::getUidList() const {
+    return m_uids;
 }
 
 const QList<SubSecKey*> PrimaSecKey::getSubSecKeyList() const {
     return m_subSecKeyList;
 }
 
-void PrimaSecKey::setUid(Uid* uid) {
-    m_uid = uid;
+void PrimaSecKey::addUid(Uid* uid) {
+    m_uids.append(uid);
 }
 
 void PrimaSecKey::addSubSecKey(SubSecKey* subSecKey) {

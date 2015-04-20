@@ -21,10 +21,10 @@ class PrimaSecKey : public SubSecKey {
         ~PrimaSecKey();
 
         QDate getExpirationDate() const;
-        Uid* getUid() const;
+        QList<Uid*> getUidList() const;
         const QList<SubSecKey*> getSubSecKeyList() const;
 
-        void setUid(Uid *uid);
+        void addUid(Uid *uid);
         void addSubSecKey(SubSecKey* subSecKey);
         void setPrimaryPubKey(PrimaPubKey* pub);
         PrimaPubKey* getPrimarySecKey();
@@ -33,7 +33,7 @@ class PrimaSecKey : public SubSecKey {
     private:
 
         QDate m_expirationDate;
-        Uid* m_uid = nullptr;
+        QList<Uid*> m_uids;
         QList<SubSecKey*> m_subSecKeyList;
         PrimaPubKey* m_pub = nullptr;
 

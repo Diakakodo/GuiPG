@@ -9,8 +9,7 @@ PrimaSecKeyItem::PrimaSecKeyItem(PrimaSecKey *sec) : SubSecKeyItem(sec)
     m_sec = sec;
 
     setText(COL_EXPIRATION, sec->getExpirationDate().toString("dd/MM/yyyy"));
-    Uid* uid = sec->getUid();
-    if (uid != nullptr) {
+    for (Uid* uid : sec->getUidList()) {
         addChild(new UidItem(uid));
     }
     for (SubSecKey* ssc : sec->getSubSecKeyList()) {
