@@ -49,7 +49,16 @@ PrimaPubKeyItem::PrimaPubKeyItem(PrimaPubKey *pub) : PubKeyItem(pub)
     for (SubPubKey* sub : pub->getSubPubKeyList()) {
         addChild(new SubPubKeyItem(sub));
     }
-
+    for (int col = 0; col < NB_COLUMNS; ++col) {
+        QFont f = font(col);
+        if (pub->hasPrimaSecKey()) {
+            f.setBold(true);
+        }
+        if (pub->getValidity() == VALIDITY_EXPIRED) {
+            f.setStrikeOut(true);
+        }
+        setFont(col, f);
+    }
 }
 
 PrimaPubKeyItem::~PrimaPubKeyItem()
