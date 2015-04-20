@@ -60,6 +60,7 @@ private:
         Ui::MainWindow* ui;
         MainWindowModel* m_model;
         int currentBigBrotherHeight;
+        int m_bigBrotherCmdMaxWidht = 0;
         int NB_CMD = 0;
 };
 
