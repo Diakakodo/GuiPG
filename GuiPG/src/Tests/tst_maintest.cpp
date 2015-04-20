@@ -38,7 +38,7 @@ private Q_SLOTS:
     void testCase_nr1();
     void testCase_nr2();
     void testLoadConfig();
-
+    void cleanupTestCase();
 };
 
 MainTest::MainTest()
@@ -50,6 +50,12 @@ MainTest::MainTest()
     char* argv[] = {"~/projet_pgp/GuiPG/build/GuiPG"};
     GuiPGApp* app = new GuiPGApp(argc, argv);
     m_app = app;
+    Profile* p = new Profile(78766, "test");
+    p->setConfigurationPath("/tmp");
+    p->getConfigurationPath();
+    p->setGPGExecutable("gpg");
+    m_config->addProfile(p);
+    m_config->setDefaultProfileId(78766);
 }
 
 void MainTest::testCase_u3()
@@ -90,6 +96,7 @@ void MainTest::testCase_u6()
     launcher.UnloadProfileWithWindow(m_config->getDefaultProfile());
     launcher.stop();
     while(launcher.isRunning());
+    while(!mainWindow.isLoadingDone());
     //QVERIFY(launcher.alreadyRun() == true);
 }
 
@@ -114,7 +121,7 @@ void MainTest::testCase_u8()
     Action a("--version", QStringList(), QStringList());
     manager.setAction(a);
     manager.execute();
-    QVERIFY(manager.getOutput() != "");
+
 }
 
 void MainTest::testCase_u10()
@@ -180,6 +187,11 @@ void MainTest::testLoadConfig()
 {
     Configuration config("../config.xml");
     QVERIFY(config.load() == true);
+}
+
+void MainTest::cleanupTestCase() {
+    m_config->setDefaultProfileId(1);
+    m_config->deleteProfile(78766);
 }
 
 QTEST_MAIN(MainTest)
