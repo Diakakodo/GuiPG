@@ -137,7 +137,7 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
                                );
             //lastUid = uid;
             last = uid;
-            lastPrimaSecKey->setUid(uid);
+            lastPrimaSecKey->addUid(uid);
         }
     }
     emit SecKeysLoaded();
