@@ -104,8 +104,7 @@ void PrimaPubKeyItem::trust(int value) {
     m_gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
     m_gpg->setAction(actionSign);
 
-    KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
-    connect(m_gpg, &GPGManager::finished, keyManager, &KeyManager::load);
+    connect(m_gpg, &GPGManager::finished, this, &GpgItem::changed);
     m_gpg->execute();
 }
 
