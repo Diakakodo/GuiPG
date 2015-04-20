@@ -72,6 +72,6 @@ void KeyImport::keyImportFinished(int a, QString s)
     if (a || s == "") {
         // not used.
     }
-    m_window->refreshKeys();
+    m_window->getModel()->getKeyManager()->load();
     close();
 }
