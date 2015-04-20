@@ -15,6 +15,8 @@ UidItem::UidItem(Uid* uid) : GpgItem (uid)
     for (Signature* sig : uid->getSigList()) {
         addChild(new SignatureItem(sig));
     }
+
+    setIcon(COL_NAME, QIcon(":/icones/res/" ICON_UID_PATH));
 }
 
 UidItem::~UidItem()

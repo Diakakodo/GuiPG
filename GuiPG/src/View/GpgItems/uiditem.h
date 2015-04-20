@@ -4,6 +4,8 @@
 #include "gpgitem.h"
 #include "../../Keys/uid.h"
 
+#define ICON_UID_PATH "/Icones/uid.png"
+
 class UidItem : public GpgItem
 {
     public:
