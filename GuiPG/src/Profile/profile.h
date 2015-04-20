@@ -61,6 +61,7 @@ class Profile : public QObject {
         void setSignatureColor(const QColor& c);
         int getNbCmd();
         void setNbCmd(int nb);
+        void setName(QString name);
 
 
     private:

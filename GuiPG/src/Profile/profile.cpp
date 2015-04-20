@@ -81,3 +81,7 @@ const QColor& Profile::getSignatureColor() const {
 void Profile::setSignatureColor(const QColor &c) {
     m_signColor = c;
 }
+
+void Profile::setName(QString name) {
+    m_name = name;
+}
