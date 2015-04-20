@@ -3,6 +3,7 @@
 #include "subpubkeyitem.h"
 #include "../gpgtreewidget.h"
 #include "../keyexport.h"
+#include "../../Keys/keydeletion.h"
 #include <QMenu>
 #include <QAction>
 #include <QDebug>
@@ -74,6 +75,7 @@ void PrimaPubKeyItem::showMenu(const QPoint &pos) {
     if (m_pub->hasPrimaSecKey()) {
         m_menu->addAction("Exporter la clé secrète", this, SLOT(exportSecretKey()));
     }
+    m_menu->addAction("Supprimer", this, SLOT(deleteKey()));
     getPossibleTrustValue();
 }
 
@@ -129,6 +131,15 @@ void PrimaPubKeyItem::exportSecretKey() {
     KeyExport keyExport(keyManager->getMainWindow(), KeyExport::SECRET_KEYS, QStringList(m_pub->getKeyId()));
     keyExport.show();
     keyExport.exec();
+}
+
+void PrimaPubKeyItem::deleteKey() {
+    KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
+    KeyDeletion deleteManager(keyManager->getMainWindow());
+    deleteManager.deletePublicKey(m_pub->getKeyId());
+    if (m_pub->hasPrimaSecKey()) {
+        deleteManager.deleteSecretKey(m_pub->getKeyId());
+    }
 }
 
 void PrimaPubKeyItem::setPossibleTrustValue(int s, QString output) {
