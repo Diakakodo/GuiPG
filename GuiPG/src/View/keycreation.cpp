@@ -63,6 +63,14 @@ void KeyCreation::on_pushButton_2_clicked()
         errorLabel->setText(errorLabel->text() + "Durée de la clé incorrecte.\n");
     }
 
+    if(ui->lineEdit_4->text() == "" || ui->lineEdit_5->text() == "") {
+        errorLabel->setText(errorLabel->text() + "Passphrase incomplète.\n");
+    }
+
+    if (ui->lineEdit_4->text() != ui->lineEdit_5->text()) {
+        errorLabel->setText(errorLabel->text() + "Votre confirmation de passphrase est incorrecte.\n");
+    }
+
     if (errorLabel->text() == "") {
         ui->pushButton_2->setEnabled(false);
         QStringList interactions;
