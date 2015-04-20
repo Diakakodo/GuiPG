@@ -204,7 +204,7 @@
      <x>0</x>
      <y>0</y>
      <width>1099</width>
-     <height>19</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -267,6 +267,8 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="action_Generer_Toolbar"/>
+   <addaction name="action_Supprimer_Toolbar"/>
   </widget>
   <action name="actionConfiguration">
    <property name="text">
@@ -343,6 +345,38 @@
     <string>Clés privées</string>
    </property>
   </action>
+  <action name="action_Generer_Toolbar">
+   <property name="icon">
+    <iconset resource="../../icones.qrc">
+     <normaloff>:/icones/res/Icones/add_key.png</normaloff>:/icones/res/Icones/add_key.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Générer une paire de clefs</string>
+   </property>
+   <property name="toolTip">
+    <string>Générer une paire de clefs</string>
+   </property>
+  </action>
+  <action name="action_Rafraichir">
+   <property name="text">
+    <string>&amp;Rafraichît la liste de clefs</string>
+   </property>
+   <property name="toolTip">
+    <string>Rafraichît la liste de clefs</string>
+   </property>
+  </action>
+  <action name="action_Supprimer_Toolbar">
+   <property name="icon">
+    <iconset resource="../../icones.qrc">
+     <normaloff>:/icones/res/Icones/remove_key.png</normaloff>:/icones/res/Icones/remove_key.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Supprimer une clef</string>
+   </property>
+   <property name="toolTip">
+    <string>Supprimer une clef</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -351,6 +385,8 @@
    <header>src/View/gpgtreewidget.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../../icones.qrc"/>
+ </resources>
  <connections/>
 </ui>

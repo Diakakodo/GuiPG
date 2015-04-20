@@ -52,6 +52,10 @@ private slots:
 
         void on_actionCl_s_priv_es_triggered();
 
+        void on_action_Generer_Toolbar_triggered();
+
+        void on_action_Supprimer_Toolbar_triggered();
+
 protected:
      void closeEvent(QCloseEvent *event);
 
