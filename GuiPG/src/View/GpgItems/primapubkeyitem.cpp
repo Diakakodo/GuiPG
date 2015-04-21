@@ -60,6 +60,12 @@ PrimaPubKeyItem::PrimaPubKeyItem(PrimaPubKey *pub) : PubKeyItem(pub)
         }
         setFont(col, f);
     }
+
+    if (pub->hasPrimaSecKey()) {
+        setIcon(COL_NAME, QIcon(":/icones/res/" ICON_DOUBLE_KEY_PATH));
+    } else {
+        setIcon(COL_NAME, QIcon(":/icones/res/" ICON_SINGLE_KEY_PATH));
+    }
 }
 
 PrimaPubKeyItem::~PrimaPubKeyItem()
@@ -190,4 +196,8 @@ void PrimaPubKeyItem::getPossibleTrustValue() {
     m_gpg->setAction(actionSign);
     connect(m_gpg, &GPGManager::finished, this, &PrimaPubKeyItem::setPossibleTrustValue);
     m_gpg->execute();
+}
+
+PrimaPubKey* PrimaPubKeyItem::getPrimaPubKey() const {
+    return m_pub;
 }

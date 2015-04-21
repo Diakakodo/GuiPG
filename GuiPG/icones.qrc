@@ -5,45 +5,18 @@
         <file>res/Icones/Tree/branch-more.png</file>
         <file>res/Icones/Tree/branch-open.png</file>
         <file>res/Icones/Tree/vline.png</file>
-        <file>res/Icones/Add_key_Icon_16.png</file>
-        <file>res/Icones/Add_key_Icon_32.png</file>
-        <file>res/Icones/Add_key_Icon_48.png</file>
-        <file>res/Icones/Add_key_Icon_64.png</file>
-        <file>res/Icones/Add_key_Icon_72.png</file>
-        <file>res/Icones/Add_key_Icon_96.png</file>
-        <file>res/Icones/Add_key_Icon_128.png</file>
-        <file>res/Icones/Add_key_Icon_256.png</file>
         <file>res/Icones/chargement.gif</file>
-        <file>res/Icones/clef_principale.png</file>
-        <file>res/Icones/clef_principale.xcf</file>
-        <file>res/Icones/httpzcoolcomcnpicpngnew_png_101png101_002png.png</file>
-        <file>res/Icones/httpzcoolcomcnpicpngnew_png_101png101_004png.png</file>
-        <file>res/Icones/Key_Icon_16.png</file>
-        <file>res/Icones/Key_Icon_32.png</file>
-        <file>res/Icones/Key_Icon_48.png</file>
-        <file>res/Icones/Key_Icon_64.png</file>
-        <file>res/Icones/Key_Icon_72.png</file>
-        <file>res/Icones/Key_Icon_96.png</file>
-        <file>res/Icones/Key_Icon_128.png</file>
-        <file>res/Icones/Key_Icon_256.png</file>
-        <file>res/Icones/Modify_key_Icon_16.png</file>
-        <file>res/Icones/Modify_key_Icon_32.png</file>
-        <file>res/Icones/Modify_key_Icon_48.png</file>
-        <file>res/Icones/Modify_key_Icon_64.png</file>
-        <file>res/Icones/Modify_key_Icon_72.png</file>
-        <file>res/Icones/Modify_key_Icon_96.png</file>
-        <file>res/Icones/Modify_key_Icon_128.png</file>
-        <file>res/Icones/Modify_key_Icon_256.png</file>
-        <file>res/Icones/quill-pen-and-inkwell-icon-psd.psd</file>
-        <file>res/Icones/quill-pen-and-inkwell-icon-psd.xcf</file>
-        <file>res/Icones/Remove_key_Icon_16.png</file>
-        <file>res/Icones/Remove_key_Icon_32.png</file>
-        <file>res/Icones/Remove_key_Icon_48.png</file>
-        <file>res/Icones/Remove_key_Icon_64.png</file>
-        <file>res/Icones/Remove_key_Icon_72.png</file>
-        <file>res/Icones/Remove_key_Icon_96.png</file>
-        <file>res/Icones/Remove_key_Icon_128.png</file>
-        <file>res/Icones/Remove_key_Icon_256.png</file>
         <file>res/Icones/signature.png</file>
+        <file>res/Icones/add_key.png</file>
+        <file>res/Icones/double_keys.png</file>
+        <file>res/Icones/edit_key.png</file>
+        <file>res/Icones/remove_key.png</file>
+        <file>res/Icones/single_key.png</file>
+        <file>res/Icones/uid.png</file>
+        <file>res/Icones/double_subkeys.png</file>
+        <file>res/Icones/import_key.png</file>
+        <file>res/Icones/own_uid.png</file>
+        <file>res/Icones/refresh.png</file>
+        <file>res/Icones/single_subkey.png</file>
     </qresource>
 </RCC>

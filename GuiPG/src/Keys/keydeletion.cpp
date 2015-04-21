@@ -3,10 +3,10 @@
 
 
 KeyDeletion::KeyDeletion(KeyManager* keyManager, Profile* profile, QString keyId) :
+    QObject(),
     m_profile(profile),
     m_keyManager(keyManager),
-    m_keyId(keyId),
-    QObject()
+    m_keyId(keyId)
 {
 
 }

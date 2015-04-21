@@ -1,7 +1,8 @@
 #include "uiditem.h"
 #include "signatureitem.h"
 #include <QMenu>
-
+#include "../gpgtreewidget.h"
+#include <QDebug>
 UidItem::UidItem(Uid* uid) : GpgItem (uid)
 {
     m_uid = uid;
@@ -15,6 +16,8 @@ UidItem::UidItem(Uid* uid) : GpgItem (uid)
     for (Signature* sig : uid->getSigList()) {
         addChild(new SignatureItem(sig));
     }
+
+    setIcon(COL_NAME, QIcon(":/icones/res/" ICON_UID_PATH));
 }
 
 UidItem::~UidItem()
@@ -26,4 +29,5 @@ void UidItem::showMenu(const QPoint &pos) {
     QMenu* menu = new QMenu(treeWidget());
     menu->addAction("Test uid");
     menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
+    GpgTreeWidget* gpgtree = (GpgTreeWidget*) treeWidget();
 }

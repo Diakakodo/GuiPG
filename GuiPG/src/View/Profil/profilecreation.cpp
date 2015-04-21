@@ -47,6 +47,11 @@ void ProfileCreation::on_acceptButton_clicked()
     if (m_profileId != 0) {
         m_parent->getConfig()->getProfileById(m_profileId)->setGPGExecutable(ui->gpgPathEdit->text());
         m_parent->getConfig()->getProfileById(m_profileId)->setConfigurationPath(ui->storagePathEdit->text());
+        m_parent->getConfig()->getProfileById(m_profileId)->setName(ui->nameEdit->text());
+        MainWindow* window = Launcher::m_profileMainWindowHash.value(m_parent->getConfig()->getProfileById(m_profileId));
+        if (window) {
+            window->setWindowTitle("GuiPG - " + ui->nameEdit->text());
+        }
     } else {
         QList<Profile*> profileList = m_parent->getConfig()->getProfiles();
         unsigned max = 0;

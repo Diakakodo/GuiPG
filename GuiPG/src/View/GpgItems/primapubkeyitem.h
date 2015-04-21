@@ -4,6 +4,9 @@
 #include "pubkeyitem.h"
 #include "../../Keys/primapubkey.h"
 
+#define ICON_SINGLE_KEY_PATH "/Icones/single_key.png"
+#define ICON_DOUBLE_KEY_PATH "/Icones/double_keys.png"
+
 // X(nom de l'enum, confiance)
 #define X_TRUSTS                        \
 X(EDIT_TRUST_UNDEFINED,     "Sans avis")\
@@ -31,6 +34,7 @@ class PrimaPubKeyItem : public PubKeyItem
         #undef X
 
         static QHash<int, QAction*> trustActions;
+        PrimaPubKey* getPrimaPubKey() const;
 
     public slots:
         void sign();

@@ -122,6 +122,11 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
             //lastssb = ssb;
             last = ssb;
             lastPrimaSecKey->addSubSecKey(ssb);
+            if (m_hashsubPubKeys->contains(ssb->getKeyId())) {
+                SubPubKey* sub = m_hashsubPubKeys->value(ssb->getKeyId());
+                sub->setSubSecKey(ssb);
+                //ssb->setSubPubKey(sub); Non implémenté !!!
+            }
             m_hashsubSecKeys->insert(ssb->getKeyId(), ssb);
         } else if (line.startsWith("fpr:")) {
             last->setFpr(split.at(9));
@@ -137,7 +142,7 @@ void KeyManager::gpgFinishedSecretKeys(int s, const QString &output) {
                                );
             //lastUid = uid;
             last = uid;
-            lastPrimaSecKey->setUid(uid);
+            lastPrimaSecKey->addUid(uid);
         }
     }
     emit SecKeysLoaded();

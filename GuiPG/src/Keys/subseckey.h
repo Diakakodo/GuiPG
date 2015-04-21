@@ -5,6 +5,7 @@
 #include <QList>
 #include <QDate>
 #include "gpgobject.h"
+class SubPubKey;
 
 class SubSecKey : public GpgObject {
     Q_OBJECT
@@ -25,11 +26,16 @@ class SubSecKey : public GpgObject {
         QString getAlgo() const;
         QString getKeyId() const;
 
+
+
     protected:
         const QString m_keyScope;
         const unsigned m_length;
         const QString m_algo;
         const QString m_keyId;
+
+    private:
+        SubPubKey* m_sub;
 };
 
 #endif // SUBSECKEY_H

@@ -217,8 +217,6 @@
     <property name="title">
      <string>Afficha&amp;ge</string>
     </property>
-    <addaction name="actionEditeur_de_texte"/>
-    <addaction name="actionToile_de_confiance_graphique"/>
     <addaction name="actionVue_des_commandes_GPG"/>
    </widget>
    <widget class="QMenu" name="menuClefs">
@@ -227,7 +225,7 @@
     </property>
     <widget class="QMenu" name="menuExporter">
      <property name="title">
-      <string>Exporter</string>
+      <string>&amp;Exporter</string>
      </property>
      <addaction name="actionCl_s_publiques"/>
      <addaction name="actionCl_s_priv_es"/>
@@ -240,7 +238,6 @@
     <property name="title">
      <string>Pa&amp;ramètres</string>
     </property>
-    <addaction name="actionConfiguration"/>
     <addaction name="actionProfil"/>
    </widget>
    <widget class="QMenu" name="menuAide">
@@ -267,6 +264,9 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="action_Refresh_Toolbar"/>
+   <addaction name="action_GenKey_Toolbar"/>
+   <addaction name="action_Import_Toolbar"/>
   </widget>
   <action name="actionConfiguration">
    <property name="text">
@@ -325,22 +325,72 @@
   </action>
   <action name="actionProfil">
    <property name="text">
-    <string>Profil</string>
+    <string>&amp;Profil</string>
    </property>
   </action>
   <action name="actionImporter">
    <property name="text">
-    <string>Importer</string>
+    <string>&amp;Importer</string>
    </property>
   </action>
   <action name="actionCl_s_publiques">
    <property name="text">
-    <string>Clés publiques</string>
+    <string>&amp;Clés publiques</string>
    </property>
   </action>
   <action name="actionCl_s_priv_es">
    <property name="text">
-    <string>Clés privées</string>
+    <string>Clés &amp;privées</string>
+   </property>
+  </action>
+  <action name="action_GenKey_Toolbar">
+   <property name="icon">
+    <iconset resource="../../icones.qrc">
+     <normaloff>:/icones/res/Icones/add_key.png</normaloff>:/icones/res/Icones/add_key.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Générer une paire de clefs</string>
+   </property>
+   <property name="toolTip">
+    <string>Générer une paire de clefs</string>
+   </property>
+  </action>
+  <action name="action_Rafraichir">
+   <property name="text">
+    <string>&amp;Rafraichît la liste de clefs</string>
+   </property>
+   <property name="toolTip">
+    <string>Rafraichît la liste de clefs</string>
+   </property>
+  </action>
+  <action name="action_Supprimer_Toolbar">
+   <property name="icon">
+    <iconset resource="../../icones.qrc">
+     <normaloff>:/icones/res/Icones/remove_key.png</normaloff>:/icones/res/Icones/remove_key.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Supprimer une clef</string>
+   </property>
+   <property name="toolTip">
+    <string>Supprimer une clef</string>
+   </property>
+  </action>
+  <action name="action_Import_Toolbar">
+   <property name="icon">
+    <iconset resource="../../icones.qrc">
+     <normaloff>:/icones/res/Icones/import_key.png</normaloff>:/icones/res/Icones/import_key.png</iconset>
+   </property>
+   <property name="text">
+    <string>Importer</string>
+   </property>
+  </action>
+  <action name="action_Refresh_Toolbar">
+   <property name="icon">
+    <iconset resource="../../icones.qrc">
+     <normaloff>:/icones/res/Icones/refresh.png</normaloff>:/icones/res/Icones/refresh.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rafraichir la liste des clefs</string>
    </property>
   </action>
  </widget>
@@ -351,6 +401,8 @@
    <header>src/View/gpgtreewidget.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../../icones.qrc"/>
+ </resources>
  <connections/>
 </ui>
