@@ -26,6 +26,10 @@ public:
 private:
     Configuration* m_config;
     GuiPGApp* m_app;
+    MainWindow* m_mainWindow;
+    MainWindowModel* m_model;
+    Launcher* m_launcher;
+
 
 private Q_SLOTS:
     void testCase_u3();
@@ -34,9 +38,9 @@ private Q_SLOTS:
     void testCase_u7();
     void testCase_u8();
     void testCase_u10();
+    void testCase_nr2();
     void testCase_u11();
     void testCase_nr1();
-    void testCase_nr2();
     void testLoadConfig();
     void cleanupTestCase();
 };
@@ -56,6 +60,12 @@ MainTest::MainTest()
     p->setGPGExecutable("gpg");
     m_config->addProfile(p);
     m_config->setDefaultProfileId(78766);
+    Launcher* launcher= new Launcher(m_app, m_config);
+    m_launcher = launcher;
+    MainWindowModel* model= new MainWindowModel(m_launcher, m_app, m_config, m_config->getDefaultProfile());
+    m_model = model;
+    MainWindow* mainWindow= new MainWindow(m_model);
+    m_mainWindow = mainWindow;
 }
 
 void MainTest::testCase_u3()
@@ -84,19 +94,15 @@ void MainTest::testCase_u5()
 void MainTest::testCase_u6()
 {
     Launcher launcher(m_app, m_config);
-    //QVERIFY(launcher.alreadyRun() == false);
-    MainWindowModel model(&launcher, m_app, m_config, m_config->getDefaultProfile());
-    MainWindow mainWindow(&model);
     //QVERIFY_EXCEPTION_THROWN(launcher.addMainWindow(NULL, &mainWindow), IllegalArgumentException);
     //QVERIFY_EXCEPTION_THROWN(launcher.addMainWindow(m_config->getDefaultProfile(), NULL), IllegalArgumentException);
-    launcher.addMainWindow(m_config->getDefaultProfile(), &mainWindow);
+    launcher.addMainWindow(m_config->getDefaultProfile(), m_mainWindow);
     launcher.start();
     //QVERIFY(launcher.alreadyRun() == true);
     QVERIFY(launcher.profileIsLoad(m_config->getDefaultProfile()) != NULL);
     launcher.UnloadProfileWithWindow(m_config->getDefaultProfile());
     launcher.stop();
     while(launcher.isRunning());
-    while(!mainWindow.isLoadingDone());
     //QVERIFY(launcher.alreadyRun() == true);
 }
 
@@ -126,30 +132,25 @@ void MainTest::testCase_u8()
 
 void MainTest::testCase_u10()
 {
-    Launcher launcher(m_app, m_config, m_config->getDefaultProfileId());
-    MainWindowModel model(&launcher, m_app, m_config, m_config->getDefaultProfile());
-    QVERIFY(model.getLauncher() == &launcher);
-    QVERIFY(model.getGuiPGApp() == m_app);
-    QVERIFY(model.getConf() == m_config);
-    QVERIFY(model.getProfile() == m_config->getDefaultProfile());
-    MainWindow mainWindow(&model);
-    model.loadProfile(m_config->getDefaultProfileId(), &mainWindow);
-    model.initKeyManager();
-    QVERIFY(model.getKeyManager() != NULL);
+
+    QVERIFY(m_model->getLauncher() == m_launcher);
+    QVERIFY(m_model->getGuiPGApp() == m_app);
+    QVERIFY(m_model->getConf() == m_config);
+    QVERIFY(m_model->getProfile() == m_config->getDefaultProfile());
+    //m_model->loadProfile(m_config->getDefaultProfileId(), m_mainWindow);
+    //m_model->initKeyManager();
+    QVERIFY(m_model->getKeyManager() != NULL);
 }
 
 void MainTest::testCase_u11()
 {
     remove("/tmp/TEST");
-    Launcher launcher(m_app, m_config, m_config->getDefaultProfileId());
-    MainWindowModel model(&launcher, m_app, m_config, m_config->getDefaultProfile());
-    MainWindow mainWindow(&model);
-    KeyExport* keyExport = new KeyExport(&mainWindow);
-    keyExport->exportFunction(KeyExport::EXPORT_FILE, "", "/tmp/TEST");
+    KeyExport keyExport(m_mainWindow);
+    keyExport.exportFunction(KeyExport::EXPORT_FILE, "", "/tmp/TEST");
     QVERIFY(remove("/tmp/TEST") != -1);
-    QVERIFY(keyExport->exportFunction(KeyExport::EXPORT_FILE, "", "/tmp/gaijgz/kjqnonzb/zzozop") == -1);
+    QVERIFY(keyExport.exportFunction(KeyExport::EXPORT_FILE, "", "/tmp/gaijgz/kjqnonzb/zzozop") == -1);
     QVERIFY(remove("/tmp/gaijgz/kjqnonzb/zzozop") == -1);
-    QVERIFY(keyExport->exportFunction(KeyExport::EXPORT_FILE, "", "/etc/test") == -1);
+    QVERIFY(keyExport.exportFunction(KeyExport::EXPORT_FILE, "", "/etc/test") == -1);
     QVERIFY(remove("/etc/test") == -1);
 }
 
@@ -158,10 +159,8 @@ void MainTest::testCase_nr1()
     remove("/tmp/TEST");
 
 
-    Launcher launcher(m_app, m_config, m_config->getDefaultProfileId());
-    MainWindowModel model(&launcher, m_app, m_config, m_config->getDefaultProfile());
-    MainWindow mainWindow(&model);
-    KeyExport* keyExport = new KeyExport(&mainWindow);
+
+    KeyExport* keyExport = new KeyExport(m_mainWindow);
     keyExport->exportFunction(KeyExport::EXPORT_FILE, "", "/tmp/TEST");
     QVERIFY(remove("/tmp/TEST") != -1);
 }
@@ -169,16 +168,14 @@ void MainTest::testCase_nr1()
 void MainTest::testCase_nr2()
 {
 
-    Launcher launcher(m_app, m_config, m_config->getDefaultProfileId());
-    MainWindowModel model(&launcher, m_app, m_config, m_config->getDefaultProfile());
-    MainWindow mainWindow(&model);
+
     Profile* p = new Profile(1234, "test");
     p->setConfigurationPath("/tmp");
     p->setGPGExecutable("/usr/bin/gpg");
     m_config->addProfile(p);
     for (int i=0; i < 20; i++) {
-        mainWindow.changeProfil(1);
-        mainWindow.changeProfil(1234);
+        m_mainWindow->changeProfil(1);
+        m_mainWindow->changeProfil(1234);
     }
     m_config->deleteProfile(p->getId());
 }
