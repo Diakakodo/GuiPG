@@ -29,7 +29,6 @@ MainWindow::MainWindow(MainWindowModel* model)
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
     connect(ui->actionProfil, &QAction::triggered, this, &MainWindow::showDialogProfile);
     connect(ui->actionConfiguration, SIGNAL(triggered()), this, SLOT(showDialogConfiguration()));
-    connect(ui->actionManuel_utilisateur_de_GuiPG, &QAction::triggered, this, &MainWindow::showManuel);
     connect(ui->actionQuitter, SIGNAL(triggered()), this, SLOT(close()));
 
     QStringList m_TreeHeader;
@@ -121,26 +120,20 @@ void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()
     keyCreationGui.exec();
 }
 
-void MainWindow::on_action_Generer_Toolbar_triggered() {
+void MainWindow::on_action_GenKey_Toolbar_triggered() {
     KeyCreation keyCreationGui(this);
     keyCreationGui.show();
     keyCreationGui.exec();
 }
 
-void MainWindow::on_action_Supprimer_Toolbar_triggered() {
-    /*KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
-    KeyDeletion* deleteManager = new KeyDeletion(keyManager, ((GpgTreeWidget*) treeWidget())->getProfile(), m_pub->getKeyId());
-    if (m_pub->hasPrimaSecKey()) {
-        deleteManager->deleteKeys(); // On supprime les deux clés (privé/secrete).
-    } else {
-        deleteManager->deletePublicKey(); // On ne supprime que la clé publique.
-    }*/
-    // Récupérer l'id de la clef ou signature séléctionnée pour pouvoir la supprimer
+void MainWindow::on_action_Refresh_Toolbar_triggered() {
+    getModel()->getKeyManager()->load();
 }
 
-void MainWindow::showManuel()
-{
-    system("evince manuel.pdf&");
+void MainWindow::on_action_Import_Toolbar_triggered() {
+    KeyImport keyImportGui(this);
+    keyImportGui.show();
+    keyImportGui.exec();
 }
 
 void MainWindow::showDialogConfiguration(){

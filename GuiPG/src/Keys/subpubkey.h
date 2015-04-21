@@ -17,8 +17,12 @@ class SubPubKey : public PubKey {
                   const QString capabilities,
                   QString fpr = "");
         ~SubPubKey();
-    private:
+        void setSubSecKey(SubSecKey* ssb);
+        SubSecKey* getSubSecKey() const;
+        bool hasSubSecKey();
 
+    private:
+        SubSecKey* m_ssb = nullptr;
 };
 
 #endif // SUBPUBKEY_H

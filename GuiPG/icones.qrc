@@ -13,5 +13,10 @@
         <file>res/Icones/remove_key.png</file>
         <file>res/Icones/single_key.png</file>
         <file>res/Icones/uid.png</file>
+        <file>res/Icones/double_subkeys.png</file>
+        <file>res/Icones/import_key.png</file>
+        <file>res/Icones/own_uid.png</file>
+        <file>res/Icones/refresh.png</file>
+        <file>res/Icones/single_subkey.png</file>
     </qresource>
 </RCC>
