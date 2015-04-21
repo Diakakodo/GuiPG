@@ -91,7 +91,6 @@ FORMS += \
     src/View/mainwindow.ui \
     src/View/keycreation.ui \
     src/View/Profil/profilecreation.ui \
-    src/View/config.ui \
     src/View/Profil/dialogprofile.ui \
     src/View/keyexport.ui \
     src/View/keyimport.ui \
