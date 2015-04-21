@@ -494,9 +494,9 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° I1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Lancer l'interface graphique en ligne de commande avec l'option -P & On peut choisir son profil, et en créer un si besoin &  & NOK \\
-      2 & Choisir un profil & L'interface graphique s'affiche &  & NOK \\
-      3 & Cliquer sur le bouton "Changer de profil" & On peut changer, créer, modifier ou supprimer un profil &  & NOK \\ 
+      1 & Lancer l'interface graphique en ligne de commande avec l'option -P & On peut choisir son profil, et en créer un si besoin &  & OK \\
+      2 & Choisir un profil & L'interface graphique s'affiche &  & OK \\
+      3 & Cliquer sur le bouton "Changer de profil" & On peut changer, créer, modifier ou supprimer un profil &  & OK \\ 
     4 &  &  &  & \\
       5 &  &  &  & \\
     6 &  &  &  & \\
@@ -516,11 +516,11 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° I2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Lancer GuiPG & GuiPG se lance &  & NOK \\
-      2 & Lancer un autre GuiPG & La fenêtre de sélection de profil apparait &  & NOK \\
-      3 & Sélectionner un profil non utilisé & Il y a deux fenêtres GuiPG ouvertes, chacune avec un profil différent &  & NOK \\ 
-      4 & Lancer un autre GuiPG & La fenêtre de sélection de profil apparait &  & \\
-      5 & Sélectionner un profil utilisé & La fenêtre GuiPG utilisant ce profil apparaît en premier plan &  & \\
+      1 & Lancer GuiPG & GuiPG se lance &  & OK \\
+      2 & Lancer un autre GuiPG & La fenêtre de sélection de profil apparait &  & OK \\
+      3 & Sélectionner un profil non utilisé & Il y a deux fenêtres GuiPG ouvertes, chacune avec un profil différent &  & OK \\ 
+      4 & Lancer un autre GuiPG & La fenêtre de sélection de profil apparait & OK & \\
+      5 & Sélectionner un profil utilisé & La fenêtre GuiPG utilisant ce profil apparaît en premier plan & OK & \\
       6 &  &  &  & \\
       7 &  &  &  & \\
       8 &  &  &  & \\
@@ -530,17 +530,16 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \end{tabular}
     \vskip 2.2cm
 
-
  %---------------------------------------Test N° I3------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
-      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Affichage des commandes et retours gpg}\\ \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Création de clé}\\ \hline
       \multicolumn{3}{|l|}{Procédure n° I3} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Activer l'affichage des commandes gpg dans l'interface graphique &  &  & NOK \\
-      2 & Lancer une commande gpg via l'interface graphique & La commande et les retours sont affichés &  & NOK \\
+      1 & Créer une clé & La clé a été créée &  & NOK \\
+      2 &  &  &  & \\
       3 &  &  &  & \\ 
       4 &  &  &  & \\
       5 &  &  &  & \\
@@ -549,7 +548,117 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       8 &  &  &  & \\
       9 &  &  &  & \\
       10 &  &  &  &\\ 
-  \hline
+	\hline
+    \end{tabular}
+    \vskip 2.2cm
+
+ %---------------------------------------Test N° I4------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Suppression de clé}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I4} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Clic droit sur une clé & Un menu s'affiche &  & OK \\
+      2 & Cliquer sur "supprimer" & La clé a été supprimée & OK & \\
+      3 &  &  &  & \\ 
+      4 &  &  &  & \\
+      5 &  &  &  & \\
+      6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+	\hline
+    \end{tabular}
+    \vskip 2.2cm
+
+ %---------------------------------------Test N° I5------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Signature de clé}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I5} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Clic droit sur une clé & Un menu s'affiche &  & OK \\
+      2 & Cliquer sur "signer" & La clé a été signée & OK & \\
+      3 &  &  &  & \\ 
+      4 &  &  &  & \\
+      5 &  &  &  & \\
+      6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+	\hline
+    \end{tabular}
+    \vskip 2.2cm
+
+ %---------------------------------------Test N° I6------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Affichage des clés}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I6} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Lancer GuiPG sur un trousseau non vide & Les clés contenues dans le trousseau sont affichées, avec leur confiance et leur validité &  & OK \\
+      2 &  &  &  & \\
+      3 &  &  &  & \\ 
+      4 &  &  &  & \\
+      5 &  &  &  & \\
+      6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+	\hline
+    \end{tabular}
+    \vskip 2.2cm
+
+ %---------------------------------------Test N° I7------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Changement de la confiance d'une clé}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I7} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Lancer GuiPG sur un trousseau non vide & Les clés contenues dans le trousseau sont affichées &  & OK \\
+      2 & Clic droit sur une clé & Un menu s'affiche &  & \\
+      3 & Cliquer sur "Changer la confiance" puis choisir une valeur & La confiance a été changée correctement &  & \\ 
+      4 &  &  &  & \\
+      5 &  &  &  & \\
+      6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+	\hline
+    \end{tabular}
+    \vskip 2.2cm
+
+ %---------------------------------------Test N° I8------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Changement de la confiance d'une clé}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I8} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Lancer GuiPG &  &  & OK \\
+      2 & Ouvrir le menu de création de clé & Le menu s'affiche &  & \\
+      3 & Ecrire quelque chose dans les champs de la passphrase & La passphrase n'est pas affichée en clair &  & \\ 
+      4 &  &  &  & \\
+      5 &  &  &  & \\
+      6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+	\hline
     \end{tabular}
     \vskip 2.2cm
 
@@ -564,8 +673,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° NR1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction exportKey avec un path donné & Le fichier correspondant au path a été créé. &  & NOK \\
+      1 & Créer une instance de la classe &  &  & OK \\
+      2 & Utiliser la fonction exportKey vers /tmp & Le fichier été créé. &  & OK \\
       3 &  &  &  & \\
       4 &  &  &  & \\
       5 &  &  &  & \\
@@ -604,12 +713,11 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
 
 \section{Jeux de données de test}
 
-Les clés qui seront utilisées pour les tests se trouvent dans PrivateKeys.gpg et PublicKeys.gpg, joints dans le même dossier que ce fichier.
-Elles suivent le schéma de signature décrit ci-dessous :
-
-\includegraphics[scale=0.80]{graphics/trust_example.png}
-
-
+Les clés qui seront utilisées pour les tests se trouvent dans alice_test.asc et pub_test.asc, joints dans le même dossier que ce fichier.
+Elles servent aussi de démonstration pour la répercussion de la confiance sur la validité de la façon suivante :
+- 1 signataire de Bob (Matthieu, Olivier, Lucas) avec une confiance légère -> Bob devient marginalement valide pour un signataire de Matthieu, Lucas et Olivier (Alice);
+- 1 signataire de Bob (Matthieu, Olivier, Lucas) avec une confiance complète -> Bob devient complètement valide pour un signataire de Matthieu, Lucas et Olivier (Alice);
+- 3 signataires de Bob (Matthieu, Olivier, Lucas) avec une confiance légère -> Bob devient complètement valide pour un signataire de Matthieu, Lucas et Olivier (Alice).
 
 \section{Couverture de test}
 
@@ -623,20 +731,23 @@ Elles suivent le schéma de signature décrit ci-dessous :
       EF\_04 & Tests unitaires, d'intégration et de non-régression & U3, U5, I1, NR2 & \\ \hline
       EF\_05 & Test d'intégration & I1 & \\ \hline
       EF\_06 & Test d'intégration & I2 & \\ \hline
-      EF\_07 & Test d'intégration &  & \\ \hline
+      EF\_07 & Test d'intégration & I6 & \\ \hline
       EF\_08 & Test unitaire & U1 & \\ \hline
       EF\_09 & Test unitaire & U12 & \\ \hline
       EF\_10 & Test unitaire et de non-régression & NR1, U11 & \\ \hline
       EF\_11 & Test unitaire &  & \\ \hline
-      EF\_12 & Test unitaire &  & \\ \hline
-      EF\_13 & Test unitaire &  & \\ \hline
-      EF\_14 & Test unitaire &  & \\ \hline
+      EF\_12 & Test d'intégration & I7 & \\ \hline
+      EF\_13 & Non implémenté - Pas de test &  & \\ \hline
+      EF\_14 & Non implémenté - Pas de test &  & \\ \hline
       EF\_15 & Test d'intégration & I3 & \\ \hline
-      EO\_06 & Test unitaire et d'intégration &  & \\ \hline
+      EO\_06 & Test unitaire et d'intégration & I6 & \\ \hline
       EO\_07 & Test d'intégration & I2 & \\ \hline
-      EO\_11 & Test d'intégration &  & \\ \hline
-      EQ\_01 & Test d'intégration &  & \\ \hline
-      EQ\_04 & Test d'intégration &  & \\ \hline
+      EO\_08 & Non implémenté - Pas de test &  & \\ \hline
+      EO\_09 & Non implémenté - Pas de test &  & \\ \hline
+      EO\_10 & Non implémenté - Pas de test &  & \\ \hline
+      EO\_11 & Non implémenté - Pas de test &  & \\ \hline
+      EQ\_01 & Test d'intégration & I6 & \\ \hline
+      EQ\_04 & Test d'intégration & I8 & \\ \hline
   \end{tabular}  
 \end{center}
 
@@ -847,18 +958,6 @@ Rappel des codes utilisés dans la STB :
   \hline
 \end{tabular}\\
 
-\section{Journal de test}
-
-Si un test n'est pas indiqué comme OK ou NOK, c'est qu'il n'était pas implémenté à la date concernée.
-
-\begin{center}
-    \begin{tabular}{|p{2cm}|p{3.1cm}|p{3.1cm}|p{3.1cm}|p{3.1cm}|}
-      \hline
-      Date & Tests auto OK & Tests manuels OK & Tests auto NOK & Tests manuels NOK\\ \hline
-      09/04/2015 & U3 U5 U6 U7 U8 U10 NR1 NR2 & U1 I1 I2 &  & I3 \\ \hline
-
-  \end{tabular}  
-\end{center}
 
 \section{Suivi des bugs}
 
