@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
     bool dashP = hasProfileOpt(argc, argv);
 
     // TODO penser a tester le chargement de la configuration.
-    Configuration config("../config.xml");
+    Configuration config(QCoreApplication::applicationDirPath() + "../config.xml");
     if (!config.load()) {
         if (!config.save()) {
             fprintf(stderr, "Impossible de créer le fichier de configuration.");
