@@ -7,7 +7,6 @@
 #include "keyimport.h"
 #include "keyexport.h"
 #include "Profil/profilecreation.h"
-#include "config.h"
 #include "../Keys/keydeletion.h"
 #include "GpgItems/gpgitem.h"
 #include "GpgItems/primapubkeyitem.h"
@@ -28,7 +27,6 @@ MainWindow::MainWindow(MainWindowModel* model)
     this->setWindowTitle("GuiPG - " + m_model->getProfile()->getName());
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
     connect(ui->actionProfil, &QAction::triggered, this, &MainWindow::showDialogProfile);
-    connect(ui->actionConfiguration, SIGNAL(triggered()), this, SLOT(showDialogConfiguration()));
     connect(ui->actionQuitter, SIGNAL(triggered()), this, SLOT(close()));
 
     QStringList m_TreeHeader;
@@ -134,11 +132,6 @@ void MainWindow::on_action_Import_Toolbar_triggered() {
     KeyImport keyImportGui(this);
     keyImportGui.show();
     keyImportGui.exec();
-}
-
-void MainWindow::showDialogConfiguration(){
-    config c(this);
-    c.exec();
 }
 
 void MainWindow::buildTree() {

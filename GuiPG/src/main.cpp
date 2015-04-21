@@ -33,8 +33,9 @@ int main(int argc, char** argv) {
     // Flag permettant de savoir si l'option PROFILE_OPTION est présente en argument.
     bool dashP = hasProfileOpt(argc, argv);
 
+    GuiPGApp app(argc, argv);
     // TODO penser a tester le chargement de la configuration.
-    Configuration config("../config.xml");
+    Configuration config(QCoreApplication::applicationDirPath() + "/../config.xml");
     if (!config.load()) {
         if (!config.save()) {
             fprintf(stderr, "Impossible de créer le fichier de configuration.");
@@ -45,7 +46,6 @@ int main(int argc, char** argv) {
             return EXIT_FAILURE;
         }
     }
-    GuiPGApp app(argc, argv);
     Launcher launcher(&app, &config, (dashP ? 0 : config.getDefaultProfileId()));
     launcher.start();
     if (!launcher.alreadyRun()) {
