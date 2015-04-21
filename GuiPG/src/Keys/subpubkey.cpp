@@ -26,3 +26,15 @@ SubPubKey::~SubPubKey()
 
 }
 
+void SubPubKey::setSubSecKey(SubSecKey* ssb) {
+    m_ssb = ssb;
+}
+
+SubSecKey* SubPubKey::getSubSecKey() const {
+    return m_ssb;
+}
+
+bool SubPubKey::hasSubSecKey() {
+    return m_ssb != nullptr;
+}
+

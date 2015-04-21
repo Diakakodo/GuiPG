@@ -36,7 +36,6 @@ class MainWindow : public QMainWindow {
         void setGpgCommandsVisible(bool b);
         void showDialogProfile();
         void changeProfil(unsigned profileId);
-        void showManuel();
         void showDialogConfiguration();
         void updateBigBrother(GPGManager* gpg, bool fisrt, int id);
         void onCustomContextMenuRequested(const QPoint& pos);
@@ -52,9 +51,11 @@ private slots:
 
         void on_actionCl_s_priv_es_triggered();
 
-        void on_action_Generer_Toolbar_triggered();
+        void on_action_GenKey_Toolbar_triggered();
 
-        void on_action_Supprimer_Toolbar_triggered();
+        void on_action_Refresh_Toolbar_triggered();
+
+        void on_action_Import_Toolbar_triggered();
 
 protected:
      void closeEvent(QCloseEvent *event);
