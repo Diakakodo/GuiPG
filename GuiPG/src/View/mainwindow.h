@@ -36,7 +36,6 @@ class MainWindow : public QMainWindow {
         void setGpgCommandsVisible(bool b);
         void showDialogProfile();
         void changeProfil(unsigned profileId);
-        void showDialogConfiguration();
         void updateBigBrother(GPGManager* gpg, bool fisrt, int id);
         void onCustomContextMenuRequested(const QPoint& pos);
         int getNbCmd();
