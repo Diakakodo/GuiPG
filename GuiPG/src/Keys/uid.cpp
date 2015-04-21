@@ -2,16 +2,19 @@
 
 QString Uid::cipherToStr(QString cipherAlgo) {
     // TODO
+    if (cipherAlgo == "") {} // pour éviter le warning bidon
     return "";
 }
 
 QString Uid::digestToStr(QString digestAlgo) {
     // TODO
+    if (digestAlgo == "") {} // pour éviter le warning bidon
     return "";
 }
 
 QString Uid::compressToStr(QString compressAlgo) {
     // TODO
+    if (compressAlgo == "") {} // pour éviter le warning bidon
     return "";
 }
 
