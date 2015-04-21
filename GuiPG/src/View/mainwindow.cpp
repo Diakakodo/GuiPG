@@ -7,7 +7,6 @@
 #include "keyimport.h"
 #include "keyexport.h"
 #include "Profil/profilecreation.h"
-#include "config.h"
 #include "../Keys/keydeletion.h"
 #include "GpgItems/gpgitem.h"
 #include "GpgItems/primapubkeyitem.h"
@@ -134,11 +133,6 @@ void MainWindow::on_action_Import_Toolbar_triggered() {
     KeyImport keyImportGui(this);
     keyImportGui.show();
     keyImportGui.exec();
-}
-
-void MainWindow::showDialogConfiguration(){
-    config c(this);
-    c.exec();
 }
 
 void MainWindow::buildTree() {
