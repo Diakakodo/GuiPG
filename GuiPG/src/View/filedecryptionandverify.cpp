@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include "../Launcher/launcher.h"
 #include "mainwindow.h"
+#include <QDebug>
 
 FileDecryptionAndVerify::FileDecryptionAndVerify(Profile* profile, QWidget *parent) :
     QDialog(parent),
@@ -24,24 +25,26 @@ FileDecryptionAndVerify::~FileDecryptionAndVerify()
 }
 
 void FileDecryptionAndVerify::accept() {
-    ui->acceptButton->setEnabled(false);
+    ui->warningLabel->setText("");
+    if (ui->sourceFileEdit->text().startsWith("~/") || ui->destinationFileEdit->text().startsWith("~/")) {
+        ui->warningLabel->setText("Seul les chemins absolus sont autorisés.");
+        return;
+    }
 
     if (ui->sourceFileEdit->text() == ui->destinationFileEdit->text()) {
         ui->warningLabel->setText("Vous ne pouvez pas utiliser le même fichier source et destination.");
-        ui->acceptButton->setEnabled(true);
         return;
     }
 
     QFile sourcefile(ui->sourceFileEdit->text());
     if (!sourcefile.exists()) {
         ui->warningLabel->setText("Le fichier source n'existe pas.");
-        ui->acceptButton->setEnabled(true);
         return;
     }
+
     QFileInfo sourceFileInfo(sourcefile);
     if (!sourceFileInfo.isReadable()) {
         ui->warningLabel->setText("Vous n'avez pas les droits de lecture sur le fichier source.");
-        ui->acceptButton->setEnabled(true);
         return;
     }
 
@@ -49,11 +52,18 @@ void FileDecryptionAndVerify::accept() {
     if (destinationfile.exists()) {
         if (!destinationfile.remove()) {
             ui->warningLabel->setText("Impossible d'écraser le fichier existant. Veuillez modifier la destination.");
-            ui->acceptButton->setEnabled(true);
             return;
         }
     }
 
+    QFileInfo destinationFileInfo(destinationfile);
+    QFileInfo destinationDirInfo(destinationFileInfo.absoluteDir().path());
+    if (!destinationDirInfo.isWritable()) {
+        ui->warningLabel->setText("Vous n'avez pas les droits d'écriture sur le dossier destination.");
+        return;
+    }
+
+    ui->acceptButton->setEnabled(false);
     QStringList opt;
     opt << "--status-fd=1"
         << "--command-fd=0"
@@ -88,14 +98,17 @@ void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
     delete m_gpg;
     if (output.contains("[GNUPG:] NODATA")) {
         ui->warningLabel->setText(ui->warningLabel->text() + "Aucune donnée OpenPGP valable n'a été trouvée.\nRien à déchiffrer ou vérifier.");
+        ui->acceptButton->setEnabled(true);
         return;
     }
     if (output.contains("[GNUPG:] NO_SECKEY")) {
         ui->warningLabel->setText(ui->warningLabel->text() + "Échec du déchiffrement : la clef secrète n'est pas disponible.\n");
+        ui->acceptButton->setEnabled(true);
         return;
     }
     if (output.contains("[GNUPG:] NO_PUBKEY")) {
         ui->warningLabel->setText(ui->warningLabel->text() + "Impossible de vérifier la signature : la clef publique est introuvable dans votre trousseau de clefs.\n");
+        ui->acceptButton->setEnabled(true);
         return;
     }
 
