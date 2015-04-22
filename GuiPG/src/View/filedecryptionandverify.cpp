@@ -72,11 +72,9 @@ void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
         // not used;
     }
     delete m_gpg;
-    bool ok = true;
     ui->cancelButton->setText("Fermer");
     if (output.contains("[GNUPG:] NODATA")) {
         ui->warningLabel->setText(ui->warningLabel->text() + "Rien à déchiffrer ou vérifier.\n");
-        ok = false;
         return;
     }
     QPalette palette(ui->warningLabel->palette());
@@ -91,7 +89,11 @@ void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
     if (output.contains("[GNUPG:] DECRYPTION_OKAY")) {
         ui->warningLabel->setText(ui->warningLabel->text() + "Le fichier est correctement déchiffré.\n");
     }
-    emit fileDecrypt("plop", "du\njolie\ncontenurezf.");
+    QFile file(ui->destinationFileEdit->text());
+    if (file.exists()) {
+        file.open(QFile::ReadOnly);
+        emit fileDecrypt(QFileInfo(file).baseName(), QString(file.readAll()));
+    }
 }
 
 
