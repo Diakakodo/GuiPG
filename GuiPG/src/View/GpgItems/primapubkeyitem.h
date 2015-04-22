@@ -40,6 +40,7 @@ class PrimaPubKeyItem : public PubKeyItem
         void sign();
         void setPossibleTrustValue(int s, QString output);
         void trust(int value);
+        void addUid();
         void exportPublicKey();
         void exportSecretKey();
         void deleteKey();

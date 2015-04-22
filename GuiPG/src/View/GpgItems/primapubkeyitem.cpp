@@ -76,11 +76,12 @@ PrimaPubKeyItem::~PrimaPubKeyItem()
 void PrimaPubKeyItem::showMenu(const QPoint &pos) {
     m_pos = pos;
     m_menu = new QMenu(treeWidget());
-    m_menu->addAction("Signer", this, SLOT(sign()));
+    m_menu->addAction("Ajouter un identifiant utilisateur", this, SLOT(addUid()));
     m_menu->addAction("Exporter la clé publique", this, SLOT(exportPublicKey()));
     if (m_pub->hasPrimaSecKey()) {
         m_menu->addAction("Exporter la clé secrète", this, SLOT(exportSecretKey()));
     }
+    m_menu->addAction("Signer", this, SLOT(sign()));
     m_menu->addAction("Supprimer", this, SLOT(deleteKey()));
     getPossibleTrustValue();
 }
@@ -123,6 +124,10 @@ void PrimaPubKeyItem::trust(int value) {
 
     connect(m_gpg, &GPGManager::finished, this, &GpgItem::changed);
     m_gpg->execute();
+}
+
+void PrimaPubKeyItem::addUid() {
+
 }
 
 void PrimaPubKeyItem::exportPublicKey() {

@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <signal.h>
-#endif _WIN32
+#endif // _WIN32
 using namespace std;
 
 
