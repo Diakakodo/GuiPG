@@ -2,6 +2,8 @@
 #include "ui_filedecryptionandverify.h"
 #include <QFile>
 #include <QFileDialog>
+#include "../Launcher/launcher.h"
+#include "mainwindow.h"
 
 FileDecryptionAndVerify::FileDecryptionAndVerify(Profile* profile, QWidget *parent) :
     QDialog(parent),
@@ -9,6 +11,10 @@ FileDecryptionAndVerify::FileDecryptionAndVerify(Profile* profile, QWidget *pare
 {
     ui->setupUi(this);
     m_profile = profile;
+    if (Launcher::m_profileMainWindowHash.contains(profile)) {
+        MainWindow* window = Launcher::m_profileMainWindowHash.value(profile);
+        connect(this, &FileDecryptionAndVerify::fileDecrypt, window, &MainWindow::addTab);
+    }
     m_gpg = new GPGManager(profile);
 }
 
@@ -76,6 +82,7 @@ void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
     if (output.contains("[GNUPG:] DECRYPTION_OKAY")) {
         ui->warningLabel->setText(ui->warningLabel->text() + "Le fichier est correctement déchiffré.\n");
     }
+    emit fileDecrypt("plop", "du\njolie\ncontenurezf.");
 }
 
 

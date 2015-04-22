@@ -26,6 +26,9 @@ private slots:
 
     void accept();
 
+signals:
+    void fileDecrypt(QString name, QString content);
+
 private:
     Ui::FileDecryptionAndVerify *ui;
     Profile* m_profile = nullptr;
