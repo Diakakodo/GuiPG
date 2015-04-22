@@ -100,7 +100,7 @@ void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
         ui->warningLabel->setText(ui->warningLabel->text() + "Le fichier est correctement déchiffré.\n");
     }
     QFile file(ui->destinationFileEdit->text());
-    if (file.exists()) {
+    if (file.exists() && QFileInfo(file).isReadable()) {
         file.open(QFile::ReadOnly);
         emit fileDecrypt(QFileInfo(file).baseName(), QString(file.readAll()));
     }
