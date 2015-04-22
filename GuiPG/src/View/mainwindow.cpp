@@ -53,6 +53,7 @@ MainWindow::MainWindow(MainWindowModel* model)
     model->initKeyManager(this);
     ui->treeWidgetKey->setKeyManager(model->getKeyManager());
     ui->treeWidgetKey->setProfile(m_model->getProfile());
+    ui->treeWidgetKey->sortByColumn(GpgItem::COL_NAME, Qt::AscendingOrder);
 }
 
 void MainWindow::onCustomContextMenuRequested(const QPoint& pos) {
