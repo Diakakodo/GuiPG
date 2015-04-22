@@ -102,6 +102,11 @@ void PrimaPubKeyItem::onAddSubKeyFinished(int result) {
     }
 }
 
+void PrimaPubKeyItem::onAddUidFinished() {
+    ((GpgTreeWidget*) treeWidget())->getKeyManager()->load();
+    delete m_addUidView;
+}
+
 
 void PrimaPubKeyItem::sign() {
     //KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
@@ -144,7 +149,10 @@ void PrimaPubKeyItem::trust(int value) {
 }
 
 void PrimaPubKeyItem::addUid() {
-
+    GpgTreeWidget* tree = (GpgTreeWidget*) treeWidget();
+    m_addUidView = new AddUidDialog(tree->getProfile(), m_pub, tree);
+    connect(m_addUidView, &AddUidDialog::finished, this, &PrimaPubKeyItem::onAddUidFinished);
+    m_addUidView->exec();
 }
 
 void PrimaPubKeyItem::exportPublicKey() {

@@ -146,6 +146,9 @@ void SubKeyCreation::addData(QString data) {
 void SubKeyCreation::onCancelClicked() {
     if (m_gpg->isRunning()) {
         m_gpg->cancelProcess();
+        setVisible(false);
+    } else {
+        close();
+        emit finished(1);
     }
-    setVisible(false);
 }
