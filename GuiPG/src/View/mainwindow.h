@@ -56,6 +56,8 @@ private slots:
 
         void on_action_Import_Toolbar_triggered();
 
+        void on_actionChiffrer_un_fichier_triggered();
+
 protected:
      void closeEvent(QCloseEvent *event);
 

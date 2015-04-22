@@ -7,6 +7,7 @@
 #include "keyimport.h"
 #include "keyexport.h"
 #include "Profil/profilecreation.h"
+#include "fileencryption.h"
 #include "../Keys/keydeletion.h"
 #include "GpgItems/gpgitem.h"
 #include "GpgItems/primapubkeyitem.h"
@@ -254,4 +255,11 @@ int MainWindow::getNbCmd() {
 
 void MainWindow::setNbCmd(int nb) {
     NB_CMD = nb;
+}
+
+void MainWindow::on_actionChiffrer_un_fichier_triggered()
+{
+    FileEncryption encryption(this, m_model->getKeyManager());
+    encryption.show();
+    encryption.exec();
 }
