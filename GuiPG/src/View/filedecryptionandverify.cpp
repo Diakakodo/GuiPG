@@ -22,7 +22,7 @@ FileDecryptionAndVerify::~FileDecryptionAndVerify()
 {
     delete ui;
 }
-
+#include <QDebug>
 void FileDecryptionAndVerify::accept() {
     ui->acceptButton->setEnabled(false);
 
@@ -34,6 +34,7 @@ void FileDecryptionAndVerify::accept() {
 
     QFile file(ui->destinationFileEdit->text());
     if (file.exists()) {
+        qDebug() << "file exist";
         if (!file.remove()) {
             ui->warningLabel->setText("Impossible d'écraser le fichier existant. Veuillez modifier la destination.");
             ui->acceptButton->setEnabled(true);
@@ -74,9 +75,18 @@ void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
     delete m_gpg;
     ui->cancelButton->setText("Fermer");
     if (output.contains("[GNUPG:] NODATA")) {
-        ui->warningLabel->setText(ui->warningLabel->text() + "Rien à déchiffrer ou vérifier.\n");
+        ui->warningLabel->setText(ui->warningLabel->text() + "Aucune donnée OpenPGP valable n'a été trouvée.\nRien à déchiffrer ou vérifier.");
         return;
     }
+    if (output.contains("[GNUPG:] NO_SECKEY")) {
+        ui->warningLabel->setText(ui->warningLabel->text() + "Échec du déchiffrement : la clef secrète n'est pas disponible.\n");
+        return;
+    }
+    if (output.contains("[GNUPG:] NO_PUBKEY")) {
+        ui->warningLabel->setText(ui->warningLabel->text() + "Impossible de vérifier la signature : la clef publique est introuvable dans votre trousseau de clefs.\n");
+        return;
+    }
+
     QPalette palette(ui->warningLabel->palette());
     QBrush brush(QColor(55, 212, 55));
     brush.setStyle(Qt::SolidPattern);
