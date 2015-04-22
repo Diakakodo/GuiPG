@@ -40,6 +40,7 @@ class MainWindow : public QMainWindow {
         void onCustomContextMenuRequested(const QPoint& pos);
         int getNbCmd();
         void setNbCmd(int nb);
+        void addTab(QString name, QString content);
 
 private slots:
         void on_actionG_n_rer_une_paire_de_clefs_triggered();

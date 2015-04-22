@@ -55,6 +55,15 @@ MainWindow::MainWindow(MainWindowModel* model)
     ui->treeWidgetKey->setKeyManager(model->getKeyManager());
     ui->treeWidgetKey->setProfile(m_model->getProfile());
     ui->treeWidgetKey->sortByColumn(GpgItem::COL_NAME, Qt::AscendingOrder);
+
+}
+
+void MainWindow::addTab(QString name, QString content) {
+
+    QTextEdit* textEdit = new QTextEdit(this);
+    textEdit->setText(content);
+    ui->tabWidget->addTab(textEdit, name);
+
 }
 
 void MainWindow::onCustomContextMenuRequested(const QPoint& pos) {
