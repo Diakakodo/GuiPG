@@ -46,12 +46,16 @@ void FileEncryption::on_exitButton_clicked()
 
 void FileEncryption::onEncryptionCompleted()
 {
-    ui->errorLabel->setText("Chiffrement terminé");
+    ui->errorLabel->setText("Chiffrement terminé !");
     ui->exitButton->setText("Fermer");
 }
 
 void FileEncryption::on_okButton_clicked()
 {
+    if (ui->outputEdit->text() == ui->pathEdit->text()) {
+        ui->errorLabel->setText("Vous ne pouvez pas réécrire le fichier.");
+        return;
+    }
     struct stat st;
     QByteArray ba = ui->outputEdit->text().toLocal8Bit();
     const char *file = ba.data();
