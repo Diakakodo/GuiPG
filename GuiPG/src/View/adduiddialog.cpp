@@ -1,13 +1,13 @@
 #include "adduiddialog.h"
 #include "ui_adduiddialog.h"
-
-AddUidDialog::AddUidDialog(Profile* profile, QWidget *parent) :
+#include <QDebug>
+AddUidDialog::AddUidDialog(Profile* profile, PrimaPubKey* pub, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddUidDialog)
 {
     ui->setupUi(this);
     m_profile = profile;
-    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    m_pub = pub;
 }
 
 AddUidDialog::~AddUidDialog()
@@ -16,6 +16,8 @@ AddUidDialog::~AddUidDialog()
 }
 
 void AddUidDialog::accept() {
+    qDebug() << "pouet";
+    ui->warningLabel->clear();
     if (ui->nameEdit->text().length() < 5) {
         ui->warningLabel->setText(ui->warningLabel->text() + "Le nom doit contenir au moins 5 caractères.\n");
     }
@@ -30,6 +32,26 @@ void AddUidDialog::accept() {
     }
     if (ui->warningLabel->text() == "") {
         m_gpg = new GPGManager(m_profile);
+        QStringList opt;
+        opt << "--status-fd=1"
+            << "--command-fd=0"
+            << "--with-colons"
+            << "--fixed-list-mode";
+        QStringList args;
+        args << m_pub->getKeyId();
+        QStringList interactions;
+        interactions << "adduid"
+                      << ui->nameEdit->text()
+                      << ui->mailEdit->text()
+                      << ui->commentEdit->text()
+                      << "y"
+                      << "save";
 
+        Action addUidAction(QString("--edit-key"), args, opt, interactions);
+
+        m_gpg->setAction(addUidAction);
+        connect(m_gpg, &GPGManager::finished, this, &AddUidDialog::finished);
+        m_gpg->execute();
+        done(1);
     }
 }
