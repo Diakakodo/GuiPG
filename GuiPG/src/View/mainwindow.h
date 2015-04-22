@@ -61,7 +61,9 @@ private slots:
 
         void on_actionDechiffrer_Verifier_un_fichier_triggered();
 
-protected:
+        void on_tabWidget_tabCloseRequested(int index);
+
+    protected:
      void closeEvent(QCloseEvent *event);
 
 private:

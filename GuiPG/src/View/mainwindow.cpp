@@ -64,7 +64,11 @@ void MainWindow::addTab(QString name, QString content) {
     QTextEdit* textEdit = new QTextEdit(this);
     textEdit->setText(content);
     ui->tabWidget->addTab(textEdit, name);
-
+    QList<int> sizes = ui->splitter->sizes();
+    if (sizes[1] == 0) {
+        sizes[1] = (this->width() / 4);
+        ui->splitter->setSizes(sizes);
+    }
 }
 
 void MainWindow::onCustomContextMenuRequested(const QPoint& pos) {
@@ -275,4 +279,15 @@ void MainWindow::on_actionChiffrer_un_fichier_triggered() {
 void MainWindow::on_actionDechiffrer_Verifier_un_fichier_triggered() {
     FileDecryptionAndVerify decryptAndVerify(m_model->getProfile(), this);
     decryptAndVerify.exec();
+}
+
+void MainWindow::on_tabWidget_tabCloseRequested(int index)
+{
+    ui->tabWidget->widget(index)->deleteLater();
+    ui->tabWidget->removeTab(index);
+    if (ui->tabWidget->count() == 0) {
+        QList<int> splitterSize = ui->splitter->sizes();
+        splitterSize[1]=0;
+        ui->splitter->setSizes(splitterSize);
+    }
 }
