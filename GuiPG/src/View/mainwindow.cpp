@@ -109,7 +109,6 @@ void MainWindow::changeProfil(unsigned profileId) {
     m_model->loadProfile(profileId, this);
     m_model->getKeyManager()->setMainWindow(this);
     ui->treeWidgetKey->setProfile(m_model->getProfile());
-    buildTree();
 }
 
 void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()
@@ -135,11 +134,45 @@ void MainWindow::on_action_Import_Toolbar_triggered() {
     keyImportGui.exec();
 }
 
+PrimaPubKeyItem* searchItemByPrimaPubKeyId(QList<PrimaPubKeyItem*> list, QString keyId) {
+    for (PrimaPubKeyItem* item : list) {
+        if (item->getPrimaPubKey()->getKeyId() == keyId) {
+            return item;
+        }
+    }
+    return nullptr;
+}
+
+PrimaPubKeyItem* searchItemByPrimaPubKeyId(GpgTreeWidget* tree, QString keyId) {
+    for (int i = 0; i < tree->topLevelItemCount(); ++i) {
+        if (((PrimaPubKeyItem*) tree->topLevelItem(i))->getPrimaPubKey()->getKeyId() == keyId) {
+            return (PrimaPubKeyItem*) (tree->topLevelItem(i));
+        }
+    }
+    return nullptr;
+}
+
 void MainWindow::buildTree() {
-    ui->treeWidgetKey->clear();
     const QList<PrimaPubKey*> pubKeys = m_model->getKeyManager()->getPubKeys();
+    QList<QString> hash;
     for (PrimaPubKey* pub : pubKeys) {
-        ui->treeWidgetKey->addTopLevelItem(new PrimaPubKeyItem(pub));
+        hash.append(pub->getKeyId());
+    }
+    for (int i = 0; i < ui->treeWidgetKey->topLevelItemCount(); i++) {
+        while (  ui->treeWidgetKey->topLevelItemCount() > 0 && !hash.contains(((PrimaPubKeyItem*) ui->treeWidgetKey->topLevelItem(i))->getPrimaPubKey()->getKeyId()) ) {
+            delete ui->treeWidgetKey->topLevelItem(i);
+        }
+    }
+    PrimaPubKeyItem* item = nullptr;
+    for (PrimaPubKey* pub : pubKeys) {
+        PrimaPubKeyItem* newItem = new PrimaPubKeyItem(pub);
+        item = searchItemByPrimaPubKeyId(ui->treeWidgetKey, pub->getKeyId());
+        ui->treeWidgetKey->addTopLevelItem(newItem);
+        if (item) {
+            newItem->setExpanded(item->isExpanded());
+            newItem->setSelected(item->isSelected());
+            delete item;
+        }
     }
 }
 
