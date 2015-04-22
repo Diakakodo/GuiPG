@@ -237,16 +237,16 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° U2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction getExpirationDate & La fonction renvoie la date d'expiration donnée au constructeur &  & \\
-      3 & Utiliser la fonction addUid &  &  & \\
-      4 & Utiliser la fonction getUidList & La fonction renvoie une liste d'Uid contenant celui donné à la fonction précédente &  & \\
-      5 & Utiliser la fonction hasPrimaPubKey & La fonction renvoie false &  & \\
-      6 & Utiliser la fonction setPrimaryPubKey &  &  & \\
-      7 & Utiliser la fonction hasPrimaPubKey & La fonction renvoie true &  & \\
-      8 & Utiliser la fonction getPrimarySecKey & La fonction renvoie la PrimarySecKey donnée à la fonction setPrimaryPubKey &  & \\
-      9 & Utiliser la fonction addSubSecKey &  &  & \\
-      10 & Utiliser la fonction getSubSecKeyList & La fonction renvoie une liste de SubSecKey contenant celle donnée à la fonction précédente &  & \\
+      1 & Créer une instance de la classe &  &  & OK \\
+      2 & Utiliser la fonction getExpirationDate & La fonction renvoie la date d'expiration donnée au constructeur &  & OK\\
+      3 & Utiliser la fonction addUid &  &  & OK\\
+      4 & Utiliser la fonction getUidList & La fonction renvoie une liste d'Uid contenant celui donné à la fonction précédente &  & OK\\
+      5 & Utiliser la fonction hasPrimaPubKey & La fonction renvoie false &  & OK\\
+      6 & Utiliser la fonction setPrimaryPubKey &  &  & OK\\
+      7 & Utiliser la fonction hasPrimaPubKey & La fonction renvoie true &  & OK\\
+      8 & Utiliser la fonction getPrimarySecKey & La fonction renvoie la PrimarySecKey donnée à la fonction setPrimaryPubKey &  & OK\\
+      9 & Utiliser la fonction addSubSecKey &  &  & OK\\
+      10 & Utiliser la fonction getSubSecKeyList & La fonction renvoie une liste de SubSecKey contenant celle donnée à la fonction précédente &  & OK\\
 	\hline
     \end{tabular}
     \vskip 2.2cm
@@ -351,18 +351,18 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° U7} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction getTrust & La fonction renvoie la confiance donnée au constructeur &  & NOK \\
-      3 & Utiliser la fonction addSubPubKey &  &  & NOK \\
-      4 & Utiliser la fonction getSubPubKeyList & La fonction renvoie une liste de SubPubKeys contenant la clé donnée à la fonction précédente &  & NOK \\
-      5 & Utiliser la fonction addUid &  &  & NOK \\
-      6 & Utiliser la fonction getUidList & La fonction renvoie une liste d'Uid contenant celui donné à la fonction précédente &  & NOK \\
-      7 & Utiliser la fonction setPrimaryUid &  &  & NOK \\
-      8 & Utiliser la fonction getPrimaryUid & La fonction renvoie l'Uid donné à la fonction précédente &  & NOK \\
-      9 & Utiliser la fonction hasPrimaSecKey & La fonction renvoie false &  & NOK \\
-      10 & Utiliser la fonction setPrimarySecKey &  &  & NOK \\ 
-      11 & Utiliser la fonction hasPrimaSecKey & La fonction renvoie true &  & NOK \\ 
-      12 & Utiliser la fonction getPrimarySecKey & La fonction renvoie la PrimaSecKey donnée à la fonction setPrimarySecKey &  & NOK \\ 
+      1 & Créer une instance de la classe &  &  & OK \\
+      2 & Utiliser la fonction getTrust & La fonction renvoie la confiance donnée au constructeur &  & OK \\
+      3 & Utiliser la fonction addSubPubKey &  &  & OK \\
+      4 & Utiliser la fonction getSubPubKeyList & La fonction renvoie une liste de SubPubKeys contenant la clé donnée à la fonction précédente &  & OK \\
+      5 & Utiliser la fonction addUid &  &  & OK \\
+      6 & Utiliser la fonction getUidList & La fonction renvoie une liste d'Uid contenant celui donné à la fonction précédente &  & OK \\
+      7 & Utiliser la fonction setPrimaryUid &  &  & OK \\
+      8 & Utiliser la fonction getPrimaryUid & La fonction renvoie l'Uid donné à la fonction précédente &  & OK \\
+      9 & Utiliser la fonction hasPrimaSecKey & La fonction renvoie false &  & OK \\
+      10 & Utiliser la fonction setPrimarySecKey &  &  & OK \\ 
+      11 & Utiliser la fonction hasPrimaSecKey & La fonction renvoie true &  & OK \\ 
+      12 & Utiliser la fonction getPrimarySecKey & La fonction renvoie la PrimaSecKey donnée à la fonction setPrimarySecKey &  & OK \\ 
   \hline
     \end{tabular}
     \vskip 2.2cm
@@ -426,8 +426,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       1 & Lancer GuiPG & GuiPG se lance &  & OK \\
       2 & Lancer un autre GuiPG & La fenêtre de sélection de profil apparait &  & OK \\
       3 & Sélectionner un profil non utilisé & Il y a deux fenêtres GuiPG ouvertes, chacune avec un profil différent &  & OK \\ 
-      4 & Lancer un autre GuiPG & La fenêtre de sélection de profil apparait & OK & \\
-      5 & Sélectionner un profil utilisé & La fenêtre GuiPG utilisant ce profil apparaît en premier plan & OK & \\
+      4 & Lancer un autre GuiPG & La fenêtre de sélection de profil apparait & & OK \\
+      5 & Sélectionner un profil utilisé & La fenêtre GuiPG utilisant ce profil apparaît en premier plan &  & OK\\
       6 &  &  &  & \\
       7 &  &  &  & \\
       8 &  &  &  & \\
@@ -445,7 +445,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° I3} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une clé & La clé a été créée &  & NOK \\
+      1 & Créer une clé & La clé a été créée &  & OK \\
       2 &  &  &  & \\
       3 &  &  &  & \\ 
       4 &  &  &  & \\
@@ -468,7 +468,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Clic droit sur une clé & Un menu s'affiche &  & OK \\
-      2 & Cliquer sur "supprimer" & La clé a été supprimée & OK & \\
+      2 & Cliquer sur "supprimer" & La clé a été supprimée & & OK \\
       3 &  &  &  & \\ 
       4 &  &  &  & \\
       5 &  &  &  & \\
@@ -490,7 +490,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Clic droit sur une clé & Un menu s'affiche &  & OK \\
-      2 & Cliquer sur "signer" & La clé a été signée & OK & \\
+      2 & Cliquer sur "signer" & La clé a été signée &  & OK\\
       3 &  &  &  & \\ 
       4 &  &  &  & \\
       5 &  &  &  & \\
@@ -534,8 +534,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Lancer GuiPG sur un trousseau non vide & Les clés contenues dans le trousseau sont affichées &  & OK \\
-      2 & Clic droit sur une clé & Un menu s'affiche &  & \\
-      3 & Cliquer sur "Changer la confiance" puis choisir une valeur & La confiance a été changée correctement &  & \\ 
+      2 & Clic droit sur une clé & Un menu s'affiche &  & OK\\
+      3 & Cliquer sur "Changer la confiance" puis choisir une valeur & La confiance a été changée et répercutée correctement &  & OK\\ 
       4 &  &  &  & \\
       5 &  &  &  & \\
       6 &  &  &  & \\
@@ -642,12 +642,56 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \hline
       \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Affichage des commandes et retours gpg}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° I11} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I12} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Lancer GuiPG &  &  & NOK \\
-      2 & Faire une action nécessitant le lancement d'une commande GPG & La commande et les retours sont affichés dans la zoen prévue à cet effet &  & NOK \\
+      1 & Lancer GuiPG &  &  & OK \\
+      2 & Faire une action nécessitant le lancement d'une commande GPG & La commande et les retours sont affichés dans la zone prévue à cet effet &  & OK \\
       3 &  &  &  & \\ 
+      4 &  &  &  & \\
+      5 &  &  &  & \\
+      6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+	\hline
+    \end{tabular}
+    \vskip 2.2cm
+
+ %---------------------------------------Test N° I13------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Création d'Uid}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I13} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Clic droit sur une clé & Un menu s'affiche &  & OK \\
+      2 & Cliquer sur "Ajouter un identifiant utilisateur" & Le menu d'ajout d'uid s'ouvre &  & OK\\
+      3 & Compléter ce menu et cliquer sur "ok" & L'uid demandé est créé et affiché sous la clé correspondante &  & OK\\ 
+      4 &  &  &  & \\
+      5 &  &  &  & \\
+      6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+	\hline
+    \end{tabular}
+    \vskip 2.2cm
+
+ %---------------------------------------Test N° I14------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Création de sous-clé}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I14} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Clic droit sur une clé & Un menu s'affiche &  & OK \\
+      2 & Cliquer sur "Ajouter une sous-clé" & Le menu de création de sous-clé &  & OK\\
+      3 & Compléter ce menu et cliquer sur "ok" & La clé voulue est créée et affichée sous la clé correspondante &  & OK\\ 
       4 &  &  &  & \\
       5 &  &  &  & \\
       6 &  &  &  & \\
@@ -713,8 +757,8 @@ Elles servent aussi de démonstration pour la répercussion de la confiance sur 
       EF\_10 & Test d'intégration & I9 & \\ \hline
       EF\_11 & Test d'intégration & I5 & \\ \hline
       EF\_12 & Test d'intégration & I7 & \\ \hline
-      EF\_13 & Non implémenté - Pas de test &  & \\ \hline
-      EF\_14 & Non implémenté - Pas de test &  & \\ \hline
+      EF\_13 & Test d'intégration & I13 & \\ \hline
+      EF\_14 & Test d'intégration & I14 & \\ \hline
       EF\_15 & Test d'intégration & I12 & \\ \hline
       EO\_01 & Tous les tests d'intégration sont réalisés avec GnuPG 2.0 & Toutes & \\ \hline
       EO\_02 & Tous les tests d'intégration sont réalisés avec GnuPG 1.4.* & Toutes & \\ \hline

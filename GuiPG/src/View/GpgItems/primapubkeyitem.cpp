@@ -80,7 +80,7 @@ void PrimaPubKeyItem::showMenu(const QPoint &pos) {
     m_menu->addAction("Exporter la clé publique", this, SLOT(exportPublicKey()));
     if (m_pub->hasPrimaSecKey()) {
         m_menu->addAction("Exporter la clé secrète", this, SLOT(exportSecretKey()));
-        m_menu->addAction("Ajout une sous clef", this, SLOT(addSubKey()));
+        m_menu->addAction("Ajouter une sous-clé", this, SLOT(addSubKey()));
     }
     m_menu->addAction("Signer", this, SLOT(sign()));
     m_menu->addAction("Supprimer", this, SLOT(deleteKey()));
