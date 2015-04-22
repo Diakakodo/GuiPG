@@ -15,14 +15,14 @@ FileDecryptionAndVerify::FileDecryptionAndVerify(Profile* profile, QWidget *pare
         MainWindow* window = Launcher::m_profileMainWindowHash.value(profile);
         connect(this, &FileDecryptionAndVerify::fileDecrypt, window, &MainWindow::addTab);
     }
-    m_gpg = new GPGManager(profile);
+    ui->cancelButton->setText("Fermer");
 }
 
 FileDecryptionAndVerify::~FileDecryptionAndVerify()
 {
     delete ui;
 }
-#include <QDebug>
+
 void FileDecryptionAndVerify::accept() {
     ui->acceptButton->setEnabled(false);
 
@@ -32,10 +32,22 @@ void FileDecryptionAndVerify::accept() {
         return;
     }
 
-    QFile file(ui->destinationFileEdit->text());
-    if (file.exists()) {
-        qDebug() << "file exist";
-        if (!file.remove()) {
+    QFile sourcefile(ui->sourceFileEdit->text());
+    if (!sourcefile.exists()) {
+        ui->warningLabel->setText("Le fichier source n'existe pas.");
+        ui->acceptButton->setEnabled(true);
+        return;
+    }
+    QFileInfo sourceFileInfo(sourcefile);
+    if (!sourceFileInfo.isReadable()) {
+        ui->warningLabel->setText("Vous n'avez pas les droits de lecture sur le fichier source.");
+        ui->acceptButton->setEnabled(true);
+        return;
+    }
+
+    QFile destinationfile(ui->destinationFileEdit->text());
+    if (destinationfile.exists()) {
+        if (!destinationfile.remove()) {
             ui->warningLabel->setText("Impossible d'écraser le fichier existant. Veuillez modifier la destination.");
             ui->acceptButton->setEnabled(true);
             return;
@@ -50,7 +62,8 @@ void FileDecryptionAndVerify::accept() {
     QStringList args;
     args << ui->sourceFileEdit->text();
 
-    Action decryptAndVerifyAction("", args, opt);
+    Action decryptAndVerifyAction("", args, opt, QStringList("y"));
+    m_gpg = new GPGManager(m_profile);
     m_gpg->setAction(decryptAndVerifyAction);
     connect(m_gpg, &GPGManager::finished, this, &FileDecryptionAndVerify::onGpgFinished);
     m_gpg->execute();
@@ -73,7 +86,6 @@ void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
         // not used;
     }
     delete m_gpg;
-    ui->cancelButton->setText("Fermer");
     if (output.contains("[GNUPG:] NODATA")) {
         ui->warningLabel->setText(ui->warningLabel->text() + "Aucune donnée OpenPGP valable n'a été trouvée.\nRien à déchiffrer ou vérifier.");
         return;
@@ -104,6 +116,7 @@ void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
         file.open(QFile::ReadOnly);
         emit fileDecrypt(QFileInfo(file).baseName(), QString(file.readAll()));
     }
+    ui->acceptButton->setEnabled(true);
 }
 
 
