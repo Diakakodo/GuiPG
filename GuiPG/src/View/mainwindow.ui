@@ -54,14 +54,12 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
           <string>Tab 1</string>
-         </attribute>
-        </widget>
-        <widget class="QWidget" name="tab_2">
-         <attribute name="title">
-          <string>Tab 2</string>
          </attribute>
         </widget>
        </widget>
@@ -204,7 +202,7 @@
      <x>0</x>
      <y>0</y>
      <width>1099</width>
-     <height>27</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -233,7 +231,6 @@
     <addaction name="actionG_n_rer_une_paire_de_clefs"/>
     <addaction name="actionImporter"/>
     <addaction name="menuExporter"/>
-    <addaction name="actionChiffrer_un_fichier"/>
    </widget>
    <widget class="QMenu" name="menuConfiguration">
     <property name="title">
@@ -248,9 +245,17 @@
     <addaction name="actionManuel_utilisateur_de_GuiPG"/>
     <addaction name="actionA_propos"/>
    </widget>
+   <widget class="QMenu" name="menuCryptographie">
+    <property name="title">
+     <string>Cryptographie</string>
+    </property>
+    <addaction name="actionChiffrer_un_fichier"/>
+    <addaction name="actionDechiffrer_Verifier_un_fichier"/>
+   </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuAffichage"/>
    <addaction name="menuClefs"/>
+   <addaction name="menuCryptographie"/>
    <addaction name="menuConfiguration"/>
    <addaction name="menuAide"/>
   </widget>
@@ -397,6 +402,11 @@
   <action name="actionChiffrer_un_fichier">
    <property name="text">
     <string>Chiffrer un fichier</string>
+   </property>
+  </action>
+  <action name="actionDechiffrer_Verifier_un_fichier">
+   <property name="text">
+    <string>Déchiffrer / Vérifier un fichier</string>
    </property>
   </action>
  </widget>

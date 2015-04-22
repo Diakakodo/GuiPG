@@ -54,6 +54,9 @@ cette photo à l'aide la commande \texttt{showphoto} puis enfin supprimer l'iden
 -\item Afficher les préférences d'une clef\\
 Avec la commande \texttt{pref} on peut lister les préférences de l'utilisateur sélectionné sachant que la commande \texttt{showpref}
  donne beaucoup plus de détails sur les préférences que la première.
+
+\newpage
+
 \item Ajout de sous-clefs\\
 Les sous-clefs peuvent être considérées comme des paires de clefs séparées,mais automatiquement associées à votre paire de clefs 
 principale donc essentiellement dédiées au chiffrement et déchiffrement.
@@ -91,7 +94,7 @@ utilise votre clef publique puis chiffre le message et vous envoi le chiffré qu
 la clef sécrète correspondante.
 
 
-\subsection {Chiffrement}:\\
+\subsection {Chiffrement}
 Cette méthode permet de transmettre des données de façon illisible par le commun des mortels sauf la personne détentrice de la clef 
 secrète pouvant déchiffrer le message pour enfin avoir accès au message clair.\\
 
@@ -102,14 +105,14 @@ format texte et non obligatoirement en fichier joint uniquement.
 Cette commande demande l'identifiant de la clef publique de la personne pour laquelle le message est adressé.
 
 
-\subsection {Déchiffrement}:\\
+\subsection {Déchiffrement}
 À l'aide de la commande \texttt{gpg --output <mon\_fichier> --decrypt <mon\_fichier.gpg>}, on peut bien déchiffrer le message 
 mon\_fichier.gpg dont le contenu est mis en clair dans le fichier  mon\_fichier.\\
 
 Cette commande demande la phrase de passe pour déchiffrer le message .
 
 
-\section {Signer et vérifier des signatures} :\\
+\section {Signer et vérifier des signatures}
 
 Une signature numérique d'un document nous permet de certifier et de dater un document. Si le document fait l'objet d'une quelconque
 modification, une vérification de signature échouera donc on peut bien dire qu'une signature numérique contrairement à la signature 
