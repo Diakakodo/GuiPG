@@ -41,7 +41,9 @@ HEADERS += \
     src/View/GpgItems/subseckeyitem.h \
     src/View/GpgItems/uiditem.h \
     src/View/gpgtreewidget.h \
-    src/Keys/keydeletion.h
+    src/Keys/keydeletion.h \
+    src/View/adduiddialog.h \
+    src/View/subkeycreation.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -83,7 +85,9 @@ SOURCES += \
     src/View/GpgItems/subseckeyitem.cpp \
     src/View/GpgItems/uiditem.cpp \
     src/View/gpgtreewidget.cpp \
-    src/Keys/keydeletion.cpp
+    src/Keys/keydeletion.cpp \
+    src/View/adduiddialog.cpp \
+    src/View/subkeycreation.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
@@ -92,7 +96,9 @@ FORMS += \
     src/View/Profil/dialogprofile.ui \
     src/View/keyexport.ui \
     src/View/keyimport.ui \
-    src/View/keyedition.ui
+    src/View/keyedition.ui \
+    src/View/adduiddialog.ui \
+    src/View/subkeycreation.ui
 
 RESOURCES += \
     icones.qrc

@@ -137,7 +137,7 @@ void KeyCreation::addData(const QString& data) {
 
 void KeyCreation::keyCreationFinished()
 {
-    m_window->refreshKeys();
+    m_window->getModel()->getKeyManager()->load();
     ui->pushButton->setText("Fermer");
     //close();
 }

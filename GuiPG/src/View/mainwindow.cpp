@@ -53,6 +53,7 @@ MainWindow::MainWindow(MainWindowModel* model)
     model->initKeyManager(this);
     ui->treeWidgetKey->setKeyManager(model->getKeyManager());
     ui->treeWidgetKey->setProfile(m_model->getProfile());
+    ui->treeWidgetKey->sortByColumn(GpgItem::COL_NAME, Qt::AscendingOrder);
 }
 
 void MainWindow::onCustomContextMenuRequested(const QPoint& pos) {
@@ -211,6 +212,7 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
         ui->bigBrother->setItemWidget(cmdItem, 0, NULL);
     }
     ui->bigBrother->resizeColumnToContents(1);
+    ui->bigBrother->scrollToBottom();
 }
 
 int MainWindow::getNbCmd() {
