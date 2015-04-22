@@ -64,6 +64,7 @@ void MainWindow::addTab(QString name, QString content) {
     QTextEdit* textEdit = new QTextEdit(this);
     textEdit->setText(content);
     ui->tabWidget->addTab(textEdit, name);
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->count() - 1);
     QList<int> sizes = ui->splitter->sizes();
     if (sizes[1] == 0) {
         sizes[1] = (this->width() / 4);
