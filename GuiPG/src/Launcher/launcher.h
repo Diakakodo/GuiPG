@@ -40,6 +40,7 @@ class Launcher : public QThread {
 
         void UnloadProfileWithWindow(Profile* p);
         static QHash<Profile*, MainWindow*> m_profileMainWindowHash;
+        static QSharedMemory* SHM;
 
     signals:
         void runApp(Launcher* launcher, GuiPGApp* app, Configuration* conf, unsigned profileId);
