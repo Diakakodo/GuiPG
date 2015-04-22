@@ -7,6 +7,7 @@
 #include "../Model/mainwindowmodel.h"
 #include "../View/mainwindow.h"
 #include "../View/keyexport.h"
+#include "../View/keyimport.h"
 #include "../View/Profil/profilecreation.h"
 #include "../Launcher/launcher.h"
 #include "../GPG/gpgmanager.h"
@@ -15,6 +16,7 @@
 #include "unistd.h"
 #include "QEventLoop"
 #include "QDebug"
+
 
 class MainTest : public QObject
 {
@@ -29,21 +31,26 @@ private:
     MainWindow* m_mainWindow;
     MainWindowModel* m_model;
     Launcher* m_launcher;
-
+    KeyImport* m_import;
+    //A FAIRE A LA MAIN
+    void testCase_nr2();
+    void testCase_u11();
+    void testCase_u12();
+    void testCase_nr1();
+    //A FAIRE A LA MAIN
 
 private Q_SLOTS:
+    void testCase_u1();
     void testCase_u3();
     void testCase_u5();
     void testCase_u6();
     void testCase_u7();
     void testCase_u8();
     void testCase_u10();
-    void testCase_nr2();
-    void testCase_u11();
-    void testCase_nr1();
     void testLoadConfig();
     void cleanupTestCase();
 };
+
 
 MainTest::MainTest()
 {
@@ -66,6 +73,13 @@ MainTest::MainTest()
     m_model = model;
     MainWindow* mainWindow= new MainWindow(m_model);
     m_mainWindow = mainWindow;
+    KeyImport* import = new KeyImport(m_mainWindow);
+    m_import = import;
+}
+
+void MainTest::testCase_u1()
+{
+    m_model->getKeyManager()->getPubKeys();
 }
 
 void MainTest::testCase_u3()
@@ -144,32 +158,36 @@ void MainTest::testCase_u10()
 
 void MainTest::testCase_u11()
 {
-    remove("/tmp/TEST");
+    //A FAIRE A LA MAIN
+    /*remove("/tmp/TEST");
     KeyExport keyExport(m_mainWindow);
     keyExport.exportFunction(KeyExport::EXPORT_FILE, "", "/tmp/TEST");
     QVERIFY(remove("/tmp/TEST") != -1);
     QVERIFY(keyExport.exportFunction(KeyExport::EXPORT_FILE, "", "/tmp/gaijgz/kjqnonzb/zzozop") == -1);
     QVERIFY(remove("/tmp/gaijgz/kjqnonzb/zzozop") == -1);
     QVERIFY(keyExport.exportFunction(KeyExport::EXPORT_FILE, "", "/etc/test") == -1);
-    QVERIFY(remove("/etc/test") == -1);
+    QVERIFY(remove("/etc/test") == -1);*/
+}
+
+void MainTest::testCase_u12()
+{
+    //A FAIRE A LA MAIN
+
 }
 
 void MainTest::testCase_nr1()
 {
-    remove("/tmp/TEST");
-
-
-
+    //A FAIRE A LA MAIN
+    /*remove("/tmp/TEST");
     KeyExport* keyExport = new KeyExport(m_mainWindow);
     keyExport->exportFunction(KeyExport::EXPORT_FILE, "", "/tmp/TEST");
-    QVERIFY(remove("/tmp/TEST") != -1);
+    QVERIFY(remove("/tmp/TEST") != -1);*/
 }
 
 void MainTest::testCase_nr2()
 {
-
-
-    Profile* p = new Profile(1234, "test");
+    //A FAIRE A LA MAIN
+    /*Profile* p = new Profile(1234, "test");
     p->setConfigurationPath("/tmp");
     p->setGPGExecutable("/usr/bin/gpg");
     m_config->addProfile(p);
@@ -177,7 +195,7 @@ void MainTest::testCase_nr2()
         m_mainWindow->changeProfil(1);
         m_mainWindow->changeProfil(1234);
     }
-    m_config->deleteProfile(p->getId());
+    m_config->deleteProfile(p->getId());*/
 }
 
 void MainTest::testLoadConfig()
@@ -190,7 +208,6 @@ void MainTest::cleanupTestCase() {
     m_config->setDefaultProfileId(1);
     m_config->deleteProfile(78766);
 }
-
 QTEST_MAIN(MainTest)
 
 #include "tst_maintest.moc"

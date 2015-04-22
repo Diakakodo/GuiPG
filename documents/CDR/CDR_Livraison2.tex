@@ -208,16 +208,16 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     %---------------------------------------Test N° U1------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
-      \multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Création de clé}\\ \hline
+      \multicolumn{3}{|l|}{Objet testé : Classe KeyManager} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Tester la classe}\\ \hline
       \multicolumn{3}{|l|}{Procédure n° U1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une clé a & La clé a été créée &  & NOK \\
-      2 &  &  &  & \\
-      3 &  &  &  & \\ 
-      4 &  &  &  & \\
-      5 &  &  &  & \\
+      1 & Créer une instance de la classe &  &  & NOK \\
+      2 & Appeller la fonction setMainWindow &  &  & \\
+      3 & Appeller la fonction getMainWindow & La fonction renvoie la MainWindow donnée à la fonction précédente &  & \\ 
+      4 & Appeller la fonction getPubKeys & La fonction renvoie la liste des clés publiques du trousseau &  & \\
+      5 & Appeller la fonction getSecKeys &  & La fonction renvoie la liste des clés privées du trousseau & \\
       6 &  &  &  & \\
       7 &  &  &  & \\
       8 &  &  &  & \\
@@ -239,9 +239,9 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       1 & Donner une clé publique au programme d'attaque & Le programme renvoie une clé différente avec la même pré-image &  & NOK \\
       2 & Comparer la clé produite avec la clé initiale & Les deux clés ont la même seconde pré-image &  & NOK \\
       3 &  &  &  & \\ 
-	  4 &  &  &  & \\
+      4 &  &  &  & \\
       5 &  &  &  & \\
-	  6 &  &  &  & \\
+      6 &  &  &  & \\
       7 &  &  &  & \\
       8 &  &  &  & \\
       9 &  &  &  & \\
@@ -280,20 +280,20 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
  %---------------------------------------Test N° U4------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
-      \multicolumn{3}{|l|}{Objet testé : Changement de la confiance} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Changement de la confiance}\\ \hline
+      \multicolumn{3}{|l|}{Objet testé : Classe PrimaSecKey} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
       \multicolumn{3}{|l|}{Procédure n° U4} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Changer la confiance d'une clé & La confiance a changé &  & NOK \\
-      2 &  &  &  & \\
-      3 &  &  &  & \\
-      4 &  &  &  & \\
-      5 &  &  &  & \\
-	    6 &  &  &  & \\
-      7 &  &  &  & \\
-      8 &  &  &  & \\
-      9 &  &  &  & \\
+      1 & Créer une instance de la classe &  &  & NOK \\
+      2 & Utiliser la fonction getExpirationDate & La fonction renvoie la date d'expiration donnée au constructeur &  & \\
+      3 & Utiliser la fonction addUid &  &  & \\
+      4 & Utiliser la fonction getUidList & La fonction renvoie une liste d'Uid contenant celui donné à la fonction précédente &  & \\
+      5 & Utiliser la fonction hasPrimaPubKey & La fonction renvoie false &  & \\
+      6 & Utiliser la fonction setPrimaryPubKey &  &  & \\
+      7 & Utiliser la fonction hasPrimaPubKey & La fonction renvoie true &  & \\
+      8 & Utiliser la fonction addSubSecKey &  &  & \\
+      9 & Utiliser la fonction getSubSecKeyList & La fonction renvoie une liste de SubSecKey contenant celle donnée à la fonction précédente &  & \\
       10 &  &  &  &\\ 
 	\hline
     \end{tabular}
@@ -394,22 +394,23 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
 %---------------------------------------Test N° U9------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
-      \multicolumn{3}{|l|}{Objet testé : Classe GPGKey} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
+      \multicolumn{3}{|l|}{Objet testé : Classe PrimaPubKey} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
       \multicolumn{3}{|l|}{Procédure n° U9} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction getSubKeys & La fonction renvoie une QList<GPGKey> correspondant aux sous-clés de la clé donnée au constructeur &  & NOK \\
-      3 & Utiliser la fonction getEmail & La fonction renvoie un QString correspondant à l'email associé à la clé donnée au constructeur &  & NOK \\
-      4 & Utiliser la fonction getName & La fonction renvoie un QString correspondant au nom associé à la clé donnée au constructeur &  & NOK \\
-      5 & Utiliser la fonction getDate & La fonction renvoie une QDate correspondant à la date de création de la clé donnée au constructeur &  & NOK \\
-      6 & Utiliser la fonction getId & La fonction renvoie un QString correspondant au keyID de la clé donnée au constructeur &  & NOK \\
-      7 & Utiliser la fonction getComments & La fonction renvoie un QString correspondant au commentaire associé à la clé donnée au constructeur &  & NOK \\
-      8 & Utiliser la fonction getTrust & La fonction renvoie un GPGKeyLevel correspondant au niveau de confiance de la clé donnée au constructeur &  & NOK \\
-      9 & Utiliser la fonction addSubKey, puis la fonction getSubKeys & La fonction getSubKeys renvoie une QList<GPGKey> contenant la clé donnée à addSubKey &  & NOK \\
-      10 & Utiliser la fonction removeSubKey, puis la fonction getSubKeys & La fonction getSubKeys renvoie une QList<GPGKey> ne contenant pas la clé donnée à addSubKey &  & NOK \\ 
-      11 & Utiliser la fonction setTrust, puis la fonction getTrust & La fonction getTrust renvoie un GPGKeyLevel contenant au niveau donné à setTrust &  & NOK \\ 
+      2 & Utiliser la fonction getTrust & La fonction renvoie la confiance donnée au constructeur &  & NOK \\
+      3 & Utiliser la fonction addSubPubKey &  &  & NOK \\
+      4 & Utiliser la fonction getSubPubKeyList & La fonction renvoie une liste de SubPubKeys contenant la clé donnée à la fonction précédente &  & NOK \\
+      5 & Utiliser la fonction addUid &  &  & NOK \\
+      6 & Utiliser la fonction getUidList & La fonction renvoie une liste d'Uid contenant celui donné à la fonction précédente &  & NOK \\
+      7 & Utiliser la fonction setPrimaryUid &  &  & NOK \\
+      8 & Utiliser la fonction getPrimaryUid & La fonction renvoie l'Uid donné à la fonction précédente &  & NOK \\
+      9 & Utiliser la fonction hasPrimaSecKey & La fonction renvoie false &  & NOK \\
+      10 & Utiliser la fonction setPrimarySecKey &  &  & NOK \\ 
+      11 & Utiliser la fonction hasPrimaSecKey & La fonction renvoie true &  & NOK \\ 
+      12 & Utiliser la fonction getPrimarySecKey & La fonction renvoie la PrimaSecKey donnée à la fonction setPrimarySecKey &  & NOK \\ 
   \hline
     \end{tabular}
     \vskip 2.2cm
@@ -435,52 +436,6 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
   \hline
     \end{tabular}
     \vskip 2.2cm
-
-
-    %---------------------------------------Test N° U11------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé : Classe KeyExport} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° U11} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Avoir un trousseau de clés non vide &  &  & NOK \\
-      2 & Créer une instance de la classe &  &  & NOK \\
-      3 & Utiliser la fonction exportKey sur /tmp & Le fichier correspondant au path a été créé. &  & NOK \\
-      4 & Utiliser la fonction exportKey sur un fichier non accessible en écriture & La fonction renvoie -1 &  & NOK \\
-      5 & Utiliser la fonction exportKey sur un chemin inexistant & la fonction renvoie -1 &  & NOK \\
-      6 & Utiliser la fonction exportKey sur un fichier déjà existant & Le fichier a été remplacé &  & NOK \\
-      7 &  &  &  & \\
-      8 &  &  &  & \\
-      9 &  &  &  & \\
-      10 &  &  &  & \\ 
-  \hline
-    \end{tabular}
-    \vskip 2.2cm
-
-    %---------------------------------------Test N° U12------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé : Classe KeyImport} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° U12} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Utiliser la fonction import sur un fichier valide & Les clés contenues dans le fichier ont été importées &  & NOK \\
-      3 &  &  &  &  \\
-      4 &  &  &  &  \\
-      5 &  &  &  &  \\
-      6 &  &  &  &  \\
-      7 &  &  &  &  \\
-      8 &  &  &  &  \\
-      9 &  &  &  & \\
-      10 &  &  &  & \\ 
-  \hline
-    \end{tabular}
-    \vskip 2.2cm    
-
 
 %TESTS D'INTEGRATION%
 \subsection{Tests d'intégration}
@@ -649,8 +604,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Lancer GuiPG &  &  & OK \\
-      2 & Ouvrir le menu de création de clé & Le menu s'affiche &  & \\
-      3 & Ecrire quelque chose dans les champs de la passphrase & La passphrase n'est pas affichée en clair &  & \\ 
+      2 & Ouvrir le menu de création de clé & Le menu s'affiche &  & OK\\
+      3 & Ecrire quelque chose dans les champs de la passphrase & La passphrase n'est pas affichée en clair &  & OK\\ 
       4 &  &  &  & \\
       5 &  &  &  & \\
       6 &  &  &  & \\
@@ -661,6 +616,54 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
 	\hline
     \end{tabular}
     \vskip 2.2cm
+
+
+
+    %---------------------------------------Test N° I9------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Exportation de clés}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U11} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Cliquer sur "exporter les clés privées &  &  & OK \\
+      2 & Exporter les clés vers /tmp & Le fichier correspondant au path a été créé. &  & OK \\
+      3 & Exporter les clés vers un fichier non accessible en écriture & La fonction renvoie -1 &  & OK \\
+      4 & Exporter les clés vers un chemin inexistant & la fonction renvoie -1 &  & OK \\
+      5 & Exporter les clés vers un fichier déjà existant & Le fichier a été remplacé &  & OK \\
+      6 & Recommencer les étapes 2,3,4,5 avec l'exportation des clés publiques &  &  & OK\\
+      7 & Recommencer les étapes 2,3,4,5 avec l'exportation d'une clé publique &  &  & OK\\
+      8 & Recommencer les étapes 2,3,4,5 avec l'exportation d'une clé privée &  &  & OK\\
+      9 &  &  &  & \\ 
+      10 &  &  &  & \\ 
+  \hline
+    \end{tabular}
+    \vskip 2.2cm
+
+    %---------------------------------------Test N° I10------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Classe KeyImport} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U12} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Cliquer sur le bouton d'importation ou le menu "Importer" &  &  & OK \\
+      2 & Importer un fichier de clés gpg & Les clés contenues dans le fichier ont été importées &  & OK \\
+      3 & Importer un fichier quelconque & La fenêtre d'importation se ferme, et rien ne se passe &  & OK \\
+      4 &  &  &  &  \\
+      5 &  &  &  &  \\
+      6 &  &  &  &  \\
+      7 &  &  &  &  \\
+      8 &  &  &  &  \\
+      9 &  &  &  & \\
+      10 &  &  &  & \\ 
+  \hline
+    \end{tabular}
+    \vskip 2.2cm    
+
+
 
 %TESTS DE NON REGRESSION%
 \subsection{Tests de non-régression}
