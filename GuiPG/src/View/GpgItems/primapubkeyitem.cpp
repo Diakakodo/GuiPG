@@ -4,9 +4,9 @@
 #include "../gpgtreewidget.h"
 #include "../keyexport.h"
 #include "../../Keys/keydeletion.h"
+#include "../subkeycreation.h"
 #include <QMenu>
 #include <QAction>
-#include <QDebug>
 #include <QSignalMapper>
 
 // Initialisation de la hash map (action -> numéro de la confiance)
@@ -80,11 +80,28 @@ void PrimaPubKeyItem::showMenu(const QPoint &pos) {
     m_menu->addAction("Exporter la clé publique", this, SLOT(exportPublicKey()));
     if (m_pub->hasPrimaSecKey()) {
         m_menu->addAction("Exporter la clé secrète", this, SLOT(exportSecretKey()));
+        m_menu->addAction("Ajout une sous clef", this, SLOT(addSubKey()));
     }
     m_menu->addAction("Signer", this, SLOT(sign()));
     m_menu->addAction("Supprimer", this, SLOT(deleteKey()));
     getPossibleTrustValue();
 }
+
+void PrimaPubKeyItem::addSubKey() {
+    GpgTreeWidget* tree = (GpgTreeWidget*) treeWidget();
+    m_createSubPubKeyView = new SubKeyCreation(tree->getProfile(), m_pub, tree);
+    connect(m_createSubPubKeyView, &QDialog::finished, this, &PrimaPubKeyItem::onAddSubKeyFinished);
+    m_createSubPubKeyView->show();
+
+}
+
+void PrimaPubKeyItem::onAddSubKeyFinished(int result) {
+    if (result) {
+        ((GpgTreeWidget*) treeWidget())->getKeyManager()->load();
+        delete m_createSubPubKeyView;
+    }
+}
+
 
 void PrimaPubKeyItem::sign() {
     //KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();

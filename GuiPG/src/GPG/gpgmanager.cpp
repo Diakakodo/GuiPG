@@ -94,6 +94,7 @@ void GPGManager::sendHiddenInteraction() {
     connect(validButton, &QPushButton::clicked, this, &GPGManager::onSendHiddenInteraction);
     connect(validButton, &QPushButton::clicked, dialog, &QDialog::accept);
     connect(dialog, &QDialog::rejected, this, &GPGManager::onSendHiddenInteractionAborted);
+    dialog->setModal(true);
     dialog->show();
 }
 
