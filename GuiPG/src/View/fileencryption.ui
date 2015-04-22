@@ -45,6 +45,27 @@
      </layout>
     </item>
     <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <item>
+       <widget class="QLabel" name="outputLabel">
+        <property name="text">
+         <string>Fichier destination</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="outputEdit"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="outputButton">
+        <property name="text">
+         <string>Parcourir</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QLabel" name="destinationLabel">

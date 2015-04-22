@@ -26,6 +26,8 @@ private slots:
 
     void onEncryptionCompleted();
 
+    void on_outputButton_clicked();
+
 private:
     Ui::FileEncryption *ui;
     Profile* m_profile;

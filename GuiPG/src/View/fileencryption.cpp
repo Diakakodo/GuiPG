@@ -53,14 +53,19 @@ void FileEncryption::onEncryptionCompleted()
 void FileEncryption::on_okButton_clicked()
 {
     struct stat st;
-    QByteArray ba = (ui->pathEdit->text() + ".gpg").toLocal8Bit();
+    QByteArray ba = ui->outputEdit->text().toLocal8Bit();
     const char *file = ba.data();
     if(stat(file, &st) == 0) {
-        ui->errorLabel->setText("Le fichier " + ui->pathEdit->text() + ".gpg existe déjà.");
-        return;
+        remove(file);
     }
-    Action action(QString("-e"), QStringList() << ui->pathEdit->text(), QStringList("--command-fd=0") << "--status-fd=1", QStringList(ui->comboBox->currentText()) << "");
+    Action action(QString("-e"), QStringList() << ui->pathEdit->text(), QStringList("--command-fd=0") << "--status-fd=1" << "--output" << ui->outputEdit->text(), QStringList(ui->comboBox->currentText()) << "");
     m_manager->setAction(action);
     connect(m_manager, &GPGManager::finished, this, &FileEncryption::onEncryptionCompleted);
     m_manager->execute();
+}
+
+void FileEncryption::on_outputButton_clicked()
+{
+    QString pathName = QFileDialog::getSaveFileName(this, "Fichier chiffré");
+    ui->outputEdit->setText(pathName);
 }
