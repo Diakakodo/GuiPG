@@ -62,8 +62,17 @@ void FileDecryptionAndVerify::on_browseDestinationFileButton_clicked()
 }
 
 void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
+    if (s) {
+        // not used;
+    }
     delete m_gpg;
+    bool ok = true;
     ui->cancelButton->setText("Fermer");
+    if (output.contains("[GNUPG:] NODATA")) {
+        ui->warningLabel->setText(ui->warningLabel->text() + "Rien à déchiffrer ou vérifier.\n");
+        ok = false;
+        return;
+    }
     QPalette palette(ui->warningLabel->palette());
     QBrush brush(QColor(55, 212, 55));
     brush.setStyle(Qt::SolidPattern);
