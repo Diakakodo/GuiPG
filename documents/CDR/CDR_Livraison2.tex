@@ -123,15 +123,11 @@ Voici la configuration des machines personnelles des deux testeurs :
 Seront également utilisées des machines virtuelles pour répondre aux besoins du client sur la compatibilité de l'interface (KDE et GNOME).
 
 \subsection{Outils de tests mis en oeuvre}
-Nous avons décidé d'utiliser le framework Qt pour réaliser ce projet. C'est donc le module Qttest de Qt que l'on a choisi car il permet de réaliser simplement les tests unitaires et benchmark.
-
-\subsection{Jeux de données/Bases de données}
-Nous aurons comme jeu de données les différentes clés contenues dans le trousseau de test.
-
+Nous avons décidé d'utiliser le framework Qt pour réaliser ce projet. C'est donc le module Qttest de Qt que l'on a choisi car il permet de réaliser simplement les tests unitaires.
 
 \subsection{Contraintes à prendre en compte}
 Chaque procédure de test devra être réalisée sous KDE et sous GNOME.
-Les tests unitaires et de non-régression seront réalisés à l'aide de l'api Qt (automatiquement), et les tests d'intégration à l'aide de l'interface (manuellement).
+Les tests unitaires seront réalisés à l'aide de l'api Qt (automatiquement), et les tests d'intégration à l'aide de l'interface (manuellement).
 
 
 
@@ -159,7 +155,7 @@ Les différentes campagnes de tests correspondront aux livrables envoyés au cli
 
 \subsection{Ordre d'exécution des tests}
 
-L'ordre d'exécution des tests suivra l'ordre du plan de développement.
+L'ordre d'exécution des tests suivra l'ordre numérique.
 
 \subsection{Critères d'arrêt des tests}
 
@@ -178,8 +174,6 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
    \item Une personne est désignée pour corriger l'anomalie.
    \item Cette personne vérifie la gravité de l'anomalie, puis la corrige.
    \item Une deuxième personne s'assure que l'anomalie est bien corrigée.
-   \item Une fois la vérification effectuée, la personne ayant corrigé l'anomalie établit un contre-mémo portant le même identifiant et précisant les raisons supposées 
-   de l'anomalie ainsi que les corrections mises en place.
   \end{itemize}
   
 
@@ -204,62 +198,20 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
 
 \subsection{Tests unitaires}
 
-\begin{center}
-    %---------------------------------------Test N° U1------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé : Classe KeyManager} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Tester la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° U1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & NOK \\
-      2 & Appeller la fonction setMainWindow &  &  & \\
-      3 & Appeller la fonction getMainWindow & La fonction renvoie la MainWindow donnée à la fonction précédente &  & \\ 
-      4 & Appeller la fonction getPubKeys & La fonction renvoie la liste des clés publiques du trousseau &  & \\
-      5 & Appeller la fonction getSecKeys &  & La fonction renvoie la liste des clés privées du trousseau & \\
-      6 &  &  &  & \\
-      7 &  &  &  & \\
-      8 &  &  &  & \\
-      9 &  &  &  & \\
-      10 &  &  &  &\\ 
-	\hline
-    \end{tabular}
-    \vskip 2.2cm
-
-
- %---------------------------------------Test N° U2------------------------------------------------------------------------------
-    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
-      \hline
-      \multicolumn{3}{|l|}{Objet testé : Attaque seconde pré-image} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : La clé produite a la même seconde pré-image que celle donnée.}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° U2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
-      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
-      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Donner une clé publique au programme d'attaque & Le programme renvoie une clé différente avec la même pré-image &  & NOK \\
-      2 & Comparer la clé produite avec la clé initiale & Les deux clés ont la même seconde pré-image &  & NOK \\
-      3 &  &  &  & \\ 
-      4 &  &  &  & \\
-      5 &  &  &  & \\
-      6 &  &  &  & \\
-      7 &  &  &  & \\
-      8 &  &  &  & \\
-      9 &  &  &  & \\
-      10 &  &  &  &\\ 
-	\hline
-    \end{tabular}
-    \vskip 2.2cm
 
 
 
 
 
- %---------------------------------------Test N° U3------------------------------------------------------------------------------
+
+
+
+ %---------------------------------------Test N° U1------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : GuiPG} & \multicolumn{2}{c|}{Version : 0.3}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Tester les classes liées à la gestion de profil}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° U3} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Demander la liste des profils & On récupère une liste de profils &  & OK \\
@@ -277,12 +229,12 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \vskip 2.2cm
 
 
- %---------------------------------------Test N° U4------------------------------------------------------------------------------
+ %---------------------------------------Test N° U2------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe PrimaSecKey} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° U4} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & NOK \\
@@ -292,19 +244,19 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       5 & Utiliser la fonction hasPrimaPubKey & La fonction renvoie false &  & \\
       6 & Utiliser la fonction setPrimaryPubKey &  &  & \\
       7 & Utiliser la fonction hasPrimaPubKey & La fonction renvoie true &  & \\
-      8 & Utiliser la fonction addSubSecKey &  &  & \\
-      9 & Utiliser la fonction getSubSecKeyList & La fonction renvoie une liste de SubSecKey contenant celle donnée à la fonction précédente &  & \\
-      10 &  &  &  &\\ 
+      8 & Utiliser la fonction getPrimarySecKey & La fonction renvoie la PrimarySecKey donnée à la fonction setPrimaryPubKey &  & \\
+      9 & Utiliser la fonction addSubSecKey &  &  & \\
+      10 & Utiliser la fonction getSubSecKeyList & La fonction renvoie une liste de SubSecKey contenant celle donnée à la fonction précédente &  & \\
 	\hline
     \end{tabular}
     \vskip 2.2cm
     
-        %---------------------------------------Test N° U5------------------------------------------------------------------------------
+        %---------------------------------------Test N° U3------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe Profile} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° U5} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U3} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & OK \\
@@ -322,12 +274,12 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \vskip 2.2cm
     
 	
-%---------------------------------------Test N° U6------------------------------------------------------------------------------
+%---------------------------------------Test N° U4------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe Launcher} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° U6} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U4} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & OK \\
@@ -346,12 +298,12 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \vskip 2.2cm
 	
 	
-%---------------------------------------Test N° U7------------------------------------------------------------------------------
+%---------------------------------------Test N° U5------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe Action} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° U7} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U5} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & OK \\
@@ -368,20 +320,20 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \end{tabular}
     \vskip 2.2cm
 	
-%---------------------------------------Test N° U8------------------------------------------------------------------------------
+%---------------------------------------Test N° U6------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe GPGManager} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° U8} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U6} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & OK \\
       2 & Utiliser la fonction setAction &  &  & OK \\
       3 & Utiliser la fonction execute &  &  & OK \\
       4 & Attendre le signal finished & Le signal finished est reçu &  & OK \\
-      5 & Utiliser la fonction getOutput & La fonction renvoie le texte renvoyé par gpg quand gpg exécute l'action donnée en argument à setAction &  & OK \\
-	    6 & &  &  &  \\
+      5 &  & &  & \\
+      6 &  &  &  &  \\
       7 &  &  &  &  \\
       8 &  &  &  &  \\
       9 &  &  &  & \\
@@ -391,12 +343,12 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \vskip 2.2cm
 	
 
-%---------------------------------------Test N° U9------------------------------------------------------------------------------
+%---------------------------------------Test N° U7------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe PrimaPubKey} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° U9} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U7} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & NOK \\
@@ -415,12 +367,12 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \end{tabular}
     \vskip 2.2cm
 
-%---------------------------------------Test N° U10------------------------------------------------------------------------------
+%---------------------------------------Test N° U8------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe MainWindowModel} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° U10} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° U8} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Créer une instance de la classe &  &  & OK \\
@@ -599,7 +551,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Interface Graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Changement de la confiance d'une clé}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Création de clé}\\ \hline
       \multicolumn{3}{|l|}{Procédure n° I8} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
@@ -644,8 +596,8 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     %---------------------------------------Test N° I10------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
-      \multicolumn{3}{|l|}{Objet testé : Classe KeyImport} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Test de la classe}\\ \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Importation de clé}\\ \hline
       \multicolumn{3}{|l|}{Procédure n° U12} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
@@ -663,25 +615,20 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \end{tabular}
     \vskip 2.2cm    
 
-
-
-%TESTS DE NON REGRESSION%
-\subsection{Tests de non-régression}
-
-    %---------------------------------------Test N° NR1------------------------------------------------------------------------------
+ %---------------------------------------Test N° I11------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
-      \multicolumn{3}{|l|}{Objet testé : Classe KeyExport} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
-      \multicolumn{5}{|l|}{Objectif de test : Test d'un bug rencontré}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° NR1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Objet testé : Attaque seconde pré-image} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : La clé produite a la même seconde pré-image que celle donnée.}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I11} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Créer une instance de la classe &  &  & OK \\
-      2 & Utiliser la fonction exportKey vers /tmp & Le fichier été créé. &  & OK \\
-      3 &  &  &  & \\
+      1 & Donner une clé publique au programme d'attaque & Le programme renvoie une clé différente avec la même pré-image &  & NOK \\
+      2 & Comparer la clé produite avec la clé initiale & Les deux clés ont la même seconde pré-image &  & NOK \\
+      3 &  &  &  & \\ 
       4 &  &  &  & \\
       5 &  &  &  & \\
-	    6 &  &  &  & \\
+      6 &  &  &  & \\
       7 &  &  &  & \\
       8 &  &  &  & \\
       9 &  &  &  & \\
@@ -690,12 +637,38 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \end{tabular}
     \vskip 2.2cm
 
-%---------------------------------------Test N° NR2------------------------------------------------------------------------------
+ %---------------------------------------Test N° I12------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Affichage des commandes et retours gpg}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I11} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Lancer GuiPG &  &  & NOK \\
+      2 & Faire une action nécessitant le lancement d'une commande GPG & La commande et les retours sont affichés dans la zoen prévue à cet effet &  & NOK \\
+      3 &  &  &  & \\ 
+      4 &  &  &  & \\
+      5 &  &  &  & \\
+      6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+	\hline
+    \end{tabular}
+    \vskip 2.2cm
+
+
+%TESTS DE NON REGRESSION%
+\subsection{Tests de non-régression}
+
+%---------------------------------------Test N° NR1------------------------------------------------------------------------------
     \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
       \hline
       \multicolumn{3}{|l|}{Objet testé : Classe KeyManager} & \multicolumn{2}{c|}{Version : 0.5}\\ \hline
       \multicolumn{5}{|l|}{Objectif de test : Test d'un bug rencontré lors du changement rapide de profils}\\ \hline
-      \multicolumn{3}{|l|}{Procédure n° NR2} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° NR1} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Lancer GuiPG avec un profil & GuiPG se lance &  & OK \\
@@ -728,28 +701,33 @@ Elles servent aussi de démonstration pour la répercussion de la confiance sur 
     \begin{tabular}{|p{2.8cm}|p{4.2cm}|p{3cm}|p{5cm}|}
       \hline
       Id Exigence STB & Méthode de vérification & Procédure(s) utilisée(s) & Commentaire\\ \hline
-      EF\_01 & Tests unitaires et d'intégration & U3, U5, I1 & \\ \hline
-      EF\_02 & Tests unitaires et d'intégration & U3, U5, I1 & \\ \hline
-      EF\_03 & Tests unitaires et d'intégration & U3, U5, I1 & \\ \hline
-      EF\_04 & Tests unitaires, d'intégration et de non-régression & U3, U5, I1, NR2 & \\ \hline
+      EF\_01 & Tests unitaires et d'intégration & U1, U3, I1 & \\ \hline
+      EF\_02 & Tests unitaires et d'intégration & U1, U3, I1 & \\ \hline
+      EF\_03 & Tests unitaires et d'intégration & U1, U3, I1 & \\ \hline
+      EF\_04 & Tests unitaires, d'intégration et de non-régression & U1, U3, I1, NR1 & \\ \hline
       EF\_05 & Test d'intégration & I1 & \\ \hline
       EF\_06 & Test d'intégration & I2 & \\ \hline
       EF\_07 & Test d'intégration & I6 & \\ \hline
-      EF\_08 & Test unitaire & U1 & \\ \hline
-      EF\_09 & Test unitaire & U12 & \\ \hline
-      EF\_10 & Test unitaire et de non-régression & NR1, U11 & \\ \hline
-      EF\_11 & Test unitaire &  & \\ \hline
+      EF\_08 & Test d'intégration & I3 & \\ \hline
+      EF\_09 & Test d'intégration & I10 & \\ \hline
+      EF\_10 & Test d'intégration & I9 & \\ \hline
+      EF\_11 & Test d'intégration & I5 & \\ \hline
       EF\_12 & Test d'intégration & I7 & \\ \hline
       EF\_13 & Non implémenté - Pas de test &  & \\ \hline
       EF\_14 & Non implémenté - Pas de test &  & \\ \hline
-      EF\_15 & Test d'intégration & I3 & \\ \hline
-      EO\_06 & Test unitaire et d'intégration & I6 & \\ \hline
+      EF\_15 & Test d'intégration & I12 & \\ \hline
+      EO\_01 & Tous les tests d'intégration sont réalisés avec GnuPG 2.0 & Toutes & \\ \hline
+      EO\_02 & Tous les tests d'intégration sont réalisés avec GnuPG 1.4.* & Toutes & \\ \hline
+      EO\_03 & Tous les tests d'intégration sont réalisés avec GnuPG 2.1.0 & Toutes & \\ \hline
+      EO\_04 & Tous les tests d'intégration sont réalisés sous KDE 4.* et 5.0 & Toutes & \\ \hline
+      EO\_05 & Tous les tests d'intégration sont réalisés sous Gnome 3.* & Toutes & \\ \hline
+      EO\_06 & Test unitaire et d'intégration & I7 & \\ \hline
       EO\_07 & Test d'intégration & I2 & \\ \hline
       EO\_08 & Non implémenté - Pas de test &  & \\ \hline
       EO\_09 & Non implémenté - Pas de test &  & \\ \hline
       EO\_10 & Non implémenté - Pas de test &  & \\ \hline
       EO\_11 & Non implémenté - Pas de test &  & \\ \hline
-      EQ\_01 & Test d'intégration & I6 & \\ \hline
+      EQ\_01 & Test d'intégration & I6, I7 & \\ \hline
       EQ\_04 & Test d'intégration & I8 & \\ \hline
   \end{tabular}  
 \end{center}
@@ -967,9 +945,9 @@ Rappel des codes utilisés dans la STB :
 \begin{center}
     \begin{tabular}{|p{1.9cm}|p{1.9cm}|p{9cm}|p{1.9cm}|}
       \hline
-      Date de détection & Date de correction & Description & Test NR associé\\ \hline
-      02/03/2015 & 28/03/2015 & La fonction d'exportation ne faisait rien & NR1\\ \hline
-      02/04/2015 & 09/04/2015 & Changer de profil rapidement faisait crasher GuiPG & NR2\\ \hline
+      Date de détection & Date de correction & Description & Test associé\\ \hline
+      02/03/2015 & 28/03/2015 & La fonction d'exportation ne faisait rien & I9\\ \hline
+      02/04/2015 & 09/04/2015 & Changer de profil rapidement faisait crasher GuiPG & NR1\\ \hline
   \end{tabular}  
 \end{center}
 
