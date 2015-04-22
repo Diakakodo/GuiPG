@@ -204,7 +204,7 @@
      <x>0</x>
      <y>0</y>
      <width>1099</width>
-     <height>19</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -233,6 +233,7 @@
     <addaction name="actionG_n_rer_une_paire_de_clefs"/>
     <addaction name="actionImporter"/>
     <addaction name="menuExporter"/>
+    <addaction name="actionChiffrer_un_fichier"/>
    </widget>
    <widget class="QMenu" name="menuConfiguration">
     <property name="title">
@@ -391,6 +392,11 @@
    </property>
    <property name="text">
     <string>Rafraichir la liste des clefs</string>
+   </property>
+  </action>
+  <action name="actionChiffrer_un_fichier">
+   <property name="text">
+    <string>Chiffrer un fichier</string>
    </property>
   </action>
  </widget>

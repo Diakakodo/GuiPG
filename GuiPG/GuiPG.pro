@@ -43,7 +43,8 @@ HEADERS += \
     src/View/gpgtreewidget.h \
     src/Keys/keydeletion.h \
     src/View/adduiddialog.h \
-    src/View/subkeycreation.h
+    src/View/subkeycreation.h \
+    src/View/fileencryption.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -87,7 +88,8 @@ SOURCES += \
     src/View/gpgtreewidget.cpp \
     src/Keys/keydeletion.cpp \
     src/View/adduiddialog.cpp \
-    src/View/subkeycreation.cpp
+    src/View/subkeycreation.cpp \
+    src/View/fileencryption.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
@@ -98,7 +100,8 @@ FORMS += \
     src/View/keyimport.ui \
     src/View/keyedition.ui \
     src/View/adduiddialog.ui \
-    src/View/subkeycreation.ui
+    src/View/subkeycreation.ui \
+    src/View/fileencryption.ui
 
 RESOURCES += \
     icones.qrc
