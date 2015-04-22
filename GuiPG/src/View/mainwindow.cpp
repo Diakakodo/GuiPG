@@ -211,6 +211,7 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
         ui->bigBrother->setItemWidget(cmdItem, 0, NULL);
     }
     ui->bigBrother->resizeColumnToContents(1);
+    ui->bigBrother->scrollToBottom();
 }
 
 int MainWindow::getNbCmd() {
