@@ -15,6 +15,7 @@
 #include <QTextEdit>
 #include <QLineEdit>
 #include <QMovie>
+#include "filedecryptionandverify.h"
 
 MainWindow::MainWindow(MainWindowModel* model)
     : ui(new Ui::MainWindow), m_model(model) {
@@ -224,9 +225,12 @@ void MainWindow::setNbCmd(int nb) {
     NB_CMD = nb;
 }
 
-void MainWindow::on_actionChiffrer_un_fichier_triggered()
-{
+void MainWindow::on_actionChiffrer_un_fichier_triggered() {
     FileEncryption encryption(this, m_model->getKeyManager());
-    encryption.show();
     encryption.exec();
+}
+
+void MainWindow::on_actionDechiffrer_Verifier_un_fichier_triggered() {
+    FileDecryptionAndVerify decryptAndVerify(m_model->getProfile(), this);
+    decryptAndVerify.exec();
 }

@@ -44,7 +44,8 @@ HEADERS += \
     src/Keys/keydeletion.h \
     src/View/adduiddialog.h \
     src/View/subkeycreation.h \
-    src/View/fileencryption.h
+    src/View/fileencryption.h \
+    src/View/filedecryptionandverify.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -89,7 +90,8 @@ SOURCES += \
     src/Keys/keydeletion.cpp \
     src/View/adduiddialog.cpp \
     src/View/subkeycreation.cpp \
-    src/View/fileencryption.cpp
+    src/View/fileencryption.cpp \
+    src/View/filedecryptionandverify.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
@@ -101,7 +103,8 @@ FORMS += \
     src/View/keyedition.ui \
     src/View/adduiddialog.ui \
     src/View/subkeycreation.ui \
-    src/View/fileencryption.ui
+    src/View/fileencryption.ui \
+    src/View/filedecryptionandverify.ui
 
 RESOURCES += \
     icones.qrc

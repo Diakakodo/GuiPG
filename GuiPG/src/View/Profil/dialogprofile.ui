@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Charger ou supprimer un profile</string>
+   <string>Charger, editer ou supprimer un profil</string>
   </property>
   <property name="modal">
    <bool>true</bool>
