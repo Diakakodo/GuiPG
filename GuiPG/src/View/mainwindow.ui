@@ -214,6 +214,7 @@
      <string>Afficha&amp;ge</string>
     </property>
     <addaction name="actionVue_des_commandes_GPG"/>
+    <addaction name="actionVider_historique_des_commandes"/>
    </widget>
    <widget class="QMenu" name="menuClefs">
     <property name="title">
@@ -245,7 +246,7 @@
    </widget>
    <widget class="QMenu" name="menuCryptographie">
     <property name="title">
-     <string>Cryptographie</string>
+     <string>Cr&amp;yptographie</string>
     </property>
     <addaction name="actionChiffrer_un_fichier"/>
     <addaction name="actionDechiffrer_Verifier_un_fichier"/>
@@ -399,12 +400,17 @@
   </action>
   <action name="actionChiffrer_un_fichier">
    <property name="text">
-    <string>Chiffrer un fichier</string>
+    <string>&amp;Chiffrer un fichier</string>
    </property>
   </action>
   <action name="actionDechiffrer_Verifier_un_fichier">
    <property name="text">
-    <string>Déchiffrer / Vérifier un fichier</string>
+    <string>&amp;Déchiffrer / Vérifier un fichier</string>
+   </property>
+  </action>
+  <action name="actionVider_historique_des_commandes">
+   <property name="text">
+    <string>Vider l'historique des commandes</string>
    </property>
   </action>
  </widget>

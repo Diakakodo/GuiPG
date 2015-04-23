@@ -63,6 +63,8 @@ private slots:
 
         void on_tabWidget_tabCloseRequested(int index);
 
+        void on_actionVider_historique_des_commandes_triggered();
+
     protected:
      void closeEvent(QCloseEvent *event);
 

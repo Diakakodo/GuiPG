@@ -258,6 +258,9 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
             ui->bigBrother->setItemWidget(outputItem, 1, textOutput);
         }
         cmdItem->setText(3, gpg->getEndTime().toString(DATE_BIG_BROTHER_FORMAT));
+        QLabel* label = (QLabel*) ui->bigBrother->itemWidget(cmdItem, 0);
+        QMovie* movie = label->movie();
+        movie->stop();
         ui->bigBrother->setItemWidget(cmdItem, 0, NULL);
     }
     ui->bigBrother->resizeColumnToContents(1);
@@ -291,4 +294,9 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
         splitterSize[1]=0;
         ui->splitter->setSizes(splitterSize);
     }
+}
+
+void MainWindow::on_actionVider_historique_des_commandes_triggered() {
+    ui->bigBrother->clear();
+    setNbCmd(0);
 }
