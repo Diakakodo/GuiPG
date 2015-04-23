@@ -19,6 +19,7 @@ KeyCreation::KeyCreation(MainWindow*parent) :
         ui->lineEdit_4->hide();
         ui->label_8->hide();
     }
+    ui->comboBox->setCurrentIndex(0);
 }
 
 KeyCreation::~KeyCreation()
@@ -61,10 +62,6 @@ void KeyCreation::on_pushButton_2_clicked()
     }
     if (ui->spinBox->value() == 0 && ui->comboBox->currentIndex() != 0) {
         errorLabel->setText(errorLabel->text() + "Durée de la clé incorrecte.\n");
-    }
-
-    if(ui->lineEdit_4->text() == "" || ui->lineEdit_5->text() == "") {
-        errorLabel->setText(errorLabel->text() + "Passphrase incomplète.\n");
     }
 
     if (ui->lineEdit_4->text() != ui->lineEdit_5->text()) {
@@ -111,9 +108,11 @@ void KeyCreation::on_pushButton_2_clicked()
                 break;
         }
         interactions << "Name-Real: " + ui->lineEdit->text();
-        interactions << "Name-Comment: " + ui->lineEdit_2->text();
+        if (ui->lineEdit_2->text() != "")
+            interactions << "Name-Comment: " + ui->lineEdit_2->text();
         interactions << "Name-Email: " + ui->lineEdit_3->text();
-        interactions << "Passphrase: " + ui->lineEdit_4->text();
+        if (ui->lineEdit_4->text() != "")
+            interactions << "Passphrase: " + ui->lineEdit_4->text();
 
 
         QStringList opt;
