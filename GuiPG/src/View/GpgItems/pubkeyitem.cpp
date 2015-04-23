@@ -22,7 +22,10 @@ PubKeyItem::~PubKeyItem()
 }
 
 void PubKeyItem::showMenu(const QPoint &pos) {
-    QMenu* menu = new QMenu(treeWidget());
-    menu->addAction("Test Clef public");
-    menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
+    if (pos.isNull()) {
+        // not used
+    }
+    //QMenu* menu = new QMenu(treeWidget());
+    //menu->addAction("Test Clef public");
+    //menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
 }

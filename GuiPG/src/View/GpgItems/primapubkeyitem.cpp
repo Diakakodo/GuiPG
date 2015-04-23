@@ -8,6 +8,7 @@
 #include <QMenu>
 #include <QAction>
 #include <QSignalMapper>
+#include "../../GPG/action.h"
 
 // Initialisation de la hash map (action -> numéro de la confiance)
 // Les noms sont défini dans la X_Maccro X_COLUMNS et le numéro est donné par
@@ -26,9 +27,6 @@ QHash<int, QAction*> PrimaPubKeyItem::trustActions = []() -> QHash<int, QAction*
     }
     return hash;
 }();
-
-
-#include "../../GPG/action.h"
 
 PrimaPubKeyItem::PrimaPubKeyItem(PrimaPubKey *pub) : PubKeyItem(pub)
 {

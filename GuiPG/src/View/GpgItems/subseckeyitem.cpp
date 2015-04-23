@@ -16,9 +16,12 @@ SubSecKeyItem::~SubSecKeyItem()
 }
 
 void SubSecKeyItem::showMenu(const QPoint &pos) {
-    QMenu* menu = new QMenu(treeWidget());
-    menu->addAction("Test SubSecKey");
-    menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
+    if (pos.isNull()) {
+        // not used
+    }
+    //QMenu* menu = new QMenu(treeWidget());
+    //menu->addAction("Test SubSecKey");
+    //menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
 }
 
 

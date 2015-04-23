@@ -28,7 +28,10 @@ SubPubKeyItem::~SubPubKeyItem()
 
 
 void SubPubKeyItem::showMenu(const QPoint &pos) {
-    QMenu* menu = new QMenu(treeWidget());
-    menu->addAction("Test Sous clef public");
-    menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
+    if (pos.isNull()) {
+        // not used
+    }
+    //QMenu* menu = new QMenu(treeWidget());
+    //menu->addAction("Test Sous clef public");
+    //menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
 }
