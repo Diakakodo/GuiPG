@@ -1,5 +1,6 @@
 #include <iostream>
 #include <QObject>
+#include <QStandardPaths>
 #include "Tests/testmanager.h"
 #include "QApplication"
 #include "Profile/profile.h"
@@ -87,8 +88,7 @@ int main(int argc, char** argv) {
     bool dashP = hasProfileOpt(argc, argv);
 
     GuiPGApp app(argc, argv);
-    // TODO penser a tester le chargement de la configuration.
-    Configuration config(QCoreApplication::applicationDirPath() + "/../config.xml");
+    Configuration config(QStandardPaths::standardLocations(QStandardPaths::HomeLocation)[0] + "/.guipgconf.xml");
     if (!config.load()) {
         if (!config.save()) {
             fprintf(stderr, "Impossible de créer le fichier de configuration.");
