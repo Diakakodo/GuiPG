@@ -33,16 +33,17 @@
 %Variables
 \logo{../res/logo_univ.png}
 \title{Spécification Technique de Besoin}
-\author{Lucas \bsc{Barbay}, Olivier \bsc{Thibault}}
+\author{Bertille \bsc{Bouillie}, Lucas \bsc{Barbay}, Olivier \bsc{Thibault}}
 \projet{Projet PGP}
 \projdesc{Étude et implantation d'un outil graphique de gestion de clefs PGP}
 \filiere{Master 1 SSI }
 \matiere{Conduite de projet}
-\version{0.4}
+\version{1.0}
 \relecteur{Matthieu \bsc{Fin}, Pierre \bsc{Balmelle}}
 \signataire{Magali \bsc{Bardet}}
 \date{\today}
 
+\histentry{1.0}{24/04/2015}{Correction de la STB final suite aux dernières négociations avec le clients.}
 \histentry{0.5}{16/04/2015}{Révision de certaines parties du projet avec l'accord du client.}
 \histentry{0.4}{08/12/2014}{Complétion de la section ``Objet`` + ajout des modifications demandées par le client.}
 \histentry{0.3}{17/11/2014}{Ajout des modifications demandées par le client.}
@@ -65,13 +66,13 @@
 % Présentation succinte du sujet et hyp de travail.
 Le document présent est la spécification technique de besoin d'une étude et implantation d'un outil graphique de gestion de clefs PGP.
 
-Le projet est à réaliser par une équipe de cinq étudiants du master SSI de Rouen, pour le compte de Madame Magali BARDET responsable de ce même master. 
+Le projet est réalisé par une équipe de sept étudiants du master Sécurité des Systèmes Informatiques (SSI) de Rouen, pour le compte de Madame Magali BARDET responsable de ce même master. 
 
-L'objectif du projet est de réaliser une étude complète d'OpenPGP et du logiciel GnuPG, d'en comprendre le fonctionnement détaillé et de rédiger un rapport illustrant toutes les fonctionnalités.
+L'objectif du projet est d'effectuer une étude complète d'OpenPGP et du logiciel GnuPG, d'en comprendre le fonctionnement détaillé afin de rédiger un rapport illustrant toutes les fonctionnalités.
 
 Il est ensuite demandé de proposer une interface graphique pour GnuPG, accompagnée d'un document d'explications et de recommandations pour l'utilisateur.
 
-Enfin, il est demandé d'implanter une attaque sur les identifiants de clé PGP.
+Enfin, il est demandé d'implanter une attaque sur les identifiants de clefs PGP et de l'expliquer en détail.
 
 \subsection{Besoins opérationnels}
 L'interface graphique doit offrir la possibilité de mettre en place sa toile de confiance et de la visualiser. Le but étant de faciliter l'utilisation de GnuPG par le biais de l'interface. De plus, elle doit permettre à l'utilisateur de gérer plusieurs trousseaux de clefs simultanément.
@@ -80,16 +81,17 @@ L'interface devra donc être à la fois pédagogique et précise, notamment en c
 
 \subsection{Objectifs techniques}
 
-Les objectifs techniques de l'interface graphique pour GnuPG sont :
+Les objectifs techniques de l'interface graphique pour GnuPG sont de:
 \begin{itemize}
- \item la gestion des clefs : lister les objets du trousseau, créer, importer, exporter des clefs.
- \item la gestion de la toile de confiance : signer et modifier la confiance des clefs.
- \item la visualisation de la ou des lignes de commande GnuPG correspondantes aux actions lancées.
+ \item permettre la gestion des clefs : lister les objets du trousseau, créer, importer, exporter des clefs;
+ \item pouvoir gérer la toile de confiance : signer et modifier la confiance des clefs;
+ \item permettre le chiffrement, déchiffrement et la vérification de fichier;
+ \item mettre en évidence les lignes de commande GnuPG correspondantes aux actions lancées.
 \end{itemize}
 
 \subsection{Contraintes et recommandations}
 
-L'application doit fonctionner sur le système d'exploitation GNU/Linux, en particulier sous les environnements KDE et Gnome.
+L'application doit fonctionner sous Linux en environnements KDE et Gnome.
 
 \subsection{Résultats attendus}
 Les livrables attendus pour ce projet sont :
@@ -121,7 +123,6 @@ Différents documents de référence :
 \end{itemize}
 
 
-
 \section{Exigences fonctionnelles}
 \subsection{Présentation de la mission du produit logiciel}
 
@@ -145,11 +146,12 @@ Différents documents de référence :
 \end{umlsystem}
 
 \begin{umlsystem}[x=10, y=4, fill=red!10]{Interface graphique}
- \umlusecase[y=4, width=3cm]{Signer un ou plusieurs identifiants utilisateur}
+ \umlusecase[y=4, width=3cm]{Signer une clef principale}
  \umlusecase[y=2, width=3cm]{Modifier la confiance d'une clef principale}
  \umlusecase[y=0, width=3cm]{Ajouter une sous clef à une clef principale}
  \umlusecase[y=-2, width=3cm]{Ajouter un uid à une clef principale}
- \umlusecase[y=-4, width=3cm]{Afficher les commandes exécutées, les retours et les erreurs de GPG}
+ \umlusecase[y=-4, width=3cm]{Chiffrer / Déchiffrer / Vérifier un fichier}
+ \umlusecase[y=-6, width=3cm]{Afficher les commandes exécutées, les retours et les erreurs de GPG}
 \end{umlsystem}
 
 \begin{umlsystem}[x=10, fill=red!10]{Attaque sur les KeyId}
@@ -172,6 +174,7 @@ Différents documents de référence :
 \umlassoc{Utilisateur}{usecase-14}
 \umlassoc{Utilisateur}{usecase-15}
 \umlassoc{Utilisateur}{usecase-16}
+\umlassoc{Utilisateur}{usecase-17}
 
 \end{tikzpicture}
 
@@ -246,7 +249,7 @@ Différents documents de référence :
   \cr
   \hline
   EF\_11&
-  Signer un ou plusieurs identifiants utilisateur&
+  Signer une clef principale&
   Utilisateur&
   Indispensable
   \cr
@@ -270,6 +273,12 @@ Différents documents de référence :
   \cr
   \hline
   EF\_15&
+  Chiffrer / Déchiffrer / Vérifier un fichier&
+  Utilisateur&
+  Important
+  \cr
+  \hline
+  EF\_16&
   Afficher les commandes exécutées, les retours et les erreurs de GPG.&
   Utilisateur&
   Indispensable
@@ -286,7 +295,7 @@ Différents documents de référence :
   \color{white}\cellcolor{blue}\bfseries{Priorité}\\
   \cr
   \hline
-  EF\_16&
+  EF\_17&
   Calcul d'une seconde pré image pour une clef donnée&
   Utilisateur&
   Indispensable
@@ -306,7 +315,7 @@ Différents documents de référence :
 {Utilisateur}
 % Description
 {
-  Fonctionnement du système pour chaque action nécessitant l'intervention de GPG.
+  Fonctionnement du système pour chaque action nécessitant l'intervention de GPG. L'application fait interface entre l'utilisateur et GnuPG.
 }
 % Préconditions
 {
@@ -344,24 +353,24 @@ Exigences fonctionnelles concernées :
 \subsubsection{Cas d'utilisation 2}
 \fiche
 % Nom du cas d'utilisation
-{Signer un ou plusieurs identifiants utilisateur}
+{Signer une clef principale}
 % Acteurs concernés
 {Utilisateur}
 % Description
-{Si l'utilisateur sélectionne une clef principale (autre que la sienne) et qu'il souhaite la signer, cela signera tous les indentifiants 
-utilisateur associés à cette clef. Il pourra sinon selectionner seulement celui qu'il souhaite signer.
+{L'utilisateur peut sélectionner une clef principale (autre que la sienne) et la signer. Avant validation de l'action, l'interface doit afficher
+les informations de la clef. Si l'utilisateur valide, cela signera tous les indentifiants utilisateurs associés à cette clef.
 }
 % Préconditions
 {
   \begin{itemize}
     \item Reprend les préconditions du cas d'utilisation 1.
     \item Les objets du trousseau de clefs doivent être listés et visible.
-    \item L'utilisateur doit posséder dans son trousseau une clé principale privée non expirée et non révoquée dans son trousseau.
-    \item L'utilisateur doit posséder dans son trousseau la clef principale publique (autre que la sienne) dont il souhaite signer le ou les identifiants utilisateur.
+    \item Posséder une clé principale privée non expirée et non révoquée dans son trousseau.
+    \item Avoir la clef principale publique (autre que la sienne) que l'on souhaite signer.
   \end{itemize}
 }
 % Evénements déclenchants
-{Clique sur le sous menu contextuel prévue pour cette action, via la vue du trousseau de clefs.}
+{Clique sur le sous menu contextuel prévu pour cette action, via la vue du trousseau de clefs.}
 % Conditions d'arrêt
 {Action terminée.}
 % Diagramme
@@ -391,7 +400,7 @@ Exigences fonctionnelles concernées :
 % Acteurs concernés
 {Utilisateur}
 % Description
-{L'utilisateur peut choisir d'afficher ou non les commandes, les retours et les erreurs, associées à chaque action GPG. L'affichage des commandes et l'affichage des retours/erreurs peuvent être activés séparément.}
+{L'utilisateur peut choisir d'afficher ou non les commandes, les retours et les erreurs, associées à chaque action GPG. L'affichage des commandes et l'affichage des retours/erreurs peuvent être affichés séparément.}
 % Préconditions
 {}
 % Evénements déclenchants
@@ -405,7 +414,7 @@ Exigences fonctionnelles concernées :
 % Fin de la fiche du cas d'utilisation 3.
 \vspace{0.5cm}
 
-\`{A} tout moment, les informations relatives à la dernière action doivent être consultables par activation de l'affichage des commandes/retours/erreurs, même si l'affichage n'était pas activés.
+\`{A} tout moment, les informations relatives à la dernière action doivent être consultables par activation de l'affichage des commandes/retours/erreurs, même si l'affichage n'était pas activé.
 
 
 \subsubsection{Cas d'utilisation 4}
@@ -418,7 +427,7 @@ Exigences fonctionnelles concernées :
 {L'utilisateur peut choisir son profil au lancement de l'interface via l'option \texttt{-P}, ou en cours d'utilisation. Si au lancement l'option \texttt{-P} n'est pas précisée, et qu'aucun profil par défaut n'est défini, l'utilisateur doit choisir un profil. Lors de l'installation, un profil par défaut est créé.}
 % Préconditions
 {Un fichier de configuration de l'interface doit contenir les différents profils, ainsi que l'éventuel profil par défaut. 
-Chaque profil possède un trousseau de clefs qui lui est propre.}
+Un profil a un nom et connait le chemin vers le trousseau de clefs a utilisé ainsi que le chemin vers l'exécutable GnuPG.}
 % Evénements déclenchants
 {Ouverture avec option spécifiée, ouverture sans profil par défaut, ou changement de profil en cours d'utilisation.}
 % Conditions d'arrêt
