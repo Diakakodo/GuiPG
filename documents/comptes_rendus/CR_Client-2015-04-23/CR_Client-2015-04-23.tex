@@ -1,0 +1,94 @@
+\documentclass{CR-projet}
+
+%Import des packages utilisés pour le document
+\usepackage[T1]{fontenc}
+
+
+\definecolor{gris}{rgb}{0.95, 0.95, 0.95}
+\definecolor{vert}{rgb}{0.14, 0.69, 0.11}
+
+%Variables
+\logo{logo_univ.png}
+\title{Compte rendu - Réunion Client}
+\author{Matthieu \bsc{FIN}}
+\projet{Projet PGP}
+\projdesc{Étude et implantation d'un outil graphique de gestion de clé PGP}
+\filiere{Master 1 SSI }
+\matiere{Conduite de projet}
+\date{23 avril 2015}
+
+\context{Livraison 2}
+
+\presentry{\bsc{Balmelle}}{Pierre}{\textbf{Présent}}{vert}
+\presentry{\bsc{Barbay}}{Lucas}{\textbf{Présent}}{vert}
+\presentry{\bsc{Barry}}{Ibrahima Sory}{\textbf{Présent}}{vert}
+\presentry{\bsc{Bouillie}}{Bertille}{\textbf{Absente}}{red}
+\presentry{\bsc{Fin}}{Matthieu}{\textbf{Présent}}{vert}
+\presentry{\bsc{Leroy}}{Guillaume}{\textbf{Absent}}{red}
+\presentry{\bsc{Thibault}}{Olivier}{\textbf{Présent}}{vert}
+
+% -- Début du document -- %
+\begin{document}
+
+%Page de garde
+\maketitle
+\newpage
+%La table des matières
+%\tableofcontents
+
+\newpage
+
+\section{Sujets}
+
+\begin{enumerate}
+	\item La spécification technique du besoin nécessite quelques modifications :
+	\begin{itemize}
+		\item Dans l'objet l'équipe est composée de sept personnes.
+		\item Ajouter les nouvelles fonctionnalité dans la STB (chiffrement/déchiffrement et vérification de signature d'un fichier).
+		\item Le Cas d'utilisation 1 : Reformuler la description (l'application fait interface entre l'utilisateur et gpg).
+		\item Cas d'utilisation 2 : Il y a deux fois l'expression "dans son trousseau".
+	\end{itemize}
+	\item Retour sur l'application guipg Actions a terminer pour validation de l'application :
+	\begin{itemize}
+		\item Il faut pouvoir signer une clé quand il y a plusieurs uid attaché a cette clé (on signe alors tous les uids de la clé).
+		\item Avant de signer une clé il faut afficher les informations de la clé que l'on va signer (fpr, uid, nom, commentaire, email). 
+		\item Chiffrement de fichier : Il faut pouvoir sélectionner plusieurs destinataires (uid).
+		\item Mettre le fichier de configuration de l'application dans ~/.guipgconf.xml (déjà opérationnel)
+	\end{itemize}
+	\item Étude : Non validée en l'état.
+	\item Attaque : Non validée en l'état.
+\end{enumerate}
+
+\section{Actions}
+
+\begin{enumerate}
+	\item Préparation d'un rapport final pour le 22/05/2015 (Olivier, Matthieu, Pierre, Lucas, Ibrahima).
+	\begin{itemize}
+		\item Ce rapport servira a préparer la soutenance.
+		\item Il doit donc rappeler le projet initial, les différentes étapes/problèmes/solutions traversé.
+		\item Présenter les différents aspects techniques.
+		\item L'état du projet final.
+		\item Retour d'expérience.
+	\end{itemize}
+	\item Les modifications de la STB doivent être faite pour le 24/04 (Olivier).
+	\item Les modifications de l'application doivent être faite avant le 30/04 (Olivier, Matthieu).
+	\item Modifier le CDR (Pierre, Lucas)
+	\begin{itemize}
+		\item Indiquer que le test sur les signature ne fonctionne pas.
+		\item Réaliser de nouveaux tests pour s'assurer des dernières fonctionnalités.
+		\item Prévoir des tests concernant l'attaque.
+	\end{itemize}
+	\item Étude (Ibrahima)
+	\begin{itemize}
+		\item La finaliser au plus vite pour l'envoyer sur la liste de diffusion (Ibrahima).
+		\item Tenir compte des retours.
+	\end{itemize}
+	\item Attaque (Lucas)
+	\begin{itemize}
+		\item Fournir une clé et sa seconde pré-image forgée grâce au script.
+		\item La seconde pré-image doit être valide et utilisable par gpg.
+	\end{itemize}
+\end{enumerate}
+
+\end{document}
+
