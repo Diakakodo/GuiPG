@@ -1,11 +1,15 @@
 #include "gpgtreewidget.h"
 #include "GpgItems/gpgitem.h"
 #include <QItemDelegate>
-
+#include <QDebug>
 class myItemDelegate : public QItemDelegate
 {
 public:
         myItemDelegate ()
+        {
+        }
+
+        ~myItemDelegate ()
         {
         }
 
@@ -18,15 +22,16 @@ public:
 
 GpgTreeWidget::GpgTreeWidget(QWidget * parent, KeyManager *keyManager) : QTreeWidget(parent)
 {
+    m_itemdelegate = new myItemDelegate();
     m_keyManager = keyManager;
-    setItemDelegate(new myItemDelegate());
+    setItemDelegate(m_itemdelegate);
     setIconSize(QSize(24,24));
     setAlternatingRowColors(true);
 }
 
 GpgTreeWidget::~GpgTreeWidget()
 {
-
+    delete m_itemdelegate;
 }
 
 void GpgTreeWidget::setKeyManager(KeyManager* keyManager) {

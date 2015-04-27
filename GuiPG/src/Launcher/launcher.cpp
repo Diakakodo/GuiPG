@@ -5,7 +5,7 @@
 using namespace std;
 
 
-QHash<Profile*, MainWindow*> Launcher::m_profileMainWindowHash = QHash<Profile*, MainWindow*>();
+QHash<Profile*, MainWindow*> Launcher::m_profileMainWindowHash;
 QSharedMemory* Launcher::SHM = nullptr;
 
 /**

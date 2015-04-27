@@ -50,7 +50,7 @@ PrimaPubKey::PrimaPubKey(const QString keyScope,
 
 PrimaPubKey::~PrimaPubKey()
 {
-
+    qDeleteAll(m_uidList);
 }
 
 void PrimaPubKey::setPrimarySecKey(PrimaSecKey* sec) {

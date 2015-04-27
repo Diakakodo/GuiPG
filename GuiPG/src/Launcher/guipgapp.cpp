@@ -49,6 +49,13 @@ GuiPGApp::GuiPGApp(int& argc, char** argv)
 
 GuiPGApp::~GuiPGApp() {
 
+    if (m_config) {
+        delete m_config;
+    }
+    if (m_launcher) {
+        delete m_launcher;
+    }
+
 }
 
 Configuration* GuiPGApp::getConfig() const {

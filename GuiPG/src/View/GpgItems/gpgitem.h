@@ -43,6 +43,8 @@ class GpgItem :  public QObject, public QTreeWidgetItem {
 
         static QHash<int, QString> columns;
 
+        QString getFpr();
+
     public slots:
         void changed(int s, QString output);
 
@@ -54,6 +56,7 @@ class GpgItem :  public QObject, public QTreeWidgetItem {
         GPGManager* m_gpg;
         QMenu* m_menu;
         QPoint m_pos;
+        QString m_fpr;
 };
 
 #endif // GPGITEM_H

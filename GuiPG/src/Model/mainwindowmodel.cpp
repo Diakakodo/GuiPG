@@ -5,9 +5,10 @@ MainWindowModel::MainWindowModel(Launcher* launcher, GuiPGApp *app, Configuratio
         : m_launcher(launcher), m_app(app), m_conf(conf), m_profile(profile) {
     m_keyManager = nullptr;
 }
-
+#include <QDebug>
 MainWindowModel::~MainWindowModel() {
     delete m_keyManager;
+    qDebug() << "model destroyed";
 }
 
 Launcher* MainWindowModel::getLauncher() const {
