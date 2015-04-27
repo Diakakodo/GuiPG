@@ -29,10 +29,13 @@ private slots:
 
     void keyImportFinished(int a, QString s);
 
+    void checkFinished(int a, QString s);
+
 private:
-    Ui::KeyImport *ui;
-    MainWindow* m_window;
-    Profile* m_profile;
+    Ui::KeyImport *ui = nullptr;
+    MainWindow* m_window = nullptr;
+    Profile* m_profile = nullptr;
+    GPGManager* m_gpg = nullptr;
 };
 
 #endif // KEYIMPORT_H
