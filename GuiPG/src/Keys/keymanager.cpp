@@ -1,9 +1,8 @@
 #include "keymanager.h"
-#include "QDebug"
 #include <QRegularExpression>
 #include "../Exception/exceptions.h"
 
-KeyManager::KeyManager(Profile *p, MainWindow *window) : m_gpg(new GPGManager(p, window)) {
+KeyManager::KeyManager(Profile *p, MainWindow *window) : QObject(), m_gpg(new GPGManager(p, window)) {
     m_hashprimaPubKeys = new QHash<QString, PrimaPubKey*>();
     m_hashprimaSecKeys = new QHash<QString, PrimaSecKey*>();
     m_hashsubPubKeys = new QHash<QString, SubPubKey*>();
@@ -21,7 +20,6 @@ KeyManager::~KeyManager() {
     delete m_hashsubPubKeys;
     delete m_hashsubSecKeys;
     delete m_gpg;
-    qDebug() << "keymanager destroyed";
 }
 
 
