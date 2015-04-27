@@ -9,6 +9,9 @@
 #include "Launcher/guipgapp.h"
 #include "Configuration/configuration.h"
 #include "Launcher/launcher.h"
+#include "View/GpgItems/primapubkeyitem.h"
+
+#include <QAction>
 
 #define MAX_INSTANCES_NB 10
 #define PROFILE_OPTION "-P"
@@ -82,6 +85,8 @@ void buildHandler() {
 }
 #endif
 
+void eraseStaticMembers();
+
 int main(int argc, char** argv) {
 
     // Flag permettant de savoir si l'option PROFILE_OPTION est présente en argument.
@@ -115,5 +120,12 @@ int main(int argc, char** argv) {
         config.save();
     }
     launcher.wait();
+    eraseStaticMembers();
     return EXIT_SUCCESS;
+}
+
+void eraseStaticMembers() {
+    for (int i = 0; i < PrimaPubKeyItem::NB_TRUST; ++i) {
+        delete PrimaPubKeyItem::trustActions.value(i);
+    }
 }

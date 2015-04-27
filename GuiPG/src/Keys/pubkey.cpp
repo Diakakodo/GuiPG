@@ -19,7 +19,7 @@ PubKey::PubKey(const QString keyScope,
 
 PubKey::~PubKey()
 {
-
+    qDeleteAll(m_sigs);
 }
 
 QString PubKey::getValidity() const {

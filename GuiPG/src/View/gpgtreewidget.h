@@ -5,6 +5,8 @@
 #include "../Keys/keymanager.h"
 #include "../Profile/profile.h"
 
+class myItemDelegate;
+
 class GpgTreeWidget : public QTreeWidget {
         Q_OBJECT
     public:
@@ -18,6 +20,7 @@ class GpgTreeWidget : public QTreeWidget {
     private:
         Profile* m_profile = nullptr;
         KeyManager* m_keyManager;
+        myItemDelegate* m_itemdelegate;
 };
 
 #endif // GPGTREEWIDGET_H

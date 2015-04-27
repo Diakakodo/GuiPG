@@ -19,7 +19,7 @@ PrimaSecKey::PrimaSecKey(const QString keyScope,
 
 PrimaSecKey::~PrimaSecKey()
 {
-
+    qDeleteAll(m_uids);
 }
 
 

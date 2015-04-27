@@ -31,7 +31,7 @@ Uid::Uid(QString validity,
 
 Uid::~Uid()
 {
-
+    qDeleteAll(m_sigList);
 }
 
 QString Uid::getValidity() const {

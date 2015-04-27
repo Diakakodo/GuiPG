@@ -16,10 +16,11 @@
 #include <QLineEdit>
 #include <QMovie>
 #include "filedecryptionandverify.h"
+#include <QDebug>
 
 MainWindow::MainWindow(MainWindowModel* model)
-    : ui(new Ui::MainWindow), m_model(model) {
-
+    : QMainWindow(), ui(new Ui::MainWindow), m_model(model) {
+    setAttribute( Qt::WA_DeleteOnClose );
     ui->setupUi(this);
     QList<int> splitterSize = ui->splitter->sizes();
     splitterSize[1]=0;
@@ -93,6 +94,8 @@ MainWindowModel* MainWindow::getModel() const {
 
 MainWindow::~MainWindow() {
     delete ui;
+    delete m_model;
+    qDebug() << "mainwindow destroyed";
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
@@ -150,18 +153,10 @@ void MainWindow::on_action_Import_Toolbar_triggered() {
     keyImportGui.exec();
 }
 
-PrimaPubKeyItem* searchItemByPrimaPubKeyId(QList<PrimaPubKeyItem*> list, QString keyId) {
-    for (PrimaPubKeyItem* item : list) {
-        if (item->getPrimaPubKey()->getKeyId() == keyId) {
-            return item;
-        }
-    }
-    return nullptr;
-}
 
-PrimaPubKeyItem* searchItemByPrimaPubKeyId(GpgTreeWidget* tree, QString keyId) {
+PrimaPubKeyItem* searchGpgItemByFpr(GpgTreeWidget* tree, QString fpr) {
     for (int i = 0; i < tree->topLevelItemCount(); ++i) {
-        if (((PrimaPubKeyItem*) tree->topLevelItem(i))->getPrimaPubKey()->getKeyId() == keyId) {
+        if (((PrimaPubKeyItem*) tree->topLevelItem(i))->getFpr() == fpr) {
             return (PrimaPubKeyItem*) (tree->topLevelItem(i));
         }
     }
@@ -172,17 +167,17 @@ void MainWindow::buildTree() {
     const QList<PrimaPubKey*> pubKeys = m_model->getKeyManager()->getPubKeys();
     QList<QString> hash;
     for (PrimaPubKey* pub : pubKeys) {
-        hash.append(pub->getKeyId());
+        hash.append(pub->getFpr());
     }
     for (int i = 0; i < ui->treeWidgetKey->topLevelItemCount(); i++) {
-        while (  ui->treeWidgetKey->topLevelItemCount() > 0 && !hash.contains(((PrimaPubKeyItem*) ui->treeWidgetKey->topLevelItem(i))->getPrimaPubKey()->getKeyId()) ) {
+        while (  ui->treeWidgetKey->topLevelItemCount() > 0 && !hash.contains(((PrimaPubKeyItem*) ui->treeWidgetKey->topLevelItem(i))->getFpr()) ) {
             delete ui->treeWidgetKey->topLevelItem(i);
         }
     }
     PrimaPubKeyItem* item = nullptr;
     for (PrimaPubKey* pub : pubKeys) {
         PrimaPubKeyItem* newItem = new PrimaPubKeyItem(pub);
-        item = searchItemByPrimaPubKeyId(ui->treeWidgetKey, pub->getKeyId());
+        item = searchGpgItemByFpr(ui->treeWidgetKey, pub->getFpr());
         ui->treeWidgetKey->addTopLevelItem(newItem);
         if (item) {
             newItem->setExpanded(item->isExpanded());
@@ -261,6 +256,8 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
         QLabel* label = (QLabel*) ui->bigBrother->itemWidget(cmdItem, 0);
         QMovie* movie = label->movie();
         movie->stop();
+        movie->deleteLater();
+        label->deleteLater();
         ui->bigBrother->setItemWidget(cmdItem, 0, NULL);
     }
     ui->bigBrother->resizeColumnToContents(1);

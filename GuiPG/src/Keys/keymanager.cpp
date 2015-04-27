@@ -12,11 +12,16 @@ KeyManager::KeyManager(Profile *p, MainWindow *window) : m_gpg(new GPGManager(p,
 }
 
 KeyManager::~KeyManager() {
+    qDeleteAll(m_hashprimaPubKeys->values());
+    qDeleteAll(m_hashprimaSecKeys->values());
+    qDeleteAll(m_hashsubPubKeys->values());
+    qDeleteAll(m_hashsubSecKeys->values());
     delete m_hashprimaPubKeys;
     delete m_hashprimaSecKeys;
     delete m_hashsubPubKeys;
     delete m_hashsubSecKeys;
     delete m_gpg;
+    qDebug() << "keymanager destroyed";
 }
 
 
@@ -24,6 +29,10 @@ void KeyManager::load() {
     if (m_gpg->isRunning()) {
         return;
     }
+    qDeleteAll(m_hashprimaPubKeys->values());
+    qDeleteAll(m_hashprimaSecKeys->values());
+    qDeleteAll(m_hashsubPubKeys->values());
+    qDeleteAll(m_hashsubSecKeys->values());
     delete m_hashprimaPubKeys;
     delete m_hashprimaSecKeys;
     delete m_hashsubPubKeys;
