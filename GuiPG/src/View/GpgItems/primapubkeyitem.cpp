@@ -4,10 +4,11 @@
 #include "../gpgtreewidget.h"
 #include "../keyexport.h"
 #include "../../Keys/keydeletion.h"
+#include "../subkeycreation.h"
 #include <QMenu>
 #include <QAction>
-#include <QDebug>
 #include <QSignalMapper>
+#include "../../GPG/action.h"
 
 // Initialisation de la hash map (action -> numéro de la confiance)
 // Les noms sont défini dans la X_Maccro X_COLUMNS et le numéro est donné par
@@ -26,9 +27,6 @@ QHash<int, QAction*> PrimaPubKeyItem::trustActions = []() -> QHash<int, QAction*
     }
     return hash;
 }();
-
-
-#include "../../GPG/action.h"
 
 PrimaPubKeyItem::PrimaPubKeyItem(PrimaPubKey *pub) : PubKeyItem(pub)
 {
@@ -76,14 +74,37 @@ PrimaPubKeyItem::~PrimaPubKeyItem()
 void PrimaPubKeyItem::showMenu(const QPoint &pos) {
     m_pos = pos;
     m_menu = new QMenu(treeWidget());
-    m_menu->addAction("Signer", this, SLOT(sign()));
+    m_menu->addAction("Ajouter un identifiant utilisateur", this, SLOT(addUid()));
     m_menu->addAction("Exporter la clé publique", this, SLOT(exportPublicKey()));
     if (m_pub->hasPrimaSecKey()) {
         m_menu->addAction("Exporter la clé secrète", this, SLOT(exportSecretKey()));
+        m_menu->addAction("Ajouter une sous-clé", this, SLOT(addSubKey()));
     }
+    m_menu->addAction("Signer", this, SLOT(sign()));
     m_menu->addAction("Supprimer", this, SLOT(deleteKey()));
     getPossibleTrustValue();
 }
+
+void PrimaPubKeyItem::addSubKey() {
+    GpgTreeWidget* tree = (GpgTreeWidget*) treeWidget();
+    m_createSubPubKeyView = new SubKeyCreation(tree->getProfile(), m_pub, tree);
+    connect(m_createSubPubKeyView, &QDialog::finished, this, &PrimaPubKeyItem::onAddSubKeyFinished);
+    m_createSubPubKeyView->show();
+
+}
+
+void PrimaPubKeyItem::onAddSubKeyFinished(int result) {
+    if (result) {
+        ((GpgTreeWidget*) treeWidget())->getKeyManager()->load();
+        delete m_createSubPubKeyView;
+    }
+}
+
+void PrimaPubKeyItem::onAddUidFinished() {
+    ((GpgTreeWidget*) treeWidget())->getKeyManager()->load();
+    delete m_addUidView;
+}
+
 
 void PrimaPubKeyItem::sign() {
     //KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
@@ -123,6 +144,13 @@ void PrimaPubKeyItem::trust(int value) {
 
     connect(m_gpg, &GPGManager::finished, this, &GpgItem::changed);
     m_gpg->execute();
+}
+
+void PrimaPubKeyItem::addUid() {
+    GpgTreeWidget* tree = (GpgTreeWidget*) treeWidget();
+    m_addUidView = new AddUidDialog(tree->getProfile(), m_pub, tree);
+    connect(m_addUidView, &AddUidDialog::finished, this, &PrimaPubKeyItem::onAddUidFinished);
+    m_addUidView->exec();
 }
 
 void PrimaPubKeyItem::exportPublicKey() {

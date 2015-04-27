@@ -21,6 +21,9 @@ KeyManager::~KeyManager() {
 
 
 void KeyManager::load() {
+    if (m_gpg->isRunning()) {
+        return;
+    }
     delete m_hashprimaPubKeys;
     delete m_hashprimaSecKeys;
     delete m_hashsubPubKeys;

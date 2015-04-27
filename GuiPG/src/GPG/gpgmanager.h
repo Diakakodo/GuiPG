@@ -49,7 +49,7 @@ class GPGManager : public QObject {
         int m_id;
         QTime m_startTime;
         QTime m_endTime;
-        MainWindow* m_window;
+        MainWindow* m_window = nullptr;
 
         /**
          * @brief sendInteraction

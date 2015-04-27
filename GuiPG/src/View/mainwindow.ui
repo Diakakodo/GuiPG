@@ -54,16 +54,12 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <widget class="QWidget" name="tab">
-         <attribute name="title">
-          <string>Tab 1</string>
-         </attribute>
-        </widget>
-        <widget class="QWidget" name="tab_2">
-         <attribute name="title">
-          <string>Tab 2</string>
-         </attribute>
-        </widget>
+        <property name="currentIndex">
+         <number>-1</number>
+        </property>
+        <property name="tabsClosable">
+         <bool>true</bool>
+        </property>
        </widget>
       </widget>
       <widget class="QWidget" name="layoutWidget">
@@ -218,6 +214,7 @@
      <string>Afficha&amp;ge</string>
     </property>
     <addaction name="actionVue_des_commandes_GPG"/>
+    <addaction name="actionVider_historique_des_commandes"/>
    </widget>
    <widget class="QMenu" name="menuClefs">
     <property name="title">
@@ -247,9 +244,17 @@
     <addaction name="actionManuel_utilisateur_de_GuiPG"/>
     <addaction name="actionA_propos"/>
    </widget>
+   <widget class="QMenu" name="menuCryptographie">
+    <property name="title">
+     <string>Cr&amp;yptographie</string>
+    </property>
+    <addaction name="actionChiffrer_un_fichier"/>
+    <addaction name="actionDechiffrer_Verifier_un_fichier"/>
+   </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuAffichage"/>
    <addaction name="menuClefs"/>
+   <addaction name="menuCryptographie"/>
    <addaction name="menuConfiguration"/>
    <addaction name="menuAide"/>
   </widget>
@@ -391,6 +396,21 @@
    </property>
    <property name="text">
     <string>Rafraichir la liste des clefs</string>
+   </property>
+  </action>
+  <action name="actionChiffrer_un_fichier">
+   <property name="text">
+    <string>&amp;Chiffrer un fichier</string>
+   </property>
+  </action>
+  <action name="actionDechiffrer_Verifier_un_fichier">
+   <property name="text">
+    <string>&amp;Déchiffrer / Vérifier un fichier</string>
+   </property>
+  </action>
+  <action name="actionVider_historique_des_commandes">
+   <property name="text">
+    <string>Vider l'historique des commandes</string>
    </property>
   </action>
  </widget>

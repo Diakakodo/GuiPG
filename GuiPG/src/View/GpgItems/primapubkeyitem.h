@@ -3,6 +3,8 @@
 
 #include "pubkeyitem.h"
 #include "../../Keys/primapubkey.h"
+#include "../subkeycreation.h"
+#include "../adduiddialog.h"
 
 #define ICON_SINGLE_KEY_PATH "/Icones/single_key.png"
 #define ICON_DOUBLE_KEY_PATH "/Icones/double_keys.png"
@@ -40,14 +42,21 @@ class PrimaPubKeyItem : public PubKeyItem
         void sign();
         void setPossibleTrustValue(int s, QString output);
         void trust(int value);
+        void addUid();
         void exportPublicKey();
         void exportSecretKey();
         void deleteKey();
+        void addSubKey();
+
+    private slots:
+        void onAddSubKeyFinished(int result);
+        void onAddUidFinished();
 
     private:
         PrimaPubKey* m_pub;
         QList<int> m_possibleTrustValue;
-
+        SubKeyCreation* m_createSubPubKeyView = nullptr;
+        AddUidDialog* m_addUidView = nullptr;
         void getPossibleTrustValue();
 
 

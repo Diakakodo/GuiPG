@@ -23,10 +23,13 @@ PrimaSecKeyItem::~PrimaSecKeyItem()
 }
 
 void PrimaSecKeyItem::showMenu(const QPoint &pos) {
-    QMenu* menu = new QMenu(treeWidget());
-    menu->addAction("Test Clef Privée primaire");
-    menu->addAction("Exporter", this, SLOT(exportKey()));
-    menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
+    if (pos.isNull()) {
+        // not used
+    }
+    //QMenu* menu = new QMenu(treeWidget());
+    //menu->addAction("Test Clef Privée primaire");
+    //menu->addAction("Exporter", this, SLOT(exportKey()));
+    //menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
 }
 
 void PrimaSecKeyItem::exportKey() {

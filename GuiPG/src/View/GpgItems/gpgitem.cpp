@@ -54,5 +54,8 @@ void GpgItem::changed(int s, QString output) {
 
 
 void GpgItem::onGpgUpdate(int s, QString output) {
+    if (s || output == "") {
+        // not used
+    }
     ((GpgTreeWidget*) treeWidget())->getKeyManager()->load();
 }

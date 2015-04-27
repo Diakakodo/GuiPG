@@ -26,8 +26,10 @@ UidItem::~UidItem()
 }
 
 void UidItem::showMenu(const QPoint &pos) {
-    QMenu* menu = new QMenu(treeWidget());
-    menu->addAction("Test uid");
-    menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
-    GpgTreeWidget* gpgtree = (GpgTreeWidget*) treeWidget();
+    if (pos.isNull()) {
+        // not used
+    }
+    //QMenu* menu = new QMenu(treeWidget());
+    //menu->addAction("Test uid");
+    //menu->popup(treeWidget()->viewport()->mapToGlobal(pos));
 }

@@ -11,6 +11,7 @@ public:
 
         QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const
         {
+               QItemDelegate::sizeHint(option, index);
                return QSize(100,24);
         }
 };
