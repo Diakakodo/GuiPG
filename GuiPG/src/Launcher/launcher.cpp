@@ -6,6 +6,7 @@ using namespace std;
 
 
 QHash<Profile*, MainWindow*> Launcher::m_profileMainWindowHash = QHash<Profile*, MainWindow*>();
+QSharedMemory* Launcher::SHM = nullptr;
 
 /**
  * @brief Launcher::Launcher
@@ -25,6 +26,9 @@ Launcher::Launcher(GuiPGApp* app, Configuration* conf, int profileId)
     QObject::connect(this, &Launcher::runApp, m_app, &GuiPGApp::launchApp);
     if (m_profileId != 0) {
         QObject::connect(app, &GuiPGApp::lastWindowClosed, this, &Launcher::stop);
+    }
+    if (!Launcher::SHM) {
+        Launcher::SHM = m_shm;
     }
 }
 

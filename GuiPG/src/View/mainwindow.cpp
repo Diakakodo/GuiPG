@@ -7,7 +7,7 @@
 #include "keyimport.h"
 #include "keyexport.h"
 #include "Profil/profilecreation.h"
-#include "config.h"
+#include "fileencryption.h"
 #include "../Keys/keydeletion.h"
 #include "GpgItems/gpgitem.h"
 #include "GpgItems/primapubkeyitem.h"
@@ -15,6 +15,7 @@
 #include <QTextEdit>
 #include <QLineEdit>
 #include <QMovie>
+#include "filedecryptionandverify.h"
 
 MainWindow::MainWindow(MainWindowModel* model)
     : ui(new Ui::MainWindow), m_model(model) {
@@ -28,7 +29,6 @@ MainWindow::MainWindow(MainWindowModel* model)
     this->setWindowTitle("GuiPG - " + m_model->getProfile()->getName());
     connect(ui->toolButton, &QAbstractButton::toggled, this, &MainWindow::setGpgCommandsVisible);
     connect(ui->actionProfil, &QAction::triggered, this, &MainWindow::showDialogProfile);
-    connect(ui->actionConfiguration, SIGNAL(triggered()), this, SLOT(showDialogConfiguration()));
     connect(ui->actionQuitter, SIGNAL(triggered()), this, SLOT(close()));
 
     QStringList m_TreeHeader;
@@ -55,6 +55,21 @@ MainWindow::MainWindow(MainWindowModel* model)
     model->initKeyManager(this);
     ui->treeWidgetKey->setKeyManager(model->getKeyManager());
     ui->treeWidgetKey->setProfile(m_model->getProfile());
+    ui->treeWidgetKey->sortByColumn(GpgItem::COL_NAME, Qt::AscendingOrder);
+
+}
+
+void MainWindow::addTab(QString name, QString content) {
+
+    QTextEdit* textEdit = new QTextEdit(this);
+    textEdit->setText(content);
+    ui->tabWidget->addTab(textEdit, name);
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->count() - 1);
+    QList<int> sizes = ui->splitter->sizes();
+    if (sizes[1] == 0) {
+        sizes[1] = (this->width() / 4);
+        ui->splitter->setSizes(sizes);
+    }
 }
 
 void MainWindow::onCustomContextMenuRequested(const QPoint& pos) {
@@ -110,7 +125,6 @@ void MainWindow::changeProfil(unsigned profileId) {
     m_model->loadProfile(profileId, this);
     m_model->getKeyManager()->setMainWindow(this);
     ui->treeWidgetKey->setProfile(m_model->getProfile());
-    buildTree();
 }
 
 void MainWindow::on_actionG_n_rer_une_paire_de_clefs_triggered()
@@ -136,16 +150,45 @@ void MainWindow::on_action_Import_Toolbar_triggered() {
     keyImportGui.exec();
 }
 
-void MainWindow::showDialogConfiguration(){
-    config c(this);
-    c.exec();
+PrimaPubKeyItem* searchItemByPrimaPubKeyId(QList<PrimaPubKeyItem*> list, QString keyId) {
+    for (PrimaPubKeyItem* item : list) {
+        if (item->getPrimaPubKey()->getKeyId() == keyId) {
+            return item;
+        }
+    }
+    return nullptr;
+}
+
+PrimaPubKeyItem* searchItemByPrimaPubKeyId(GpgTreeWidget* tree, QString keyId) {
+    for (int i = 0; i < tree->topLevelItemCount(); ++i) {
+        if (((PrimaPubKeyItem*) tree->topLevelItem(i))->getPrimaPubKey()->getKeyId() == keyId) {
+            return (PrimaPubKeyItem*) (tree->topLevelItem(i));
+        }
+    }
+    return nullptr;
 }
 
 void MainWindow::buildTree() {
-    ui->treeWidgetKey->clear();
     const QList<PrimaPubKey*> pubKeys = m_model->getKeyManager()->getPubKeys();
+    QList<QString> hash;
     for (PrimaPubKey* pub : pubKeys) {
-        ui->treeWidgetKey->addTopLevelItem(new PrimaPubKeyItem(pub));
+        hash.append(pub->getKeyId());
+    }
+    for (int i = 0; i < ui->treeWidgetKey->topLevelItemCount(); i++) {
+        while (  ui->treeWidgetKey->topLevelItemCount() > 0 && !hash.contains(((PrimaPubKeyItem*) ui->treeWidgetKey->topLevelItem(i))->getPrimaPubKey()->getKeyId()) ) {
+            delete ui->treeWidgetKey->topLevelItem(i);
+        }
+    }
+    PrimaPubKeyItem* item = nullptr;
+    for (PrimaPubKey* pub : pubKeys) {
+        PrimaPubKeyItem* newItem = new PrimaPubKeyItem(pub);
+        item = searchItemByPrimaPubKeyId(ui->treeWidgetKey, pub->getKeyId());
+        ui->treeWidgetKey->addTopLevelItem(newItem);
+        if (item) {
+            newItem->setExpanded(item->isExpanded());
+            newItem->setSelected(item->isSelected());
+            delete item;
+        }
     }
 }
 
@@ -215,9 +258,13 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
             ui->bigBrother->setItemWidget(outputItem, 1, textOutput);
         }
         cmdItem->setText(3, gpg->getEndTime().toString(DATE_BIG_BROTHER_FORMAT));
+        QLabel* label = (QLabel*) ui->bigBrother->itemWidget(cmdItem, 0);
+        QMovie* movie = label->movie();
+        movie->stop();
         ui->bigBrother->setItemWidget(cmdItem, 0, NULL);
     }
     ui->bigBrother->resizeColumnToContents(1);
+    ui->bigBrother->scrollToBottom();
 }
 
 int MainWindow::getNbCmd() {
@@ -226,4 +273,30 @@ int MainWindow::getNbCmd() {
 
 void MainWindow::setNbCmd(int nb) {
     NB_CMD = nb;
+}
+
+void MainWindow::on_actionChiffrer_un_fichier_triggered() {
+    FileEncryption encryption(this, m_model->getKeyManager());
+    encryption.exec();
+}
+
+void MainWindow::on_actionDechiffrer_Verifier_un_fichier_triggered() {
+    FileDecryptionAndVerify decryptAndVerify(m_model->getProfile(), this);
+    decryptAndVerify.exec();
+}
+
+void MainWindow::on_tabWidget_tabCloseRequested(int index)
+{
+    ui->tabWidget->widget(index)->deleteLater();
+    ui->tabWidget->removeTab(index);
+    if (ui->tabWidget->count() == 0) {
+        QList<int> splitterSize = ui->splitter->sizes();
+        splitterSize[1]=0;
+        ui->splitter->setSizes(splitterSize);
+    }
+}
+
+void MainWindow::on_actionVider_historique_des_commandes_triggered() {
+    ui->bigBrother->clear();
+    setNbCmd(0);
 }

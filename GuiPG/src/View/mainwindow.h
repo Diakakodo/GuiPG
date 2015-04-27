@@ -36,11 +36,11 @@ class MainWindow : public QMainWindow {
         void setGpgCommandsVisible(bool b);
         void showDialogProfile();
         void changeProfil(unsigned profileId);
-        void showDialogConfiguration();
         void updateBigBrother(GPGManager* gpg, bool fisrt, int id);
         void onCustomContextMenuRequested(const QPoint& pos);
         int getNbCmd();
         void setNbCmd(int nb);
+        void addTab(QString name, QString content);
 
 private slots:
         void on_actionG_n_rer_une_paire_de_clefs_triggered();
@@ -57,7 +57,15 @@ private slots:
 
         void on_action_Import_Toolbar_triggered();
 
-protected:
+        void on_actionChiffrer_un_fichier_triggered();
+
+        void on_actionDechiffrer_Verifier_un_fichier_triggered();
+
+        void on_tabWidget_tabCloseRequested(int index);
+
+        void on_actionVider_historique_des_commandes_triggered();
+
+    protected:
      void closeEvent(QCloseEvent *event);
 
 private:

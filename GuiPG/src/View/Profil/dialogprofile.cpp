@@ -56,11 +56,12 @@ void DialogProfile::createAndPlaceWidget() {
     ui->buttonBox->button(QDialogButtonBox::Cancel)->setText("&Fermer");
 
     // Configure les en-têtes du tableau
-    ui->tableWidgetProfil->setColumnCount(3);
+    ui->tableWidgetProfil->setColumnCount(4);
     ui->tableWidgetProfil->setColumnWidth(0,20);
     QStringList m_TableHeader;
-    m_TableHeader<<"N°"<<"Nom"<<"Dossier de configuration";
+    m_TableHeader<<"N°"<<"Nom"<<"Dossier de configuration"<<"Executable GnuPG";
     ui->tableWidgetProfil->setHorizontalHeaderLabels(m_TableHeader);
+    ui->tableWidgetProfil->setColumnWidth(2, 200);
 
     // Rempli la tableau de profil
     refreshTableWidget();
@@ -79,6 +80,7 @@ void DialogProfile::refreshTableWidget() {
         ui->tableWidgetProfil->setItem(i, 0, new QTableWidgetItem(QString::number(profile->getId())));
         ui->tableWidgetProfil->setItem(i, 1, new QTableWidgetItem(profile->getName()));
         ui->tableWidgetProfil->setItem(i, 2, new QTableWidgetItem(profile->getConfigurationPath()));
+        ui->tableWidgetProfil->setItem(i, 3, new QTableWidgetItem(profile->getGPGExecutable()));
         ui->tableWidgetProfil->setRowHeight(i, 20);
         if (profile->getId() == m_conf->getDefaultProfileId()) {
             QFont font;
@@ -86,6 +88,7 @@ void DialogProfile::refreshTableWidget() {
             ui->tableWidgetProfil->item(i,0)->setFont(font);
             ui->tableWidgetProfil->item(i,1)->setFont(font);
             ui->tableWidgetProfil->item(i,2)->setFont(font);
+            ui->tableWidgetProfil->item(i,3)->setFont(font);
         }
         ++i;
     }

@@ -14,7 +14,6 @@ HEADERS += \
     src/View/keycreation.h \
     src/Model/mainwindowmodel.h \
     src/View/Profil/profilecreation.h \
-    src/View/config.h \
     src/View/Profil/dialogprofile.h \
     src/Exception/illegalargumentexception.h \
     src/Exception/illegalstateexception.h \
@@ -42,7 +41,11 @@ HEADERS += \
     src/View/GpgItems/subseckeyitem.h \
     src/View/GpgItems/uiditem.h \
     src/View/gpgtreewidget.h \
-    src/Keys/keydeletion.h
+    src/Keys/keydeletion.h \
+    src/View/adduiddialog.h \
+    src/View/subkeycreation.h \
+    src/View/fileencryption.h \
+    src/View/filedecryptionandverify.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -58,7 +61,6 @@ SOURCES += \
     src/View/keycreation.cpp \
     src/Model/mainwindowmodel.cpp \
     src/View/Profil/profilecreation.cpp \
-    src/View/config.cpp \
     src/View/Profil/dialogprofile.cpp \
     src/Exception/illegalargumentexception.cpp \
     src/Exception/illegalstateexception.cpp \
@@ -85,17 +87,24 @@ SOURCES += \
     src/View/GpgItems/subseckeyitem.cpp \
     src/View/GpgItems/uiditem.cpp \
     src/View/gpgtreewidget.cpp \
-    src/Keys/keydeletion.cpp
+    src/Keys/keydeletion.cpp \
+    src/View/adduiddialog.cpp \
+    src/View/subkeycreation.cpp \
+    src/View/fileencryption.cpp \
+    src/View/filedecryptionandverify.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
     src/View/keycreation.ui \
     src/View/Profil/profilecreation.ui \
-    src/View/config.ui \
     src/View/Profil/dialogprofile.ui \
     src/View/keyexport.ui \
     src/View/keyimport.ui \
-    src/View/keyedition.ui
+    src/View/keyedition.ui \
+    src/View/adduiddialog.ui \
+    src/View/subkeycreation.ui \
+    src/View/fileencryption.ui \
+    src/View/filedecryptionandverify.ui
 
 RESOURCES += \
     icones.qrc
