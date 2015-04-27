@@ -5,10 +5,9 @@ MainWindowModel::MainWindowModel(Launcher* launcher, GuiPGApp *app, Configuratio
         : m_launcher(launcher), m_app(app), m_conf(conf), m_profile(profile) {
     m_keyManager = nullptr;
 }
-#include <QDebug>
+
 MainWindowModel::~MainWindowModel() {
     delete m_keyManager;
-    qDebug() << "model destroyed";
 }
 
 Launcher* MainWindowModel::getLauncher() const {
@@ -41,6 +40,7 @@ void MainWindowModel::loadProfile(unsigned profileId, MainWindow* window) {
     MainWindow* w = m_launcher->profileIsLoad(p);
     if (w != nullptr) {
         w->raise();
+        m_app->setActiveWindow(w);
     } else {
         m_launcher->loadProfile(p, window);
         m_profile = p;
