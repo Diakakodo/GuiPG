@@ -16,7 +16,7 @@
 #include <QLineEdit>
 #include <QMovie>
 #include "filedecryptionandverify.h"
-#include <QDebug>
+
 
 MainWindow::MainWindow(MainWindowModel* model)
     : QMainWindow(), ui(new Ui::MainWindow), m_model(model) {
@@ -95,7 +95,6 @@ MainWindowModel* MainWindow::getModel() const {
 MainWindow::~MainWindow() {
     delete ui;
     delete m_model;
-    qDebug() << "mainwindow destroyed";
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
