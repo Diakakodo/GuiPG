@@ -80,8 +80,8 @@ void GPGManager::sendInteraction() {
 void GPGManager::sendHiddenInteraction() {
     QDialog dialog;
     QLayout* HLayout = new QHBoxLayout(&dialog);
-    QLayout* VLayout1 = new QVBoxLayout(&dialog);
-    QLayout* VLayout2 = new QVBoxLayout(&dialog);
+    QLayout* VLayout1 = new QVBoxLayout();
+    QLayout* VLayout2 = new QVBoxLayout();
     HLayout->addItem(VLayout1);
     HLayout->addItem(VLayout2);
     VLayout1->addWidget(new QLabel("Passphrase :", &dialog));
