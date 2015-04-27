@@ -50,11 +50,13 @@ void GpgItem::changed(int s, QString output) {
     if (s || output == "") {
         // not used.
     }
+    disconnect(m_gpg, &GPGManager::finished, this, &GpgItem::changed);
+    delete m_gpg;
     Action updateAction("--check-trustdb");
-    GPGManager* gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
-    gpg->setAction(updateAction);
-    connect(gpg, &GPGManager::finished, this, &GpgItem::onGpgUpdate);
-    gpg->execute();
+    m_gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
+    m_gpg->setAction(updateAction);
+    connect(m_gpg, &GPGManager::finished, this, &GpgItem::onGpgUpdate);
+    m_gpg->execute();
 }
 
 
@@ -62,5 +64,7 @@ void GpgItem::onGpgUpdate(int s, QString output) {
     if (s || output == "") {
         // not used
     }
+    disconnect(m_gpg, &GPGManager::finished, this, &GpgItem::onGpgUpdate);
+    delete m_gpg;
     ((GpgTreeWidget*) treeWidget())->getKeyManager()->load();
 }
