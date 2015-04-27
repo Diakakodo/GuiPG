@@ -78,24 +78,24 @@ void GPGManager::sendInteraction() {
 }
 
 void GPGManager::sendHiddenInteraction() {
-    QDialog* dialog = new QDialog();
-    QLayout* HLayout = new QHBoxLayout(dialog);
-    QLayout* VLayout1 = new QVBoxLayout();
-    QLayout* VLayout2 = new QVBoxLayout();
+    QDialog dialog;
+    QLayout* HLayout = new QHBoxLayout(&dialog);
+    QLayout* VLayout1 = new QVBoxLayout(&dialog);
+    QLayout* VLayout2 = new QVBoxLayout(&dialog);
     HLayout->addItem(VLayout1);
     HLayout->addItem(VLayout2);
-    VLayout1->addWidget(new QLabel("Passphrase :", dialog));
-    passphraseEdit = new QLineEdit(dialog);
+    VLayout1->addWidget(new QLabel("Passphrase :", &dialog));
+    passphraseEdit = new QLineEdit(&dialog);
     passphraseEdit->setEchoMode(QLineEdit::Password);
     VLayout2->addWidget(passphraseEdit);
-    VLayout1->addWidget(new QLabel("", dialog));
-    QPushButton* validButton = new QPushButton("valider", dialog);
+    VLayout1->addWidget(new QLabel("", &dialog));
+    QPushButton* validButton = new QPushButton("valider", &dialog);
     VLayout2->addWidget(validButton);
     connect(validButton, &QPushButton::clicked, this, &GPGManager::onSendHiddenInteraction);
-    connect(validButton, &QPushButton::clicked, dialog, &QDialog::accept);
-    connect(dialog, &QDialog::rejected, this, &GPGManager::onSendHiddenInteractionAborted);
-    dialog->setModal(true);
-    dialog->show();
+    connect(validButton, &QPushButton::clicked, &dialog, &QDialog::accept);
+    connect(&dialog, &QDialog::rejected, this, &GPGManager::onSendHiddenInteractionAborted);
+    dialog.setModal(true);
+    dialog.exec();
 }
 
 void GPGManager::onSendHiddenInteraction() {
