@@ -153,37 +153,55 @@ void MainWindow::on_action_Import_Toolbar_triggered() {
 }
 
 
-PrimaPubKeyItem* searchGpgItemByFpr(GpgTreeWidget* tree, QString fpr) {
-    for (int i = 0; i < tree->topLevelItemCount(); ++i) {
-        if (((PrimaPubKeyItem*) tree->topLevelItem(i))->getFpr() == fpr) {
-            return (PrimaPubKeyItem*) (tree->topLevelItem(i));
-        }
-    }
-    return nullptr;
-}
-
 void MainWindow::buildTree() {
     const QList<PrimaPubKey*> pubKeys = m_model->getKeyManager()->getPubKeys();
     QList<QString> hash;
     for (PrimaPubKey* pub : pubKeys) {
         hash.append(pub->getFpr());
     }
-    for (int i = 0; i < ui->treeWidgetKey->topLevelItemCount(); i++) {
-        while (  ui->treeWidgetKey->topLevelItemCount() > 0 && !hash.contains(((PrimaPubKeyItem*) ui->treeWidgetKey->topLevelItem(i))->getFpr()) ) {
-            delete ui->treeWidgetKey->topLevelItem(i);
+    QHash<QString, QTreeWidgetItem*> hashItem;
+    QTreeWidget tmpTree;
+    int count = ui->treeWidgetKey->topLevelItemCount();
+    for (int i = 0; i < count; i++) {
+        if (hash.contains(((PrimaPubKeyItem*) ui->treeWidgetKey->topLevelItem(0))->getFpr())) {
+            QTreeWidgetItem* item = new QTreeWidgetItem(&tmpTree);
+            for (int i = 0; i < ui->treeWidgetKey->topLevelItem(0)->childCount(); ++i) {
+                QTreeWidgetItem* child = ui->treeWidgetKey->topLevelItem(0)->child(i)->clone();
+                item->addChild(child);
+                child->setExpanded(ui->treeWidgetKey->topLevelItem(0)->child(i)->isExpanded());
+                child->setSelected(ui->treeWidgetKey->topLevelItem(0)->child(i)->isSelected());
+                for (int j = 0; j < ui->treeWidgetKey->topLevelItem(0)->child(i)->childCount(); ++j) {
+                    QTreeWidgetItem* subChild = ui->treeWidgetKey->topLevelItem(0)->child(i)->child(j)->clone();
+                    child->addChild(subChild);
+                    item->child(i)->child(j)->setSelected(ui->treeWidgetKey->topLevelItem(0)->child(i)->child(j)->isSelected());
+                }
+            }
+            tmpTree.addTopLevelItem(item);
+            if (ui->treeWidgetKey->topLevelItem(0)->isSelected() && tmpTree.selectedItems().count() < 1) {
+                item->setSelected(true);
+            }
+            item->setExpanded(ui->treeWidgetKey->topLevelItem(0)->isExpanded());
+            hashItem.insert(((PrimaPubKeyItem*) ui->treeWidgetKey->topLevelItem(0))->getFpr(), item);
         }
+        delete ui->treeWidgetKey->topLevelItem(0);
     }
-    PrimaPubKeyItem* item = nullptr;
     for (PrimaPubKey* pub : pubKeys) {
         PrimaPubKeyItem* newItem = new PrimaPubKeyItem(pub);
-        item = searchGpgItemByFpr(ui->treeWidgetKey, pub->getFpr());
         ui->treeWidgetKey->addTopLevelItem(newItem);
-        if (item) {
+        if (hashItem.contains(pub->getFpr())) {
+            QTreeWidgetItem* item = hashItem.value(pub->getFpr());
             newItem->setExpanded(item->isExpanded());
             newItem->setSelected(item->isSelected());
-            delete item;
+            for (int i = 0; i < item->childCount() && i < newItem->childCount(); ++i) {
+                newItem->child(i)->setExpanded(item->child(i)->isExpanded());
+                newItem->child(i)->setSelected(item->child(i)->isSelected());
+                for (int j = 0; j < newItem->child(i)->childCount() && j < item->child(i)->childCount(); ++j) {
+                    newItem->child(i)->child(j)->setSelected(item->child(i)->child(j)->isSelected());
+                }
+            }
         }
     }
+    tmpTree.clear();
 }
 
 void MainWindow::on_actionImporter_triggered()
