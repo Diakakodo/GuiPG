@@ -9,6 +9,7 @@
 #include <QAction>
 #include <QSignalMapper>
 #include "../../GPG/action.h"
+#include <QMessageBox>
 
 // Initialisation de la hash map (action -> numéro de la confiance)
 // Les noms sont défini dans la X_Maccro X_COLUMNS et le numéro est donné par
@@ -107,20 +108,36 @@ void PrimaPubKeyItem::onAddUidFinished() {
 
 
 void PrimaPubKeyItem::sign() {
-    //KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
+    QString infos = "Voulez vous vraiment signer cette clef ?\n\n";
+    infos += "Empreinte : " + m_pub->getFpr() + "\n";
+    infos += "Date de création : " + m_pub->getCreationDate().toString() + "\n";
+    infos += "Date d'expiration : " + m_pub->getExpirationDate().toString() + "\n";
+    infos += "Capacité : " + m_pub->getCapabilities() + "\n";
+    infos += "Validité : " + GpgObject::validityToStr(m_pub->getValidity()) + "\n";
+    infos += "Confiance : " + PrimaPubKey::trustToStr(m_pub->getTrust()) + "\n\n";
+    infos += "Identifiants utilisateurs qui seront signés :\n";
+    for (Uid* u : m_pub->getUidList()) {
+        infos += "    " + u->getName() + " " + u->getMail() + "\n";
+    }
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(0, "Confirmation de signature", infos, QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        //KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
 
-    QStringList opt;
-    opt << "--status-fd=1"
-        << "--command-fd=0";
-        //<< "--default-key"
-        //<< "" // TODO récupérer le keyId de la clé privée avec laquelle on veut signer.
-    QStringList interactions;
-    interactions << "y";
-    Action actionSign("--sign-key", QStringList(m_pub->getKeyId()), opt, interactions);
-    m_gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
-    connect(m_gpg, &GPGManager::finished, this, &GpgItem::changed);
-    m_gpg->setAction(actionSign);
-    m_gpg->execute();
+        QStringList opt;
+        opt << "--status-fd=1"
+            << "--command-fd=0";
+            //<< "--default-key"
+            //<< "" // TODO récupérer le keyId de la clé privée avec laquelle on veut signer.
+        QStringList interactions;
+        interactions << "y";
+        interactions << "y";
+        Action actionSign("--sign-key", QStringList(m_pub->getKeyId()), opt, interactions);
+        m_gpg = new GPGManager(((GpgTreeWidget*) treeWidget())->getProfile());
+        connect(m_gpg, &GPGManager::finished, this, &GpgItem::changed);
+        m_gpg->setAction(actionSign);
+        m_gpg->execute();
+    }
 }
 
 void PrimaPubKeyItem::trust(int value) {

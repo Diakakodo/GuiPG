@@ -50,10 +50,10 @@ void KeyImport::on_importButton_clicked()
 {
     if (ui->fileRadioButton->isChecked()) {
         Action keyImport(QString("--import"), QStringList() << ui->pathEdit->text(), QStringList() << "--allow-secret-key-import");
-        GPGManager* manager = new GPGManager(m_profile);
-        connect(manager, &GPGManager::finished, this, &KeyImport::keyImportFinished);
-        manager->setAction(keyImport);
-        manager->execute();
+        m_gpg = new GPGManager(m_profile);
+        connect(m_gpg, &GPGManager::finished, this, &KeyImport::keyImportFinished);
+        m_gpg->setAction(keyImport);
+        m_gpg->execute();
     } else {
         if (ui->keyServerButton->isChecked()) {
             Action keyImport(QString("--recv-keys"), QStringList() << ui->keyIdEdit->text(), QStringList() << "--keyserver hkp://keys.gnupg.net");
@@ -72,6 +72,21 @@ void KeyImport::keyImportFinished(int a, QString s)
     if (a || s == "") {
         // not used.
     }
+
+    delete m_gpg;
+    Action updateAction("--check-trustdb");
+    m_gpg = new GPGManager(m_profile);
+    m_gpg->setAction(updateAction);
+    connect(m_gpg, &GPGManager::finished, this, &KeyImport::checkFinished);
+    m_gpg->execute();
+}
+
+void KeyImport::checkFinished(int a, QString s) {
+    if (a || s == "") {
+        // not used.
+    }
+
+    delete m_gpg;
     m_window->getModel()->getKeyManager()->load();
     close();
 }

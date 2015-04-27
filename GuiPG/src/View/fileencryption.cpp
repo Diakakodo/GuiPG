@@ -17,14 +17,29 @@ FileEncryption::FileEncryption(MainWindow *parent, KeyManager* keyManager) :
     m_manager = new GPGManager(m_profile);
     m_parent = parent;
     m_keyManager = keyManager;
-    QList<PrimaPubKey *> pubKeys = keyManager->getPubKeys();
-    QList<Uid *>* uids = new QList<Uid *>();
-    for (PrimaPubKey* key : pubKeys) {
-        uids->append(key->getUidList());
+
+    for (PrimaPubKey* key : keyManager->getPubKeys()) {
+        if ((key->getValidity() == VALIDITY_NO_VALUE ||
+                    key->getValidity() == VALIDITY_UNKNOWN ||
+                    key->getValidity() == VALIDITY_UNDEFINED ||
+                    key->getValidity() == VALIDITY_MARGINAL ||
+                    key->getValidity() == VALIDITY_FULLY ||
+                    key->getValidity() == VALIDITY_ULTIMATELY) &&
+                    (key->getCapabilities().contains("e") ||
+                     key->getCapabilities().contains("E"))) {
+
+
+        }
     }
-    for (Uid* uid : *uids) {
-        ui->comboBox->addItem(uid->getName());
-    }
+
+    //QList<PrimaPubKey *> pubKeys = keyManager->getPubKeys();
+    //QList<Uid *>* uids = new QList<Uid *>();
+    //for (PrimaPubKey* key : pubKeys) {
+    //    uids->append(key->getUidList());
+    //}
+    //for (Uid* uid : *uids) {
+    //    ui->comboBox->addItem(uid->getName());
+    //}
 }
 
 FileEncryption::~FileEncryption()
@@ -62,10 +77,10 @@ void FileEncryption::on_okButton_clicked()
     if(stat(file, &st) == 0) {
         remove(file);
     }
-    Action action(QString("-e"), QStringList() << ui->pathEdit->text(), QStringList("--command-fd=0") << "--status-fd=1" << "--output" << ui->outputEdit->text(), QStringList(ui->comboBox->currentText()) << "");
-    m_manager->setAction(action);
-    connect(m_manager, &GPGManager::finished, this, &FileEncryption::onEncryptionCompleted);
-    m_manager->execute();
+    //Action action(QString("-e"), QStringList() << ui->pathEdit->text(), QStringList("--command-fd=0") << "--status-fd=1" << "--output" << ui->outputEdit->text(), QStringList(ui->comboBox->currentText()) << "");
+    //m_manager->setAction(action);
+    //connect(m_manager, &GPGManager::finished, this, &FileEncryption::onEncryptionCompleted);
+    //m_manager->execute();
 }
 
 void FileEncryption::on_outputButton_clicked()
