@@ -49,7 +49,7 @@ MainWindow::MainWindow(MainWindowModel* model)
     connect(m_model, &MainWindowModel::keysChanged, this, &MainWindow::buildTree);
 
     currentBigBrotherHeight = ui->splitter_2->widget(1)->height();
-    ui->splitter_2->widget(1)->setMaximumHeight(currentBigBrotherHeight);
+    ui->splitter_2->widget(1)->setMaximumHeight(ui->toolButton->height());
 
     ui->bigBrother->setColumnWidth(0, ICON_BIG_BROTHER_SIZE.width() * 3);
     ui->bigBrother->setHeaderLabels(QStringList() << "" << "Commandes" << "Début" << "Fin");
@@ -104,16 +104,17 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 
 void MainWindow::setGpgCommandsVisible(bool b) {
     ui->bigBrother->setVisible(b);
+    QList<int> currentSizes = ui->splitter_2->sizes();
     if (b == true) {
         ui->toolButton->setArrowType(Qt::DownArrow);
         ui->splitter_2->widget(1)->setMaximumHeight(this->height());
+        currentSizes[1] = currentBigBrotherHeight;
     } else {
+        currentBigBrotherHeight = ui->splitter_2->widget(1)->height();
         ui->toolButton->setArrowType(Qt::UpArrow);
-        ui->splitter_2->widget(1)->setMaximumHeight(currentBigBrotherHeight);
+        ui->splitter_2->widget(1)->setMaximumHeight(ui->toolButton->height());
+        currentSizes[1] = ui->toolButton->height();
     }
-    QList<int> currentSizes = ui->splitter_2->sizes();
-    currentSizes[0] += ui->bigBrother->height();
-    currentSizes[1] -= ui->bigBrother->height();
     ui->splitter_2->setSizes(currentSizes);
 }
 
@@ -254,9 +255,12 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
         if (cmdWidth > m_bigBrotherCmdMaxWidht) {
             m_bigBrotherCmdMaxWidht = cmdWidth;
         }
-        textCmd->setFixedWidth(m_bigBrotherCmdMaxWidht);
+        textCmd->setMinimumWidth(cmdWidth);
         ui->bigBrother->setItemWidget(cmdItem, 1, textCmd);
         movie->start();
+        if (ui->bigBrother->columnWidth(1) < m_bigBrotherCmdMaxWidht) {
+            ui->bigBrother->resizeColumnToContents(1);
+        }
     } else {
         QTreeWidgetItem* cmdItem;
         cmdItem = ui->bigBrother->topLevelItem(id);
@@ -277,7 +281,6 @@ void MainWindow::updateBigBrother(GPGManager* gpg, bool fisrt, int id) {
         label->deleteLater();
         ui->bigBrother->setItemWidget(cmdItem, 0, NULL);
     }
-    ui->bigBrother->resizeColumnToContents(1);
     ui->bigBrother->scrollToBottom();
 }
 
