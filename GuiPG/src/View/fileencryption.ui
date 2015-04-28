@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>619</width>
-    <height>435</height>
+    <width>953</width>
+    <height>436</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,7 +41,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="pathEdit"/>
+        <widget class="QLineEdit" name="sourceFileEdit"/>
        </item>
        <item>
         <widget class="QPushButton" name="browseButton">
@@ -62,7 +62,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="outputEdit"/>
+        <widget class="QLineEdit" name="destinationFileEdit"/>
        </item>
        <item>
         <widget class="QPushButton" name="outputButton">
@@ -107,7 +107,30 @@
       </layout>
      </item>
      <item>
-      <widget class="QTableWidget" name="tableWidgetRecipient"/>
+      <widget class="QTableWidget" name="tableWidgetRecipient">
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::ExtendedSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <property name="sortingEnabled">
+        <bool>true</bool>
+       </property>
+       <property name="columnCount">
+        <number>7</number>
+       </property>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+      </widget>
      </item>
      <item>
       <spacer name="verticalSpacer">
@@ -125,7 +148,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <widget class="QLabel" name="errorLabel">
+        <widget class="QLabel" name="warningLabel">
          <property name="palette">
           <palette>
            <active>
@@ -184,6 +207,13 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="anonymousCheckBox">
+         <property name="text">
+          <string>Chiffrer de manière anonyme</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="okButton">
