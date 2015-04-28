@@ -48,14 +48,14 @@ GuiPGApp::GuiPGApp(int& argc, char** argv)
 }
 
 GuiPGApp::~GuiPGApp() {
-
+    /* Provoque le exit code 1
     if (m_config) {
         delete m_config;
     }
     if (m_launcher) {
         delete m_launcher;
     }
-
+    */
 }
 
 Configuration* GuiPGApp::getConfig() const {
