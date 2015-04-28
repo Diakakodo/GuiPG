@@ -4,7 +4,7 @@
 #include <QFileDialog>
 #include "../Launcher/launcher.h"
 #include "mainwindow.h"
-#include <QDebug>
+#include <QMimeDatabase>
 
 FileDecryptionAndVerify::FileDecryptionAndVerify(Profile* profile, QWidget *parent) :
     QDialog(parent),
@@ -127,7 +127,12 @@ void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
     QFile file(ui->destinationFileEdit->text());
     if (file.exists() && QFileInfo(file).isReadable()) {
         file.open(QFile::ReadOnly);
-        emit fileDecrypt(QFileInfo(file).baseName(), QString(file.readAll()));
+        QFileInfo fileInfo(file);
+        QMimeDatabase mimedb;
+        if (mimedb.mimeTypeForFile(fileInfo).name().startsWith("text/")) {
+            // On n'affiche le contenu uniquement si le type/MIME est de type text.
+            emit fileDecrypt(file.fileName().split(QDir::separator()).last(), QString(file.readAll()));
+        }
     }
     ui->acceptButton->setEnabled(true);
 }
