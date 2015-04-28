@@ -25,7 +25,7 @@ GpgItem::GpgItem(QTreeWidget * parent,
                                         m_gpgObject(gpgObject)
 {
     setText(COL_CREATION, gpgObject->getCreationDate().toString("dd/MM/yyyy"));
-    setText(COL_ID, gpgObject->getFpr());
+    setText(COL_ID, gpgObject->getFpr().right(16));
     m_fpr = gpgObject->getFpr();
 }
 
@@ -33,7 +33,7 @@ GpgItem::GpgItem(GpgObject* gpgObject) : QTreeWidgetItem (),
                                         m_gpgObject(gpgObject)
 {
     setText(COL_CREATION, gpgObject->getCreationDate().toString("dd/MM/yyyy"));
-    setText(COL_ID, gpgObject->getFpr());
+    setText(COL_ID, gpgObject->getFpr().right(16));
     m_fpr = gpgObject->getFpr();
 }
 
