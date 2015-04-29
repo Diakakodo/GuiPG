@@ -104,8 +104,8 @@ void FileEncryption::onEncryptionCompleted()
 }
 #include <QDebug>
 void FileEncryption::on_okButton_clicked()
-{
-    ui->warningLabel->setText("");
+{    
+    ui->warningLabel->setText("");    
     if (ui->sourceFileEdit->text().startsWith("~/") || ui->destinationFileEdit->text().startsWith("~/")) {
         ui->warningLabel->setText("Seul les chemins absolus sont autorisés.");
         return;
@@ -151,6 +151,12 @@ void FileEncryption::on_okButton_clicked()
             rowIndexes.append(index.row());
         }
     }
+
+    if (rowIndexes.count() == 0) {
+        ui->warningLabel->setText("Vous devez sélectionnez au moins un destinaire.");
+        return;
+    }
+
     /* Utilisé pour paramétré les intéractions car gpg est tellement
      * intelligent qu'il les demandes dans l'ordre inverse pour le cas anonyme
      */
@@ -204,6 +210,6 @@ void FileEncryption::on_okButton_clicked()
 
 void FileEncryption::on_outputButton_clicked()
 {
-    QString pathName = QFileDialog::getSaveFileName(this, "Fichier chiffré");
+    QString pathName = QFileDialog::getSaveFileName(this, "Sauvegarde du fichier chiffré");
     ui->destinationFileEdit->setText(pathName);
 }
