@@ -492,7 +492,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Clic droit sur une clé & Un menu s'affiche &  & OK \\
       2 & Cliquer sur "signer" & La clé a été signée &  & OK\\
-      3 &  &  &  & \\ 
+      3 & Recommencer les étapes 1 et 2 sur une clé ayant plusieurs UID & La clé a été signée &  & OK\\ 
       4 &  &  &  & \\
       5 &  &  &  & \\
       6 &  &  &  & \\
@@ -624,9 +624,9 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{3}{|l|}{Procédure n° I11} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
-      1 & Donner une clé publique au programme d'attaque & Le programme renvoie une clé différente avec la même pré-image &  & NOK \\
-      2 & Comparer la clé produite avec la clé initiale & Les deux clés ont la même seconde pré-image &  & NOK \\
-      3 &  &  &  & \\ 
+      1 & Donner une clé publique au programme d'attaque & Le programme renvoie une clé différente avec la même pré-image &  & OK \\
+      2 & Comparer la clé produite avec la clé initiale & Les deux clés ont la même seconde pré-image &  & OK \\
+      3 & Importer la clé produite dans un trousseau gpg & La clé est valide et on peut signer/déchiffrer avec &  & NOK\\ 
       4 &  &  &  & \\
       5 &  &  &  & \\
       6 &  &  &  & \\
@@ -691,7 +691,7 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
       \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
       \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
       1 & Clic droit sur une clé & Un menu s'affiche &  & OK \\
-      2 & Cliquer sur "Ajouter une sous-clé" & Le menu de création de sous-clé &  & OK\\
+      2 & Cliquer sur "Ajouter une sous-clé" & Le menu de création de sous-clé s'affiche &  & OK\\
       3 & Compléter ce menu et cliquer sur "ok" & La clé voulue est créée et affichée sous la clé correspondante &  & OK\\ 
       4 &  &  &  & \\
       5 &  &  &  & \\
@@ -704,6 +704,49 @@ Quand des anomalies seront détectées, la procédure suivante devra être respe
     \end{tabular}
     \vskip 2.2cm
 
+     %---------------------------------------Test N° I15------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Chiffrement de fichier}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I15} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Cliquer sur "Cryptographie" & Un menu s'affiche &  & OK \\
+      2 & Cliquer sur "Chiffrer un fichier" & La fenêtre de chiffrement s'affiche &  & OK\\
+      3 & Renseigner cette fenêtre et cliquer sur "Chiffrer" & Le fichier voulu est créé et contient les données chiffrées &  & OK\\ 
+      4 &  &  &  & \\
+      5 &  &  &  & \\
+      6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+  \hline
+    \end{tabular}
+    \vskip 2.2cm
+
+ %---------------------------------------Test N° I16------------------------------------------------------------------------------
+    \begin{tabular}{|c|p{5cm}|p{5cm}|p{1.5cm}|p{1.5cm}|}
+      \hline
+      \multicolumn{3}{|l|}{Objet testé : Interface graphique} & \multicolumn{2}{c|}{Version : 0.1}\\ \hline
+      \multicolumn{5}{|l|}{Objectif de test : Déchiffrement et vérification de fichier}\\ \hline
+      \multicolumn{3}{|l|}{Procédure n° I16} & \multicolumn{2}{p{3cm}|}{Pré-requis : }\\ \hline
+      \multicolumn{1}{|c|}{N°} & \multicolumn{1}{c|}{Actions} & \multicolumn{1}{c|}{Résultats attendus} & 
+      \multicolumn{1}{c|}{Exigence} & \multicolumn{1}{c|}{OK/KO}\\ \hline
+      1 & Cliquer sur "Cryptographie" & Un menu s'affiche &  & OK \\
+      2 & Cliquer sur "Déchiffrer / Vérifier un fichier" & La fenêtre de déchiffrement/vérification s'affiche &  & OK\\
+      3 & Renseigner cette fenêtre et cliquer sur "Valider" & Le fichier voulu est déchiffré / vérifié si applicable &  & OK\\ 
+      4 &  &  &  & \\
+      5 &  &  &  & \\
+      6 &  &  &  & \\
+      7 &  &  &  & \\
+      8 &  &  &  & \\
+      9 &  &  &  & \\
+      10 &  &  &  &\\ 
+  \hline
+    \end{tabular}
+    \vskip 2.2cm
 
 %TESTS DE NON REGRESSION%
 \subsection{Tests de non-régression}
@@ -760,7 +803,8 @@ Elles servent aussi de démonstration pour la répercussion de la confiance sur 
       EF\_12 & Test d'intégration & I7 & \\ \hline
       EF\_13 & Test d'intégration & I13 & \\ \hline
       EF\_14 & Test d'intégration & I14 & \\ \hline
-      EF\_15 & Test d'intégration & I12 & \\ \hline
+      EF\_15 & Test d'intégration & I15 I16 & \\ \hline
+      EF\_16 & Test d'intégration & I12 & \\ \hline
       EO\_01 & Tous les tests d'intégration sont réalisés avec GnuPG 2.0 & Toutes & \\ \hline
       EO\_02 & Tous les tests d'intégration sont réalisés avec GnuPG 1.4.* & Toutes & \\ \hline
       EO\_03 & Tous les tests d'intégration sont réalisés avec GnuPG 2.1.0 & Toutes & \\ \hline
@@ -877,6 +921,11 @@ Rappel des codes utilisés dans la STB :
   \cr
   \hline
   EF\_15&
+  Chiffrer / Déchiffrer / Vérifier un fichier&
+  Important
+  \cr
+  \hline
+  EF\_16&
   Afficher les commandes exécutées, les retours et les erreurs de GPG.&
   Utilisateur&
   Indispensable
@@ -983,6 +1032,17 @@ Rappel des codes utilisés dans la STB :
   \cr
   \hline
 \end{tabular}\\
+
+\section{Tests OK/KO}
+
+\begin{center}
+    \begin{tabular}{|p{3cm}|p{6cm}|p{6cm}|}
+      \hline
+      Date & Tests OK & Tests NOK\\ \hline
+      23/03/2015 & Tous sauf I5 et I11 & I5 I11 \\ \hline
+      30/04/2015 & Tous sauf I11 & I11\\ \hline
+  \end{tabular}  
+\end{center}
 
 
 \section{Suivi des bugs}
