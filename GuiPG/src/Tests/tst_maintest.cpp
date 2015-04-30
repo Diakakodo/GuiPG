@@ -99,8 +99,8 @@ void MainTest::testCase_u2()
     SubSecKey* subSecKey = new SubSecKey(QString(""), 10, QString(), QString("15"), QDate(52,15,17));
     primaSecKey.addSubSecKey(subSecKey);
     QVERIFY(primaSecKey.getSubSecKeyList().contains(subSecKey));
-    delete uid;
     delete pubKey;
+    delete subSecKey;
     qDebug() << "Classe PrimaSecKey : OK!";
 }
 
