@@ -1,0 +1,81 @@
+\documentclass{../res/univ-projet}
+
+%Import des packages utilisés pour le document
+\usepackage[utf8x]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+%\usepackage{array}
+%\usepackage{hyperref}
+%\usepackage{tabularx, longtable}
+%\usepackage[table]{xcolor}
+%\usepackage{fancyhdr}
+%\usepackage{lastpage}
+\usepackage{../res/tikz-uml}
+\usepackage{tikz}
+\usepackage{calc}
+\usepackage{xstring}
+\usepackage{pgfopts}
+
+\definecolor{gris}{rgb}{0.95, 0.95, 0.95}
+
+%Redéfinition des marges
+%\addtolength{\hoffset}{-2cm}
+%\addtolength{\textwidth}{4cm}
+\addtolength{\topmargin}{-1cm}
+\addtolength{\textheight}{1cm}
+\addtolength{\headsep}{0.8cm} 
+\addtolength{\footskip}{-0.2cm}
+
+
+%Import page de garde et structures pour la gestion de projet
+%\usepackage{structures}
+
+%Variables
+\logo{../res/logo_univ.png}
+\title{Rapport de projet}
+\author{Pierre \bsc{Balmelle}, Lucas \bsc{Barbay}, Bertille \bsc{Bouillie}, Matthieu \bsc{Fin}, Guillaume \bsc{Leroy}, Ibrahima \bsc{Sorry Barry}, Olivier \bsc{Thibault}}
+\projet{Projet PGP}
+\projdesc{Étude et implantation d'un outil graphique de gestion de clefs PGP}
+\filiere{Master 1 SSI }
+\matiere{Conduite de projet}
+\version{1.0}
+%\signataire{Magali \bsc{Bardet}}
+\date{\today}
+
+\histentry{0.1}{04/05/2015}{Version initiale.}
+
+% -- Début du document -- %
+\begin{document}
+
+%Page de garde
+\maketitle
+\newpage
+%La table des matières
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+\subsection{Contexte du projet}
+\subsection{Présentation du projet}
+
+\section{Description fonctionnelle}
+\subsection{Présentation de l'interface}
+
+\section{Description technique}
+\subsection{Les outils utilisés}
+\subsection{Les problèmes rencontrés}
+
+\section{Gestion du projet}
+\subsection{Gestion des risques}
+\subsection{Itérations}
+
+\section{Bilan du projet}
+\subsection{Apports du projet}
+\subsection{Difficultés rencontrés}
+\subsection{Les améliorations possibles}
+
+
+\end{document}
+
