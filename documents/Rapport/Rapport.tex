@@ -111,9 +111,49 @@ GnuPG (GNU Privacy Guard) est un de ces outils. Il se base sur le logiciel PGP e
 
 \section{Présentation du projet final}
   \subsection{Objectifs}
+    Pendant le développement du projet, deux membres nous ont quittés (Bertille et Guillaume), ce qui nous a forcé à revoir toute notre planification, n'ayant plus les moyens humains pour tenir le rythme prévu.
   \subsection{Organisation}
-  \subsection{Fonctionnalités}
+    
+    Le projet a été replanifié et découpé en deux livraisons.
+    L'attribution des tâches a été refaite, avec la répartition suivante :
+    \begin{itemize}
+      \item Ibrahima sur l'étude de GPG,
+      \item Lucas sur l'attaque sur les KeyID,
+      \item Les autres (Matthieu, Olivier et Pierre) sur le développement de l'application.
+    \end{itemize}
 
+  \subsection{Fonctionnalités}
+    Les fonctionnalités ayant été complétées sont :\medbreak
+  \begin{itemize}
+  \item Exécution d'actions GPG \smallbreak
+  Création, exportation, importations de clés (en local)\smallbreak
+  \item Chiffrer / déchiffrer / signer / vérifier \smallbreak
+  Chiffrer ou déchiffrer ou signer ou vérifier un fichier. \smallbreak
+  \item Affichage des commandes, des retours et des erreurs \smallbreak
+  L'utilisateur peut choisir d'afficher ou non les commandes, les retours et les erreurs associés à chaque action GPG. \smallbreak 
+  \item Création / Modification / Suppression du profil utilisateur \smallbreak
+  \item Modification de la toile de confiance \smallbreak
+  Modification de la toile de confiance par un changement de niveau de confiance, l'ajout d'une nouvelle clé ou la modification d'une clé. \smallbreak
+  \item Calcul d'une seconde pré-image pour une clé donnée \smallbreak
+  Attaque permettant d'obtenir une nouvelle clé contenant le même KeyId que la première.
+  \end{itemize}
+
+
+  
+
+  Les fonctionnalités qui ont été supprimées par rapport au plan initial sont :\medbreak
+  \begin{itemize}
+  \item Toile de confiance graphique\smallbreak
+  Représentation de la toile de confiance sous forme de graphe\smallbreak
+  \item Chiffrer / déchiffrer / signer / vérifier \smallbreak
+  Chiffrer ou déchiffrer ou signer ou vérifier le texte contenu dans l'éditeur de l'interface.\smallbreak
+  \item Edition de clé \smallbreak
+  Quelques fonctions d'édition de clé ne sont pas implémentées, comme la révocation d'une clé ou la signature avec une clé en particulier \smallbreak 
+  
+
+  La partie interface graphique a été validée par le client, mais malheureusement l'attaque et l'étude sur GPG n'ont pas été validés car ils n'ont pas été rendus à temps.
+
+  \end{itemize}
 
 \section{Les problèmes rencontrés}
 
