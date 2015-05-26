@@ -48,7 +48,7 @@
 \maketitle
 \newpage
 \section{Remerciements}
-Avant de débuter ce rapport, il nous parâit indispensable de remercier les 
+Avant de débuter ce rapport, il nous parait indispensable de remercier les 
 personnes qui ont contribué au bon déroulement de ce projet.
 
 Nous remercions tout d'abord notre cliente, madame Magali BARDET, pour sa 
@@ -79,7 +79,7 @@ but de présenter nos travaux durant ce projet.
 
 Dans ce cadre, nous avons eu pour client Mme Magali BARDET, enseignante et 
 responsable du Master Sécurité des Systèmes Informatiques (SSI) de l'UFR des 
-Sciences et Techniques de Rouen. Notre mission s'est déroulé du 17 octobre 
+Sciences et Techniques de Rouen. Notre mission s'est déroulée du 17 octobre 
 2014 au 1\up{er} mai 2015. Durant cette période, nous avons été formés à la 
 gestion de projet par M. Rémi DIONISI ainsi que M. Karim ABDELLAH GODARD.
 
@@ -94,18 +94,19 @@ l'implantation et l'explication d'une attaque sur OpenPGP.
    % Sujet
   % Equipe
   % Cadre 
-  Ce projet a été réalisé dans le cadre de la première année du Master Sécurité des Système d'informations enseigné à  l'Université de Rouen. Ce projet est découpé en deux parties et a commencé au début de l'année. Il nous a été demandé au premier semestre de rédiger les documents de Gestion de projets qui ont servi de base durant toute la durée du projet. Au second semestre il a fallu développer l'application en s'aidant des documents rédigés et en les faisant évoluer au fur et à mesure du projet.
+  Ce projet a été réalisé dans le cadre de la première année du Master Sécurité des Systèmes d'informations enseigné à  l'Université de Rouen. Ce projet est découpé en deux parties et a commencé au début de l'année. Il nous a été demandé au premier semestre de rédiger les documents de Gestion de projets qui ont servi de base durant toute la durée du projet. Au second semestre il a fallu développer l'application en s'aidant des documents rédigés et en les faisant évoluer au fur et à mesure du projet.
   \subsection{L'équipe}
   L'équipe de ce projet était composée au début de 7 étudiants en première année du master évoqué ci-dessus : Pierre Balmelle, Lucas Barbay, Bertille Bouillie, Mathieu Fin, Guillaume Leroy, Ibrahima Sorry Barry et Olivier Thibault. Nous avons du réaliser ce projet dans le cadre du module de gestion de projet sous la tutelle de Monsieur Karim ABDELLAH GODARD, et grâce aux cours de Monsieur Remi DIONISI. Le sujet de ce projet nous a été donné par Magali Bardet, enseignante-chercheuse à l'Université de Rouen.
 
 \section{Présentation du projet initial}
 
-Pour introduire ce projet, nous allons commencer par parler du standard OpenPGP. Ce standard est un format de cryptographie normalisé dans la RFC 4880. OpenPGP décrit le format des messages qui sont adaptés aux outils permettent l'envoie sécurisés de message ou bien le stockage de message.
-GnuPG (GNU Privacy Guard) est un de ces outils. Il se base sur le logiciel PGP et utilise un système hybride liant cryptographie symétrique et asymétrique pour permettre l'envoie de message chiffrés et/ou signés. Pour pouvoir s'échanger des messages, les utilisateurs de GPG doivent s'envoyer leur clé publique qui servira au chiffrement des messages.
+Pour introduire ce projet, nous allons commencer par parler du standard OpenPGP. Ce standard est un format de cryptographie normalisé dans la RFC 4880. OpenPGP décrit le format des messages utilisés par certains logiciels cryptographiques permettant l'envoi sécurisé d'e-mails ou de 
+fichiers.
+GPG (GNU Privacy Guard) est un de ces logiciels. Il utilise un système hybride liant cryptographie symétrique et asymétrique pour permettre l'envoi de message chiffré et/ou signé. Pour pouvoir s'échanger des messages, les utilisateurs de GPG doivent s'envoyer leur clé publique qui servira au chiffrement des messages.
 
   \subsection{Objectifs}
-  L'objectif de ce projet est de développer un outil graphique de gestion de clefs PGP. Il existe déjà plusieurs éditeurs permettant d'utiliser GPG graphiquement mais aucun ne permettent une gestion fine des clefs et la partie toile de confiance n'est pas intuitive. Il nous est donc demandé de réaliser une interface qui soient plus complète que les outils existants. L'objectif est dans un premier temps d'étudier complètement GnuPG et OpenPGP pour comprendre parfaitement son utilisation et réaliser un logiciel le plus exhaustif possible. L'interface réalisée devra permettre aux utilisateurs de faire des réglages techniques qu'ils soient experts ou novices. Un document expliquant les fonctionnalités devra être livré avec le projet.
-  Enfin il est demandé d'implanter l'attaque sur les KeyID décrite dans le magasine de sécurité informatique le MISC. Cette attaque est basée sur les mauvais usages de PGP par les utilisateurs.
+  L'objectif de ce projet est de développer un outil graphique de gestion de clefs PGP. Il existe déjà plusieurs éditeurs permettant d'utiliser GPG graphiquement, mais aucun ne permet une gestion fine des clefs et la partie toile de confiance n'est pas intuitive. Il nous est donc demandé de réaliser une interface qui soit plus complète que les outils existants. L'objectif est dans un premier temps d'étudier complètement GnuPG et OpenPGP pour comprendre parfaitement son utilisation et réaliser un logiciel le plus exhaustif possible. L'interface réalisée devra permettre aux utilisateurs de faire des réglages techniques qu'ils soient experts ou novices. Un document expliquant les fonctionnalités devra être livré avec le projet.
+  Enfin il est demandé d'implanter l'attaque sur les KeyID décrite dans le magazine de sécurité informatique le MISC. Cette attaque est basée sur les mauvais usages de PGP par les utilisateurs.
   
   \newpage
   
@@ -131,13 +132,13 @@ GnuPG (GNU Privacy Guard) est un de ces outils. Il se base sur le logiciel PGP e
   
   \subsection{Contraintes}
   
-  L'application doit fonctionner sur le système d'exploitation GNU/Linux, en particulier sous les environnements KDE et Gnome. La validité et la confiance doit être représentée sur l'interface par différents niveaux de couleurs.
+  L'application doit fonctionner sur le système d'exploitation GNU/Linux, en particulier sous les environnements KDE et Gnome. La validité et la confiance doivent être représentées sur l'interface par différents niveaux de couleurs.
   L'interface doit être à la fois pédagogique et précise pour faciliter l'utilisation de GPG.
   
   
   \subsection{Organisation}
   
-  Pour l'organisation de ce projet, il nous a été demandé d'utiliser une méthode agile. Nous avons décidé de choisir scrum avec comme scrum master Olivier, comme chargés client Bertille et Ibrahima, comme architectes Mathieu et Guillaume et enfin Pierre et Lucas comme testeurs. Cette équipe est encadré par le propriétaire du produit Magali BARDET et le consultant en gestion de projet 	Karim ABDELLAH GODARD.
+  Pour l'organisation de ce projet, il nous a été demandé d'utiliser une méthode agile. Nous avons décidé de choisir scrum avec comme scrum master Olivier, comme chargés client Bertille et Ibrahima, comme architectes Mathieu et Guillaume et enfin Pierre et Lucas comme testeurs. Cette équipe est encadrée par le propriétaire du produit Magali BARDET et le consultant en gestion de projet 	Karim ABDELLAH GODARD.
   
   \newpage
 
