@@ -47,7 +47,9 @@
 %Page de garde
 \maketitle
 \newpage
-\section{Remerciements}
+\thispagestyle{empty}
+\setcounter{page}{0}
+\section*{Remerciements}
 Avant de débuter ce rapport, il nous parâit indispensable de remercier les 
 personnes qui ont contribué au bon déroulement de ce projet.
 
@@ -63,11 +65,11 @@ Enfin, nous remercions l'ensemble de l'équipe enseignante du département
 informatique de rouen, pour les connaisances qu'ils nous ont fournit lors 
 de notre formation, sans quoi ce projet n'aurait pas eu lieu.
 \newpage
+\setcounter{page}{0}
 %La table des matières
 \tableofcontents
 
 \newpage
-
 \section{Introduction}
 
 Au cours de notre première année de Master Informatique, un projet annuel 
@@ -89,62 +91,87 @@ et de son implantation en ligne de commande GnuPG. La deuxième partie a été
 l'implantation d'une interface graphique pour GnuPG. Enfin la troisième fut 
 l'implantation et l'explication d'une attaque sur OpenPGP.
 
+Dans un premier temps, il nous semble nécessaire de vous parler plus en 
+détail du contexte de ce projet. Nous vous présenterons ensuite ce qui a été 
+réalisé, puis nous ferons état des problèmes rencontrées. Enfin, pour finir 
+nous effecturons un bilan de ce projet.
 
-  \subsection{Contexte}
-   % Sujet
-  % Equipe
-  % Cadre 
-  Ce projet a été réalisé dans le cadre de la première année du Master Sécurité des Système d'informations enseigné à  l'Université de Rouen. Ce projet est découpé en deux parties et a commencé au début de l'année. Il nous a été demandé au premier semestre de rédiger les documents de Gestion de projets qui ont servi de base durant toute la durée du projet. Au second semestre il a fallu développer l'application en s'aidant des documents rédigés et en les faisant évoluer au fur et à mesure du projet.
-  \subsection{L'équipe}
-  L'équipe de ce projet était composée au début de 7 étudiants en première année du master évoqué ci-dessus : Pierre Balmelle, Lucas Barbay, Bertille Bouillie, Mathieu Fin, Guillaume Leroy, Ibrahima Sorry Barry et Olivier Thibault. Nous avons du réaliser ce projet dans le cadre du module de gestion de projet sous la tutelle de Monsieur Karim ABDELLAH GODARD, et grâce aux cours de Monsieur Remi DIONISI. Le sujet de ce projet nous a été donné par Magali Bardet, enseignante-chercheuse à l'Université de Rouen.
+\section{Contexte}
+  \subsection{OpenPGP}
+    OpenPGP est un un standard normalisé dans la RFC 4880 qui définit des 
+    format de messages. Ces formats reposent sur de la cryptographie hybride, 
+    c'est à dire une combinaison de clefs symétriques et asymétriques. Ils 
+    permettent de fournir des services de sécurité pour les communications 
+    électorniques ainsi que le stockage de données. Ces services quand à eux,
+    oeuvrent pour garantir:
+    \begin{itemize}
+     \item la confidentialité (seuls les destinataires du messages 
+	   peuvent le déchiffrer),
+     \item l'authenticité (l'émetteur d'un message est bien celui qu'il 
+	   prétend être),
+     \item l'intégrité (l'état des données transmisent est le même qu'au 
+	   moment de l'envoi, elles n'ont pas été altérées).
+    \end{itemize}
+ 
+  \subsection{GnuPG}
+    GnuPG est une implémentation libre du standard OpenPGP. Ce logiciel a 
+    pour but de proposer une alternative au logiciel PGP qui lui, est une
+    implémentation non libre. 
+    GnuPG permet de signer, vérifier (assure l'authenticité et l'intégrité), 
+    chiffrer et déchiffrer (assure la confidentialité) des fichiers, ainsi 
+    que de gérer un trousseau de clefs cryptographiques (asymétriques) 
+    permettant ces actions. 
+    Un modèle de toile de confiance est associé au trousseau de clefs. 
+    Ce modèle permet de gérer pour chaque clefs du trousseau une 
+    validité pour garantir qu'elle appartient bien à la personne 
+    identifié, ainsi qu'un niveau de confiance en cette personne.
+    
+  \subsection{Le besoin}
+    Il existe quelques interfaces graphiques (comme KGpg, GPA, Seahorse). 
+    Cependant, ces interfaces ne permettent pas une gestion fine des clefs 
+    et la partie toile de confiance n’est pas correctement représentée.
+    Il nous a donc été demandé de proposer une interface graphique 
+    permettant à un utilisateur novice en PGP, mais averti en sécurité, 
+    de faire facilement des réglages techniques sur son trousseau et de pouvoir 
+    mettre en place sa toile de confiance. Le logiciel doit donc être à la 
+    fois pédagogique, précis et accompagné d'un document d’explications et 
+    de recommandations d’utilisation. Il doit aussi fonctionner sous kde et 
+    gnome.
+  
+    Nous devions aussi réaliser une étude complète d'OpenPGP et du 
+    logiciel GnuPG (en ligne de commande), d’en comprendre le 
+    fonctionnement détaillé et de rédiger un rapport illustrant toutes 
+    les fonctionnalités.
 
-\section{Présentation du projet initial}
+    Enfin, nous devions effectuer des recherches sur les limites 
+    cryptographiques de PGP et produire un document d’analyse de ces 
+    limites. En particulier il était demander d'implanter l’attaque sur les 
+    identifiants de clefs PGP décrite dans le numéro 75 de MISC magazine.
+    
+  \subsection{Acteurs du projet}
+    La cliente de ce projet est Mme. Magali BARDET (enseignante et responsable 
+    du master SSI à l'UFR des sciences et techniques de Rouen). 
 
-Pour introduire ce projet, nous allons commencer par parler du standard OpenPGP. Ce standard est un format de cryptographie normalisé dans la RFC 4880. OpenPGP décrit le format des messages qui sont adaptés aux outils permettent l'envoie sécurisés de message ou bien le stockage de message.
-GnuPG (GNU Privacy Guard) est un de ces outils. Il se base sur le logiciel PGP et utilise un système hybride liant cryptographie symétrique et asymétrique pour permettre l'envoie de message chiffrés et/ou signés. Pour pouvoir s'échanger des messages, les utilisateurs de GPG doivent s'envoyer leur clé publique qui servira au chiffrement des messages.
+    M. Karim Abdellah GODARD est un intervenant extérieur et a assuré le 
+    rôle de formateur et consultant en gestion de projet.
 
-  \subsection{Objectifs}
-  L'objectif de ce projet est de développer un outil graphique de gestion de clefs PGP. Il existe déjà plusieurs éditeurs permettant d'utiliser GPG graphiquement mais aucun ne permettent une gestion fine des clefs et la partie toile de confiance n'est pas intuitive. Il nous est donc demandé de réaliser une interface qui soient plus complète que les outils existants. L'objectif est dans un premier temps d'étudier complètement GnuPG et OpenPGP pour comprendre parfaitement son utilisation et réaliser un logiciel le plus exhaustif possible. L'interface réalisée devra permettre aux utilisateurs de faire des réglages techniques qu'ils soient experts ou novices. Un document expliquant les fonctionnalités devra être livré avec le projet.
-  Enfin il est demandé d'implanter l'attaque sur les KeyID décrite dans le magasine de sécurité informatique le MISC. Cette attaque est basée sur les mauvais usages de PGP par les utilisateurs.
-  
-  \newpage
-  
-  \subsection{Fonctionnalités}
-  
-  Les principales fonctionnalités du projet sont : \medbreak
-  \begin{itemize}
-  \item Exécution d'actions GPG \smallbreak
-  Appel des actions via l'interface (création, modification, suppression..) \smallbreak
-  \item Chiffrer / déchiffrer / signer / vérifier \smallbreak
-  Chiffrer ou déchiffrer ou signer ou vérifier un message copié dans l'éditeur de l'interface. Il est possible d'exporter le résultat dans un fichier ou d'importer un fichier. Dans ce dernier cas, le résultat est affiché via l'interface. \smallbreak
-  \item Affichage des commandes, des retours et des erreurs \smallbreak
-  L'utilisateur peut choisir d'afficher ou non les commandes, les retours et les erreurs associés à chaque action GPG. \smallbreak 
-  \item Choix du profil utilisateur \smallbreak
-  L'utilisateur peut choisir son profil au lancement de l'interface via l'option -P ou en cours d'utilisation. Si au lancement l'option n'est pas lancée et qu'aucun profil par défaut n'est défini, l'utilisateur doit choisir un profil. Lors de l'installation, un profil par défaut est créé. \smallbreak
-  \item Modification de la toile de confiance \smallbreak
-  Modification de la toile de confiance par un changement de niveau de confiance, l'ajout d'une nouvelle clé ou la modification d'une clé. \smallbreak
-  \item Calcul d'une seconde pré-image pour une clé donnée \smallbreak
-  Attaque permettant d'obtenir une nouvelle clé contenant le même KeyId que la première.
-  \end{itemize}
-  
-  L'attaque sur les KeyId est indépendante et ne fera pas partie de l'interface graphique. 
-  
-  \subsection{Contraintes}
-  
-  L'application doit fonctionner sur le système d'exploitation GNU/Linux, en particulier sous les environnements KDE et Gnome. La validité et la confiance doit être représentée sur l'interface par différents niveaux de couleurs.
-  L'interface doit être à la fois pédagogique et précise pour faciliter l'utilisation de GPG.
-  
-  
-  \subsection{Organisation}
-  
-  Pour l'organisation de ce projet, il nous a été demandé d'utiliser une méthode agile. Nous avons décidé de choisir scrum avec comme scrum master Olivier, comme chargés client Bertille et Ibrahima, comme architectes Mathieu et Guillaume et enfin Pierre et Lucas comme testeurs. Cette équipe est encadré par le propriétaire du produit Magali BARDET et le consultant en gestion de projet 	Karim ABDELLAH GODARD.
-  
-  \newpage
+    L'équipe en charge du développement était constituée de sept étudiants actuellement en première année du master SSI de Rouen : 
 
-\section{Présentation du projet final}
-  \subsection{Objectifs}
-    Pendant le développement du projet, deux membres nous ont quittés (Bertille et Guillaume), ce qui nous a forcé à revoir toute notre planification, n'ayant plus les moyens humains pour tenir le rythme prévu.
-  \subsection{Organisation}
+    \begin{tabular}{ll}
+    - Bertille BOUILLIE & Reponsable client \\
+    - Guillaume LEROY & Architecte \\
+    - Ibrahima Sory BARRY & Chargé client \\
+    - Lucas BARBAY & Testeur \\
+    - Matthieu FIN & Responsable technique \\
+    - Pierre BALMELLE & Responsable qualité \\
+    - Olivier THIBAULT & Chef de projet \\
+    \end{tabular}
+    
+  \subsection{L'organisation}
+    Ce projet a été réalisé dans le cadre de la première année du Master Sécurité des Système d'informations enseigné à  l'Université de Rouen. Ce projet est découpé en deux parties et a commencé au début de l'année. Il nous a été demandé au premier semestre de rédiger les documents de Gestion de projets qui ont servi de base durant toute la durée du projet. Au second semestre il a fallu développer l'application en s'aidant des documents rédigés et en les faisant évoluer au fur et à mesure du projet.
+
+\section{Présentation du projet}
+    \subsection{Organisation}
     
     Le projet a été replanifié et découpé en deux livraisons.
     L'attribution des tâches a été refaite, avec la répartition suivante :
@@ -169,9 +196,6 @@ GnuPG (GNU Privacy Guard) est un de ces outils. Il se base sur le logiciel PGP e
   \item Calcul d'une seconde pré-image pour une clé donnée \smallbreak
   Attaque permettant d'obtenir une nouvelle clé contenant le même KeyId que la première.
   \end{itemize}
-
-
-  
 
   Les fonctionnalités qui ont été supprimées par rapport au plan initial sont :\medbreak
   \begin{itemize}
