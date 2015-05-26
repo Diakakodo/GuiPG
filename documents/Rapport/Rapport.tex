@@ -249,7 +249,30 @@ GnuPG (GNU Privacy Guard) est un de ces outils. Il se base sur le logiciel PGP e
 
     \subsubsection{Maîtrise de GnuPG}
     
-    \subsubsection{Communication GnuPG}
+      Lors de la phase d'avant projet nous avons seulement étudier le logiciel gpg
+      en superficie, ce qui nous a valu quelques surprises lors du développement.
+
+      Notamment tout le mécanisme de gestion des entrées / sorties du logiciel n'as pas vraiment était
+      étudié, or la base de l'application demandée repose sur la gestion de la communication avec
+      gpg.
+      En effet celui-ci n'écrit et ne lis pas toujours sur son entrée et sa sortie standard,
+      en fonction des paramètres qu'on lui donne.
+
+      Et quand il ne lis ou n'écris pas sur ses entrée / sortie standard il lit et écris sur un
+      tty.
+
+      Nous avons donc du trouver une solution a ce problème technique survenu lors du premier sprint,
+      qui a consisté a développer une base de pseudo-terminal a l'aide de l'API POSIX, nous permettant
+      d'exécuter un shell qui exécute gpg.
+      Ainsi le shell s'occupe des descripteur de fichier standard pour gpg et ce dernier peut accéder a un tty
+      pour les commandes qui en nécessite un.
+      De plus notre pseudo terminal est composé d'une partie maître et d'un partie esclave,
+      c'est la partie esclave qui s'occupe d'exécuter le shell avec gpg et la partie maître affiche
+      sur sa sortie standard tout ce qui est écrit sur le terminal esclave, 
+      et écris sur le terminal esclave tout ce qui est écrit sur son entrée standard.
+
+      Cela nous permet de regrouper tout ce qui est écris et lu sur un même flux et donc de pouvoir
+      complètement simuler l'exécution de commande gpg dans un terminal.
   
 
 \section{Bilan du projet}
