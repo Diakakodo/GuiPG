@@ -5,7 +5,7 @@ RM=rm -f
 all: $(doc).pdf
 
 $(doc).pdf: $(doc).tex Garde.tex Intro.tex\
-            Besoin.tex Qualite.tex Technique.tex Gestion.tex\
+            Initial.tex Final.tex Probleme.tex Bilan.tex\
             Conclu.tex
 	$(CC) $< ; $(CC) $< 
 
