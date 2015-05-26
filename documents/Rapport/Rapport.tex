@@ -34,7 +34,7 @@
 \logo{../res/logo_univ.png}
 \title{Rapport de projet}
 \author{\\ Pierre \bsc{Balmelle},\\ Lucas \bsc{Barbay}, \\ Matthieu \bsc{Fin},
-\\ Ibrahima \bsc{Sorry Barry},\\ Olivier \bsc{Thibault}}
+\\ Ibrahima \bsc{Sory Barry},\\ Olivier \bsc{Thibault}}
 \projet{Projet PGP}
 \projdesc{Étude et implantation d'un outil graphique de gestion de clefs PGP}
 \filiere{Master 1 SSI }
@@ -70,6 +70,7 @@ de notre formation, sans quoi ce projet n'aurait pas eu lieu.
 \tableofcontents
 
 \newpage
+
 \section{Introduction}
 
 Au cours de notre première année de Master Informatique, un projet annuel 
@@ -197,6 +198,9 @@ nous effecturons un bilan de ce projet.
   Attaque permettant d'obtenir une nouvelle clé contenant le même KeyId que la première.
   \end{itemize}
 
+
+  
+
   Les fonctionnalités qui ont été supprimées par rapport au plan initial sont :\medbreak
   \begin{itemize}
   \item Toile de confiance graphique\smallbreak
@@ -213,11 +217,11 @@ nous effecturons un bilan de ce projet.
 
 \section{Les problèmes rencontrés}
 
-  Lors de la réalisation de ce projet nous avons du faire face a
+  Lors de la réalisation de ce projet nous avons dû faire face a
   différents problèmes aussi bien d'ordre organisationnel que techniques,
   auxquels nous avons du remédier.
 
-  \subsection{Problèmes organisationnel}
+  \subsection{Problèmes organisationnels}
 
     Les difficultés organisationnelles rencontrées sont essentiellement
     survenues du fait de la modification de l'effectif de l'équipe durant la
@@ -230,10 +234,15 @@ nous effecturons un bilan de ce projet.
       aucune nouvelle, son abandon a seulement pu être officiellement pris en compte au bout d'un mois et demi.
       \item Guillaume Leroy qui a abandonné le projet au bout d'un mois et demi.
     \end{itemize}
+
+    De plus Guillaume avant son départ définitif a changer de formation avec Lucas pour intégrer le Master GIL
+    ce qui nous a posé des difficultés d'emploi du temps pour réaliser les différentes réunions quotidiennes
+    de l'équipes pour faire avancer le projet.
+
     De plus les actions entreprises lors de l'avant projet n'ont pas suffi à l'ensemble de l'équipe 
     pour se former sur les différents outils utilisés lors de la phase de réalisation,
     puisque lors du premier sprint toutes les tâches attribuées a certains membres n'ont pas pu être
-    réalisées suite a ces différentes lacunes.
+    réalisées suite à ces différentes lacunes.
 
     Nous avons, suite à cela pris du retard sur le premier sprint.
 
@@ -242,18 +251,18 @@ nous effecturons un bilan de ce projet.
 
     Ce plan a été présenté et discuté avec le client pour redéfinir le périmètre du projet.
 
-    Suite à cela nous avons du réattribuer les tâches a chacun pour pouvoir tenir la charge de travail,
+    Suite à cela nous avons dû réattribuer les tâches à chacun pour pouvoir tenir la charge de travail,
     Lucas et Ibrahima ont souhaité se charger respectivement de l'attaque et de l'étude d'OpenPGP / GPG.
 
     Ainsi nous avons redéfini les tâches de développement de l'application
     entre Olivier, Matthieu (développeurs) et Pierre (Testeur).
-    Les fonctionnalités de l'application on également été redéfinies pour pouvoir être réalisable avec un effectif
+    Les fonctionnalités de l'application ont également été redéfinies pour pouvoir être réalisables avec un effectif
     aussi réduit.
 
     De plus toute la réalisation de la visualisation de la toile de confiance a été réduite
     à l'affichage des niveaux de confiance d'une clé et non plus en dessin d'une toile de confiance graphique.
 
-    Nous avons également a la fin du premier sprint suite à ces observations redéfinir les rôles de chaque membres : 
+    Nous avons également à la fin du premier sprint suite à ces observations redéfinir les rôles de chaque membres : 
 
     \begin{tabular}{|l|l|}
       \hline
@@ -288,15 +297,63 @@ nous effecturons un bilan de ce projet.
 
     \subsubsection{Maîtrise de GnuPG}
     
-    \subsubsection{Communication GnuPG}
+      Lors de la phase d'avant projet nous avons seulement étudier le logiciel gpg
+      en superficie, ce qui nous a valu quelques surprises lors du développement.
+
+      Notamment tout le mécanisme de gestion des entrées / sorties du logiciel n'as pas vraiment était
+      étudié, or la base de l'application demandée repose sur la gestion de la communication avec
+      gpg.
+      En effet celui-ci n'écrit et ne lis pas toujours sur son entrée et sa sortie standard,
+      en fonction des paramètres qu'on lui donne.
+
+      Et quand il ne lis ou n'écris pas sur ses entrée / sortie standard il lit et écris sur un
+      tty.
+
+      Nous avons donc du trouver une solution a ce problème technique survenu lors du premier sprint,
+      qui a consisté a développer une base de pseudo-terminal a l'aide de l'API POSIX, nous permettant
+      d'exécuter un shell qui exécute gpg.
+      Ainsi le shell s'occupe des descripteur de fichier standard pour gpg et ce dernier peut accéder a un tty
+      pour les commandes qui en nécessite un.
+      De plus notre pseudo terminal est composé d'une partie maître et d'un partie esclave,
+      c'est la partie esclave qui s'occupe d'exécuter le shell avec gpg et la partie maître affiche
+      sur sa sortie standard tout ce qui est écrit sur le terminal esclave, 
+      et écris sur le terminal esclave tout ce qui est écrit sur son entrée standard.
+
+      Cela nous permet de regrouper tout ce qui est écris et lu sur un même flux et donc de pouvoir
+      complètement simuler l'exécution de commande gpg dans un terminal.
   
 
 \section{Bilan du projet}
+  
   \subsection{Compétences acquises}
+
     \subsubsection{Technique}
+    
+      Ce projet nous a beaucoup appris sur la partie technique du développement d'une interface graphique, en particulier l'utilisation du cadriciel (framework) Qt sous sa version 5, et de l'environnement de développement associé Qt Creator.
+
+      Nous avons également gagné des compétences en C++, qui a été utilisé pour développer notre interface graphique.
+
+      Les tests ont été l'occasion d'acquérir des connaissances sur le module Qt Test, et sur la manière d'effectuer des tests en général.
+
+
+
     \subsubsection{Organisationnel}
+
+      Nous avons retenu de ce projet qu'il est essentiel de s'assurer que l'équipe est effectivement formée sur les outils qui vont être utilisés ainsi que de faire l'inventaire de ces outils.
+      Il faut aussi suivre régulièrement la progression de chaque membre dans la réalisation des tâches qui lui sont attribuées, pour être certain de l'état de progression de celles-ci et pouvoir s'adapter si elles ne sont pas finies à temps (ou finies plus tôt que prévu).
+
+
+
+
   \subsection{Axes d'amélioration}
+  
+    Le projet pourrait être amélioré en développant les commandes gpg prévues dans la STB initiale mais qui ont dûes être supprimées par manque de personnel, notamment pour l'édition de clé. 
+    La toile de confiance graphique peut aussi être affichée sous forme de graphe, et offrir la possibilité de modifier une clé en effectuant un clic droit sur l'un des sommets du graphe (représentant une clé).
+    La personnalisation de l'interface pourrait être développée, donnant par exemple l'opportunité de personnaliser les couleurs représentant la validité ou la confiance d'une clé, ou les informations affichées sur chaque clé.
+
   \subsection{Rétrospective}
+
+
 
 \section{Conclusion}
 
