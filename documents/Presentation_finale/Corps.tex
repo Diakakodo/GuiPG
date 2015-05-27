@@ -114,17 +114,28 @@
     \begin{frame}
       \frametitle{\color{white}Fonctionnement technique de GnuPG}
       \begin{block}{Fonctionnement technique de GnuPG}
-        GnuPG utilise directement un tty comme entrée / sortie pour certaines commandes.\\
-        Ce qui nous a compliqué la tâche pour arriver à envoyer
-        et récupérer des données du logiciel.
+        \begin{itemize}
+          \item GnuPG utilise directement un tty comme entrée / sortie pour certaine commandes.
+          \item Complication de la tâche pour arriver a envoyer et récupérer des données du logiciel.
+        \end{itemize}
+        
       \end{block}
       \pause
       \begin{exampleblock}{Solutions}
         \begin{itemize}
           \item Inspection du code source de GnuPG et de son comportement
-          \item Réalisation d'un pseudo-terminal
+          \item Réalisation d'un pseudo-terminal, a l'aide de l'api système POSIX
         \end{itemize}
       \end{exampleblock}
+      \pause
+      \begin{alertblock}{Impacts}
+        \begin{itemize}
+          \item Cette solution, impose un système UNIX \\
+                => perte de compatibilité Windows (Exigence optionnelle du besoin)
+          \item L'utilisation de bibliothèques nous aurai fait perdre
+          la visualisation des commandes gpg
+        \end{itemize}
+      \end{alertblock}
     \end{frame}
 
 \section{Bilan du projet}
