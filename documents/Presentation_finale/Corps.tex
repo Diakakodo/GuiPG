@@ -50,6 +50,31 @@
     \end{block}
 \end{frame}
 
+\begin{frame}
+  \frametitle{\color{white}Attaque}
+  \begin{block}{Fonctionnement}
+      \begin{itemize}
+        \item Crée une clef RSA.
+        \item Regarde son haché.
+        \item Modifie la date de création.
+        \item Compare le haché avec celui espéré.
+        \item Si le haché obtenu est le bon, création d'une clé avec un KeyId identique à la première.
+      \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\color{white}Les problèmes de l'attaque}
+  \begin{block}{Date de création}
+      \begin{itemize}
+        \item La date de création doit être supérieure à 1970 l'année 0 dans les machines.
+        \item La date de création doit être inférieur à la date d'aujourd'hui.
+      \end{itemize}
+    \end{block}
+    \medbreak
+    \includegraphics[scale=0.42]{attaque.png}
+\end{frame}
+
 
 \section{Les risques survenus}
   \subsection{Risques organisationnels}
