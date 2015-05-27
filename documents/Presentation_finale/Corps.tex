@@ -1,26 +1,24 @@
 \section{Projet}
+\subsection{Les livrables}
 \begin{frame}
-    \frametitle{\color{white}Projet}
-    \begin{block}{Interface graphique : GuiPG}
+    \frametitle{\color{white}Les livrables}
+    \begin{block}{Trois livrables demandés}
+    	\begin{itemize}
+         \item Une étude détaillée d'OpenPGP et de GnuPG.
+         \item Une interface graphique permettant de facilité la compréhension et l'utilisation de GnuPG.
+         \item Une étude des limites, et une implantation d'une attaque sur les identifiants de clefs PGP.
+       \end{itemize} 
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\color{white}L'interface graphique : GuiPG}
+    \begin{block}{Fonctionnalités}
       \begin{itemize}
         \item Gestion d'un trousseau de clefs gpg.
         \item Actions cryptographiques.
         \item Représentation de la toile de confiance.
         \item Visualisation des commandes nécessaire pour chaque actions.
-      \end{itemize}
-    \end{block}
-\pause
-    \begin{block}{Étude de GnuPG}
-    \begin{itemize}
-      \item Documentation sur les possibilités de GnuPG.
-      \item Guide d'utilisation de GnuPG.
-    \end{itemize}
-    \pause
-    \end{block}
-    \begin{block}{Attaque sur les identifiants de clé}
-      \begin{itemize}
-        \item Forger une 2\up{nd} pré-image d'une clé sur les 4 derniers octets de son identifiant.
-        \item Documentation sur les limites de GnuPG.
       \end{itemize}
     \end{block}
 \end{frame}
@@ -52,6 +50,12 @@
 
 \begin{frame}
   \frametitle{\color{white}Attaque}
+  \begin{block}{Attaque sur les identifiants de clé}
+      \begin{itemize}
+        \item Forger une 2\up{nd} pré-image d'une clé sur les 4 derniers octets de son identifiant.
+        \item Documentation sur les limites de GnuPG.
+      \end{itemize}
+    \end{block}
   \begin{block}{Fonctionnement}
       \begin{itemize}
         \item Crée une clef RSA.
