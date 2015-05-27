@@ -4,18 +4,30 @@
     \frametitle{\color{white}Contexte}
     \begin{block}{Qu'est ce que OpenPGP ?}
     	\begin{itemize}
-         \item Format de cryptographie normalisé dans la RFC 4880.
-         \item Décrit le format des messages adapté aux outils permettant l’envoi ou le stockage sécurisés de message.
+         \item Standard cryptographique normalisé dans la RFC 4880.
+         \item Décrit des formats de messages adaptés aux outils permettant l’envoi ou le stockage sécurisé.
+         \item Repose sur un système hybride de cryptographie (symétrique + asymétrique).
        \end{itemize} 
     \end{block}
     \begin{block}{Qu'est ce que GnuPG ?}
       \begin{itemize}
-        \item GnuPG (GNU Privacy Guard) est un de ces outils.
-        \item Basé sur le logiciel PGP 
-        \item Utilise un système hybride cryptographie symétrique/asymétrique.
-        \item Permet l'envoi de messages chiffrés et/ou signés.
-        \item Les utilisateurs doivent s'envoyer leur clé publique.
+        \item GnuPG (GNU Privacy Guard) est une implantation libre d'OpenPGP.
+        \item Basé sur le logiciel PGP.
+        \item Permet la gestion d'un trousseau de clefs asymétriques.
+        \item Propose un modèle de toile de confiance.
+        \item Permet le chiffrement/déchiffrement, la signature/vérification, la certification et l'authentification.
       \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\color{white}Contexte}
+    \begin{block}{Le besoin}
+    	\begin{itemize}
+         \item Une étude détaillé d'OpenPGP et de GnuPG.
+         \item Une interface graphique permettant de mieux comprendre GnuPG.
+         \item Une étude des limites, et une implantation d'une attaque sur les identifiants de clefs PGP.
+       \end{itemize} 
     \end{block}
 \end{frame}
 
