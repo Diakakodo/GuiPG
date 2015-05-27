@@ -83,23 +83,36 @@
   \frametitle{\color{white}Attaque}
   \begin{block}{Attaque sur les identifiants de clé}
       \begin{itemize}
-        \item Forger une 2\up{nd} pré-image d'une clé sur les 4 derniers octets de son identifiant.
-        \item Documentation sur les limites de GnuPG.
+        \item Forger une 2\up{nd} pré-image d'une clé sur les 8 derniers caractères de son identifiant.
+        %\item Documentation sur les limites de GnuPG.
       \end{itemize}
     \end{block}
-  \begin{block}{Fonctionnement}
+  \begin{block}{Lexique}
       \begin{itemize}
-        \item Crée une clef RSA.
-        \item Regarde son haché.
-        \item Modifie la date de création.
-        \item Compare le haché avec celui espéré.
-        \item Si le haché obtenu est le bon, création d'une clé avec un KeyId identique à la première.
+        \item Clef PGP = clef RSA encapsulé dans un paquet PGP
+        \item Le fingerprint est l'empreinte d'une clef
+        \item Le KeyId est l'idenfiant de la clef
       \end{itemize}
     \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{\color{white}Les problèmes de l'attaque}
+  \frametitle{\color{white}Attaque}
+  \begin{block}{ }
+  Le but de cette attaque est de trouver une seconde clef possédant le même KeyId que la première. Cette attaque est issue du dépot github de Jameson
+  Rollins et Danivel Kahn Gillmor.
+  \end{block}
+  \begin{block}{Fonctionnement de l'attaque}
+      \begin{itemize}
+        \item Crée une clef RSA.
+        \item Modifie la date de création jusqu'à ce que le haché soit identique à la clef voulu
+        \item Fabrique un paquet PGP avec la clef RSA pour qu'il soit importable dans GnuPG
+      \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\color{white}Les contraintes de l'attaque}
   \begin{block}{Date de création}
       \begin{itemize}
         \item La date de création doit être supérieure à 1970 l'année 0 dans les machines.
