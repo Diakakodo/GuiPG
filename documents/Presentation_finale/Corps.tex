@@ -24,10 +24,41 @@
     \end{itemize}
     \end{alertblock}  
 \end{frame}
+\subsection{Propagation de la confiance} % (fold)
 
 \begin{frame}
-  \frametitle{\color{white}Visualisation toile de confiance}
-    \includegraphics[scale=0.3]{tdcdemo.png}
+  \frametitle{\color{white}Validité non définie}
+    \begin{block}{}
+      Alice n'a pas attribué de confiance aux trois clefs qu'elle a certifié.\\
+      La clé non certifié par Alice n'est donc pas valide.
+    \end{block}
+    \includegraphics[scale=0.3]{tdcdemoUndefined.png}
+\end{frame}
+\begin{frame}
+  \frametitle{\color{white}Validité Marginal}
+    \begin{block}{}
+      Une ou deux clef certifié par Alice avec une confiance légère 
+      induit une validité marginale sur une clé non certifié par Alice
+      mais certifié par les premières.
+    \end{block}
+    \includegraphics[scale=0.3]{tdcdemoMarginal.png}
+\end{frame}
+\begin{frame}
+  \frametitle{\color{white}Validité Complète}
+    \begin{block}{}
+      Trois clefs ou plus certifiés par Alice avec une confiance légère
+      induit une validité complète sur une clé non certifié par Alice mais par les premières.
+    \end{block}
+    \includegraphics[scale=0.3]{tdcdemoComplete1.png}
+\end{frame}
+\begin{frame}
+  \frametitle{\color{white}Validité Complète}
+    \begin{block}{}
+      Une clef certifié par Alice avec une confiance complète
+      suffit a propager une validité complète sur une clé non certifié par Alice mais
+      certifié par la première.
+    \end{block}
+    \includegraphics[scale=0.3]{tdcdemoComplete2.png}
 \end{frame}
 
 \begin{frame}
