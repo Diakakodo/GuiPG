@@ -3,9 +3,9 @@
 \begin{frame}
     \frametitle{\color{white}Les livrables}
     \begin{block}{Trois livrables demandés}
-    	\begin{itemize}
+      \begin{itemize}
          \item Une étude détaillée d'OpenPGP et de GnuPG.
-         \item Une interface graphique permettant de facilité la compréhension et l'utilisation de GnuPG.
+         \item Une interface graphique permettant de faciliter la compréhension et l'utilisation de GnuPG.
          \item Une étude des limites, et une implantation d'une attaque sur les identifiants de clefs PGP.
        \end{itemize} 
     \end{block}
@@ -18,16 +18,16 @@
         \item Gestion d'un trousseau de clefs gpg.
         \item Actions cryptographiques.
         \item Représentation de la toile de confiance.
-        \item Visualisation des commandes nécessaire pour chaque actions.
+        \item Visualisation des commandes nécessaire pour chaque action.
       \end{itemize}
     \end{block}
 \end{frame}
 
 \begin{frame}
   \frametitle{\color{white}GuiPG}
-  \begin{block}{Gestion d'un trousseau de clé gpg}
+  \begin{block}{Gestion d'un trousseau de clés gpg}
       \begin{itemize}
-        \item Création de clé / sous clé.
+        \item Création de clés / sous clé.
         \item Suppression de clé principale.
         \item Certification de clé.
         \item Modification de la confiance.
@@ -35,7 +35,7 @@
         \item Importation / Exportation de clés depuis un fichier.
       \end{itemize}
     \end{block}
-    \begin{block}{Opérations cryptographique}
+    \begin{block}{Opérations cryptographiques}
       \begin{itemize}
         \item Chiffrer un fichier, pour plusieurs destinataires de façon anonyme ou non.
         \item Déchiffrer un fichier et vérifier les signatures.
@@ -63,13 +63,13 @@
 \begin{frame}
   \frametitle{\color{white}Attaque}
   \begin{block}{ }
-  Le but de cette attaque est de trouver une seconde clef possédant le même KeyId que la première. Cette attaque est issue du dépot github de Jameson
+  Le but de cette attaque est de trouver une seconde clef possédant le même KeyId que la première. Cette attaque est issue du dépôt github de Jameson
   Rollins et Danivel Kahn Gillmor.
   \end{block}
   \begin{block}{Fonctionnement de l'attaque}
       \begin{itemize}
         \item Crée une clef RSA.
-        \item Modifie la date de création jusqu'à ce que le haché soit identique à la clef voulu
+        \item Modifie la date de création jusqu'à ce que le haché soit identique à la clef voulue
         \item Fabrique un paquet PGP avec la clef RSA pour qu'il soit importable dans GnuPG
       \end{itemize}
   \end{block}
@@ -113,7 +113,7 @@
     \begin{frame}
       \frametitle{\color{white}Maîtrise des outils}
       \begin{block}{Maîtrise des outils}
-        Majorité des membres pas assez formée sur les outils utilisé\\
+        Majorité des membres pas assez formée sur les outils utilisés\\
         (git, Qt, C++, gpg)
       \end{block}
       \pause
@@ -127,8 +127,8 @@
       \frametitle{\color{white}Fonctionnement technique de GnuPG}
       \begin{block}{Fonctionnement technique de GnuPG}
         \begin{itemize}
-          \item GnuPG utilise directement un tty comme entrée / sortie pour certaine commandes.
-          \item Complication de la tâche pour arriver a envoyer et récupérer des données du logiciel.
+          \item GnuPG utilise directement un tty comme entrée / sortie pour certaines commandes.
+          \item Complication de la tâche pour arriver à envoyer et récupérer des données du logiciel.
         \end{itemize}
         
       \end{block}
@@ -142,9 +142,9 @@
       \pause
       \begin{alertblock}{Impacts}
         \begin{itemize}
-          \item Cette solution, impose un système UNIX \\
+          \item Cette solution impose un système UNIX \\
                 => perte de compatibilité Windows (Exigence optionnelle du besoin)
-          \item L'utilisation de bibliothèques nous aurai fait perdre
+          \item L'utilisation de bibliothèques nous aurait fait perdre
           la visualisation des commandes gpg
         \end{itemize}
       \end{alertblock}
