@@ -142,35 +142,41 @@
   
   \subsection{Résultats du projet}
   \begin{frame}
-    \frametitle{\color{white}Besoin négocié}
-    \begin{block}{Ce qui a été supprimé du besoin initial}
-      \begin{itemize}
-        \item 
-        \item 
-        \item 
-      \end{itemize}
-    \end{block}
-    
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{\color{white}Objets validés}
-    \begin{block}{Ce qui a été validé}
-      \begin{itemize}
-        \item 
-        \item 
-        \item 
-      \end{itemize}
-    \end{block}
-    \begin{block}{Ce qui n'a pas été validé}
-      \begin{itemize}
-        \item 
-        \item 
-        \item 
-      \end{itemize}
-    \end{block}
-    
-  \end{frame}
+    \frametitle{\color{white}Résultats du projet}
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \multicolumn{1}{|c|}{\cellcolor{gray} \color{white}Catégories} & \multicolumn{1}{|c|}{\cellcolor{gray} \color{white}Livraison} & \multicolumn{1}{|c|}{\cellcolor{gray} \color{white}Livraison initiale} \\
+    \hline
+    \cellcolor{white}\color{green}Fondation & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}1} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}1} \\
+    \hline
+    \cellcolor{white}\color{green}Mécanisme multi-instance & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}1} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}1} \\    
+    \hline
+    \cellcolor{white}\color{green}Gestion des profils & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}1} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}1} \\
+    \hline
+    \cellcolor{white}\color{yellow}Gestion des clefs & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}2} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}1} \\
+    \hline
+    \cellcolor{white}\color{green}Vue des commandes et retours GPG & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}2} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}1} \\
+    \hline
+    \cellcolor{white}\color{yellow}Opérations cryptographiques & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}2} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}2} \\
+    \hline
+    \cellcolor{white}\color{yellow}\'{E}diteur & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}2} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}2} \\
+    \hline
+    \cellcolor{white}\color{red}Attaque & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}2} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}3} \\
+    \hline
+    \cellcolor{white}\color{red}\'{E}tude gestion des clefs & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}1} \\
+    \hline
+    \cellcolor{white}\color{red}\'{E}tude des opérations cryptographiques & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}2} \\
+    \hline
+    \cellcolor{white}\color{red}\'{E}tude gestion de la toile de confiance & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}2} \\
+    \hline
+    \cellcolor{white}\color{red}\'{E}tude des limites & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}3} \\
+    \hline
+    \cellcolor{white}\color{red}Toile de confiance statique & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}2} \\
+    \hline
+    \cellcolor{white}\color{red}Toile dynamique & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}} & \multicolumn{1}{|c|}{\cellcolor{white}\color{black}3} \\
+    \hline
+  \end{tabular}
+\end{frame}
 
 \subsection{Améliorations et rétrospective}
   \begin{frame}
@@ -178,14 +184,15 @@
     \begin{block}{Axes d'améliorations}
       Améliorations de l'interface GuiPG :
       \begin{itemize}
-        \item Affiner la gestion de clé
-        \item Ajouter une visualisation sous forme de graphe de la toile de confiance
-        \item Personnalisation de l'interface
+        \item Affiner la gestion de clé.
+        \item Ajouter une visualisation sous forme de graphe de la toile de confiance.
+        \item Développer l'éditeur de texte.
+        \item Personnaliser l'interface.
       \end{itemize}
       Améliorations de l'attaque :
       \begin{itemize}
-        \item Paralléliser le calcul des hashs de la clé sur CPU
-        \item Implanter l'attaque sur carte graphique (OpenCL, CUDA)
+        \item Paralléliser le calcul des hashs de la clé sur CPU.
+        \item Implanter l'attaque sur carte graphique (OpenCL, CUDA).
       \end{itemize}
     \end{block}
     
