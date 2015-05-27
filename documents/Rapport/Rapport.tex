@@ -54,15 +54,15 @@ Avant de débuter ce rapport, il nous parâit indispensable de remercier les
 personnes qui ont contribué au bon déroulement de ce projet.
 
 Nous remercions tout d'abord notre cliente, madame Magali BARDET, pour sa 
-participation, son attention et la confiance qu'elle nous a accordé au 
+participation, son attention et la confiance qu'elle nous a accordée au 
 cours de notre mission.
 
 D'autre part, nos remerciements vont aussi à monsieur Karim ABDELLAH 
-GODARD ainsi que monsieur Rémi DIONISI, pour la formation, le suivit 
-et le soutien qu'ils nous ont apporté au cours de l'année.
+GODARD ainsi que monsieur Rémi DIONISI, pour la formation, le suivi 
+et le soutien qu'ils nous ont apportés au cours de l'année.
 
 Enfin, nous remercions l'ensemble de l'équipe enseignante du département 
-informatique de rouen, pour les connaisances qu'ils nous ont fournit lors 
+informatique de Rouen, pour les connaissances qu'ils nous ont fournies lors 
 de notre formation, sans quoi ce projet n'aurait pas eu lieu.
 \newpage
 \setcounter{page}{0}
@@ -77,13 +77,13 @@ Au cours de notre première année de Master Informatique, un projet annuel
 en équipe nous a été confié afin de mettre en pratique ce qui nous a 
 été enseigné dans l'unité ``Gestion de projet''. Il s'agit donc d'apprendre 
 à s'organiser en équipe, faire preuve de méthodologie et d'adaptabilité 
-pour mener à bien les objectifs d'un projet informatique. Ce rapport à pour 
+pour mener à bien les objectifs d'un projet informatique. Ce rapport a pour 
 but de présenter nos travaux durant ce projet.
 
 Dans ce cadre, nous avons eu pour client Mme Magali BARDET, enseignante et 
 responsable du Master Sécurité des Systèmes Informatiques (SSI) de l'UFR des 
-Sciences et Techniques de Rouen. Notre mission s'est déroulé du 17 octobre 
-2014 au 1\up{er} mai 2015. Durant cette période, nous avons été formé à la 
+Sciences et Techniques de Rouen. Notre mission s'est déroulée du 17 octobre 
+2014 au 1\up{er} mai 2015. Durant cette période, nous avons été formés à la 
 gestion de projet par M. Rémi DIONISI ainsi que M. Karim ABDELLAH GODARD.
 
 Le thème de ce projet tourne autour d'OpenPGP. Le sujet se décompose en trois 
@@ -95,22 +95,22 @@ l'implantation et l'explication d'une attaque sur OpenPGP.
 Dans un premier temps, il nous semble nécessaire de vous parler plus en 
 détail du contexte de ce projet. Nous vous présenterons ensuite ce qui a été 
 réalisé, puis nous ferons état des problèmes rencontrées. Enfin, pour finir 
-nous effecturons un bilan de ce projet.
+nous effectuerons un bilan de ce projet.
 
 \section{Contexte}
   \subsection{OpenPGP}
     OpenPGP est un un standard normalisé dans la RFC 4880 qui définit des 
-    format de messages. Ces formats reposent sur de la cryptographie hybride, 
+    formats de messages. Ces formats reposent sur de la cryptographie hybride, 
     c'est à dire une combinaison de clefs symétriques et asymétriques. Ils 
     permettent de fournir des services de sécurité pour les communications 
-    électorniques ainsi que le stockage de données. Ces services quand à eux,
+    électroniques ainsi que le stockage de données. Ces services quand à eux,
     oeuvrent pour garantir:
     \begin{itemize}
-     \item la confidentialité (seuls les destinataires du messages 
+     \item la confidentialité (seuls les destinataires du message 
 	   peuvent le déchiffrer),
      \item l'authenticité (l'émetteur d'un message est bien celui qu'il 
 	   prétend être),
-     \item l'intégrité (l'état des données transmisent est le même qu'au 
+     \item l'intégrité (l'état des données transmises est le même qu'au 
 	   moment de l'envoi, elles n'ont pas été altérées).
     \end{itemize}
  
@@ -123,7 +123,7 @@ nous effecturons un bilan de ce projet.
     que de gérer un trousseau de clefs cryptographiques (asymétriques) 
     permettant ces actions. 
     Un modèle de toile de confiance est associé au trousseau de clefs. 
-    Ce modèle permet de gérer pour chaque clefs du trousseau une 
+    Ce modèle permet de gérer pour chaque clef du trousseau une 
     validité pour garantir qu'elle appartient bien à la personne 
     identifié, ainsi qu'un niveau de confiance en cette personne.
     
@@ -156,7 +156,7 @@ nous effecturons un bilan de ce projet.
     M. Karim Abdellah GODARD est un intervenant extérieur et a assuré le 
     rôle de formateur et consultant en gestion de projet.
 
-    L'équipe en charge du développement était constituée de sept étudiants actuellement en première année du master SSI de Rouen : 
+    L'équipe en charge du développement était constituée de sept étudiants actuellement en première année du master IGIS de Rouen : 
 
     \begin{tabular}{ll}
     - Bertille BOUILLIE & Reponsable client \\
@@ -169,13 +169,12 @@ nous effecturons un bilan de ce projet.
     \end{tabular}
     
   \subsection{L'organisation}
-    Ce projet a été réalisé dans le cadre de la première année du Master Sécurité des Système d'informations enseigné à  l'Université de Rouen. Ce projet est découpé en deux parties et a commencé au début de l'année. Il nous a été demandé au premier semestre de rédiger les documents de Gestion de projets qui ont servi de base durant toute la durée du projet. Au second semestre il a fallu développer l'application en s'aidant des documents rédigés et en les faisant évoluer au fur et à mesure du projet.
+    
 
 \section{Présentation du projet}
     \subsection{Organisation}
     
-    Le projet a été replanifié et découpé en deux livraisons.
-    L'attribution des tâches a été refaite, avec la répartition suivante :
+    
     \begin{itemize}
       \item Ibrahima sur l'étude de GPG,
       \item Lucas sur l'attaque sur les KeyID,
@@ -218,7 +217,7 @@ nous effecturons un bilan de ce projet.
 \section{Les problèmes rencontrés}
 
   Lors de la réalisation de ce projet nous avons dû faire face a
-  différents problèmes aussi bien d'ordre organisationnel que techniques,
+  différents problèmes aussi bien d'ordre organisationnel que technique,
   auxquels nous avons du remédier.
 
   \subsection{Problèmes organisationnels}
@@ -235,9 +234,9 @@ nous effecturons un bilan de ce projet.
       \item Guillaume Leroy qui a abandonné le projet au bout d'un mois et demi.
     \end{itemize}
 
-    De plus Guillaume avant son départ définitif a changer de formation avec Lucas pour intégrer le Master GIL
+    De plus Guillaume avant son départ définitif a changé de formation avec Lucas pour intégrer le Master GIL
     ce qui nous a posé des difficultés d'emploi du temps pour réaliser les différentes réunions quotidiennes
-    de l'équipes pour faire avancer le projet.
+    de l'équipe pour faire avancer le projet.
 
     De plus les actions entreprises lors de l'avant projet n'ont pas suffi à l'ensemble de l'équipe 
     pour se former sur les différents outils utilisés lors de la phase de réalisation,
@@ -262,7 +261,7 @@ nous effecturons un bilan de ce projet.
     De plus toute la réalisation de la visualisation de la toile de confiance a été réduite
     à l'affichage des niveaux de confiance d'une clé et non plus en dessin d'une toile de confiance graphique.
 
-    Nous avons également à la fin du premier sprint suite à ces observations redéfinir les rôles de chaque membres : 
+    Nous avons également à la fin du premier sprint suite à ces observations redéfini les rôles de chaque membres : 
 
     \begin{tabular}{|l|l|}
       \hline
@@ -300,26 +299,26 @@ nous effecturons un bilan de ce projet.
       Lors de la phase d'avant projet nous avons seulement étudier le logiciel gpg
       en superficie, ce qui nous a valu quelques surprises lors du développement.
 
-      Notamment tout le mécanisme de gestion des entrées / sorties du logiciel n'as pas vraiment était
+      Notamment tout le mécanisme de gestion des entrées / sorties du logiciel n'as pas vraiment été
       étudié, or la base de l'application demandée repose sur la gestion de la communication avec
       gpg.
-      En effet celui-ci n'écrit et ne lis pas toujours sur son entrée et sa sortie standard,
+      En effet celui-ci n'écrit et ne lit pas toujours sur son entrée et sa sortie standard,
       en fonction des paramètres qu'on lui donne.
 
-      Et quand il ne lis ou n'écris pas sur ses entrée / sortie standard il lit et écris sur un
+      Et quand il ne lit ou n'écrit pas sur ses entrée / sortie standard il lit et écrit sur un
       tty.
 
-      Nous avons donc du trouver une solution a ce problème technique survenu lors du premier sprint,
-      qui a consisté a développer une base de pseudo-terminal a l'aide de l'API POSIX, nous permettant
+      Nous avons donc du trouver une solution à ce problème technique survenu lors du premier sprint,
+      qui a consisté à développer une base de pseudo-terminal a l'aide de l'API POSIX, nous permettant
       d'exécuter un shell qui exécute gpg.
-      Ainsi le shell s'occupe des descripteur de fichier standard pour gpg et ce dernier peut accéder a un tty
-      pour les commandes qui en nécessite un.
+      Ainsi le shell s'occupe des descripteurs de fichier standard pour gpg et ce dernier peut accéder à un tty
+      pour les commandes qui en nécessitent un.
       De plus notre pseudo terminal est composé d'une partie maître et d'un partie esclave,
       c'est la partie esclave qui s'occupe d'exécuter le shell avec gpg et la partie maître affiche
       sur sa sortie standard tout ce qui est écrit sur le terminal esclave, 
-      et écris sur le terminal esclave tout ce qui est écrit sur son entrée standard.
+      et écrit sur le terminal esclave tout ce qui est écrit sur son entrée standard.
 
-      Cela nous permet de regrouper tout ce qui est écris et lu sur un même flux et donc de pouvoir
+      Cela nous permet de regrouper tout ce qui est écrit et lu sur un même flux et donc de pouvoir
       complètement simuler l'exécution de commande gpg dans un terminal.
   
 
@@ -335,7 +334,7 @@ nous effecturons un bilan de ce projet.
 
       Les tests ont été l'occasion d'acquérir des connaissances sur le module Qt Test, et sur la manière d'effectuer des tests en général.
 
-
+      Le projet a été l'occasion de découvrir GnuPG et ses nombreuses fonctionnalités.
 
     \subsubsection{Organisationnel}
 
@@ -358,7 +357,7 @@ nous effecturons un bilan de ce projet.
 
 \section{Conclusion}
 
-	Pour conclure ce rapport, nous pouvons dire que ce projet nous a permis d'acquérir de nombreuses connaissances tel que l'utilisation poussée du logiciel GPG, le développement en C++ et l'utilisation du quadriciel Qt, l'utilisation des outils collaboratif tel que git et enfin des méthodes de gestion de projet qui nous aideront très prochainement dans le mode du travail.
+	Pour conclure ce rapport, nous pouvons dire que ce projet nous a permis d'acquérir de nombreuses connaissances tel que l'utilisation poussée du logiciel GPG, le développement en C++ et l'utilisation du quadriciel Qt, l'utilisation des outils collaboratif tel que git et enfin des méthodes de gestion de projet qui nous aideront très prochainement dans le monde du travail.
 
 
 
