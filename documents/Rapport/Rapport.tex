@@ -186,6 +186,7 @@ nous effectuerons un bilan de ce projet.
   
     Les fonctionnalités ayant été complétées sont :\medbreak
   \begin{itemize}
+  
   \item Exécution d'actions GPG \smallbreak
   Création, exportation, importations de clés (en local)\smallbreak
   \item Chiffrer / déchiffrer / signer / vérifier \smallbreak
@@ -195,17 +196,9 @@ nous effectuerons un bilan de ce projet.
   \item Création / Modification / Suppression du profil utilisateur \smallbreak
   \item Modification de la toile de confiance \smallbreak
   Modification de la toile de confiance par un changement de niveau de confiance, l'ajout d'une nouvelle clé ou la modification d'une clé.   
- 
- \subsection{L'attaque}
-  
-  \item Calcul d'une seconde pré-image pour une clé donnée \smallbreak
-  Attaque permettant d'obtenir une nouvelle clé contenant le même KeyId que la première.
   \end{itemize}
-
-
-  
-
-  Les fonctionnalités qui ont été supprimées par rapport au plan initial sont :\medbreak
+ 
+   Les fonctionnalités qui ont été supprimées par rapport au plan initial sont :\medbreak
   \begin{itemize}
   \item Toile de confiance graphique\smallbreak
   Représentation de la toile de confiance sous forme de graphe\smallbreak
@@ -214,10 +207,65 @@ nous effectuerons un bilan de ce projet.
   \item Edition de clé \smallbreak
   Quelques fonctions d'édition de clé ne sont pas implémentées, comme la révocation d'une clé ou la signature avec une clé en particulier \smallbreak 
   
-
-  La partie interface graphique a été validée par le client, mais malheureusement l'attaque et l'étude sur GPG n'ont pas été validées, car ils n'ont pas été rendus à temps.
-
   \end{itemize}
+
+  La partie interface graphique a été validée par le client, l'attaque a été rendu mais non validée et l'étude n'a pas été rendu.
+ 
+ \subsection{L'attaque}
+  
+  \subsubsection{Lexique}
+  
+  Avant de commencer l'attaque, il nous parait nécessaire d'expliquer quelques termes sur les clefs PGP :
+  
+  \begin{itemize}
+  	\item Clef PGP : c'est une clef certification encapsulée dans un paquet PGP (défini dans la RFC 4880). La clef peut être une clef RSA ou une clef DSA.
+	\item L'empreinte d'une clef : c'est l'image de la clef par la fonction de hachage sha-1 plus la date de création de cette clef et sa version. C'est d'ailleurs avec le champ de création que nous ferons l'attaque.
+	\item L'identifiant d'une clef : c'est la troncature des 8 derniers caractères de l'empreinte.
+  \end{itemize}
+  
+  
+  Lors de l'importation d'une clef GPG par le biais d'un serveur, il est important de vérifier l'empreinte complète, c'est-à-dire les 40 caractères. Certaines personnes ne le font pas et se contentent de regarder seulement l'identifiant de la clef. L'attaque se base donc, non pas sur une faille de PGP, mais sur ce mauvais usage des utilisateurs non avertis. 
+  
+  L'objectif de l'attaque est donc de forger une clef pour tromper un utilisateur qui chercherait une clef sur le serveur et qui ne vérifierait pas la totalité de l'empreinte.
+  
+  \subsubsection{Le fonctionnement}
+
+  L'attaque est issue du dépôt github trollwot fait par Micah Lee, lui-même faisant partie du projet Monkeysphere. Ce projet a pour but d'utiliser le standard OpenPGP pour d'autres utilisations comme l'identification avec SSH et HTTPS.
+  
+  Cette attaque est faite en Perl et reçoit plusieurs paramètres en entrée :
+  
+  \begin{itemize}
+  	\item L'utilisateur, constitué d'un nom, prénom, adresse mail et d'un commentaire éventuellement. 
+	\item L'identifiant de 8 caractères.
+	\item La taille de la clef RSA (le script ne marche pas avec DSA).
+  \end{itemize}
+
+  Le principe de l'attaque est de changer la date de création jusqu'à avoir un identifiant identique.
+  
+  Le script commence par générer une clef RSA avec une date de création précise. Il récupère l'empreinte en appliquant la fonction de hachage sha-1 et l'identifiant en tronquant l'empreinte. Ensuite, on compare l'identifiant avec celui passé en paramètre. Si les deux sont différents, on fait varier la date de création et on recommence l'opération. On est obligé de décrémenter la date de création pour qu'elle soit conforme.
+  
+  Ce script est fait de façon mono thread et peut calculer environ 12 000 hachés par seconde sur les machines de l'université. Ce qui prend au maximum 4 jours pour couvrir les 2 \up{32} calculs nécessaires. 
+  
+  Lorsque le script trouve enfin un identifiant identique, il lui reste à construire un paquet PGP. Il utilise donc la clef RSA puis la dernière date de création pour former ce paquet.
+    
+  Pour tester ce script, nous avons tout d'abord généré une clef bobbb avec gpg.	  
+  
+  Nous avons lancé le script avec les mêmes informations que la clef générée.
+  
+  \includegraphics[scale=0.8]{clefs}
+  
+  Nous pouvons observer que les deux clefs ont le même identifiant.
+  
+  \subsubsection{Les contraintes de l'attaque}
+  
+      \begin{itemize}
+        \item La date de création doit être supérieure à 1970 l'année 0 pour les machines.
+        \item La date de création doit être inférieure à la date d'aujourd'hui.
+      \end{itemize}
+    \medbreak
+    \includegraphics[scale=0.70]{attaque.png}
+
+ On peut constater sur l'imprime écran ci-dessus qu'il existe une sécurité dans gpg qui vérifie la date des clefs. Nous avons eu une clef qui a été créée avec une date dans le futur et gpg refuse de l'importer dans notre trousseau.
 
 \section{Les problèmes rencontrés}
 
