@@ -19,7 +19,7 @@
         \item Gestion d'un trousseau de clefs gpg.
         \item Opérations cryptographiques.
         \item Représentation de la toile de confiance.
-        \item Visualisation des commandes nécessaire pour chaque action.
+        \item Visualisation des commandes nécessaires pour chaque action.
       \end{itemize}
     \end{block}
 \end{frame}
@@ -28,7 +28,7 @@
   \frametitle{\color{white}GuiPG}
   \begin{block}{Gestion d'un trousseau de clés gpg}
       \begin{itemize}
-        \item Création de clés / sous clé.
+        \item Création de clés / sous clés.
         \item Suppression de clé principale.
         \item Certification de clé.
         \item Modification de la confiance.
@@ -54,13 +54,13 @@
   \frametitle{\color{white}Attaque}
   \begin{block}{Attaque sur les identifiants de clé}
       \begin{itemize}
-        \item Forger une 2\up{nd} pré-image d'une clé sur les 8 derniers caractères de son identifiant.
+        \item Forger une 2\up{nde} pré-image d'une clé sur les 8 derniers caractères de son identifiant.
         %\item Documentation sur les limites de GnuPG.
       \end{itemize}
     \end{block}
   \begin{block}{Lexique}
       \begin{itemize}
-        \item Clef PGP = clef RSA encapsulé dans un paquet PGP
+        \item Clef PGP = clef RSA encapsulée dans un paquet PGP
         \item Le fingerprint est l'empreinte d'une clef
         \item Le KeyId est l'idenfiant de la clef
       \end{itemize}
@@ -71,13 +71,13 @@
   \frametitle{\color{white}Attaque}
   \begin{block}{ }
   Le but de cette attaque est de trouver une seconde clef possédant le même KeyId que la première. 
-  Cette attaque est issue du dépôt github de Micah Lee (trollwot), lui même issue du code source du projet Monkeysphere.
+  Cette attaque est issue du dépôt github de Micah Lee (trollwot), elle-même issue du code source du projet Monkeysphere.
   \end{block}
   \begin{block}{Fonctionnement de l'attaque}
       \begin{itemize}
         \item Crée une clef RSA.
-        \item Modifie la date de création jusqu'à ce que le haché soit identique à la clef voulue
-        \item Fabrique un paquet PGP avec la clef RSA pour qu'il soit importable dans GnuPG
+        \item Modifie la date de création jusqu'à ce que le haché soit identique à la clef voulue.
+        \item Fabrique un paquet PGP avec la clef RSA pour qu'il soit importable dans GnuPG.
       \end{itemize}
   \end{block}
 \end{frame}
@@ -86,7 +86,7 @@
   \frametitle{\color{white}Les contraintes de l'attaque}
   \begin{block}{Date de création}
       \begin{itemize}
-        \item La date de création doit être supérieure à 1970 l'année 0 dans les machines.
+        \item La date de création doit être supérieure à 1970 l'année 0 pour les machines.
         \item La date de création doit être inférieure à la date d'aujourd'hui.
       \end{itemize}
     \end{block}
@@ -108,7 +108,7 @@
       \begin{block}{Abandon des membres}
 	\begin{itemize}
 	  \item Deux membres ont quitté le projet durant le premier sprint.
-	  \item Sous effectif pour les travaux prévues.
+	  \item Sous-effectif pour les travaux prévues.
 	\end{itemize}
       \end{block}
     \end{frame}
@@ -126,7 +126,7 @@
  
       \begin{exampleblock}{Plan d'action}
         \begin{itemize}
-          \item Réunion pour effectuer l'état d'avancement du projet.
+          \item Réunion pour évaluer l'état d'avancement du projet.
           \item Proposition au client d'une redéfinition du périmètre du projet.
           \item Négociation et priorisation des tâches et des délais / Sprints avec le client.
         \end{itemize}
