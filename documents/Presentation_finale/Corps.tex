@@ -157,7 +157,7 @@
       \frametitle{\color{white}Fonctionnement technique de GnuPG}
       \begin{block}{Communication avec le processus GnuPG}
         \begin{itemize}
-	  \item Impossibilité de récupérer certains retours des commandes -> Impossibilité de traitement.
+	         \item Impossibilité de récupérer certains retours des commandes -> Impossibilité de traitement.
           \item GnuPG utilise directement un tty comme entrée / sortie pour certaines commandes.
         \end{itemize}
       \end{block}
@@ -173,11 +173,11 @@
           \item Inspection du code source de GnuPG et de son comportement
           \item Utilisation de bibliothèques prévues pour manipuler GnuPG - {\color{red}Proscrit}
 	    \begin{itemize}
-	     \item Perte de la visualisation des commandes gpg => Exigence indispensable
+	     \item Perte de la visualisation des commandes gpg => Exigence indispensable EF\_16
 	    \end{itemize}
           \item Réalisation d'un pseudo-terminal via l'api système POSIX - {\color{green}Adopté}
 	    \begin{itemize}
-	     \item impose un système UNIX => perte de compatibilité Windows (Exigence optionnelle)
+	     \item impose un système UNIX => perte de compatibilité Windows (Exigence optionnelle E0\_12)
 	    \end{itemize}
         \end{itemize}
       \end{exampleblock}
