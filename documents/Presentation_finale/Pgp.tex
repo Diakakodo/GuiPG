@@ -10,7 +10,7 @@
     \end{block}
     \begin{block}{Pourquoi ?}
       \begin{itemize}
-         \item Permettre l'utilisation de la cryptographie pour le grand public
+         \item Permettre l'utilisation de la cryptographie pour le grand public.
          \item Chiffrer, déchiffrer, signer et vérifier des données. 
          \item Échanger des emails de manière sûre.
        \end{itemize} 
@@ -19,17 +19,18 @@
 \begin{frame}
     \frametitle{\color{white}PGP}
     \begin{block}{Comment ?}
-    	\begin{itemize}
-         \item Un utilisateur doit donc posséder:
+      \begin{itemize}
+	\item Une clef publique sert à chiffrer et vérifier.
+	\item Une clef privée sert à déchiffrer ou signer.
+	\item Les utilisateurs doivent donc partager leur clef publique avec leurs contacts.
+      \end{itemize} 
+    \end{block}
+    \begin{block}{Un utilisateur doit donc posséder:}
 	  \begin{itemize}
 	    \item Sa propre paire de clefs asymétriques (privée et public).
 	    \item Les clefs publiques des personnes avec qui il souhaite communiquer. 
 	  \end{itemize}
-	 \item Une clef publique sert à chiffrer et vérifier.
-	 \item Une clef privée sert à déchiffrer ou signer.
-	 \item Les utilisateurs doivent donc partager leur clef publique avec leurs contacts.
-       \end{itemize} 
-    \end{block}
+    \end{block}    
 \end{frame}
 
 \begin{frame}
@@ -38,7 +39,7 @@
     	\begin{itemize}
 	  \item Une clef asymétrique privée ou publique.
 	  \item Une date de création.
-	  \item Une empreinte ( = le hashé de : la clef + la date de création)
+	  \item Une empreinte ( = le hashé de : la clef + la date de création).
 	  \item Un utilisateur (nom et adresse email).
 	  \item Une auto-signature (faite par cette même clef).
        \end{itemize} 
