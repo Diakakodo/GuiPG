@@ -11,12 +11,13 @@
     \end{block}
 \end{frame}
 
+\subsection{L'interface graphique}
 \begin{frame}
-    \frametitle{\color{white}L'interface graphique : GuiPG}
+    \frametitle{\color{white}GuiPG}
     \begin{block}{Fonctionnalités}
       \begin{itemize}
         \item Gestion d'un trousseau de clefs gpg.
-        \item Actions cryptographiques.
+        \item Opérations cryptographiques.
         \item Représentation de la toile de confiance.
         \item Visualisation des commandes nécessaire pour chaque action.
       \end{itemize}
@@ -37,12 +38,18 @@
     \end{block}
     \begin{block}{Opérations cryptographiques}
       \begin{itemize}
-        \item Chiffrer un fichier, pour plusieurs destinataires de façon anonyme ou non.
-        \item Déchiffrer un fichier et vérifier les signatures.
+        \item Chiffrer un fichier
+	  \begin{itemize}
+	   \item Possibilité de choisir plusieurs destinataires à la fois.
+	   \item Possibilité d'anonymiser les destinataires.
+	  \end{itemize}
+        \item Déchiffrer un fichier.
+        \item Vérifier la signature d'un fichier.
       \end{itemize}
     \end{block}
 \end{frame}
 
+\subsection{L'attaque}
 \begin{frame}
   \frametitle{\color{white}Attaque}
   \begin{block}{Attaque sur les identifiants de clé}
@@ -63,8 +70,8 @@
 \begin{frame}
   \frametitle{\color{white}Attaque}
   \begin{block}{ }
-  Le but de cette attaque est de trouver une seconde clef possédant le même KeyId que la première. Cette attaque est issue du dépôt github de Jameson
-  Rollins et Danivel Kahn Gillmor.
+  Le but de cette attaque est de trouver une seconde clef possédant le même KeyId que la première. 
+  Cette attaque est issue du dépôt github de Micah Lee (trollwot), lui même issue du code source du projet Monkeysphere.
   \end{block}
   \begin{block}{Fonctionnement de l'attaque}
       \begin{itemize}
@@ -92,19 +99,36 @@
   \subsection{Risques organisationnels}
     \begin{frame}
       \frametitle{\color{white}Risques organisationnels}
-      \begin{block}{Perte de membres}
-        Deux membres ont quitté le projet durant le premier sprint.
-      \end{block}
       \begin{block}{Incompatibilité d'emploi du temps}
-        Deux membres sont passés en GIL.\\
-        Difficultés pour se réunir.
+	\begin{itemize}
+	  \item Deux membres sont passés en Master GIL.
+	  \item Difficultés pour se réunir et travailler ensemble.
+	\end{itemize}
       \end{block}
-      \pause
-      \begin{exampleblock}{Solutions}
+      \begin{block}{Abandon des membres}
+	\begin{itemize}
+	  \item Deux membres ont quitté le projet durant le premier sprint.
+	  \item Sous effectif pour les travaux prévues.
+	\end{itemize}
+      \end{block}
+    \end{frame}
+    
+    \begin{frame}
+      \frametitle{\color{white}Risques organisationnels}
+      \begin{alertblock}{Impacts}
+	\begin{itemize}
+	 \item Tâches non finalisées à temps.
+	 \item Accumulation de retard.
+	 \item 2 semaines de retard sur la première livraison.
+	 \item 1ère livraison non validée.
+	\end{itemize}
+      \end{alertblock}
+ 
+      \begin{exampleblock}{Plan d'action}
         \begin{itemize}
-          \item Mis en place d'un plan d'action
-          \item Redéfinition du périmètre du projet
-          \item Mise en place d'un créneau hebdomadaire commun.
+          \item Réunion pour effectuer l'état d'avancement du projet.
+          \item Proposition au client d'une redéfinition du périmètre du projet.
+          \item Négociation et priorisation des tâches et des délais / Sprints avec le client.
         \end{itemize}
       \end{exampleblock}
     \end{frame}
@@ -113,10 +137,10 @@
     \begin{frame}
       \frametitle{\color{white}Maîtrise des outils}
       \begin{block}{Maîtrise des outils}
-        Majorité des membres pas assez formée sur les outils utilisés\\
+        Certains des membres n'étaient pas assez formés sur les outils utilisés\\
         (git, Qt, C++, gpg)
       \end{block}
-      \pause
+      
       \begin{exampleblock}{Solutions}
         \begin{itemize}
           \item Réunion d'installation et de formation aux outils
@@ -125,29 +149,32 @@
     \end{frame}
     \begin{frame}
       \frametitle{\color{white}Fonctionnement technique de GnuPG}
-      \begin{block}{Fonctionnement technique de GnuPG}
+      \begin{block}{Communication avec le processus GnuPG}
         \begin{itemize}
+	  \item Impossibilité de récupérer certains retours des commandes -> Impossibilité de traitement.
           \item GnuPG utilise directement un tty comme entrée / sortie pour certaines commandes.
-          \item Complication de la tâche pour arriver à envoyer et récupérer des données du logiciel.
         \end{itemize}
-        
       \end{block}
-      \pause
+       
+      \begin{alertblock}{Impacts}
+        \begin{itemize}
+          \item Impossibilité d'avancer dans l'implantation des commandes prévues.
+        \end{itemize}
+      \end{alertblock}
+        
       \begin{exampleblock}{Solutions}
         \begin{itemize}
           \item Inspection du code source de GnuPG et de son comportement
-          \item Réalisation d'un pseudo-terminal, a l'aide de l'api système POSIX
+          \item Utilisation de bibliothèques prévues pour manipuler GnuPG - {\color{red}Proscrit}
+	    \begin{itemize}
+	     \item Perte de la visualisation des commandes gpg => Exigence indispensable
+	    \end{itemize}
+          \item Réalisation d'un pseudo-terminal via l'api système POSIX - {\color{green}Adopté}
+	    \begin{itemize}
+	     \item impose un système UNIX => perte de compatibilité Windows (Exigence optionnelle)
+	    \end{itemize}
         \end{itemize}
       \end{exampleblock}
-      \pause
-      \begin{alertblock}{Impacts}
-        \begin{itemize}
-          \item Cette solution impose un système UNIX \\
-                => perte de compatibilité Windows (Exigence optionnelle du besoin)
-          \item L'utilisation de bibliothèques nous aurait fait perdre
-          la visualisation des commandes gpg
-        \end{itemize}
-      \end{alertblock}
     \end{frame}
 
 \section{Bilan du projet}
@@ -215,7 +242,7 @@
     \begin{block}{Rétrospective}
     Approfondir l'étude de faisabilité lors de la phase d'avant projet.
       \begin{itemize}
-        \item Réaliser une prise en main poussée du logiciel gpg.
+        \item Expérimenter plus en détail le logiciel GnuPG en ligne de commandes.
         \item S'assurer de la compréhension et de la maîtrise des outils de la part de chacun.
         \item Utiliser Python.
       \end{itemize}
