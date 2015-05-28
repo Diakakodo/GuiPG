@@ -52,25 +52,25 @@
 \subsection{L'attaque}
 \begin{frame}
   \frametitle{\color{white}Attaque}
-  \begin{block}{Attaque sur les identifiants de clé}
-      \begin{itemize}
-        \item Forger une 2\up{nde} pré-image d'une clé sur les 8 derniers caractères de son identifiant.
-        %\item Documentation sur les limites de GnuPG.
-      \end{itemize}
-    \end{block}
   \begin{block}{Lexique}
-      \begin{itemize}
-        \item Clef PGP = clef RSA encapsulée dans un paquet PGP
-        \item Le fingerprint est l'empreinte d'une clef
-        \item Le KeyId est l'idenfiant de la clef
-      \end{itemize}
+    \begin{itemize}
+      \item Clef PGP = clef de certification encapsulée dans un paquet PGP
+      \item L'empreinte est le résultat de la fonction de hachage sha-1 sur la clef
+      \item L'identifiant résulte du mauvais usage des serveurs de clefs qui utilisent les 8 derniers caractères de l'empreinte
+    \end{itemize}
     \end{block}
+  \begin{block}{Attaque sur les identifiants de clé}
+    \begin{itemize}
+      \item Forger une 2\up{nde} pré-image d'une clé sur les 8 derniers caractères de son empreinte.
+      %\item Documentation sur les limites de GnuPG.
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \begin{frame}
   \frametitle{\color{white}Attaque}
   \begin{block}{ }
-  Le but de cette attaque est de trouver une seconde clef possédant le même KeyId que la première. 
+  Le but de cette attaque est de trouver une seconde clef possédant le même identifiant que la première. 
   Cette attaque est issue du dépôt github de Micah Lee (trollwot), elle-même issue du code source du projet Monkeysphere.
   \end{block}
   \begin{block}{Fonctionnement de l'attaque}
