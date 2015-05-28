@@ -18,12 +18,12 @@
     \begin{itemize}
       \item Clef PGP = clef de certification encapsulée dans un paquet PGP
       \item L'empreinte est le résultat de la fonction de hachage sha-1 sur la clef
-      \item L'identifiant résulte du mauvais usage des serveurs de clefs qui utilisent les 8 derniers caractères de l'empreinte
+      \item L'identifiant d'une clef est la troncature des 8 derniers caractères d'une empreinte. Le nom de l'utilisateur ne suffit pas à identifier une clef, car il n'est pas unique.
     \end{itemize}
     \end{block}
   \begin{block}{Attaque sur les identifiants de clef}
     \begin{itemize}
-      \item Forger une 2\up{nde} pré-image d'une clef sur les 8 derniers caractères de son empreinte.
+      \item L'objectif de cette attaque est de forger une clef pour tromper un utilisateur important une clef depuis un serveur.
       %\item Documentation sur les limites de GnuPG.
     \end{itemize}
   \end{block}
@@ -32,7 +32,6 @@
 \begin{frame}
   \frametitle{\color{white}Attaque}
   \begin{block}{ }
-  Le but de cette attaque est de trouver une seconde clef possédant le même identifiant que la première. 
   Cette attaque est issue du dépôt github de Micah Lee (trollwot), elle-même issue du code source du projet Monkeysphere.
   \end{block}
   \begin{block}{Fonctionnement de l'attaque}
@@ -40,6 +39,7 @@
         \item Crée une clef RSA.
         \item Modifie la date de création jusqu'à ce que le haché soit identique à la clef voulue.
         \item Fabrique un paquet PGP avec la clef RSA pour qu'il soit importable dans GnuPG.
+        \item Le temps est de maximum 4 jours avec les ordinateurs de la faculté qui calculent 12 000 hachés par seconde.
       \end{itemize}
   \end{block}
 \end{frame}
