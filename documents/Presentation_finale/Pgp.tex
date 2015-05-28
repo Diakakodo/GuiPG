@@ -20,22 +20,13 @@
     \frametitle{\color{white}PGP et la cryptographie hybride}
     \begin{block}{Comment ?}
     	\begin{itemize}
-         \item Utilisation de cryptographie hybride = sysmétrique + asymétrique
-         \item Les données sont chiffrées ou déchiffrées par clef symétrique.
-	 \item Les clefs symétriques utilisées sont chiffrées ou déchiffrées par les clefs asymétriques des utilisateurs.
          \item Un utilisateur doit donc posséder:
 	  \begin{itemize}
 	    \item Sa propre paire de clefs asymétriques (privée et public).
-	    \begin{itemize}
-	      \item La clef privée sert à signer et déchiffrer.
-	      \item La clef publique sert à chiffrer et vérifier.
-	    \end{itemize}
-	    \item Les clefs publiques des personnes avec qui il souhaite communiquer.
-	    \begin{itemize}
-	      \item Pour chiffrer des données qui leurs sont déstinées.
-	      \item Pour vérifier des données qu'ils ont signé.
-	    \end{itemize}
+	    \item Les clefs publiques des personnes avec qui il souhaite communiquer. 
 	  \end{itemize}
+	 \item Une clef publique sert à chiffrer et véfifier.
+	 \item Une clef privée sert à déchiffrer ou signer.
 	 \item Les utilisateurs doivent donc partager leur clef publique avec leurs contacts.
        \end{itemize} 
     \end{block}
@@ -50,10 +41,15 @@
 	  \item Une empreinte ( = le hashé de : la clef + la date de création)
 	  \item Un utilisateur (nom et adresse email).
 	  \item Une auto-signature (faite par cette même clef).
-	  \item Un niveau de validité.
-	  \item Un niveau de confiance.
        \end{itemize} 
     \end{block}
+    \begin{block}{Une clef est associé en plus à :}
+      \begin{itemize}
+        \item Un niveau de validité.
+	\item Un niveau de confiance.
+      \end{itemize}
+    \end{block}
+
 \end{frame}
 
 \begin{frame}
@@ -61,17 +57,8 @@
     \begin{block}{Le concept de toile de confiance}
     	\begin{itemize}
 	  \item Les amis de mes amis sont mes amis.
-	  \item Certification de clef :
-	    \begin{itemize}
-	     \item La personne qui détient cette clef est-elle bien celle qu'elle prétend être ?
-	     \item Si oui, on peut la certifier -> la clef est alors complètement valide.
-	    \end{itemize}
-	  \item Attribution d'un niveau de confiance :
-	    \begin{itemize}
-	     \item Cette personne vérifie t-elle correctement les clefs qu'elle certifie ?
-	     \item Peut-on considérer les clefs qu'elle a certifié comme valide ? À quelle niveau ?
-	     \item La confiance d'une une clef impacte les autres clefs signées par celle-ci.
-	    \end{itemize}	  
+	  \item Certification de clef.
+	  \item Attribution d'un niveau de confiance.
        \end{itemize} 
     \end{block}
 \end{frame}
@@ -117,7 +104,8 @@
     	 \item Protocol libre permettant de sécuriser l'échange d'email.
     	 \item Définit différents formats de paquets (message chiffré, signature, clef privée, clef publique...).
     	 \item Se base sur le logiciel PGP.
-         \item Aujourd'hui normalisé dans la RFC 4880.
+    	 \item Normalisé dans la RFC 2440 (novembre 1998).
+         \item Normalisé dans la RFC 4880 (novembre 2007).
        \end{itemize} 
     \end{block}
 \end{frame}
