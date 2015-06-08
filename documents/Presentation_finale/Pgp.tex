@@ -1,0 +1,125 @@
+\section{PGP}
+\subsection{PGP}
+\begin{frame}
+    \frametitle{\color{white}PGP}
+    \begin{block}{Qu'est-ce que PGP ?}
+      \begin{itemize}
+	\item Logiciel créé par Phil Zimmermann en 1991 (racheté par NAI en 1997).
+        \item Pretty Good Privacy = Assez bonne confidentialité
+       \end{itemize} 
+    \end{block}
+    \begin{block}{Pourquoi ?}
+      \begin{itemize}
+         \item Permettre l'utilisation de la cryptographie pour le grand public.
+         \item Chiffrer, déchiffrer, signer et vérifier des données. 
+         \item Échanger des emails de manière sûre.
+       \end{itemize} 
+    \end{block}
+\end{frame}
+\begin{frame}
+    \frametitle{\color{white}PGP}
+    \begin{block}{Comment ?}
+      \begin{itemize}
+	\item Une clef publique sert à chiffrer et vérifier.
+	\item Une clef privée sert à déchiffrer ou signer.
+	\item Les utilisateurs doivent donc partager leur clef publique avec leurs contacts.
+      \end{itemize} 
+    \end{block}
+    \begin{block}{Un utilisateur doit donc posséder:}
+	  \begin{itemize}
+	    \item Sa propre paire de clefs asymétriques (privée et public).
+	    \item Les clefs publiques des personnes avec qui il souhaite communiquer. 
+	  \end{itemize}
+    \end{block}    
+\end{frame}
+
+\begin{frame}
+    \frametitle{\color{white}PGP - Les Clefs}
+    \begin{block}{Qu'est ce qu'une clef PGP ?}
+    	\begin{itemize}
+	  \item Une clef asymétrique privée ou publique.
+	  \item Une date de création.
+	  \item Une empreinte ( = le haché de : la clef + la date de création)
+	  \item Un utilisateur (nom et adresse email).
+	  \item Une auto-signature (faite par cette même clef).
+       \end{itemize} 
+    \end{block}
+    \begin{block}{Une clef est associée en plus à :}
+      \begin{itemize}
+        \item Un niveau de validité.
+	\item Un niveau de confiance.
+      \end{itemize}
+    \end{block}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{\color{white}PGP - Le modèle de confiance}
+    \begin{block}{Le concept de toile de confiance}
+    	\begin{itemize}
+	  \item Les amis de mes amis sont mes amis.
+	  \item Certification de clef.
+	  \item Attribution d'un niveau de confiance.
+       \end{itemize} 
+    \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{\color{white}PGP - Le modèle de confiance}
+    \begin{block}{Validité non définie}
+      Alice n'a pas attribué de confiance aux trois clefs qu'elle a certifiées.\\
+      La clef non certifiée par Alice n'est donc pas valide.
+    \end{block}
+    \includegraphics[scale=0.3]{tdcdemoUndefined.png}
+\end{frame}
+\begin{frame}
+  \frametitle{\color{white}PGP - Le modèle de confiance}
+    \begin{block}{Validité Marginal}
+      Une ou deux clefs certifiées par Alice avec une confiance légère 
+      induisent une validité marginale sur la clef non certifiée par Alice.
+    \end{block}
+    \includegraphics[scale=0.3]{tdcdemoMarginal.png}
+\end{frame}
+\begin{frame}
+  \frametitle{\color{white}PGP - Le modèle de confiance}
+    \begin{block}{Validité Complète}
+      Trois clefs ou plus certifiés par Alice avec une confiance légère
+      induite une validité complète sur la clef non certifiée par Alice.
+    \end{block}
+    \includegraphics[scale=0.3]{tdcdemoComplete1.png}
+\end{frame}
+\begin{frame}
+  \frametitle{\color{white}PGP - Le modèle de confiance}
+    \begin{block}{Validité Complète}
+      Une clef certifiée par Alice avec une confiance complète
+      suffit à propager une validité complète sur la clef non certifiée par Alice.
+    \end{block}
+    \includegraphics[scale=0.3]{tdcdemoComplete2.png}
+\end{frame}
+
+\subsection{OpenPGP}
+\begin{frame}
+    \frametitle{\color{white}OpenPGP}
+    \begin{block}{Qu'est-ce que OpenPGP ?}
+    	\begin{itemize}
+    	 \item Crée en 1997 par l'IETF (Internet Engineering Task Force)
+    	 \item Protocol libre permettant de sécuriser l'échange d'email.
+    	 \item Définit différents formats de paquets (message chiffré, signature, clef privée, clef publique...).
+    	 \item Se base sur le logiciel PGP.
+    	 \item Normalisé dans la RFC 2440 (novembre 1998).
+         \item Normalisé dans la RFC 4880 (novembre 2007).
+       \end{itemize} 
+    \end{block}
+\end{frame}
+
+\subsection{GnuPG}
+\begin{frame}
+    \frametitle{\color{white}GnuPG}
+    \begin{block}{Qu'est-ce que GnuPG ?}
+      \begin{itemize}
+        \item GNU Privacy Guard (GPG)
+        \item Logiciel libre créé par Werner KOCH en 1997.
+        \item Basé sur le standard OpenPGP.
+        \item Alternative libre à PGP.
+      \end{itemize}
+    \end{block}
+\end{frame}
