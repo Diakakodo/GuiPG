@@ -200,7 +200,7 @@
      <x>0</x>
      <y>0</y>
      <width>1099</width>
-     <height>19</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -249,6 +249,7 @@
      <string>Cr&amp;yptographie</string>
     </property>
     <addaction name="actionChiffrer_un_fichier"/>
+    <addaction name="actionSigner_un_fichier"/>
     <addaction name="actionDechiffrer_Verifier_un_fichier"/>
    </widget>
    <addaction name="menuFichier"/>
@@ -411,6 +412,11 @@
   <action name="actionVider_historique_des_commandes">
    <property name="text">
     <string>Vider l'historique des commandes</string>
+   </property>
+  </action>
+  <action name="actionSigner_un_fichier">
+   <property name="text">
+    <string>Signer un fichier</string>
    </property>
   </action>
  </widget>

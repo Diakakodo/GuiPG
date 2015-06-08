@@ -65,6 +65,8 @@ private slots:
 
         void on_actionVider_historique_des_commandes_triggered();
 
+        void on_actionSigner_un_fichier_triggered();
+
     protected:
      void closeEvent(QCloseEvent *event);
 

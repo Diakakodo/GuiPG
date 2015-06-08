@@ -317,3 +317,8 @@ void MainWindow::on_actionVider_historique_des_commandes_triggered() {
     ui->bigBrother->clear();
     setNbCmd(0);
 }
+
+void MainWindow::on_actionSigner_un_fichier_triggered() {
+    FileEncryption encryption(this, m_model->getKeyManager());
+    encryption.exec();
+}
