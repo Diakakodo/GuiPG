@@ -1,0 +1,571 @@
+#!/usr/bin/perl -T
+
+# Usage:
+
+# attaque [user_id] [key_id] [kry_size]
+# e.g.
+# attaque "Name Comment <email>" 01234567 4096
+
+
+use strict;
+use warnings;
+use File::Basename;
+use Crypt::OpenSSL::RSA;
+use Crypt::OpenSSL::Bignum;
+use Crypt::OpenSSL::Bignum::CTX;
+use Digest::SHA;
+use MIME::Base64;
+use POSIX;
+
+use bytes;
+
+my $old_format_packet_lengths = { one => 0,
+          two => 1,
+          four => 2,
+          indeterminate => 3,
+};
+
+# RFC 4880 section 9.1
+# Seul l'algorithme RSA sera utilisé par la création de clef.
+my $asym_algos = { rsa => 1,
+       elgamal => 16,
+       dsa => 17,
+       };
+
+# RFC 4880 section 9.2
+my $ciphers = { plaintext => 0,
+    idea => 1,
+    tripledes => 2,
+    cast5 => 3,
+    blowfish => 4,
+    aes128 => 7,
+    aes192 => 8,
+    aes256 => 9,
+    twofish => 10,
+        };
+
+# RFC 4880 section 9.3
+my $zips = { uncompressed => 0,
+       zip => 1,
+       zlib => 2,
+       bzip2 => 3,
+     };
+
+# RFC 4880 section 9.4
+my $digests = { md5 => 1,
+    sha1 => 2,
+    ripemd160 => 3,
+    sha256 => 8,
+    sha384 => 9,
+    sha512 => 10,
+    sha224 => 11,
+        };
+
+# RFC 4880 section 5.2.3.21
+my $usage_flags = { certify => 0x01,
+        sign => 0x02,
+        encrypt_comms => 0x04,
+        encrypt_storage => 0x08,
+        encrypt => 0x0c,
+        split => 0x10,
+        authenticate => 0x20,
+        shared => 0x80,
+      };
+
+# RFC 4880 section 4.3
+my $packet_types = { pubkey_enc_session => 1,
+         sig => 2,
+         symkey_enc_session => 3,
+         onepass_sig => 4,
+         seckey => 5,
+         pubkey => 6,
+         sec_subkey => 7,
+         compressed_data => 8,
+         symenc_data => 9,
+         marker => 10,
+         literal => 11,
+         trust => 12,
+         uid => 13,
+         pub_subkey => 14,
+         uat => 17,
+         symenc_w_integrity => 18,
+         mdc => 19,
+       };
+
+# RFC 4880 section 5.2.1
+my $sig_types = { binary_doc => 0x00,
+      text_doc => 0x01,
+      standalone => 0x02,
+      generic_certification => 0x10,
+      persona_certification => 0x11,
+      casual_certification => 0x12,
+      positive_certification => 0x13,
+      subkey_binding => 0x18,
+      primary_key_binding => 0x19,
+      key_signature => 0x1f,
+      key_revocation => 0x20,
+      subkey_revocation => 0x28,
+      certification_revocation => 0x30,
+      timestamp => 0x40,
+      thirdparty => 0x50,
+    };
+
+
+# RFC 4880 section 5.2.3.23
+my $revocation_reasons = { no_reason_specified => 0,
+         key_superseded => 1,
+         key_compromised => 2,
+         key_retired => 3,
+         user_id_no_longer_valid => 32,
+       };
+
+# RFC 4880 section 5.2.3.1
+my $subpacket_types = { sig_creation_time => 2,
+      sig_expiration_time => 3,
+      exportable => 4,
+      trust_sig => 5,
+      regex => 6,
+      revocable => 7,
+      key_expiration_time => 9,
+      preferred_cipher => 11,
+      revocation_key => 12,
+      issuer => 16,
+      notation => 20,
+      preferred_digest => 21,
+      preferred_compression => 22,
+      keyserver_prefs => 23,
+      preferred_keyserver => 24,
+      primary_uid => 25,
+      policy_uri => 26,
+      usage_flags => 27,
+      signers_uid => 28,
+      revocation_reason => 29,
+      features => 30,
+      signature_target => 31,
+      embedded_signature => 32,
+           };
+
+# RFC 4880 section 5.2.3.24
+my $features = { mdc => 0x01
+         };
+
+# RFC 4880 5.2.3.17
+my $keyserver_prefs = { nomodify => 0x80
+          };
+
+
+# page 44 de la RFC 4880
+sub simple_checksum {
+  my $bytes = shift;
+
+  return unpack("%16C*",$bytes);
+}
+
+# calcule le mpi avec l'algorithme avancé d'euclide :
+# http://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
+sub modular_multi_inverse {
+  my $a = shift;
+  my $b = shift;
+
+
+  my $origdivisor = $b->copy();
+
+  my $ctx = Crypt::OpenSSL::Bignum::CTX->new();
+  my $x = Crypt::OpenSSL::Bignum->zero();
+  my $y = Crypt::OpenSSL::Bignum->one();
+  my $lastx = Crypt::OpenSSL::Bignum->one();
+  my $lasty = Crypt::OpenSSL::Bignum->zero();
+
+  my $finalquotient;
+  my $finalremainder;
+
+  while (! $b->is_zero()) {
+    my ($quotient, $remainder) = $a->div($b, $ctx);
+
+    $a = $b;
+    $b = $remainder;
+
+    my $temp = $x;
+    $x = $lastx->sub($quotient->mul($x, $ctx));
+    $lastx = $temp;
+
+    $temp = $y;
+    $y = $lasty->sub($quotient->mul($y, $ctx));
+    $lasty = $temp;
+  }
+
+  if (!$a->is_one()) {
+    die "did this math wrong.\n";
+  }
+
+  ($finalquotient, $finalremainder) = $lastx->add($origdivisor)->div($origdivisor, $ctx);
+
+  return $finalremainder;
+}
+
+#crée un paquet compatible PGP (voir RFC 4880 à la section 4.2)
+sub make_packet {
+  my $type = shift;
+  my $body = shift;
+  my $options = shift;
+
+  my $len = length($body);
+  my $pseudolen = $len;
+
+  if (defined $options && defined $options->{'packet_length'}) {
+      $pseudolen = 2**($options->{'packet_length'} * 8) - 1;
+  }
+  if ($pseudolen < $len) {
+      $pseudolen = $len;
+  }
+
+  my $lenbytes;
+  my $lencode;
+
+  if ($pseudolen < 2**8) {
+    $lenbytes = $old_format_packet_lengths->{one};
+    $lencode = 'C';
+  } elsif ($pseudolen < 2**16) {
+    $lenbytes = $old_format_packet_lengths->{two};
+    $lencode = 'n';
+  } elsif ($pseudolen < 2**31) {
+    $lenbytes = $old_format_packet_lengths->{four};
+    $lencode = 'N';
+  } else {
+    $lenbytes = $old_format_packet_lengths->{indeterminate};
+    $lencode = '';
+  }
+
+  return pack('C'.$lencode, 0x80 + ($type * 4) + $lenbytes, $len).
+    $body;
+}
+
+
+sub mpi_pack {
+  my $num = shift;
+
+  my $val = $num->to_bin();
+  my $mpilen = length($val)*8;
+
+  my $bitsinfirstbyte = length(sprintf("%b", ord($val)));
+
+  $mpilen -= (8 - $bitsinfirstbyte);
+
+  return pack('n', $mpilen).$val;
+}
+
+sub openssh_mpi_pack {
+  my $num = shift;
+
+  my $val = $num->to_bin();
+  my $mpilen = length($val);
+
+  my $ret = pack('N', $mpilen);
+
+  if (ord($val) & 0x80) {
+    $ret = pack('NC', $mpilen+1, 0);
+  }
+
+  return $ret.$val;
+}
+
+sub openssh_pubkey_pack {
+  my $key = shift;
+
+  my ($modulus, $exponent) = $key->get_key_parameters();
+
+  return openssh_mpi_pack(Crypt::OpenSSL::Bignum->new_from_bin("ssh-rsa")).
+      openssh_mpi_pack($exponent).
+  openssh_mpi_pack($modulus);
+}
+
+sub read_mpi {
+  my $instr = shift;
+  my $readtally = shift;
+
+  my $bitlen;
+  read($instr, $bitlen, 2) or die "could not read MPI length.\n";
+  $bitlen = unpack('n', $bitlen);
+  $$readtally += 2;
+
+  my $bytestoread = POSIX::floor(($bitlen + 7)/8);
+  my $ret;
+  read($instr, $ret, $bytestoread) or die "could not read MPI body.\n";
+  $$readtally += $bytestoread;
+  return Crypt::OpenSSL::Bignum->new_from_bin($ret);
+}
+
+
+#crée une clef publique RSA
+sub make_rsa_pub_key_body {
+  my $key = shift;
+  my $key_timestamp = shift;
+
+  my ($n, $e) = $key->get_key_parameters();
+
+  return
+    pack('CN', 4, $key_timestamp).
+      pack('C', $asym_algos->{rsa}).
+  mpi_pack($n).
+    mpi_pack($e);
+}
+
+#crée une clef secrète RSA
+sub make_rsa_sec_key_body {
+  my $key = shift;
+  my $key_timestamp = shift;
+
+  my ($n, $e, $d, $p, $q) = $key->get_key_parameters();
+
+  my $c3 = modular_multi_inverse($p, $q);
+
+  my $secret_material = mpi_pack($d).
+    mpi_pack($p).
+      mpi_pack($q).
+  mpi_pack($c3);
+
+  return
+    pack('CN', 4, $key_timestamp).
+      pack('C', $asym_algos->{rsa}).
+  mpi_pack($n).
+    mpi_pack($e).
+      pack('C', 0).
+        $secret_material.
+    pack('n', simple_checksum($secret_material));
+}
+
+#récupère une clef RSA (publique ou privé) ainsi qu'une date pour la création.
+sub fingerprint {
+  my $key = shift;
+  my $key_timestamp = shift;
+
+  my $rsabody = make_rsa_pub_key_body($key, $key_timestamp);
+
+  return Digest::SHA::sha1(pack('Cn', 0x99, length($rsabody)).$rsabody);
+}
+
+sub makeselfsig {
+  my $rsa = shift;
+  my $uid = shift;
+  my $args = shift;
+
+  if (! defined $args->{certification_type}) {
+    $args->{certification_type} = $sig_types->{positive_certification};
+  }
+
+  if (! defined $args->{sig_timestamp}) {
+    $args->{sig_timestamp} = time();
+  }
+  my $key_timestamp = $args->{key_timestamp} + 0;
+
+  my $flags = 0;
+  if (! defined $args->{usage_flags}) {
+    $flags = $usage_flags->{certify};
+  } else {
+    my @ff = split(",", $args->{usage_flags});
+    foreach my $f (@ff) {
+      if (! defined $usage_flags->{$f}) {
+  die "No such flag $f";
+      }
+      $flags |= $usage_flags->{$f};
+    }
+  }
+  my $usage_subpacket = pack('CCC', 2, $subpacket_types->{usage_flags}, $flags);
+
+  my $expiration_subpacket = '';
+  if (defined $args->{expiration}) {
+    my $expires_in = $args->{expiration} + 0;
+    $expiration_subpacket = pack('CCN', 5, $subpacket_types->{key_expiration_time}, $expires_in);
+  }
+
+  my $pref_sym_algos = pack('CCCCCCC', 6, $subpacket_types->{preferred_cipher},
+          $ciphers->{aes256},
+          $ciphers->{aes192},
+          $ciphers->{aes128},
+          $ciphers->{cast5},
+          $ciphers->{tripledes}
+         );
+
+  my $pref_hash_algos = pack('CCCCCCCC', 7, $subpacket_types->{preferred_digest},
+           $digests->{sha512},
+           $digests->{sha384},
+           $digests->{sha256},
+           $digests->{sha224},
+           $digests->{ripemd160},
+           $digests->{sha1}
+          );
+
+  my $pref_zip_algos = pack('CCCCC', 4, $subpacket_types->{preferred_compression},
+          $zips->{zlib},
+          $zips->{bzip2},
+          $zips->{zip}
+         );
+
+  my $feature_subpacket = pack('CCC', 2, $subpacket_types->{features},
+             $features->{mdc});
+
+  my $keyserver_pref = pack('CCC', 2, $subpacket_types->{keyserver_prefs},
+          $keyserver_prefs->{nomodify});
+
+
+  $args->{hashed_subpackets} =
+      $usage_subpacket.
+  $expiration_subpacket.
+    $pref_sym_algos.
+      $pref_hash_algos.
+        $pref_zip_algos.
+    $feature_subpacket.
+      $keyserver_pref;
+
+  return gensig($rsa, $uid, $args);
+}
+
+
+sub gensig {
+  my $rsa = shift;
+  my $uid = shift;
+  my $args = shift;
+
+  $rsa->use_sha256_hash();
+
+  # pagging utilisé dans la page 22 de la RFC 4880
+  $rsa->use_pkcs1_padding();
+
+  if (! $rsa->check_key()) {
+    die "key does not check\n";
+  }
+
+  my $certtype = $args->{certification_type} + 0;
+
+  my $version = pack('C', 4);
+  my $sigtype = pack('C', $certtype);
+  my $pubkey_algo = pack('C', $asym_algos->{rsa});
+  my $hash_algo = pack('C', $digests->{sha256});
+
+  my $sig_timestamp = ($args->{sig_timestamp} + 0);
+  my $key_timestamp = ($args->{key_timestamp} + 0);
+
+  if ($key_timestamp > $sig_timestamp) {
+    die "key timestamp must not be later than signature timestamp\n";
+  }
+
+  my $creation_time_packet = pack('CCN', 5, $subpacket_types->{sig_creation_time}, $sig_timestamp);
+
+  my $hashed_subs = $creation_time_packet.$args->{hashed_subpackets};
+
+  my $subpacket_octets = pack('n', length($hashed_subs));
+
+  my $sig_data_to_be_hashed =
+    $version.
+      $sigtype.
+  $pubkey_algo.
+    $hash_algo.
+      $subpacket_octets.
+        $hashed_subs;
+
+  my $pubkey = make_rsa_pub_key_body($rsa, $key_timestamp);
+
+  my $key_data = make_packet($packet_types->{pubkey}, $pubkey, {'packet_length'=>2});
+
+  # les 8 derniers caractères du fingerprint forment le keyid
+  my $keyid = substr(fingerprint($rsa, $key_timestamp), 20 - 8, 8);
+
+  #signature au format PGP 4
+  my $trailer = pack('CCN', 4, 0xff, length($sig_data_to_be_hashed));
+
+  my $uid_data =
+    pack('CN', 0xb4, length($uid)).
+      $uid;
+
+  my $datatosign =
+    $key_data.
+      $uid_data.
+  $sig_data_to_be_hashed.
+    $trailer;
+
+  my $data_hash = Digest::SHA::sha256_hex($datatosign);
+
+  my $issuer_packet = pack('CCa8', 9, $subpacket_types->{issuer}, $keyid);
+
+  my $sig = Crypt::OpenSSL::Bignum->new_from_bin($rsa->sign($datatosign));
+
+  my $sig_body =
+    $sig_data_to_be_hashed.
+      pack('n', length($issuer_packet)).
+  $issuer_packet.
+    pack('n', hex(substr($data_hash, 0, 4))).
+      mpi_pack($sig);
+
+  return make_packet($packet_types->{sig}, $sig_body);
+}
+
+#Début du script
+
+my $openpgp_key;
+my $keyid;
+my $fingerprint;
+my $rsa;
+my $ts;
+my $time_diff;
+my $tries = 0;
+my $tries_per_sec;
+
+my $uid = shift;
+defined($uid) or die "Veuillez entrer l'identité de la clef'.\n";
+
+
+my $target_keyid = shift;
+defined($target_keyid) or die "Veuillez entrer un key id de 8 caractères.\n";
+
+my $key_size = shift;
+defined($key_size) or die "Veuillez entrer une taille de clef.\n";
+
+# date de création à partir de la date actuelle
+my $ts_now = time();
+# La date de création décrémente jusqu'à 40ans en arrière, si une clef n'est pas trouvé d'ici là, on génère une nouvelle clef RSA.
+# Il faudrait environ 150 ans (2³² secondes) pour être sur de trouver une clef avec une seule RSA générée mais la date de création de peut 
+# pas être générée avant 1970 (date limite des machines)    
+my $ts_fourty_years_ago = $ts_now - 60*60*24*365*40;
+
+while (1) {
+  # On génère une clef RSA de la taille du troisième paramètre
+  print("Génération d'une clef RSA de taille : ".$key_size." bits \n");
+  $rsa = Crypt::OpenSSL::RSA->generate_key($key_size);
+
+  $ts = $ts_now;
+  while ($ts >= $ts_fourty_years_ago) {
+    # On récupère le keyid grâce au fingerprint
+    $fingerprint = uc(unpack("H*", fingerprint($rsa, $ts)));
+    $keyid = substr($fingerprint, 32, 8);
+
+    if ($target_keyid eq $keyid) {
+      # On crée la clef PGP avec la clef RSA et la date de création
+      $openpgp_key =
+        make_packet($packet_types->{seckey}, make_rsa_sec_key_body($rsa, $ts)).
+        make_packet($packet_types->{uid}, $uid).
+        makeselfsig( $rsa, $uid, { sig_timestamp => $ts, key_timestamp => $ts });
+
+      #Ecriture de la clef dans un fichier avec pour nom le résultat du key id
+      open(FILE, ">$keyid.gpg");
+      print FILE $openpgp_key;
+      close(FILE);
+      $time_diff = time() - $ts_now;
+      die("\nSeconde pré-image trouvé en $time_diff seconds! Sauvegardé dans le fichier $keyid.gpg.\n");
+    }
+
+    $tries++;
+    if($tries % 100 == 0) {
+      $time_diff = time() - $ts_now;
+      if($time_diff == 0) {
+        $tries_per_sec = 0;
+      } else {
+        $tries_per_sec = int($tries / $time_diff);
+      }
+      print("\r$tries essais [$tries_per_sec essais / sec]");
+    }
+
+    $ts--;
+  }
+  print("\n");
+}
+  

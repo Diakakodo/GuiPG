@@ -73,137 +73,137 @@ use POSIX;
 use bytes;
 
 my $old_format_packet_lengths = { one => 0,
-				  two => 1,
-				  four => 2,
-				  indeterminate => 3,
+          two => 1,
+          four => 2,
+          indeterminate => 3,
 };
 
 # see RFC 4880 section 9.1 (ignoring deprecated algorithms for now)
 my $asym_algos = { rsa => 1,
-		   elgamal => 16,
-		   dsa => 17,
-		   };
+       elgamal => 16,
+       dsa => 17,
+       };
 
 # see RFC 4880 section 9.2
 my $ciphers = { plaintext => 0,
-		idea => 1,
-		tripledes => 2,
-		cast5 => 3,
-		blowfish => 4,
-		aes128 => 7,
-		aes192 => 8,
-		aes256 => 9,
-		twofish => 10,
-	      };
+    idea => 1,
+    tripledes => 2,
+    cast5 => 3,
+    blowfish => 4,
+    aes128 => 7,
+    aes192 => 8,
+    aes256 => 9,
+    twofish => 10,
+        };
 
 # see RFC 4880 section 9.3
 my $zips = { uncompressed => 0,
-	     zip => 1,
-	     zlib => 2,
-	     bzip2 => 3,
-	   };
+       zip => 1,
+       zlib => 2,
+       bzip2 => 3,
+     };
 
 # see RFC 4880 section 9.4
 my $digests = { md5 => 1,
-		sha1 => 2,
-		ripemd160 => 3,
-		sha256 => 8,
-		sha384 => 9,
-		sha512 => 10,
-		sha224 => 11,
-	      };
+    sha1 => 2,
+    ripemd160 => 3,
+    sha256 => 8,
+    sha384 => 9,
+    sha512 => 10,
+    sha224 => 11,
+        };
 
 # see RFC 4880 section 5.2.3.21
 my $usage_flags = { certify => 0x01,
-		    sign => 0x02,
-		    encrypt_comms => 0x04,
-		    encrypt_storage => 0x08,
-		    encrypt => 0x0c, ## both comms and storage
-		    split => 0x10, # the private key is split via secret sharing
-		    authenticate => 0x20,
-		    shared => 0x80, # more than one person holds the entire private key
-		  };
+        sign => 0x02,
+        encrypt_comms => 0x04,
+        encrypt_storage => 0x08,
+        encrypt => 0x0c, ## both comms and storage
+        split => 0x10, # the private key is split via secret sharing
+        authenticate => 0x20,
+        shared => 0x80, # more than one person holds the entire private key
+      };
 
 # see RFC 4880 section 4.3
 my $packet_types = { pubkey_enc_session => 1,
-		     sig => 2,
-		     symkey_enc_session => 3,
-		     onepass_sig => 4,
-		     seckey => 5,
-		     pubkey => 6,
-		     sec_subkey => 7,
-		     compressed_data => 8,
-		     symenc_data => 9,
-		     marker => 10,
-		     literal => 11,
-		     trust => 12,
-		     uid => 13,
-		     pub_subkey => 14,
-		     uat => 17,
-		     symenc_w_integrity => 18,
-		     mdc => 19,
-		   };
+         sig => 2,
+         symkey_enc_session => 3,
+         onepass_sig => 4,
+         seckey => 5,
+         pubkey => 6,
+         sec_subkey => 7,
+         compressed_data => 8,
+         symenc_data => 9,
+         marker => 10,
+         literal => 11,
+         trust => 12,
+         uid => 13,
+         pub_subkey => 14,
+         uat => 17,
+         symenc_w_integrity => 18,
+         mdc => 19,
+       };
 
 # see RFC 4880 section 5.2.1
 my $sig_types = { binary_doc => 0x00,
-		  text_doc => 0x01,
-		  standalone => 0x02,
-		  generic_certification => 0x10,
-		  persona_certification => 0x11,
-		  casual_certification => 0x12,
-		  positive_certification => 0x13,
-		  subkey_binding => 0x18,
-		  primary_key_binding => 0x19,
-		  key_signature => 0x1f,
-		  key_revocation => 0x20,
-		  subkey_revocation => 0x28,
-		  certification_revocation => 0x30,
-		  timestamp => 0x40,
-		  thirdparty => 0x50,
-		};
+      text_doc => 0x01,
+      standalone => 0x02,
+      generic_certification => 0x10,
+      persona_certification => 0x11,
+      casual_certification => 0x12,
+      positive_certification => 0x13,
+      subkey_binding => 0x18,
+      primary_key_binding => 0x19,
+      key_signature => 0x1f,
+      key_revocation => 0x20,
+      subkey_revocation => 0x28,
+      certification_revocation => 0x30,
+      timestamp => 0x40,
+      thirdparty => 0x50,
+    };
 
 
 # see RFC 4880 section 5.2.3.23
 my $revocation_reasons = { no_reason_specified => 0,
-			   key_superseded => 1,
-			   key_compromised => 2,
-			   key_retired => 3,
-			   user_id_no_longer_valid => 32,
-			 };
+         key_superseded => 1,
+         key_compromised => 2,
+         key_retired => 3,
+         user_id_no_longer_valid => 32,
+       };
 
 # see RFC 4880 section 5.2.3.1
 my $subpacket_types = { sig_creation_time => 2,
-			sig_expiration_time => 3,
-			exportable => 4,
-			trust_sig => 5,
-			regex => 6,
-			revocable => 7,
-			key_expiration_time => 9,
-			preferred_cipher => 11,
-			revocation_key => 12,
-			issuer => 16,
-			notation => 20,
-			preferred_digest => 21,
-			preferred_compression => 22,
-			keyserver_prefs => 23,
-			preferred_keyserver => 24,
-			primary_uid => 25,
-			policy_uri => 26,
-			usage_flags => 27,
-			signers_uid => 28,
-			revocation_reason => 29,
-			features => 30,
-			signature_target => 31,
-			embedded_signature => 32,
-		       };
+      sig_expiration_time => 3,
+      exportable => 4,
+      trust_sig => 5,
+      regex => 6,
+      revocable => 7,
+      key_expiration_time => 9,
+      preferred_cipher => 11,
+      revocation_key => 12,
+      issuer => 16,
+      notation => 20,
+      preferred_digest => 21,
+      preferred_compression => 22,
+      keyserver_prefs => 23,
+      preferred_keyserver => 24,
+      primary_uid => 25,
+      policy_uri => 26,
+      usage_flags => 27,
+      signers_uid => 28,
+      revocation_reason => 29,
+      features => 30,
+      signature_target => 31,
+      embedded_signature => 32,
+           };
 
 # bitstring (see RFC 4880 section 5.2.3.24)
 my $features = { mdc => 0x01
-	       };
+         };
 
 # bitstring (see RFC 4880 5.2.3.17)
 my $keyserver_prefs = { nomodify => 0x80
-		      };
+          };
 
 ###### end lookup tables ######
 
@@ -371,7 +371,7 @@ sub openssh_pubkey_pack {
 
   return openssh_mpi_pack(Crypt::OpenSSL::Bignum->new_from_bin("ssh-rsa")).
       openssh_mpi_pack($exponent).
-	openssh_mpi_pack($modulus);
+  openssh_mpi_pack($modulus);
 }
 
 # pull an OpenPGP-specified MPI off of a given stream, returning it as
@@ -403,8 +403,8 @@ sub make_rsa_pub_key_body {
   return
     pack('CN', 4, $key_timestamp).
       pack('C', $asym_algos->{rsa}).
-	mpi_pack($n).
-	  mpi_pack($e);
+  mpi_pack($n).
+    mpi_pack($e);
 }
 
 sub make_rsa_sec_key_body {
@@ -419,7 +419,7 @@ sub make_rsa_sec_key_body {
   my $secret_material = mpi_pack($d).
     mpi_pack($p).
       mpi_pack($q).
-	mpi_pack($c3);
+  mpi_pack($c3);
 
   # according to Crypt::OpenSSL::RSA, the closest value we can get out
   # of get_key_parameters is 1/q mod p; but according to sec 5.5.3 of
@@ -430,11 +430,11 @@ sub make_rsa_sec_key_body {
   return
     pack('CN', 4, $key_timestamp).
       pack('C', $asym_algos->{rsa}).
-	mpi_pack($n).
-	  mpi_pack($e).
-	    pack('C', 0). # seckey material is not encrypted -- see RFC 4880 sec 5.5.3
-	      $secret_material.
-		pack('n', simple_checksum($secret_material));
+  mpi_pack($n).
+    mpi_pack($e).
+      pack('C', 0). # seckey material is not encrypted -- see RFC 4880 sec 5.5.3
+        $secret_material.
+    pack('n', simple_checksum($secret_material));
 }
 
 # expects an RSA key (public or private) and a timestamp
@@ -474,7 +474,7 @@ sub makeselfsig {
     my @ff = split(",", $args->{usage_flags});
     foreach my $f (@ff) {
       if (! defined $usage_flags->{$f}) {
-	die "No such flag $f";
+  die "No such flag $f";
       }
       $flags |= $usage_flags->{$f};
     }
@@ -493,47 +493,47 @@ sub makeselfsig {
 
   # prefer AES-256, AES-192, AES-128, CAST5, 3DES:
   my $pref_sym_algos = pack('CCCCCCC', 6, $subpacket_types->{preferred_cipher},
-			    $ciphers->{aes256},
-			    $ciphers->{aes192},
-			    $ciphers->{aes128},
-			    $ciphers->{cast5},
-			    $ciphers->{tripledes}
-			   );
+          $ciphers->{aes256},
+          $ciphers->{aes192},
+          $ciphers->{aes128},
+          $ciphers->{cast5},
+          $ciphers->{tripledes}
+         );
 
   # prefer SHA-512, SHA-384, SHA-256, SHA-224, RIPE-MD/160, SHA-1
   my $pref_hash_algos = pack('CCCCCCCC', 7, $subpacket_types->{preferred_digest},
-			     $digests->{sha512},
-			     $digests->{sha384},
-			     $digests->{sha256},
-			     $digests->{sha224},
-			     $digests->{ripemd160},
-			     $digests->{sha1}
-			    );
+           $digests->{sha512},
+           $digests->{sha384},
+           $digests->{sha256},
+           $digests->{sha224},
+           $digests->{ripemd160},
+           $digests->{sha1}
+          );
 
   # prefer ZLIB, BZip2, ZIP
   my $pref_zip_algos = pack('CCCCC', 4, $subpacket_types->{preferred_compression},
-			    $zips->{zlib},
-			    $zips->{bzip2},
-			    $zips->{zip}
-			   );
+          $zips->{zlib},
+          $zips->{bzip2},
+          $zips->{zip}
+         );
 
   # we support the MDC feature:
   my $feature_subpacket = pack('CCC', 2, $subpacket_types->{features},
-			       $features->{mdc});
+             $features->{mdc});
 
   # keyserver preference: only owner modify (???):
   my $keyserver_pref = pack('CCC', 2, $subpacket_types->{keyserver_prefs},
-			    $keyserver_prefs->{nomodify});
+          $keyserver_prefs->{nomodify});
 
 
   $args->{hashed_subpackets} =
       $usage_subpacket.
-	$expiration_subpacket.
-	  $pref_sym_algos.
-	    $pref_hash_algos.
-	      $pref_zip_algos.
-		$feature_subpacket.
-		  $keyserver_pref;
+  $expiration_subpacket.
+    $pref_sym_algos.
+      $pref_hash_algos.
+        $pref_zip_algos.
+    $feature_subpacket.
+      $keyserver_pref;
 
   return gensig($rsa, $uid, $args);
 }
@@ -591,10 +591,10 @@ sub gensig {
   my $sig_data_to_be_hashed =
     $version.
       $sigtype.
-	$pubkey_algo.
-	  $hash_algo.
-	    $subpacket_octets.
-	      $hashed_subs;
+  $pubkey_algo.
+    $hash_algo.
+      $subpacket_octets.
+        $hashed_subs;
 
   my $pubkey = make_rsa_pub_key_body($rsa, $key_timestamp);
 
@@ -619,8 +619,8 @@ sub gensig {
   my $datatosign =
     $key_data.
       $uid_data.
-	$sig_data_to_be_hashed.
-	  $trailer;
+  $sig_data_to_be_hashed.
+    $trailer;
 
   # FIXME: handle signatures over digests other than SHA256:
   my $data_hash = Digest::SHA::sha256_hex($datatosign);
@@ -632,9 +632,9 @@ sub gensig {
   my $sig_body =
     $sig_data_to_be_hashed.
       pack('n', length($issuer_packet)).
-	$issuer_packet.
-	  pack('n', hex(substr($data_hash, 0, 4))).
-	    mpi_pack($sig);
+  $issuer_packet.
+    pack('n', hex(substr($data_hash, 0, 4))).
+      mpi_pack($sig);
 
   return make_packet($packet_types->{sig}, $sig_body);
 }
@@ -751,7 +751,7 @@ sub findkey {
       die "Found two matching keys.\n";
     }
     $data->{key} = { 'rsa' => $pubkey,
-		     'timestamp' => $key_timestamp };
+         'timestamp' => $key_timestamp };
     $matched = 1;
   }
 
@@ -796,10 +796,10 @@ sub findkey {
   # gone into the Crypt::OpenSSL::Bignum
 
   $data->{key}->{rsa} = Crypt::OpenSSL::RSA->new_key_from_parameters($modulus,
-								     $exponent,
-								     $d,
-								     $p,
-								     $q);
+                     $exponent,
+                     $d,
+                     $p,
+                     $q);
 
   $data->{key}->{rsa}->check_key() or die "Secret key is not a valid RSA key.\n";
 
@@ -820,12 +820,12 @@ sub openpgp2rsa {
   }
 
   my $data = { target => { fpr => $fpr,
-			 },
-	       };
+       },
+         };
   my $subs = { $packet_types->{pubkey} => \&findkey,
-	       $packet_types->{pub_subkey} => \&findkey,
-	       $packet_types->{seckey} => \&findkey,
-	       $packet_types->{sec_subkey} => \&findkey };
+         $packet_types->{pub_subkey} => \&findkey,
+         $packet_types->{seckey} => \&findkey,
+         $packet_types->{sec_subkey} => \&findkey };
 
   packetwalk($instr, $subs, $data);
 
@@ -854,7 +854,7 @@ sub getallprimarykeys {
 
   my $subs = { $packet_types->{pubkey} => \&findkeyfprs,
                $packet_types->{seckey} => \&findkeyfprs,
-	     };
+       };
   my $data = {target => { } };
 
   packetwalk($instr, $subs, $data);
@@ -884,13 +884,13 @@ sub adduserid {
   }
 
   my $data = { target => { fpr => $fpr,
-			   uid => $uid,
-			 },
-	     };
+         uid => $uid,
+       },
+       };
   my $subs = { $packet_types->{seckey} => \&findkey,
-	       $packet_types->{uid} => \&finduid,
-	       $packet_types->{sig} => \&findsig,
-	     };
+         $packet_types->{uid} => \&finduid,
+         $packet_types->{sig} => \&findsig,
+       };
 
   packetwalk($instr, $subs, $data);
 
@@ -908,9 +908,9 @@ sub adduserid {
   return
     make_packet($packet_types->{pubkey}, make_rsa_pub_key_body($data->{key}->{rsa}, $data->{key}->{timestamp})).
       make_packet($packet_types->{uid}, $uid).
-	makeselfsig($data->{key}->{rsa},
-		    $uid,
-		    $args);
+  makeselfsig($data->{key}->{rsa},
+        $uid,
+        $args);
 
 }
 
@@ -933,13 +933,13 @@ sub revokeuserid {
   }
 
   my $data = { target => { fpr => $fpr,
-			   uid => $uid,
-			 },
-	     };
+         uid => $uid,
+       },
+       };
   my $subs = { $packet_types->{seckey} => \&findkey,
-	       $packet_types->{uid} => \&finduid,
-	       $packet_types->{sig} => \&findsig,
-	     };
+         $packet_types->{uid} => \&finduid,
+         $packet_types->{sig} => \&findsig,
+       };
 
   packetwalk($instr, $subs, $data);
 
@@ -960,25 +960,25 @@ sub revokeuserid {
   }
 
   my $rev_reason_subpkt = prefixsubpacket(pack('CC',
-					       $subpacket_types->{revocation_reason},
-					       $revocation_reasons->{user_id_no_longer_valid}).
-					  $revocation_reason);
+                 $subpacket_types->{revocation_reason},
+                 $revocation_reasons->{user_id_no_longer_valid}).
+            $revocation_reason);
 
   if (! defined $sigtime) {
     $sigtime = time();
   }
   # what does a signature like this look like?
   my $args = { key_timestamp => $data->{key}->{timestamp},
-	       sig_timestamp => $sigtime,
-	       certification_type => $sig_types->{certification_revocation},
-	       hashed_subpackets => $rev_reason_subpkt,
-	     };
+         sig_timestamp => $sigtime,
+         certification_type => $sig_types->{certification_revocation},
+         hashed_subpackets => $rev_reason_subpkt,
+       };
 
   return
     make_packet($packet_types->{pubkey}, make_rsa_pub_key_body($data->{key}->{rsa}, $data->{key}->{timestamp})).
       make_packet($packet_types->{uid}, $uid).
-	join('', @{$data->{sigs}}).
-	  gensig($data->{key}->{rsa}, $uid, $args);
+  join('', @{$data->{sigs}}).
+    gensig($data->{key}->{rsa}, $uid, $args);
 }
 
 
@@ -1029,17 +1029,17 @@ sub packetwalk {
       read($instr, $nextlen, 1);
       $nextlen = ord($nextlen);
       if ($nextlen < 192) {
-	$packetlen = $nextlen;
+  $packetlen = $nextlen;
       } elsif ($nextlen < 224) {
-	my $newoct;
-	read($instr, $newoct, 1);
-	$newoct = ord($newoct);
-	$packetlen = (($nextlen - 192) << 8) + ($newoct) + 192;
+  my $newoct;
+  read($instr, $newoct, 1);
+  $newoct = ord($newoct);
+  $packetlen = (($nextlen - 192) << 8) + ($newoct) + 192;
       } elsif ($nextlen == 255) {
-	read($instr, $nextlen, 4);
-	$packetlen = unpack('N', $nextlen);
+  read($instr, $nextlen, 4);
+  $packetlen = unpack('N', $nextlen);
       } else {
-	# packet length is undefined.
+  # packet length is undefined.
       }
     } else {
       # this is an old-format packet.
@@ -1047,16 +1047,16 @@ sub packetwalk {
       $lentype = 0x03 & $packettag;
       $tag = ( 0x3c & $packettag ) >> 2;
       if ($lentype == 0) {
-	read($instr, $packetlen, 1) or die "could not read packet length\n";
-	$packetlen = unpack('C', $packetlen);
+  read($instr, $packetlen, 1) or die "could not read packet length\n";
+  $packetlen = unpack('C', $packetlen);
       } elsif ($lentype == 1) {
-	read($instr, $packetlen, 2) or die "could not read packet length\n";
-	$packetlen = unpack('n', $packetlen);
+  read($instr, $packetlen, 2) or die "could not read packet length\n";
+  $packetlen = unpack('n', $packetlen);
       } elsif ($lentype == 2) {
-	read($instr, $packetlen, 4) or die "could not read packet length\n";
-	$packetlen = unpack('N', $packetlen);
+  read($instr, $packetlen, 4) or die "could not read packet length\n";
+  $packetlen = unpack('N', $packetlen);
       } else {
-	# packet length is undefined.
+  # packet length is undefined.
       }
     }
 
@@ -1074,15 +1074,13 @@ sub packetwalk {
   return $data->{key};
 }
 
-#Début du script
-
 my $openpgp_key;
 my $keyid;
 my $fingerprint;
 my $rsa;
 my $ts;
 my $time_diff;
-my $tries = 0;
+my $tries = 0; #Pour calculer le nombre d'essais nécéssaires pour trouver une pré-image
 my $tries_per_sec;
 
 my $uid = shift;
@@ -1091,34 +1089,35 @@ defined($uid) or die "Vous devez mettre l'ID de l'utilisateur en paramètre.\n";
 my $target_keyid = shift;
 defined($target_keyid) or die "Vous devez entrer une clé ID de 8 caractères.\n";
 
-# timestamp starts with now
+
 my $ts_now = time();    
 my $ts_three_years_ago = $ts_now - 60*60*24*365*3*46; #temps qui vas nous permettre d'altérer le fingerprint de la clef
 
 while (1) {
   # generate a new RSA key
-  print("Génération d'une clé RSA 2048 bits\n");
-  $rsa = Crypt::OpenSSL::RSA->generate_key(2048);
-
+  print("Génération d'une nouvelle clé RSA 1024 bits\n");
+  $rsa = Crypt::OpenSSL::RSA->generate_key(1024);
   $ts = $ts_now;
+
   while ($ts >= $ts_three_years_ago) {
+    print("tssssss".$ts_now);
     # get the key id
-    $fingerprint = uc(unpack("H*", fingerprint($rsa, $ts)));
-    $keyid = substr($fingerprint, 32, 8);
+    $fingerprint = uc(unpack("H*", fingerprint($rsa, $ts))); #On calcule le fingerprint de la clef
+    $keyid = substr($fingerprint, 32, 8); #On recupère les 8 octets qui constitue la key ID
 
     if ($target_keyid eq $keyid) {
-      # make a new OpenPGP key with this timestamp
+      #Fonction pour transformer la clé avec les bons octets en suivant la RFC section 4.2
       $openpgp_key =
         make_packet($packet_types->{seckey}, make_rsa_sec_key_body($rsa, $ts)).
         make_packet($packet_types->{uid}, $uid).
         makeselfsig( $rsa, $uid, { sig_timestamp => $ts, key_timestamp => $ts });
 
       # write $openpgp_key to $keyid.gpg
-      open(FILE, ">$keyid.gpg");
+      open(FILE, ">$keyid.gpg"); #Si la seconde pré-image est trouvée, on ecrit la clef dans un fichier. Cette clef doit pouvoir être importée.
       print FILE $openpgp_key;
       close(FILE);
       $time_diff = time() - $ts_now;
-      die("\nFin de la recherche pour la seconde pré-image. Sauvegardé dans le fichier : $keyid.gpg.\n");
+      die "Fin de la recherche pour la seconde pré-image\n" ;
     }
 
     $tries++;
@@ -1136,4 +1135,3 @@ while (1) {
   }
   print("\n");
 }
-  

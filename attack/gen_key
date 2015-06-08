@@ -1095,45 +1095,24 @@ defined($target_keyid) or die "Vous devez entrer une clé ID de 8 caractères.\n
 my $ts_now = time();    
 my $ts_three_years_ago = $ts_now - 60*60*24*365*3*46; #temps qui vas nous permettre d'altérer le fingerprint de la clef
 
-while (1) {
-  # generate a new RSA key
-  print("Génération d'une clé RSA 2048 bits\n");
-  $rsa = Crypt::OpenSSL::RSA->generate_key(2048);
+# generate a new RSA key
+print("Génération d'une clé RSA 2048 bits\n");
+$rsa = Crypt::OpenSSL::RSA->generate_key(2048);
 
-  $ts = $ts_now;
-  while ($ts >= $ts_three_years_ago) {
-    # get the key id
-    $fingerprint = uc(unpack("H*", fingerprint($rsa, $ts)));
-    $keyid = substr($fingerprint, 32, 8);
+$ts = 10;
+# get the key id
+$fingerprint = uc(unpack("H*", fingerprint($rsa, $ts)));
+$keyid = substr($fingerprint, 32, 8);
 
-    if ($target_keyid eq $keyid) {
-      # make a new OpenPGP key with this timestamp
-      $openpgp_key =
-        make_packet($packet_types->{seckey}, make_rsa_sec_key_body($rsa, $ts)).
-        make_packet($packet_types->{uid}, $uid).
-        makeselfsig( $rsa, $uid, { sig_timestamp => $ts, key_timestamp => $ts });
+# make a new OpenPGP key with this timestamp
+$openpgp_key =
+  make_packet($packet_types->{seckey}, make_rsa_sec_key_body($rsa, $ts)).
+  make_packet($packet_types->{uid}, $uid).
+  makeselfsig( $rsa, $uid, { sig_timestamp => $ts, key_timestamp => $ts });
 
-      # write $openpgp_key to $keyid.gpg
-      open(FILE, ">$keyid.gpg");
-      print FILE $openpgp_key;
-      close(FILE);
-      $time_diff = time() - $ts_now;
-      die("\nFin de la recherche pour la seconde pré-image. Sauvegardé dans le fichier : $keyid.gpg.\n");
-    }
-
-    $tries++;
-    if($tries % 100 == 0) {
-      $time_diff = time() - $ts_now;
-      if($time_diff == 0) {
-        $tries_per_sec = 0;
-      } else {
-        $tries_per_sec = int($tries / $time_diff);
-      }
-      print("\r$tries essais [$tries_per_sec / sec]"); #Affiche le nombre d'essais par seconde
-    }
-
-    $ts--;
-  }
-  print("\n");
-}
-  
+# write $openpgp_key to $keyid.gpg
+open(FILE, ">$keyid.gpg");
+print FILE $openpgp_key;
+close(FILE);
+$time_diff = time() - $ts_now;
+die("\nFin de la recherche pour la seconde pré-image. Sauvegardé dans le fichier : $keyid.gpg.\n");

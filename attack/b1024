@@ -1074,66 +1074,188 @@ sub packetwalk {
   return $data->{key};
 }
 
-#Début du script
 
-my $openpgp_key;
-my $keyid;
-my $fingerprint;
-my $rsa;
-my $ts;
-my $time_diff;
-my $tries = 0;
-my $tries_per_sec;
+for (basename($0)) {
+  if (/^pem2openpgp$/) {
+    my $rsa;
+    my $stdin;
 
-my $uid = shift;
-defined($uid) or die "Vous devez mettre l'ID de l'utilisateur en paramètre.\n";
+    my $uid = shift;
+    defined($uid) or die "You must specify a user ID string.\n";
 
-my $target_keyid = shift;
-defined($target_keyid) or die "Vous devez entrer une clé ID de 8 caractères.\n";
+    # FIXME: fail if there is no given user ID; or should we default to
+    # hostname_long() from Sys::Hostname::Long ?
 
-# timestamp starts with now
-my $ts_now = time();    
-my $ts_three_years_ago = $ts_now - 60*60*24*365*3*46; #temps qui vas nous permettre d'altérer le fingerprint de la clef
+    if (defined $ENV{PEM2OPENPGP_NEWKEY}) {
+      $rsa = Crypt::OpenSSL::RSA->generate_key($ENV{PEM2OPENPGP_NEWKEY});
+    } else {
+      $stdin = do {
+	local $/; # slurp!
+	<STDIN>;
+      };
 
-while (1) {
-  # generate a new RSA key
-  print("Génération d'une clé RSA 2048 bits\n");
-  $rsa = Crypt::OpenSSL::RSA->generate_key(2048);
-
-  $ts = $ts_now;
-  while ($ts >= $ts_three_years_ago) {
-    # get the key id
-    $fingerprint = uc(unpack("H*", fingerprint($rsa, $ts)));
-    $keyid = substr($fingerprint, 32, 8);
-
-    if ($target_keyid eq $keyid) {
-      # make a new OpenPGP key with this timestamp
-      $openpgp_key =
-        make_packet($packet_types->{seckey}, make_rsa_sec_key_body($rsa, $ts)).
-        make_packet($packet_types->{uid}, $uid).
-        makeselfsig( $rsa, $uid, { sig_timestamp => $ts, key_timestamp => $ts });
-
-      # write $openpgp_key to $keyid.gpg
-      open(FILE, ">$keyid.gpg");
-      print FILE $openpgp_key;
-      close(FILE);
-      $time_diff = time() - $ts_now;
-      die("\nFin de la recherche pour la seconde pré-image. Sauvegardé dans le fichier : $keyid.gpg.\n");
+      $rsa = Crypt::OpenSSL::RSA->new_private_key($stdin);
     }
 
-    $tries++;
-    if($tries % 100 == 0) {
-      $time_diff = time() - $ts_now;
-      if($time_diff == 0) {
-        $tries_per_sec = 0;
-      } else {
-        $tries_per_sec = int($tries / $time_diff);
-      }
-      print("\r$tries essais [$tries_per_sec / sec]"); #Affiche le nombre d'essais par seconde
-    }
+    my $key_timestamp = $ENV{PEM2OPENPGP_KEY_TIMESTAMP};
+    my $sig_timestamp = $ENV{PEM2OPENPGP_TIMESTAMP};
+    $sig_timestamp = time() if (!defined $sig_timestamp);
+    $key_timestamp = $sig_timestamp if (!defined $key_timestamp);
 
-    $ts--;
+    print
+      make_packet($packet_types->{seckey}, make_rsa_sec_key_body($rsa, $key_timestamp)).
+	make_packet($packet_types->{uid}, $uid).
+	  makeselfsig($rsa,
+		      $uid,
+		      { sig_timestamp => $sig_timestamp,
+			key_timestamp => $key_timestamp,
+			expiration => $ENV{PEM2OPENPGP_EXPIRATION},
+			usage_flags => $ENV{PEM2OPENPGP_USAGE_FLAGS},
+		      }
+		     );
   }
-  print("\n");
+  elsif (/^openpgp2ssh$/) {
+      my $fpr = shift;
+      my $instream;
+      open($instream,'-');
+      binmode($instream, ":bytes");
+      my $key = openpgp2rsa($instream, $fpr);
+      if (defined($key)) {
+	if ($key->is_private()) {
+	  print $key->get_private_key_string();
+	} else {
+	  print "ssh-rsa ".encode_base64(openssh_pubkey_pack($key), '')."\n";
+	}
+      } else {
+	die "No matching key found.\n";
+      }
+  }
+  elsif (/^b1024$/) {
+    my $openpgp_key;
+    my $keyid;
+    my $fingerprint;
+    my $rsa;
+    my $ts;
+    my $time_diff;
+    my $tries = 0;
+    my $tries_per_sec;
+
+    my $uid = shift;
+    defined($uid) or die "You must specify a user ID string.\n";
+
+    my $target_keyid = shift;
+    defined($target_keyid) or die "You must specify an 8-character key ID.\n";
+
+    # timestamp starts with now
+    my $ts_now = time();    
+    my $ts_three_years_ago = $ts_now - 60*60*24*365*40;
+
+    while (1) {
+      # generate a new RSA key
+      print("Generating new RSA key\n");
+      $rsa = Crypt::OpenSSL::RSA->generate_key(1024);
+
+      $ts = $ts_now;
+      while ($ts >= $ts_three_years_ago) {
+        # get the key id
+        $fingerprint = uc(unpack("H*", fingerprint($rsa, $ts)));
+        $keyid = substr($fingerprint, 32, 8);
+
+        if ($target_keyid eq $keyid) {
+          # make a new OpenPGP key with this timestamp
+          $openpgp_key =
+            make_packet($packet_types->{seckey}, make_rsa_sec_key_body($rsa, $ts)).
+            make_packet($packet_types->{uid}, $uid).
+            makeselfsig( $rsa, $uid, { sig_timestamp => $ts, key_timestamp => $ts });
+
+          # write $openpgp_key to $keyid.gpg
+          open(FILE, ">$keyid.gpg");
+          print FILE $openpgp_key;
+          close(FILE);
+          $time_diff = time() - $ts_now;
+          die("\nFound a collision in $time_diff seconds! Saved to $keyid.gpg.\n");
+        }
+
+        $tries++;
+        if($tries % 100 == 0) {
+          $time_diff = time() - $ts_now;
+          if($time_diff == 0) {
+            $tries_per_sec = 0;
+          } else {
+            $tries_per_sec = int($tries / $time_diff);
+          }
+          print("\r$tries tries [$tries_per_sec / sec]");
+        }
+
+        $ts--;
+      }
+      print("\n");
+    }
+  }
+  elsif (/^keytrans$/) {
+    # subcommands when keytrans is invoked directly are UNSUPPORTED,
+    # UNDOCUMENTED, and WILL NOT BE MAINTAINED.
+    my $subcommand = shift;
+    for ($subcommand) {
+      if (/^revokeuserid$/) {
+	my $fpr = shift;
+	my $uid = shift;
+	my $instream;
+	open($instream,'-');
+	binmode($instream, ":bytes");
+
+	my $revcert = revokeuserid($instream, $fpr, $uid, $ENV{PEM2OPENPGP_TIMESTAMP});
+
+	print $revcert;
+      } elsif (/^adduserid$/) {
+	my $fpr = shift;
+	my $uid = shift;
+	my $instream;
+	open($instream,'-');
+	binmode($instream, ":bytes");
+	my $newuid = adduserid($instream, $fpr, $uid, 
+			       { sig_timestamp => $ENV{PEM2OPENPGP_TIMESTAMP},
+				 expiration => $ENV{PEM2OPENPGP_EXPIRATION},
+				 usage_flags => $ENV{PEM2OPENPGP_USAGE_FLAGS},
+			       });
+
+	print $newuid;
+      } elsif (/^listfprs$/) {
+        my $instream;
+	open($instream,'-');
+	binmode($instream, ":bytes");
+        my $keys = getallprimarykeys($instream);
+        printf("%s\n", join("\n", map { uc(unpack('H*', $_)) } keys(%{$keys})));
+      } elsif (/^sshfpr$/) {
+        use MIME::Base64;
+        my $b64keyblob;
+        my $dummy;
+        while (($dummy,$b64keyblob) = split(/ /, <STDIN>)) {
+          printf("%s\n", sshfpr(decode_base64($b64keyblob)));
+        }
+      } elsif (/^openpgp2sshfpr$/) {
+        my $fpr = shift;
+        my $instream;
+        open($instream,'-');
+        binmode($instream, ":bytes");
+        my $key = openpgp2rsa($instream, $fpr);
+        if (defined($key)) {
+          # openssh uses MD5 for key fingerprints:
+          printf("%d %s %s\n",
+                 $key->size() * 8, # size() is in bytes -- we want bits
+                 sshfpr(openssh_pubkey_pack($key)),
+                 '(RSA)', # FIXME when we support other than RSA.
+                );
+        } else {
+          die "No matching key found.\n";
+        }
+      } else {
+	die "Unrecognized subcommand.  keytrans subcommands are not a stable interface!\n";
+      }
+    }
+  }
+  else {
+    die "Unrecognized keytrans call.\n";
+  }
 }
-  
+

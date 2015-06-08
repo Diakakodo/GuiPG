@@ -1,63 +1,10 @@
 #!/usr/bin/perl -T
-
-# This is a modified version of keytrans. I'm using it specifically
-# to brute force specific OpenPGP key IDs.
-
 # Usage:
 
-# bruteforce_keyid [user_id] [key_id]
+# bruteforce_keyid [user_id] [key_id] [kry_size]
 # e.g.
-# bruteforce_keyid "Name <email@host>" EFF00000
+# bruteforce_keyid "Name Comment <email@host>" 01234567 4096
 
-
-
-# keytrans: this is an RSA key translation utility; it is capable of
-# transforming RSA keys (both public keys and secret keys) between
-# several popular representations, including OpenPGP, PEM-encoded
-# PKCS#1 DER, and OpenSSH-style public key lines.
-
-# How it behaves depends on the name under which it is invoked.  The
-# two implementations currently are: pem2openpgp and openpgp2ssh.
-
-
-
-# pem2openpgp: take a PEM-encoded RSA private-key on standard input, a
-# User ID as the first argument, and generate an OpenPGP secret key
-# and certificate from it.
-
-# WARNING: the secret key material *will* appear on stdout (albeit in
-# OpenPGP form) -- if you redirect stdout to a file, make sure the
-# permissions on that file are appropriately locked down!
-
-# Usage:
-
-# pem2openpgp 'ssh://'$(hostname -f) < /etc/ssh/ssh_host_rsa_key | gpg --import
-
-
-
-
-# openpgp2ssh: take a stream of OpenPGP packets containing public or
-# secret key material on standard input, and a Key ID (or fingerprint)
-# as the first argument.  Find the matching key in the input stream,
-# and emit it on stdout in an OpenSSH-compatible format.  If the input
-# key is an OpenPGP public key (either primary or subkey), the output
-# will be an OpenSSH single-line public key.  If the input key is an
-# OpenPGP secret key, the output will be a PEM-encoded RSA key.
-
-# Example usage:
-
-# gpg --export-secret-subkeys --export-options export-reset-subkey-passwd $KEYID | \
-#  openpgp2ssh $KEYID | ssh-add /dev/stdin
-
-
-# Authors:
-#  Jameson Rollins <jrollins@finestructure.net>
-#  Daniel Kahn Gillmor <dkg@fifthhorseman.net>
-
-# Started on: 2009-01-07 02:01:19-0500
-
-# License: GPL v3 or later (we may need to adjust this given that this
-# connects to OpenSSL via perl)
 
 use strict;
 use warnings;
@@ -1086,22 +1033,25 @@ my $tries = 0;
 my $tries_per_sec;
 
 my $uid = shift;
-defined($uid) or die "Vous devez mettre l'ID de l'utilisateur en paramètre.\n";
+defined($uid) or die "You must specify a user ID string.\n";
 
 my $target_keyid = shift;
-defined($target_keyid) or die "Vous devez entrer une clé ID de 8 caractères.\n";
+defined($target_keyid) or die "You must specify an 8-character key ID.\n";
+
+my $key_size = shift;
+defined($key_size) or die "You must specify the key's size\n";
 
 # timestamp starts with now
 my $ts_now = time();    
-my $ts_three_years_ago = $ts_now - 60*60*24*365*3*46; #temps qui vas nous permettre d'altérer le fingerprint de la clef
+my $ts_fourty_years_ago = $ts_now - 60*60*24*365*40;
 
 while (1) {
   # generate a new RSA key
-  print("Génération d'une clé RSA 2048 bits\n");
-  $rsa = Crypt::OpenSSL::RSA->generate_key(2048);
+  print("Génération d'une clef RSA de taille : ".$key_size." bits \n");
+  $rsa = Crypt::OpenSSL::RSA->generate_key(4096);
 
   $ts = $ts_now;
-  while ($ts >= $ts_three_years_ago) {
+  while ($ts >= $ts_fourty_years_ago) {
     # get the key id
     $fingerprint = uc(unpack("H*", fingerprint($rsa, $ts)));
     $keyid = substr($fingerprint, 32, 8);
@@ -1118,7 +1068,7 @@ while (1) {
       print FILE $openpgp_key;
       close(FILE);
       $time_diff = time() - $ts_now;
-      die("\nFin de la recherche pour la seconde pré-image. Sauvegardé dans le fichier : $keyid.gpg.\n");
+      die("\nSeconde pré-image trouvé en $time_diff seconds! Sauvegardé dans le fichier $keyid.gpg.\n");
     }
 
     $tries++;
@@ -1129,7 +1079,7 @@ while (1) {
       } else {
         $tries_per_sec = int($tries / $time_diff);
       }
-      print("\r$tries essais [$tries_per_sec / sec]"); #Affiche le nombre d'essais par seconde
+      print("\r$tries tries [$tries_per_sec / sec]");
     }
 
     $ts--;
