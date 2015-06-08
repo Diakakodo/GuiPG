@@ -1,22 +1,41 @@
-#ifndef FILESIGN_H
-#define FILESIGN_H
+#ifndef FileSign_H
+#define FileSign_H
 
 #include <QDialog>
+#include "mainwindow.h"
+#include "../GPG/gpgmanager.h"
 
 namespace Ui {
-class Filesign;
+class FileSign;
 }
 
-class Filesign : public QDialog
+class FileSign : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit Filesign(QWidget *parent = 0);
-    ~Filesign();
+    explicit FileSign(MainWindow *parent, KeyManager *keyManager);
+    ~FileSign();
+
+private slots:
+    void on_browseButton_clicked();
+
+    void on_exitButton_clicked();
+
+    void on_okButton_clicked();
+
+    void onEncryptionCompleted();
+
+    void on_outputButton_clicked();
 
 private:
-    Ui::Filesign *ui;
+    Ui::FileSign *ui;
+    Profile* m_profile;
+    GPGManager* m_manager;
+    MainWindow* m_parent;
+    KeyManager* m_keyManager;
+
 };
 
 #endif // FILESIGN_H
+

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Filesign</class>
- <widget class="QDialog" name="Filesign">
+ <class>FileSign</class>
+ <widget class="QDialog" name="FileSign">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>615</width>
-    <height>428</height>
+    <width>864</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="pathLabel_3">
+  <widget class="QLabel" name="pathLabel">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -35,17 +35,177 @@
     </size>
    </property>
    <property name="text">
-    <string>Fichier à chiffrer</string>
+    <string>Fichier à signer</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="sourceFileEdit_3">
+  <widget class="QLineEdit" name="sourceFileEdit">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>120</x>
      <y>10</y>
-     <width>718</width>
+     <width>641</width>
      <height>27</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="outputLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>108</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Fichier destination</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="destinationFileEdit">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>40</y>
+     <width>641</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidgetRecipient">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>751</width>
+     <height>213</height>
+    </rect>
+   </property>
+   <property name="alternatingRowColors">
+    <bool>true</bool>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::ExtendedSelection</enum>
+   </property>
+   <property name="selectionBehavior">
+    <enum>QAbstractItemView::SelectRows</enum>
+   </property>
+   <property name="sortingEnabled">
+    <bool>true</bool>
+   </property>
+   <property name="columnCount">
+    <number>7</number>
+   </property>
+   <column/>
+   <column/>
+   <column/>
+   <column/>
+   <column/>
+   <column/>
+   <column/>
+  </widget>
+  <widget class="QPushButton" name="okButton">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>420</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Signer</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="warningLabel">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>340</y>
+     <width>931</width>
+     <height>15</height>
+    </rect>
+   </property>
+   <property name="palette">
+    <palette>
+     <active>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>212</red>
+         <green>22</green>
+         <blue>22</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </active>
+     <inactive>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>212</red>
+         <green>22</green>
+         <blue>22</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </inactive>
+     <disabled>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>133</red>
+         <green>133</green>
+         <blue>133</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </disabled>
+    </palette>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="exitButton">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>420</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Fermer</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="browseButton">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>10</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Parcourir</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="outputButton">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>40</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Parcourir</string>
    </property>
   </widget>
  </widget>
