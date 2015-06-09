@@ -53,28 +53,31 @@ FileSign::FileSign(MainWindow *parent, KeyManager* keyManager) :
 
             for (Uid* uid : key->getUidList()) {
 
-                if (uid->getValidity() == VALIDITY_NO_VALUE ||
-                        key->getValidity() == VALIDITY_UNKNOWN ||
-                        key->getValidity() == VALIDITY_UNDEFINED ||
-                        key->getValidity() == VALIDITY_MARGINAL ||
-                        key->getValidity() == VALIDITY_FULLY ||
-                        key->getValidity() == VALIDITY_ULTIMATELY) {
+                if (key->hasPrimaSecKey()) {
 
-                    ui->tableWidgetRecipient->setRowCount(i+1);
-                    ui->tableWidgetRecipient->setRowHeight(i, 20);
-                    ui->tableWidgetRecipient->setItem(i, 0, new QTableWidgetItem(uid->getName()));
-                    ui->tableWidgetRecipient->setItem(i, 1, new QTableWidgetItem(uid->getMail()));
-                    ui->tableWidgetRecipient->setItem(i, 2, new QTableWidgetItem(uid->getFpr().right(16)));
-                    ui->tableWidgetRecipient->setItem(i, 3, new QTableWidgetItem(GpgObject::validityToStr(uid->getValidity())));
-                    ui->tableWidgetRecipient->setItem(i, 4, new QTableWidgetItem(key->getKeyId()));
-                    ui->tableWidgetRecipient->setItem(i, 5, new QTableWidgetItem(GpgObject::validityToStr(key->getValidity())));
-                    ui->tableWidgetRecipient->setItem(i, 6, new QTableWidgetItem(PrimaPubKey::trustToStr(key->getTrust())));
-                    ui->tableWidgetRecipient->item(i, 6)->setBackgroundColor(Configuration::getDefaultValidityColor(key->getTrust()));
+                    if (uid->getValidity() == VALIDITY_NO_VALUE ||
+                            key->getValidity() == VALIDITY_UNKNOWN ||
+                            key->getValidity() == VALIDITY_UNDEFINED ||
+                            key->getValidity() == VALIDITY_MARGINAL ||
+                            key->getValidity() == VALIDITY_FULLY ||
+                            key->getValidity() == VALIDITY_ULTIMATELY) {
 
-                    ui->tableWidgetRecipient->item(i, 3)->setBackgroundColor(Configuration::getDefaultValidityColor(uid->getValidity()));
-                    ui->tableWidgetRecipient->item(i, 5)->setBackgroundColor(Configuration::getDefaultValidityColor(key->getValidity()));
-                    i++;
-                }
+                        ui->tableWidgetRecipient->setRowCount(i+1);
+                        ui->tableWidgetRecipient->setRowHeight(i, 20);
+                        ui->tableWidgetRecipient->setItem(i, 0, new QTableWidgetItem(uid->getName()));
+                        ui->tableWidgetRecipient->setItem(i, 1, new QTableWidgetItem(uid->getMail()));
+                        ui->tableWidgetRecipient->setItem(i, 2, new QTableWidgetItem(uid->getFpr().right(16)));
+                        ui->tableWidgetRecipient->setItem(i, 3, new QTableWidgetItem(GpgObject::validityToStr(uid->getValidity())));
+                        ui->tableWidgetRecipient->setItem(i, 4, new QTableWidgetItem(key->getKeyId()));
+                        ui->tableWidgetRecipient->setItem(i, 5, new QTableWidgetItem(GpgObject::validityToStr(key->getValidity())));
+                        ui->tableWidgetRecipient->setItem(i, 6, new QTableWidgetItem(PrimaPubKey::trustToStr(key->getTrust())));
+                        ui->tableWidgetRecipient->item(i, 6)->setBackgroundColor(Configuration::getDefaultValidityColor(key->getTrust()));
+
+                        ui->tableWidgetRecipient->item(i, 3)->setBackgroundColor(Configuration::getDefaultValidityColor(uid->getValidity()));
+                        ui->tableWidgetRecipient->item(i, 5)->setBackgroundColor(Configuration::getDefaultValidityColor(key->getValidity()));
+                        i++;
+                    }
+                 }
             }
         }
     }
@@ -167,8 +170,8 @@ void FileSign::on_okButton_clicked()
     QStringList opt;
     opt << "--command-fd=0"
         << "--status-fd=1"
-        << "--output" << ui->destinationFileEdit->text();
-    QString cmd = "-e";
+        << "--default-key Bobbb";
+    QString cmd = "--detach-sign";
     QStringList arg;
     arg << ui->sourceFileEdit->text();
     QStringList interactions;
