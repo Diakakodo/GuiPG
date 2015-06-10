@@ -21,6 +21,11 @@ FileSignAndEncryption::FileSignAndEncryption(MainWindow *parent, KeyManager* key
     ui->tableWidgetRecipient2->setColumnCount(7);
     ui->tableWidgetRecipient2->verticalHeader()->setVisible(false);
     ui->tableWidgetRecipient2->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    ui->tableWidgetSign->setColumnCount(7);
+    ui->tableWidgetSign->verticalHeader()->setVisible(false);
+    ui->tableWidgetSign->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
     QStringList m_TableHeader;
     m_TableHeader   <<"Nom"
                     <<"Email"
@@ -37,6 +42,16 @@ FileSignAndEncryption::FileSignAndEncryption(MainWindow *parent, KeyManager* key
     ui->tableWidgetRecipient2->setColumnWidth(4,150);
     ui->tableWidgetRecipient2->setColumnWidth(5,100);
     ui->tableWidgetRecipient2->setColumnWidth(6,90);
+
+    ui->tableWidgetSign->setHorizontalHeaderLabels(m_TableHeader);
+    ui->tableWidgetSign->setColumnWidth(0,150);
+    ui->tableWidgetSign->setColumnWidth(1,150);
+    ui->tableWidgetSign->setColumnWidth(2,150);
+    ui->tableWidgetSign->setColumnWidth(3,130);
+    ui->tableWidgetSign->setColumnWidth(4,150);
+    ui->tableWidgetSign->setColumnWidth(5,100);
+    ui->tableWidgetSign->setColumnWidth(6,90);
+
 
     int i = 0;
 
@@ -78,6 +93,50 @@ FileSignAndEncryption::FileSignAndEncryption(MainWindow *parent, KeyManager* key
             }
         }
     }
+
+    i = 0;
+
+    for (PrimaPubKey* key : keyManager->getPubKeys()) {
+
+        if (key->hasPrimaSecKey()) {
+
+            if ((key->getValidity() == VALIDITY_NO_VALUE ||
+                        key->getValidity() == VALIDITY_UNKNOWN ||
+                        key->getValidity() == VALIDITY_UNDEFINED ||
+                        key->getValidity() == VALIDITY_MARGINAL ||
+                        key->getValidity() == VALIDITY_FULLY ||
+                        key->getValidity() == VALIDITY_ULTIMATELY) &&
+                        (key->getCapabilities().contains("e") ||
+                         key->getCapabilities().contains("E"))) {
+
+                for (Uid* uid : key->getUidList()) {
+
+                    if (uid->getValidity() == VALIDITY_NO_VALUE ||
+                            key->getValidity() == VALIDITY_UNKNOWN ||
+                            key->getValidity() == VALIDITY_UNDEFINED ||
+                            key->getValidity() == VALIDITY_MARGINAL ||
+                            key->getValidity() == VALIDITY_FULLY ||
+                            key->getValidity() == VALIDITY_ULTIMATELY) {
+
+                        ui->tableWidgetSign->setRowCount(i+1);
+                        ui->tableWidgetSign->setRowHeight(i, 20);
+                        ui->tableWidgetSign->setItem(i, 0, new QTableWidgetItem(uid->getName()));
+                        ui->tableWidgetSign->setItem(i, 1, new QTableWidgetItem(uid->getMail()));
+                        ui->tableWidgetSign->setItem(i, 2, new QTableWidgetItem(uid->getFpr().right(16)));
+                        ui->tableWidgetSign->setItem(i, 3, new QTableWidgetItem(GpgObject::validityToStr(uid->getValidity())));
+                        ui->tableWidgetSign->setItem(i, 4, new QTableWidgetItem(key->getKeyId()));
+                        ui->tableWidgetSign->setItem(i, 5, new QTableWidgetItem(GpgObject::validityToStr(key->getValidity())));
+                        ui->tableWidgetSign->setItem(i, 6, new QTableWidgetItem(PrimaPubKey::trustToStr(key->getTrust())));
+                        ui->tableWidgetSign->item(i, 6)->setBackgroundColor(Configuration::getDefaultValidityColor(key->getTrust()));
+
+                        ui->tableWidgetSign->item(i, 3)->setBackgroundColor(Configuration::getDefaultValidityColor(uid->getValidity()));
+                        ui->tableWidgetSign->item(i, 5)->setBackgroundColor(Configuration::getDefaultValidityColor(key->getValidity()));
+                        i++;
+                    }
+                }
+            }
+        }
+    }
 }
 
 FileSignAndEncryption::~FileSignAndEncryption()
@@ -99,7 +158,7 @@ void FileSignAndEncryption::on_exitButton2_clicked()
 
 void FileSignAndEncryption::onEncryptionCompleted()
 {
-    ui->warningLabel2->setText("Chiffrement terminé !");
+    ui->warningLabel2->setText("Chiffrement et signature terminés !");
     ui->exitButton2->setText("Fermer");
 }
 #include <QDebug>
@@ -152,55 +211,49 @@ void FileSignAndEncryption::on_okButton2_clicked()
         }
     }
 
+    // On récupère l'indice des lignes selectionnées pour le signataire
+    QModelIndexList selectedIndexSign = ui->tableWidgetSign->selectionModel()->selectedIndexes();
+    QList<int> rowIndexesSign;
+    for (QModelIndex index : selectedIndexSign) {
+        if (!rowIndexesSign.contains(index.row())) {
+            rowIndexesSign.append(index.row());
+        }
+    }
+
     if (rowIndexes.count() == 0) {
-        ui->warningLabel2->setText("Vous devez sélectionnez au moins un destinaire.");
+        ui->warningLabel2->setText("Vous devez sélectionner au moins un destinaire.");
         return;
     }
 
-    /* Utilisé pour paramétré les intéractions car gpg est tellement
-     * intelligent qu'il les demandes dans l'ordre inverse pour le cas anonyme
-     */
-    QList<int> reverseRowIndexes;
-    reverseRowIndexes.reserve(rowIndexes.size());
-    std::reverse_copy(rowIndexes.begin(), rowIndexes.end(), std::back_inserter(reverseRowIndexes));
+    if (rowIndexesSign.count() == 0) {
+        ui->warningLabel2->setText("Vous devez sélectionner un signataire.");
+        return;
+    }
 
     QStringList opt;
     opt << "--command-fd=0"
         << "--status-fd=1"
+        << "--sign"
+        << "--default-key " + ui->tableWidgetSign->item(rowIndexesSign[0], 0)->text()
         << "--output" << ui->destinationFileEdit2->text();
     QString cmd = "-e";
     QStringList arg;
     arg << ui->sourceFileEdit2->text();
     QStringList interactions;
 
-    if (ui->anonymousCheckBox2->isChecked()) {
-        for (int i : rowIndexes) {
-            opt << "-R \""
-                   + ui->tableWidgetRecipient2->item(i, 0)->text()
-                   + " <"
-                   + ui->tableWidgetRecipient2->item(i, 1)->text()
-                   + ">\"";
-        }
 
-        for (int i : reverseRowIndexes) {
-            if (ui->tableWidgetRecipient2->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_NO_VALUE) ||
-                    ui->tableWidgetRecipient2->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_UNDEFINED)) {
-                interactions << "y";
-            }
+    for (int i : rowIndexes) {
+        interactions << ui->tableWidgetRecipient2->item(i, 0)->text()
+                       + " <"
+                       + ui->tableWidgetRecipient2->item(i, 1)->text()
+                       + ">";
+        if (ui->tableWidgetRecipient2->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_NO_VALUE) ||
+                ui->tableWidgetRecipient2->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_UNDEFINED)) {
+            interactions << "y";
         }
-    } else {
-        for (int i : rowIndexes) {
-            interactions << ui->tableWidgetRecipient2->item(i, 0)->text()
-                           + " <"
-                           + ui->tableWidgetRecipient2->item(i, 1)->text()
-                           + ">";
-            if (ui->tableWidgetRecipient2->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_NO_VALUE) ||
-                    ui->tableWidgetRecipient2->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_UNDEFINED)) {
-                interactions << "y";
-            }
-        }
-        interactions << "";
     }
+    interactions << "";
+
 
     Action action(cmd, arg, opt, interactions);
     m_manager->setAction(action);
