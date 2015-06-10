@@ -46,7 +46,8 @@ HEADERS += \
     src/View/subkeycreation.h \
     src/View/fileencryption.h \
     src/View/filedecryptionandverify.h \
-    src/View/filesign.h
+    src/View/filesign.h \
+    src/View/filesignandencryption.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -93,7 +94,8 @@ SOURCES += \
     src/View/subkeycreation.cpp \
     src/View/fileencryption.cpp \
     src/View/filedecryptionandverify.cpp \
-    src/View/filesign.cpp
+    src/View/filesign.cpp \
+    src/View/filesignandencryption.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
@@ -107,7 +109,8 @@ FORMS += \
     src/View/subkeycreation.ui \
     src/View/fileencryption.ui \
     src/View/filedecryptionandverify.ui \
-    src/View/filesign.ui
+    src/View/filesign.ui \
+    src/View/filesignandencryption.ui
 
 RESOURCES += \
     icones.qrc
