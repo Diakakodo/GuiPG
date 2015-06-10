@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>968</width>
-    <height>450</height>
+    <width>962</width>
+    <height>409</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -54,7 +54,7 @@
      <x>10</x>
      <y>80</y>
      <width>941</width>
-     <height>213</height>
+     <height>241</height>
     </rect>
    </property>
    <property name="alternatingRowColors">
@@ -84,7 +84,7 @@
    <property name="geometry">
     <rect>
      <x>780</x>
-     <y>420</y>
+     <y>370</y>
      <width>85</width>
      <height>27</height>
     </rect>
@@ -150,7 +150,7 @@
    <property name="geometry">
     <rect>
      <x>870</x>
-     <y>420</y>
+     <y>370</y>
      <width>85</width>
      <height>27</height>
     </rect>
