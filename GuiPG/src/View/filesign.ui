@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Signer un fichier</string>
   </property>
   <widget class="QLabel" name="pathLabel">
    <property name="geometry">

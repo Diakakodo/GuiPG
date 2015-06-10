@@ -8,6 +8,7 @@
 #include "keyexport.h"
 #include "Profil/profilecreation.h"
 #include "fileencryption.h"
+#include "filesignandencryption.h"
 #include "filesign.h"
 #include "../Keys/keydeletion.h"
 #include "GpgItems/gpgitem.h"
@@ -322,4 +323,9 @@ void MainWindow::on_actionVider_historique_des_commandes_triggered() {
 void MainWindow::on_actionSigner_un_fichier_triggered() {
     FileSign filesign(this, m_model->getKeyManager());
     filesign.exec();
+}
+
+void MainWindow::on_actionChiffrer_et_signer_un_fichier_triggered() {
+    FileSignAndEncryption filesignandencryption(this, m_model->getKeyManager());
+    filesignandencryption.exec();
 }

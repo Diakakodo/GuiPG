@@ -250,6 +250,7 @@
     </property>
     <addaction name="actionChiffrer_un_fichier"/>
     <addaction name="actionSigner_un_fichier"/>
+    <addaction name="actionChiffrer_et_signer_un_fichier"/>
     <addaction name="actionDechiffrer_Verifier_un_fichier"/>
    </widget>
    <addaction name="menuFichier"/>
@@ -417,6 +418,11 @@
   <action name="actionSigner_un_fichier">
    <property name="text">
     <string>Signer un fichier</string>
+   </property>
+  </action>
+  <action name="actionChiffrer_et_signer_un_fichier">
+   <property name="text">
+    <string>Chiffrer et signer un fichier</string>
    </property>
   </action>
  </widget>
