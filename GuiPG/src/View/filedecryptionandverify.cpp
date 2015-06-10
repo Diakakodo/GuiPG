@@ -5,6 +5,7 @@
 #include "../Launcher/launcher.h"
 #include "mainwindow.h"
 #include <QMimeDatabase>
+#include <string>
 
 FileDecryptionAndVerify::FileDecryptionAndVerify(Profile* profile, QWidget *parent) :
     QDialog(parent),
@@ -128,7 +129,13 @@ void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
     ui->warningLabel->setPalette(palette);
     ui->warningLabel->setText("Déchiffrement / Vérification terminé.\n");
     if (output.contains("[GNUPG:] GOODSIG")) {
-        ui->warningLabel->setText(ui->warningLabel->text() + "La signature est valide.\n" + output);
+        //Split permettant de récupérer l'uid de la signature dans le retour de gpg
+        QStringList split1 = output.split("«");
+        QString tmp = split1.at(1);
+        QStringList split2 = tmp.split("»");
+        QString name = split2.at(0);
+        //ui->warningLabel->setText(ui->warningLabel->text() + "La signature est valide.\n" + output + "YOLOOOOOOOO:" + name);
+        ui->warningLabel->setText(ui->warningLabel->text() + "Signature correct de : " + name);
     }
     if (output.contains("[GNUPG:] DECRYPTION_OKAY")) {
         ui->warningLabel->setText(ui->warningLabel->text() + "Le fichier est correctement déchiffré.\n");
