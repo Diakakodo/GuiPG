@@ -325,6 +325,11 @@ void MainWindow::on_actionSigner_un_fichier_triggered() {
     filesign.exec();
 }
 
+void MainWindow::on_actionSigner_un_fichier_Toolbar_triggered() {
+    FileSign filesign(this, m_model->getKeyManager());
+    filesign.exec();
+}
+
 void MainWindow::on_actionChiffrer_et_signer_un_fichier_triggered() {
     FileSignAndEncryption filesignandencryption(this, m_model->getKeyManager());
     filesignandencryption.exec();

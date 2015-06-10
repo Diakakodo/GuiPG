@@ -274,6 +274,7 @@
    <addaction name="action_Refresh_Toolbar"/>
    <addaction name="action_GenKey_Toolbar"/>
    <addaction name="action_Import_Toolbar"/>
+   <addaction name="actionSigner_un_fichier_Toolbar"/>
   </widget>
   <action name="actionConfiguration">
    <property name="text">
@@ -423,6 +424,15 @@
   <action name="actionChiffrer_et_signer_un_fichier">
    <property name="text">
     <string>Chiffrer et signer un fichier</string>
+   </property>
+  </action>
+  <action name="actionSigner_un_fichier_Toolbar">
+   <property name="icon">
+    <iconset resource="../../icones.qrc">
+     <normaloff>:/icones/res/Icones/signature.png</normaloff>:/icones/res/Icones/signature.png</iconset>
+   </property>
+   <property name="text">
+    <string>Signer un fichier</string>
    </property>
   </action>
  </widget>
