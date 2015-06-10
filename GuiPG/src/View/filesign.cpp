@@ -90,7 +90,7 @@ FileSign::~FileSign()
 
 void FileSign::on_browseButton_clicked()
 {
-    QString pathName = QFileDialog::getOpenFileName(this, "Selection du fichier à chiffrer");
+    QString pathName = QFileDialog::getOpenFileName(this, "Selection du fichier à signer");
     ui->sourceFileEdit->setText(pathName);
 }
 
@@ -100,24 +100,20 @@ void FileSign::on_exitButton_clicked()
     close();
 }
 
-void FileSign::onEncryptionCompleted()
+void FileSign::onSignatureCompleted()
 {
-    ui->warningLabel->setText("Chiffrement terminé !");
+    ui->warningLabel->setText("Signature terminé !");
     ui->exitButton->setText("Fermer");
 }
 #include <QDebug>
 void FileSign::on_okButton_clicked()
 {
     ui->warningLabel->setText("");
-    if (ui->sourceFileEdit->text().startsWith("~/") || ui->destinationFileEdit->text().startsWith("~/")) {
+    if (ui->sourceFileEdit->text().startsWith("~/")) {
         ui->warningLabel->setText("Seul les chemins absolus sont autorisés.");
         return;
     }
 
-    if (ui->sourceFileEdit->text() == ui->destinationFileEdit->text()) {
-        ui->warningLabel->setText("Vous ne pouvez pas utiliser le même fichier source et destination.");
-        return;
-    }
 
     QFile sourcefile(ui->sourceFileEdit->text());
     if (!sourcefile.exists()) {
@@ -131,20 +127,14 @@ void FileSign::on_okButton_clicked()
         return;
     }
 
-    QFile destinationfile(ui->destinationFileEdit->text());
-    if (destinationfile.exists()) {
-        if (!destinationfile.remove()) {
-            ui->warningLabel->setText("Impossible d'écraser le fichier existant. Veuillez modifier la destination.");
-            return;
-        }
+    QFile signaturefile(ui->sourceFileEdit->text()+".sig");
+    if (signaturefile.exists()) {
+        ui->warningLabel->setText("La signature de ce fichier existe déjà.");
+        return;
+
     }
 
-    QFileInfo destinationFileInfo(destinationfile);
-    QFileInfo destinationDirInfo(destinationFileInfo.absoluteDir().path());
-    if (!destinationDirInfo.isWritable()) {
-        ui->warningLabel->setText("Vous n'avez pas les droits d'écriture sur le dossier destination.");
-        return;
-    }
+
 
     // On récupère l'indice des lignes selectionnées
     QModelIndexList selectedIndex = ui->tableWidgetRecipient->selectionModel()->selectedIndexes();
@@ -170,49 +160,14 @@ void FileSign::on_okButton_clicked()
     QStringList opt;
     opt << "--command-fd=0"
         << "--status-fd=1"
-        << "--default-key Bobbb";
+        << "--default-key " + ui->tableWidgetRecipient->item(rowIndexes[0], 0)->text();
     QString cmd = "--detach-sign";
     QStringList arg;
     arg << ui->sourceFileEdit->text();
     QStringList interactions;
 
-    /*if (ui->anonymousCheckBox->isChecked()) {
-        for (int i : rowIndexes) {
-            opt << "-R \""
-                   + ui->tableWidgetRecipient->item(i, 0)->text()
-                   + " <"
-                   + ui->tableWidgetRecipient->item(i, 1)->text()
-                   + ">\"";
-        }
-
-        for (int i : reverseRowIndexes) {
-            if (ui->tableWidgetRecipient->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_NO_VALUE) ||
-                    ui->tableWidgetRecipient->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_UNDEFINED)) {
-                interactions << "y";
-            }
-        }
-    } else {
-        for (int i : rowIndexes) {
-            interactions << ui->tableWidgetRecipient->item(i, 0)->text()
-                           + " <"
-                           + ui->tableWidgetRecipient->item(i, 1)->text()
-                           + ">";
-            if (ui->tableWidgetRecipient->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_NO_VALUE) ||
-                    ui->tableWidgetRecipient->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_UNDEFINED)) {
-                interactions << "y";
-            }
-        }
-        interactions << "";
-    }*/
-
     Action action(cmd, arg, opt, interactions);
     m_manager->setAction(action);
-    connect(m_manager, &GPGManager::finished, this, &FileSign::onEncryptionCompleted);
+    connect(m_manager, &GPGManager::finished, this, &FileSign::onSignatureCompleted);
     m_manager->execute();
-}
-
-void FileSign::on_outputButton_clicked()
-{
-    QString pathName = QFileDialog::getSaveFileName(this, "Sauvegarde du fichier chiffré");
-    ui->destinationFileEdit->setText(pathName);
 }

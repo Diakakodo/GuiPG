@@ -24,9 +24,7 @@ private slots:
 
     void on_okButton_clicked();
 
-    void onEncryptionCompleted();
-
-    void on_outputButton_clicked();
+    void onSignatureCompleted();
 
 private:
     Ui::FileSign *ui;
