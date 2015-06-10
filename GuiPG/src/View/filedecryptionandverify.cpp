@@ -48,27 +48,36 @@ void FileDecryptionAndVerify::accept() {
         return;
     }
 
-    QFile destinationfile(ui->destinationFileEdit->text());
-    if (destinationfile.exists()) {
-        if (!destinationfile.remove()) {
-            ui->warningLabel->setText("Impossible d'écraser le fichier existant. Veuillez modifier la destination.");
+    QStringList opt;
+
+    if (ui->destinationFileEdit->text() != "") {
+        QFile destinationfile(ui->destinationFileEdit->text());
+        if (destinationfile.exists()) {
+            if (!destinationfile.remove()) {
+                ui->warningLabel->setText("Impossible d'écraser le fichier existant. Veuillez modifier la destination.");
+                return;
+            }
+        }
+
+        QFileInfo destinationFileInfo(destinationfile);
+        QFileInfo destinationDirInfo(destinationFileInfo.absoluteDir().path());
+        if (!destinationDirInfo.isWritable()) {
+            ui->warningLabel->setText("Vous n'avez pas les droits d'écriture sur le dossier destination.");
             return;
         }
-    }
 
-    QFileInfo destinationFileInfo(destinationfile);
-    QFileInfo destinationDirInfo(destinationFileInfo.absoluteDir().path());
-    if (!destinationDirInfo.isWritable()) {
-        ui->warningLabel->setText("Vous n'avez pas les droits d'écriture sur le dossier destination.");
-        return;
+        opt << "--status-fd=1"
+            << "--command-fd=0"
+            << "--output"
+            << ui->destinationFileEdit->text();
+    }
+    else {
+        opt << "--status-fd=1"
+            << "--command-fd=0";
     }
 
     ui->acceptButton->setEnabled(false);
-    QStringList opt;
-    opt << "--status-fd=1"
-        << "--command-fd=0"
-        << "--output"
-        << ui->destinationFileEdit->text();
+
     QStringList args;
     args << ui->sourceFileEdit->text();
 
@@ -119,7 +128,7 @@ void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
     ui->warningLabel->setPalette(palette);
     ui->warningLabel->setText("Déchiffrement / Vérification terminé.\n");
     if (output.contains("[GNUPG:] GOODSIG")) {
-        ui->warningLabel->setText(ui->warningLabel->text() + "La signature est valide.\n");
+        ui->warningLabel->setText(ui->warningLabel->text() + "La signature est valide.\n" + output);
     }
     if (output.contains("[GNUPG:] DECRYPTION_OKAY")) {
         ui->warningLabel->setText(ui->warningLabel->text() + "Le fichier est correctement déchiffré.\n");
