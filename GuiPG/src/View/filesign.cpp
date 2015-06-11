@@ -157,10 +157,15 @@ void FileSign::on_okButton_clicked()
     reverseRowIndexes.reserve(rowIndexes.size());
     std::reverse_copy(rowIndexes.begin(), rowIndexes.end(), std::back_inserter(reverseRowIndexes));
 
+    QString uid = ui->tableWidgetRecipient->item(rowIndexes[0], 0)->text();
+    QStringList split = uid.split(" ");
+    QString name = split.at(0);
+
+
     QStringList opt;
     opt << "--command-fd=0"
         << "--status-fd=1"
-        << "--default-key " + ui->tableWidgetRecipient->item(rowIndexes[0], 0)->text();
+        << "--default-key " + name;
     QString cmd = "--detach-sign";
     QStringList arg;
     arg << ui->sourceFileEdit->text();
