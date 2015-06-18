@@ -76,6 +76,7 @@ void PrimaPubKeyItem::showMenu(const QPoint &pos) {
     m_pos = pos;
     m_menu = new QMenu(treeWidget());
     m_menu->addAction("Ajouter un identifiant utilisateur", this, SLOT(addUid()));
+    m_menu->addAction("Supprimer/Révoquer un identifiant utilisateur", this, SLOT(delOrRevUid()));
     m_menu->addAction("Exporter la clé publique", this, SLOT(exportPublicKey()));
     if (m_pub->hasPrimaSecKey()) {
         m_menu->addAction("Exporter la clé secrète", this, SLOT(exportSecretKey()));
@@ -245,4 +246,17 @@ void PrimaPubKeyItem::getPossibleTrustValue() {
 
 PrimaPubKey* PrimaPubKeyItem::getPrimaPubKey() const {
     return m_pub;
+}
+
+void PrimaPubKeyItem::delOrRevUid() {
+    GpgTreeWidget* tree = (GpgTreeWidget*) treeWidget();
+    m_delUidView = new DeleteUidDialog(tree->getProfile(), m_pub, tree);
+    connect(m_delUidView, &DeleteUidDialog::finished, this, &PrimaPubKeyItem::onDeleteUidFinished);
+    m_delUidView->exec();
+
+}
+
+void PrimaPubKeyItem::onDeleteUidFinished() {
+    ((GpgTreeWidget*) treeWidget())->getKeyManager()->load();
+    delete m_delUidView;
 }
