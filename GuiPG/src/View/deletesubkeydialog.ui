@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DeleteUidDialog</class>
- <widget class="QDialog" name="DeleteUidDialog">
+ <class>DeleteSubKeyDialog</class>
+ <widget class="QDialog" name="DeleteSubKeyDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>346</width>
-    <height>309</height>
+    <width>554</width>
+    <height>314</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Supprimer/Révoquer un identifiant utilisateur</string>
+   <string>Dialog</string>
   </property>
   <widget class="QLabel" name="infosLabel">
    <property name="geometry">
@@ -23,54 +23,15 @@
     </rect>
    </property>
    <property name="text">
-    <string>Liste des identifiants utilisateur :</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="exitButton">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>270</y>
-     <width>85</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Fermer</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="deleteButton">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>270</y>
-     <width>85</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Supprimer</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="revokeButton">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>270</y>
-     <width>85</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Révoquer</string>
+    <string>Liste des sous-clés :</string>
    </property>
   </widget>
   <widget class="QTableWidget" name="tableWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>20</x>
      <y>40</y>
-     <width>321</width>
+     <width>521</width>
      <height>191</height>
     </rect>
    </property>
@@ -92,11 +53,50 @@
    <column/>
    <column/>
   </widget>
+  <widget class="QPushButton" name="revokeButton">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>280</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Révoquer</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="deleteButton">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>280</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Supprimer</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="exitButton">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>280</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Fermer</string>
+   </property>
+  </widget>
   <widget class="QLabel" name="warningLabel">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>245</y>
+     <y>250</y>
      <width>291</width>
      <height>20</height>
     </rect>

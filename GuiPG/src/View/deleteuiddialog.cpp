@@ -65,8 +65,8 @@ void DeleteUidDialog::on_deleteButton_clicked()
     QStringList args;
     args << m_pub->getKeyId();
     QStringList interactions;
-    interactions << "uid "
-                 << uidNumber
+    QString uidSelection = "uid " + uidNumber;
+    interactions << uidSelection
                  << "deluid"
                  << "y"
                  << "save";
@@ -94,8 +94,8 @@ void DeleteUidDialog::on_revokeButton_clicked()
     QStringList args;
     args << m_pub->getKeyId();
     QStringList interactions;
-    interactions << "uid "
-                 << uidNumber
+    QString uidSelection = "uid " + uidNumber;
+    interactions << uidSelection
                  << "revuid"
                  << "y"
                  << "4"

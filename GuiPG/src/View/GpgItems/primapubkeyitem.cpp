@@ -75,12 +75,15 @@ PrimaPubKeyItem::~PrimaPubKeyItem()
 void PrimaPubKeyItem::showMenu(const QPoint &pos) {
     m_pos = pos;
     m_menu = new QMenu(treeWidget());
-    m_menu->addAction("Ajouter un identifiant utilisateur", this, SLOT(addUid()));
-    m_menu->addAction("Supprimer/Révoquer un identifiant utilisateur", this, SLOT(delOrRevUid()));
+    if (m_pub->hasPrimaSecKey()) {
+        m_menu->addAction("Ajouter un identifiant utilisateur", this, SLOT(addUid()));
+        m_menu->addAction("Supprimer/Révoquer un identifiant utilisateur", this, SLOT(delOrRevUid()));
+    }
     m_menu->addAction("Exporter la clé publique", this, SLOT(exportPublicKey()));
     if (m_pub->hasPrimaSecKey()) {
         m_menu->addAction("Exporter la clé secrète", this, SLOT(exportSecretKey()));
         m_menu->addAction("Ajouter une sous-clé", this, SLOT(addSubKey()));
+        m_menu->addAction("Supprimer/Révoquer une sous-clé", this, SLOT(delOrRevSubKey()));
     }
     m_menu->addAction("Signer", this, SLOT(sign()));
     m_menu->addAction("Supprimer", this, SLOT(deleteKey()));
@@ -260,3 +263,17 @@ void PrimaPubKeyItem::onDeleteUidFinished() {
     ((GpgTreeWidget*) treeWidget())->getKeyManager()->load();
     delete m_delUidView;
 }
+
+void PrimaPubKeyItem::delOrRevSubKey() {
+    GpgTreeWidget* tree = (GpgTreeWidget*) treeWidget();
+    m_delSubKeyView = new DeleteSubKeyDialog(tree->getProfile(), m_pub, tree);
+    connect(m_delSubKeyView, &DeleteSubKeyDialog::finished, this, &PrimaPubKeyItem::onDeleteSubKeyFinished);
+    m_delSubKeyView->exec();
+
+}
+
+void PrimaPubKeyItem::onDeleteSubKeyFinished() {
+    ((GpgTreeWidget*) treeWidget())->getKeyManager()->load();
+    delete m_delSubKeyView;
+}
+

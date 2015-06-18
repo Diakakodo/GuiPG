@@ -6,6 +6,7 @@
 #include "../subkeycreation.h"
 #include "../adduiddialog.h"
 #include "../deleteuiddialog.h"
+#include "../deletesubkeydialog.h"
 
 #define ICON_SINGLE_KEY_PATH "/Icones/single_key.png"
 #define ICON_DOUBLE_KEY_PATH "/Icones/double_keys.png"
@@ -49,11 +50,13 @@ class PrimaPubKeyItem : public PubKeyItem
         void deleteKey();
         void addSubKey();
         void delOrRevUid();
+        void delOrRevSubKey();
 
     private slots:
         void onAddSubKeyFinished(int result);
         void onAddUidFinished();
         void onDeleteUidFinished();
+        void onDeleteSubKeyFinished();
 
     private:
         PrimaPubKey* m_pub;
@@ -61,6 +64,7 @@ class PrimaPubKeyItem : public PubKeyItem
         SubKeyCreation* m_createSubPubKeyView = nullptr;
         AddUidDialog* m_addUidView = nullptr;
         DeleteUidDialog* m_delUidView = nullptr;
+        DeleteSubKeyDialog* m_delSubKeyView = nullptr;
         void getPossibleTrustValue();
 
 
