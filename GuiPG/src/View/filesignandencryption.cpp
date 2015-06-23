@@ -233,6 +233,7 @@ void FileSignAndEncryption::on_okButton2_clicked()
     QStringList opt;
     opt << "--command-fd=0"
         << "--status-fd=1"
+        << "-a"
         << "--sign"
         << "--default-key " + ui->tableWidgetSign->item(rowIndexesSign[0], 0)->text()
         << "--output" << ui->destinationFileEdit2->text();

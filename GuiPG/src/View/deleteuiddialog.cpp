@@ -1,5 +1,6 @@
 #include "deleteuiddialog.h"
 #include "ui_deleteuiddialog.h"
+#include <QMessageBox>
 #include <QDebug>
 
 DeleteUidDialog::DeleteUidDialog(Profile* profile, PrimaPubKey* pub, QWidget *parent) :
@@ -51,62 +52,71 @@ void DeleteUidDialog::onDeleteCompleted(){
 #include <QDebug>
 void DeleteUidDialog::on_deleteButton_clicked()
 {
+    QString infos = "Voulez vous vraiment supprimer cette sous-clef ?\n\n";
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(0, "Confirmation de suppression", infos, QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        int number = ui->tableWidget->currentIndex().row() + 1;
+        QString uidNumber = QString::number(number);
 
-    int number = ui->tableWidget->currentIndex().row() + 1;
-    QString uidNumber = QString::number(number);
+        m_gpg = new GPGManager(m_profile);
 
-    m_gpg = new GPGManager(m_profile);
+        QStringList opt;
+        opt << "--status-fd=1"
+            << "--command-fd=0"
+            << "--with-colons"
+            << "--fixed-list-mode";
+        QStringList args;
+        args << m_pub->getKeyId();
+        QStringList interactions;
+        QString uidSelection = "uid " + uidNumber;
+        interactions << uidSelection
+                     << "deluid"
+                     << "y"
+                     << "save";
 
-    QStringList opt;
-    opt << "--status-fd=1"
-        << "--command-fd=0"
-        << "--with-colons"
-        << "--fixed-list-mode";
-    QStringList args;
-    args << m_pub->getKeyId();
-    QStringList interactions;
-    QString uidSelection = "uid " + uidNumber;
-    interactions << uidSelection
-                 << "deluid"
-                 << "y"
-                 << "save";
+        Action delUidAction(QString("--edit-key"), args, opt, interactions);
 
-    Action delUidAction(QString("--edit-key"), args, opt, interactions);
-
-    m_gpg->setAction(delUidAction);
-    connect(m_gpg, &GPGManager::finished, this, &DeleteUidDialog::finished);
-    m_gpg->execute();
+        m_gpg->setAction(delUidAction);
+        connect(m_gpg, &GPGManager::finished, this, &DeleteUidDialog::finished);
+        m_gpg->execute();
+      }
 }
 
 
 void DeleteUidDialog::on_revokeButton_clicked()
 {
-    int number = ui->tableWidget->currentIndex().row() + 1;
-    QString uidNumber = QString::number(number);
+    QString infos = "Voulez vous vraiment révoquer cet identifiant utilisateur ? ?\n\n";
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(0, "Confirmation de révocation", infos, QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        int number = ui->tableWidget->currentIndex().row() + 1;
+        QString uidNumber = QString::number(number);
 
-    m_gpg = new GPGManager(m_profile);
+        m_gpg = new GPGManager(m_profile);
 
-    QStringList opt;
-    opt << "--status-fd=1"
-        << "--command-fd=0"
-        << "--with-colons"
-        << "--fixed-list-mode";
-    QStringList args;
-    args << m_pub->getKeyId();
-    QStringList interactions;
-    QString uidSelection = "uid " + uidNumber;
-    interactions << uidSelection
-                 << "revuid"
-                 << "y"
-                 << "4"
-                 << "Identité plus valide"
-                 << ""
-                 << "y"
-                 << "save";
+        QStringList opt;
+        opt << "--status-fd=1"
+            << "--command-fd=0"
+            << "--with-colons"
+            << "--fixed-list-mode";
+        QStringList args;
+        args << m_pub->getKeyId();
+        QStringList interactions;
+        QString uidSelection = "uid " + uidNumber;
+        interactions << uidSelection
+                     << "revuid"
+                     << "y"
+                     << "4"
+                     << "Identité plus valide"
+                     << ""
+                     << "y"
+                     << "save";
 
-    Action delUidAction(QString("--edit-key"), args, opt, interactions);
+        Action delUidAction(QString("--edit-key"), args, opt, interactions);
 
-    m_gpg->setAction(delUidAction);
-    connect(m_gpg, &GPGManager::finished, this, &DeleteUidDialog::finished);
-    m_gpg->execute();
+        m_gpg->setAction(delUidAction);
+        connect(m_gpg, &GPGManager::finished, this, &DeleteUidDialog::finished);
+        m_gpg->execute();
+      }
 }

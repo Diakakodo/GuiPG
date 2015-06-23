@@ -165,6 +165,7 @@ void FileSign::on_okButton_clicked()
     QStringList opt;
     opt << "--command-fd=0"
         << "--status-fd=1"
+        << "-a"
         << "--default-key " + name;
     QString cmd = "--detach-sign";
     QStringList arg;

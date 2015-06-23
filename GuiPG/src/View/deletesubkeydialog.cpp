@@ -1,5 +1,6 @@
 #include "deletesubkeydialog.h"
 #include "ui_deletesubkeydialog.h"
+#include <QMessageBox>
 
 DeleteSubKeyDialog::DeleteSubKeyDialog(Profile* profile, PrimaPubKey* pub, QWidget *parent) :
     QDialog(parent),
@@ -66,64 +67,74 @@ void DeleteSubKeyDialog::onDeleteCompleted()
 
 void DeleteSubKeyDialog::on_deleteButton_clicked()
 {
-    int number = ui->tableWidget->currentIndex().row() + 1;
-    QString keyNumber = QString::number(number);
+    QString infos = "Voulez vous vraiment supprimer cette sous-clef ?\n\n";
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(0, "Confirmation de suppression", infos, QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        int number = ui->tableWidget->currentIndex().row() + 1;
+        QString keyNumber = QString::number(number);
 
-    m_gpg = new GPGManager(m_profile);
+        m_gpg = new GPGManager(m_profile);
 
-    QStringList opt;
-    opt << "--status-fd=1"
-        << "--command-fd=0"
-        << "--with-colons"
-        << "--fixed-list-mode";
-    QStringList args;
-    args << m_pub->getKeyId();
-    QStringList interactions;
+        QStringList opt;
+        opt << "--status-fd=1"
+            << "--command-fd=0"
+            << "--with-colons"
+            << "--fixed-list-mode";
+        QStringList args;
+        args << m_pub->getKeyId();
+        QStringList interactions;
 
-    QString keySelection = "key " + keyNumber;
+        QString keySelection = "key " + keyNumber;
 
-    interactions << keySelection
-                 << "delkey"
-                 << "y"
-                 << "save";
+        interactions << keySelection
+                     << "delkey"
+                     << "y"
+                     << "save";
 
-    Action delSubKeydAction(QString("--edit-key"), args, opt, interactions);
+        Action delSubKeydAction(QString("--edit-key"), args, opt, interactions);
 
-    m_gpg->setAction(delSubKeydAction);
-    connect(m_gpg, &GPGManager::finished, this, &DeleteSubKeyDialog::finished);
-    m_gpg->execute();
+        m_gpg->setAction(delSubKeydAction);
+        connect(m_gpg, &GPGManager::finished, this, &DeleteSubKeyDialog::finished);
+        m_gpg->execute();
+    }
 }
 
 void DeleteSubKeyDialog::on_revokeButton_clicked()
 {
-    int number = ui->tableWidget->currentIndex().row() + 1;
-    QString keyNumber = QString::number(number);
+    QString infos = "Voulez vous vraiment révoquer cette sous-clef ?\n\n";
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(0, "Confirmation de révocation", infos, QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        int number = ui->tableWidget->currentIndex().row() + 1;
+        QString keyNumber = QString::number(number);
 
-    m_gpg = new GPGManager(m_profile);
+        m_gpg = new GPGManager(m_profile);
 
-    QStringList opt;
-    opt << "--status-fd=1"
-        << "--command-fd=0"
-        << "--with-colons"
-        << "--fixed-list-mode";
-    QStringList args;
-    args << m_pub->getKeyId();
-    QStringList interactions;
+        QStringList opt;
+        opt << "--status-fd=1"
+            << "--command-fd=0"
+            << "--with-colons"
+            << "--fixed-list-mode";
+        QStringList args;
+        args << m_pub->getKeyId();
+        QStringList interactions;
 
-    QString keySelection = "key " + keyNumber;
+        QString keySelection = "key " + keyNumber;
 
-    interactions << keySelection
-                 << "revkey"
-                 << "y"
-                 << "0"
-                 << "Identité plus valide"
-                 << ""
-                 << "y"
-                 << "save";
+        interactions << keySelection
+                     << "revkey"
+                     << "y"
+                     << "0"
+                     << "Identité plus valide"
+                     << ""
+                     << "y"
+                     << "save";
 
-    Action RevokeSubKeyAction(QString("--edit-key"), args, opt, interactions);
+        Action RevokeSubKeyAction(QString("--edit-key"), args, opt, interactions);
 
-    m_gpg->setAction(RevokeSubKeyAction);
-    connect(m_gpg, &GPGManager::finished, this, &DeleteSubKeyDialog::finished);
-    m_gpg->execute();
+        m_gpg->setAction(RevokeSubKeyAction);
+        connect(m_gpg, &GPGManager::finished, this, &DeleteSubKeyDialog::finished);
+        m_gpg->execute();
+    }
 }
