@@ -189,13 +189,18 @@ void PrimaPubKeyItem::exportSecretKey() {
 }
 
 void PrimaPubKeyItem::deleteKey() {
-    KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
-    KeyDeletion* deleteManager = new KeyDeletion(keyManager, ((GpgTreeWidget*) treeWidget())->getProfile(), m_pub->getKeyId());
-    if (m_pub->hasPrimaSecKey()) {
-        deleteManager->deleteKeys(); // On supprime les deux clés (privé/secrete).
-    } else {
-        deleteManager->deletePublicKey(); // On ne supprime que la clé publique.
-    }
+    QString infos = "Voulez vous vraiment supprimer cette clef ?\n\n";
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(0, "Confirmation de suppression", infos, QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        KeyManager* keyManager = ((GpgTreeWidget*) treeWidget())->getKeyManager();
+        KeyDeletion* deleteManager = new KeyDeletion(keyManager, ((GpgTreeWidget*) treeWidget())->getProfile(), m_pub->getKeyId());
+        if (m_pub->hasPrimaSecKey()) {
+            deleteManager->deleteKeys(); // On supprime les deux clés (privé/secrete).
+        } else {
+            deleteManager->deletePublicKey(); // On ne supprime que la clé publique.
+        }
+     }
 }
 
 void PrimaPubKeyItem::setPossibleTrustValue(int s, QString output) {

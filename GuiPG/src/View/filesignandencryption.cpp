@@ -230,6 +230,13 @@ void FileSignAndEncryption::on_okButton2_clicked()
         return;
     }
 
+    /* Utilisé pour paramétré les intéractions car gpg est tellement
+     * intelligent qu'il les demandes dans l'ordre inverse pour le cas anonyme
+     */
+    QList<int> reverseRowIndexes;
+    reverseRowIndexes.reserve(rowIndexes.size());
+    std::reverse_copy(rowIndexes.begin(), rowIndexes.end(), std::back_inserter(reverseRowIndexes));
+
     QStringList opt;
     opt << "--command-fd=0"
         << "--status-fd=1"
@@ -242,18 +249,34 @@ void FileSignAndEncryption::on_okButton2_clicked()
     arg << ui->sourceFileEdit2->text();
     QStringList interactions;
 
-
-    for (int i : rowIndexes) {
-        interactions << ui->tableWidgetRecipient2->item(i, 0)->text()
-                       + " <"
-                       + ui->tableWidgetRecipient2->item(i, 1)->text()
-                       + ">";
-        if (ui->tableWidgetRecipient2->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_NO_VALUE) ||
-                ui->tableWidgetRecipient2->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_UNDEFINED)) {
-            interactions << "y";
+    if (ui->anonymousCheckBox->isChecked()) {
+        for (int i : rowIndexes) {
+            opt << "-R \""
+                   + ui->tableWidgetRecipient2->item(i, 0)->text()
+                   + " <"
+                   + ui->tableWidgetRecipient2->item(i, 1)->text()
+                   + ">\"";
         }
+
+        for (int i : reverseRowIndexes) {
+            if (ui->tableWidgetRecipient2->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_NO_VALUE) ||
+                    ui->tableWidgetRecipient2->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_UNDEFINED)) {
+                interactions << "y";
+            }
+        }
+    } else {
+        for (int i : rowIndexes) {
+            interactions << ui->tableWidgetRecipient2->item(i, 0)->text()
+                           + " <"
+                           + ui->tableWidgetRecipient2->item(i, 1)->text()
+                           + ">";
+            if (ui->tableWidgetRecipient2->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_NO_VALUE) ||
+                    ui->tableWidgetRecipient2->item(i, 3)->text() == GpgObject::validityToStr(VALIDITY_UNDEFINED)) {
+                interactions << "y";
+            }
+        }
+        interactions << "";
     }
-    interactions << "";
 
 
     Action action(cmd, arg, opt, interactions);

@@ -278,6 +278,13 @@
        </spacer>
       </item>
       <item>
+       <widget class="QCheckBox" name="anonymousCheckBox">
+        <property name="text">
+         <string>Chiffrer de manière anonyme</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="okButton2">
         <property name="text">
          <string>Chiffrer</string>
