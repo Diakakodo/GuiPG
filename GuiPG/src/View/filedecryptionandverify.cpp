@@ -111,7 +111,7 @@ void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
         ui->acceptButton->setEnabled(true);
         return;
     }
-    if (output.contains("[GNUPG:] NO_SECKEY")) {
+    if (output.contains("[GNUPG:] NO_SECKEY") && !output.contains("[GNUPG:] DECRYPTION_OKAY")) {
         ui->warningLabel->setText(ui->warningLabel->text() + "Échec du déchiffrement : la clef secrète n'est pas disponible.\n");
         ui->acceptButton->setEnabled(true);
         return;
