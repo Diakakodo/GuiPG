@@ -71,6 +71,8 @@ private slots:
 
         void on_actionChiffrer_et_signer_un_fichier_triggered();
 
+        void on_actionEditeur_triggered();
+
     protected:
      void closeEvent(QCloseEvent *event);
 

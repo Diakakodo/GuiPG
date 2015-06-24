@@ -134,7 +134,6 @@ void FileDecryptionAndVerify::onGpgFinished(int s, QString output) {
         QString tmp = split1.at(1);
         QStringList split2 = tmp.split("»");
         QString name = split2.at(0);
-        //ui->warningLabel->setText(ui->warningLabel->text() + "La signature est valide.\n" + output + "YOLOOOOOOOO:" + name);
         ui->warningLabel->setText(ui->warningLabel->text() + "Signature correct de : " + name + "\n");
     }
     if (output.contains("[GNUPG:] DECRYPTION_OKAY")) {

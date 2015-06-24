@@ -207,6 +207,7 @@
     <property name="title">
      <string>Fic&amp;hier</string>
     </property>
+    <addaction name="actionEditeur"/>
     <addaction name="actionQuitter"/>
    </widget>
    <widget class="QMenu" name="menuAffichage">
@@ -433,6 +434,11 @@
    </property>
    <property name="text">
     <string>Signer un fichier</string>
+   </property>
+  </action>
+  <action name="actionEditeur">
+   <property name="text">
+    <string>Editeur de texte</string>
    </property>
   </action>
  </widget>

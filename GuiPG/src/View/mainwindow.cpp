@@ -13,11 +13,13 @@
 #include "../Keys/keydeletion.h"
 #include "GpgItems/gpgitem.h"
 #include "GpgItems/primapubkeyitem.h"
+#include "filedecryptionandverify.h"
+#include "editor.h"
 #include <QCloseEvent>
 #include <QTextEdit>
 #include <QLineEdit>
 #include <QMovie>
-#include "filedecryptionandverify.h"
+
 
 
 MainWindow::MainWindow(MainWindowModel* model)
@@ -333,4 +335,9 @@ void MainWindow::on_actionSigner_un_fichier_Toolbar_triggered() {
 void MainWindow::on_actionChiffrer_et_signer_un_fichier_triggered() {
     FileSignAndEncryption filesignandencryption(this, m_model->getKeyManager());
     filesignandencryption.exec();
+}
+
+void MainWindow::on_actionEditeur_triggered() {
+    Editor editor(this, m_model->getKeyManager());
+    editor.exec();
 }
