@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>792</width>
-    <height>456</height>
+    <width>739</width>
+    <height>424</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Chiffrer</string>
   </property>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">

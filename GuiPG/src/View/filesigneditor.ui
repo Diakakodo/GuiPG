@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>986</width>
+    <width>960</width>
     <height>404</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Signer</string>
   </property>
   <widget class="QPushButton" name="okButton">
    <property name="geometry">

@@ -26,6 +26,8 @@ private slots:
 
     void on_signButton_clicked();
 
+    void on_decryptButton_clicked();
+
 private:
     Ui::Editor *ui;
     Profile* m_profile;

@@ -6,6 +6,7 @@
 #include "../Keys/primapubkey.h"
 #include "filesigneditor.h"
 #include "fileencryptioneditor.h"
+#include "filedecryptionandverifyeditor.h"
 #include <fstream>
 #include "sys/types.h"
 #include "sys/stat.h"
@@ -70,4 +71,16 @@ void Editor::on_signButton_clicked()
 
     FileSignEditor filesigneditor(m_parent, m_keyManager);
     filesigneditor.exec();
+}
+
+void Editor::on_decryptButton_clicked() {
+    ofstream fichier("/tmp/tmpFile", ios::out | ios::trunc);
+
+    if (fichier) {
+        fichier << ui->textEdit->toPlainText().toStdString();
+        fichier.close();
+    }
+
+    FileDecryptionAndVerifyEditor filedecryptionandverifyeditor(m_profile, m_parent);
+    filedecryptionandverifyeditor.exec();
 }

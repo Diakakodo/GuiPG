@@ -52,7 +52,8 @@ HEADERS += \
     src/View/deletesubkeydialog.h \
     src/View/editor.h \
     src/View/filesigneditor.h \
-    src/View/fileencryptioneditor.h
+    src/View/fileencryptioneditor.h \
+    src/View/filedecryptionandverifyeditor.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -105,7 +106,8 @@ SOURCES += \
     src/View/deletesubkeydialog.cpp \
     src/View/editor.cpp \
     src/View/filesigneditor.cpp \
-    src/View/fileencryptioneditor.cpp
+    src/View/fileencryptioneditor.cpp \
+    src/View/filedecryptionandverifyeditor.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
@@ -125,7 +127,8 @@ FORMS += \
     src/View/deletesubkeydialog.ui \
     src/View/editor.ui \
     src/View/filesigneditor.ui \
-    src/View/fileencryptioneditor.ui
+    src/View/fileencryptioneditor.ui \
+    src/View/filedecryptionandverifyeditor.ui
 
 RESOURCES += \
     icones.qrc

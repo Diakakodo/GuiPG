@@ -167,6 +167,7 @@ void FileEncryption::on_okButton_clicked()
     QStringList opt;
     opt << "--command-fd=0"
         << "--status-fd=1"
+        << "-a"
         << "--output" << ui->destinationFileEdit->text();
     QString cmd = "-e";
     QStringList arg;
