@@ -5,6 +5,9 @@
 #include "../Keys/uid.h"
 #include "../Keys/primapubkey.h"
 #include <fstream>
+#include <QTextStream>
+#include <QFile>
+#include <QMessageBox>
 #include "sys/types.h"
 #include "sys/stat.h"
 
@@ -103,7 +106,16 @@ void FileSignEditor::on_exitButton_clicked()
 void FileSignEditor::onSignatureCompleted()
 {
     ui->warningLabel->setText("Signature terminé !");
-    remove("/tmp/tmpFile");
+    QFile file(ui->destinationFileEdit->text());
+    QString infos = "";
+    if (file.open(QIODevice::ReadOnly)) {
+        QTextStream in(&file);
+        while(!in.atEnd()) {
+            infos += in.readLine() + "\n";
+        }
+        file.close();
+    }
+    QMessageBox::question(0, "Fichier signé", infos, QMessageBox::Cancel);
     ui->exitButton->setText("Fermer");
 }
 #include <QDebug>

@@ -5,8 +5,15 @@
 #include "../Keys/uid.h"
 #include "../Keys/primapubkey.h"
 #include <fstream>
+#include <iostream>
+#include <string>
 #include "sys/types.h"
 #include "sys/stat.h"
+#include <QMessageBox>
+#include <QTextStream>
+#include <QFile>
+
+using namespace std;
 
 FileEncryptionEditor::FileEncryptionEditor(MainWindow *parent, KeyManager* keyManager) :
     QDialog(parent),
@@ -94,6 +101,16 @@ void FileEncryptionEditor::on_exitButton_clicked()
 void FileEncryptionEditor::onEncryptionCompleted()
 {
     ui->warningLabel->setText("Chiffrement terminé !");
+    QFile file(ui->destinationFileEdit->text());
+    QString infos = "";
+    if (file.open(QIODevice::ReadOnly)) {
+        QTextStream in(&file);
+        while(!in.atEnd()) {
+            infos += in.readLine() + "\n";
+        }
+        file.close();
+    }
+    QMessageBox::question(0, "Fichier chiffré", infos, QMessageBox::Cancel);
     ui->exitButton->setText("Fermer");
 }
 #include <QDebug>
@@ -144,6 +161,7 @@ void FileEncryptionEditor::on_okButton_clicked()
     QStringList opt;
     opt << "--command-fd=0"
         << "--status-fd=1"
+        << "-a"
         << "--output" << ui->destinationFileEdit->text();
     QString cmd = "-e";
     QStringList arg;
