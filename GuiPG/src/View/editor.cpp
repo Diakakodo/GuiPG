@@ -4,6 +4,8 @@
 #include <QFileDialog>
 #include "../Keys/uid.h"
 #include "../Keys/primapubkey.h"
+#include "filesigneditor.h"
+#include "fileencryptioneditor.h"
 #include <fstream>
 #include "sys/types.h"
 #include "sys/stat.h"
@@ -29,19 +31,15 @@ Editor::~Editor()
     delete ui;
 }
 
+void Editor::on_exitButton_clicked()
+{
+    remove("/tmp/tmpFile");
+    close();
+}
+
 void Editor::on_encryptButton_clicked()
 {
-    QStringList opt;
-    opt << "--command-fd=0"
-        << "--status-fd=1"
-        << "-a"
-        << "-r bobbb"
-        << "--output /tmp/outputFile";
-    QString cmd = "-e";
-    QStringList arg;
-    arg << "/tmp/tmpFile";
-    QStringList interactions;
-    interactions << "toto";
+
 
     ofstream fichier("/tmp/tmpFile", ios::out | ios::trunc);
 
@@ -50,10 +48,9 @@ void Editor::on_encryptButton_clicked()
         fichier.close();
     }
 
-    Action action(cmd, arg, opt, interactions);
-    m_manager->setAction(action);
-    connect(m_manager, &GPGManager::finished, this, &Editor::onEncryptionCompleted);
-    m_manager->execute();
+    FileEncryptionEditor fileencryptioneditor(m_parent, m_keyManager);
+    fileencryptioneditor.exec();
+
 }
 
 void Editor::onEncryptionCompleted()
@@ -61,7 +58,16 @@ void Editor::onEncryptionCompleted()
     remove("/tmp/tmpFile");
 }
 
-void Editor::on_exitButton_clicked()
+
+void Editor::on_signButton_clicked()
 {
-    close();
+    ofstream fichier("/tmp/tmpFile", ios::out | ios::trunc);
+
+    if (fichier) {
+        fichier << ui->textEdit->toPlainText().toStdString();
+        fichier.close();
+    }
+
+    FileSignEditor filesigneditor(m_parent, m_keyManager);
+    filesigneditor.exec();
 }

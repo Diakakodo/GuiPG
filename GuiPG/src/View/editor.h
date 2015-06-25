@@ -24,6 +24,8 @@ private slots:
 
     void on_exitButton_clicked();
 
+    void on_signButton_clicked();
+
 private:
     Ui::Editor *ui;
     Profile* m_profile;

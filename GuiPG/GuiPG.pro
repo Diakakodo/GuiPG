@@ -50,7 +50,9 @@ HEADERS += \
     src/View/filesignandencryption.h \
     src/View/deleteuiddialog.h \
     src/View/deletesubkeydialog.h \
-    src/View/editor.h
+    src/View/editor.h \
+    src/View/filesigneditor.h \
+    src/View/fileencryptioneditor.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -101,7 +103,9 @@ SOURCES += \
     src/View/filesignandencryption.cpp \
     src/View/deleteuiddialog.cpp \
     src/View/deletesubkeydialog.cpp \
-    src/View/editor.cpp
+    src/View/editor.cpp \
+    src/View/filesigneditor.cpp \
+    src/View/fileencryptioneditor.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
@@ -119,7 +123,9 @@ FORMS += \
     src/View/filesignandencryption.ui \
     src/View/deleteuiddialog.ui \
     src/View/deletesubkeydialog.ui \
-    src/View/editor.ui
+    src/View/editor.ui \
+    src/View/filesigneditor.ui \
+    src/View/fileencryptioneditor.ui
 
 RESOURCES += \
     icones.qrc
