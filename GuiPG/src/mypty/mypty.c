@@ -1,174 +1,206 @@
 #define _XOPEN_SOURCE 600
+#define _GNU_SOURCE
+#include <stdio.h>
 #include <stdlib.h>
+#include "print_err_if/print_err_if.h"
 #include <fcntl.h>
 #include <errno.h>
-#include <unistd.h>
-#include <stdio.h>
-#define __USE_BSD
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <termios.h>
+#include <unistd.h>
+
 #include <sys/select.h>
 #include <sys/ioctl.h>
-#include <string.h>
 
+#include <signal.h>
 
-int main(int ac, char *av[])
-{
-int fdm, fds;
-int rc;
-char input[150];
+#define TTYNAME_MAX_LEN 256
+#define BUF_SIZE 256
 
-// Check arguments
-if (ac <= 1)
-{
-fprintf(stderr, "Usage: %s program_name [parameters]\n", av[0]);
-exit(1);
-}
-
-fdm = posix_openpt(O_RDWR);
-if (fdm < 0)
-{
-fprintf(stderr, "Error %d on posix_openpt()\n", errno);
-return 1;
-}
-
-rc = grantpt(fdm);
-if (rc != 0)
-{
-fprintf(stderr, "Error %d on grantpt()\n", errno);
-return 1;
-}
-
-rc = unlockpt(fdm);
-if (rc != 0)
-{
-fprintf(stderr, "Error %d on unlockpt()\n", errno);
-return 1;
-}
-
-// Open the slave side ot the PTY
-fds = open(ptsname(fdm), O_RDWR);
-
-// Create the child process
-if (fork())
-{
-fd_set fd_in;
-
-  // FATHER
-
-  // Close the slave side of the PTY
-  close(fds);
-
-  while (1)
-  {
-    // Wait for data from standard input and master side of PTY
-    FD_ZERO(&fd_in);
-    FD_SET(0, &fd_in);
-    FD_SET(fdm, &fd_in);
-
-    rc = select(fdm + 1, &fd_in, NULL, NULL, NULL);
-    switch(rc)
-    {
-      case -1 : fprintf(stderr, "Error %d on select()\n", errno);
-                exit(1);
-
-      default :
-      {
-        // If data on standard input
-        if (FD_ISSET(0, &fd_in))
-        {
-          rc = read(0, input, sizeof(input));
-          if (rc > 0)
-          {
-            // Send data on the master side of PTY
-            write(fdm, input, rc);
-          }
-          else
-          {
-            if (rc < 0)
-            {
-              fprintf(stderr, "Error %d on read standard input\n", errno);
-              exit(1);
-            }
-          }
-        }
-
-        // If data on master side of PTY
-        if (FD_ISSET(fdm, &fd_in))
-        {
-          rc = read(fdm, input, sizeof(input));
-          if (rc > 0)
-          {
-            // Send data on standard output
-            write(1, input, rc);
-          }
-          else
-          {
-            if (rc < 0)
-            {
-              fprintf(stderr, "Error %d on read master PTY\n", errno);
-              exit(1);
-            }
-          }
-        }
-      }
-    } // End switch
-  } // End while
-}
-else
-{
-struct termios slave_orig_term_settings; // Saved terminal settings
-struct termios new_term_settings; // Current terminal settings
-
-  // CHILD
-
-  // Close the master side of the PTY
-  close(fdm);
-
-  // Save the defaults parameters of the slave side of the PTY
-  rc = tcgetattr(fds, &slave_orig_term_settings);
+void slaveProcess(int fd, int argc, char** argv) {
+  // Save terminal settings
+  struct termios slave_settings_old; 
+  // New terminal settings
+  struct termios slave_settings;
+  if (PRINT_ERRNO_IF(tcgetattr(fd, &slave_settings_old) != 0,
+    "tcgetattr failed"))
+    exit(EXIT_FAILURE);
 
   // Set RAW mode on slave side of PTY
-  new_term_settings = slave_orig_term_settings;
-  cfmakeraw (&new_term_settings);
-  tcsetattr (fds, TCSANOW, &new_term_settings);
+  slave_settings = slave_settings_old;
+  cfmakeraw(&slave_settings);
+  if (PRINT_ERRNO_IF(tcsetattr(fd, TCSANOW, &slave_settings) != 0,
+    "tcsetattr failed"))
+    exit(EXIT_FAILURE);
+  
+  // Set slave side of PTY the standard input and output of the process
+  if (PRINT_ERRNO_IF(close(STDIN_FILENO) != 0,
+    "close failed"))
+    exit(EXIT_FAILURE);
+  if (PRINT_ERRNO_IF(close(STDOUT_FILENO) != 0,
+    "close failed"))
+    exit(EXIT_FAILURE);
+  if (PRINT_ERRNO_IF(close(STDERR_FILENO) != 0,
+    "close failed"))
+    exit(EXIT_FAILURE);
+  if (PRINT_ERRNO_IF(dup(fd) == -1, // PTY become STDIN
+    "dup failed"))
+    exit(EXIT_FAILURE);
+  if (PRINT_ERRNO_IF(dup(fd) == -1, // PTY become STDOUT
+    "dup failed"))
+    exit(EXIT_FAILURE);
+  if (PRINT_ERRNO_IF(dup(fd) == -1, // PTY become STDERR
+    "dup failed"))
+    exit(EXIT_FAILURE);
+  
+  // Close original fd which is become useless.
+  if (PRINT_ERRNO_IF(close(fd) != 0,
+    "close failed"))
+    exit(EXIT_FAILURE);
 
-  // The slave side of the PTY becomes the standard input and outputs of the child process
-  close(0); // Close standard input (current terminal)
-  close(1); // Close standard output (current terminal)
-  close(2); // Close standard error (current terminal)
-
-  dup(fds); // PTY becomes standard input (0)
-  dup(fds); // PTY becomes standard output (1)
-  dup(fds); // PTY becomes standard error (2)
-
-  // Now the original file descriptor is useless
-  close(fds);
-
-  // Make the current process a new session leader
-  setsid();
-
-  // As the child is a session leader, set the controlling terminal to be the slave side of the PTY
-  // (Mandatory for programs like the shell to make them manage correctly their outputs)
-  ioctl(0, TIOCSCTTY, 1);
-
-  // Execution of the program
-  {
-  char **child_av;
-  int i;
-
-    // Build the command line
-    child_av = (char **)malloc(ac * sizeof(char *));
-    for (i = 1; i < ac; i ++)
-    {
-      child_av[i - 1] = strdup(av[i]);
+  // Run process in a new session
+  if (PRINT_ERRNO_IF(setsid() == (pid_t) -1,
+    "Failed to create new session"))
+    exit(EXIT_FAILURE);
+  // Process is a session leader.
+  // Set controlling terminal to the slave side of the PTY
+  if (PRINT_ERRNO_IF(ioctl(STDIN_FILENO, TIOCSCTTY, STDOUT_FILENO) == -1,
+    "Failed to switch on slave side of PTY"))
+    exit(EXIT_FAILURE);
+  
+  // Execute the program
+  
+  char** child_argv = malloc((argc + 1) * sizeof(char*));
+  for (int i = 0; i < argc; ++i) {
+    if (PRINT_ERRNO_IF((child_argv[i] = strdup(argv[i])) == NULL,
+      "strdup failed")) {
+      free(child_argv);
+      exit(EXIT_FAILURE);
     }
-    child_av[i - 1] = NULL;
-    rc = execvp(child_av[0], child_av);
   }
-
-  // if Error...
-  return 1;
+  child_argv[argc] = NULL;
+  if (PRINT_ERRNO_IF(execvp(child_argv[0], child_argv) == -1,
+    "Failed execvp")) {
+    free(child_argv);
+    exit(EXIT_FAILURE);
+  }
+  // To be sure ;-)
+  exit(EXIT_FAILURE);
 }
 
-return 0;
-} // main
+/*
+ * Read BUF_SIZE data max from fdin
+ * and write it on fdout
+ * @return nb bytes read/write on success -1 on error
+ */
+int forwardData(int fdin, int fdout) {
+  char buf[BUF_SIZE];
+  int rc;
+  // Read data on fdin
+  if (PRINT_ERRNO_IF((rc = read(fdin, buf, sizeof(buf))) < 0,
+    "Read on fdin failed")) 
+    return -1;
+  if (rc > 0) {
+    // Write data on fdout
+    if (PRINT_ERRNO_IF(write(fdout, buf, rc) < 0,
+      "Write on fdout failed"))
+      return -1;
+  }
+  return rc;
+}
+
+void masterProcess(int fd) {
+  fd_set set;
+  while(1) {
+    // Build set of file descriptors
+    // With stdin and fd (master side of pty)
+    FD_ZERO(&set);
+    FD_SET(STDIN_FILENO, &set);
+    FD_SET(fd, &set);
+    
+    if (PRINT_ERRNO_IF(select(fd+2, &set, NULL, NULL, NULL) == -1,
+      "Error on select")) 
+      exit(EXIT_FAILURE);
+    
+    if (FD_ISSET(STDIN_FILENO, &set)) { // data on stdin
+      if (PRINT_ERR_IF(forwardData(STDIN_FILENO, fd) < 0,
+        "Fail forward data from stdin to master side of PTY"))
+        exit(EXIT_FAILURE);
+    }
+    if (FD_ISSET(fd, &set)) { // data on master side of pty
+      if (PRINT_ERR_IF(forwardData(fd, STDOUT_FILENO) < 0,
+        "Fail forward data from master side of PTY to stdout"))
+        exit(EXIT_FAILURE);
+    }
+  }
+}
+
+void sigCHLDhandler(int signum) {
+  // On termine le processus pere quand le fils meurt.
+  exit(EXIT_SUCCESS);
+}
+
+int main(int argc, char** argv) {
+  // Handle SIGCHLD signal to exit father process on child death
+  struct sigaction sig;
+  sig.sa_handler = &sigCHLDhandler;
+  if (PRINT_ERRNO_IF(sigaction(SIGCHLD, &sig, NULL) != 0,
+    "sigaction failed")) 
+    exit(EXIT_FAILURE);
+  
+  int fd_master, fd_slave;
+  if (argc <= 1) {
+    fprintf(stderr, "Usage %s program [args]\n", argv[0]);
+    exit(EXIT_FAILURE);
+  }
+  // Open pseudo terminal
+  if (PRINT_ERRNO_IF((fd_master = posix_openpt(O_RDWR)) < 0,
+    "Error open pseudo terminal"))
+    exit(EXIT_FAILURE);
+  // Change mode and owner of the slave pt of master pt
+  if (PRINT_ERRNO_IF(grantpt(fd_master) != 0, "grantpt"))
+    exit(EXIT_FAILURE);
+  // unlock slave pt of df_master
+  if (PRINT_ERRNO_IF(unlockpt(fd_master) != 0,
+    "Unlock slave pseudo terminal"))
+    exit(EXIT_FAILURE);
+  // Get name of tty
+  //*
+  char ttyname[TTYNAME_MAX_LEN];
+  if (PRINT_ERRNO_IF(ptsname_r(fd_master, ttyname, TTYNAME_MAX_LEN),
+    "Get name of pseudo terminal")) 
+    exit(EXIT_FAILURE);
+  // Open slave side of master pt
+  if (PRINT_ERRNO_IF((fd_slave = open(ttyname, O_RDWR)) == -1,
+    "Open slave pseudo terminal"))
+    exit(EXIT_FAILURE);
+  /*/
+  if (PRINT_ERRNO_IF((fd_slave = open(ptsname(fd_master), O_RDWR)) == -1,
+    "Open slave pseudo terminal"))
+    exit(EXIT_FAILURE);
+
+  //*/
+
+  switch(fork()) {
+    case -1: // Error
+      PRINT_ERRNO_IF(1 == 1, "fork failed");
+      exit(EXIT_FAILURE);
+    case 0:  // Child
+      if (PRINT_ERRNO_IF(close(fd_master) != 0,
+        "Close master pts"))
+        exit(EXIT_FAILURE);
+      slaveProcess(fd_slave, argc - 1, argv + 1);
+      break;
+    default: // parent
+      if (PRINT_ERRNO_IF(close(fd_slave) != 0,
+        "Close slave pts"))
+        exit(EXIT_FAILURE);
+      masterProcess(fd_master);
+      break;
+  }
+
+  return EXIT_FAILURE;
+}
+
