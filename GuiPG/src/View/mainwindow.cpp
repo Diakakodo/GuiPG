@@ -19,7 +19,8 @@
 #include <QTextEdit>
 #include <QLineEdit>
 #include <QMovie>
-
+#include <QDebug>
+#include "mythread.h"
 
 
 MainWindow::MainWindow(MainWindowModel* model)
@@ -157,56 +158,33 @@ void MainWindow::on_action_Import_Toolbar_triggered() {
     keyImportGui.exec();
 }
 
-
 void MainWindow::buildTree() {
-    const QList<PrimaPubKey*> pubKeys = m_model->getKeyManager()->getPubKeys();
-    QList<QString> hash;
-    for (PrimaPubKey* pub : pubKeys) {
-        hash.append(pub->getFpr());
+    if (!m_treeWidgetMutex.tryLock()) {
+        return;
     }
-    QHash<QString, QTreeWidgetItem*> hashItem;
-    QTreeWidget tmpTree;
-    int count = ui->treeWidgetKey->topLevelItemCount();
-    for (int i = 0; i < count; i++) {
-        if (hash.contains(((PrimaPubKeyItem*) ui->treeWidgetKey->topLevelItem(0))->getFpr())) {
-            QTreeWidgetItem* item = new QTreeWidgetItem(&tmpTree);
-            for (int i = 0; i < ui->treeWidgetKey->topLevelItem(0)->childCount(); ++i) {
-                QTreeWidgetItem* child = ui->treeWidgetKey->topLevelItem(0)->child(i)->clone();
-                item->addChild(child);
-                child->setExpanded(ui->treeWidgetKey->topLevelItem(0)->child(i)->isExpanded());
-                child->setSelected(ui->treeWidgetKey->topLevelItem(0)->child(i)->isSelected());
-                for (int j = 0; j < ui->treeWidgetKey->topLevelItem(0)->child(i)->childCount(); ++j) {
-                    QTreeWidgetItem* subChild = ui->treeWidgetKey->topLevelItem(0)->child(i)->child(j)->clone();
-                    child->addChild(subChild);
-                    item->child(i)->child(j)->setSelected(ui->treeWidgetKey->topLevelItem(0)->child(i)->child(j)->isSelected());
-                }
-            }
-            tmpTree.addTopLevelItem(item);
-            if (ui->treeWidgetKey->topLevelItem(0)->isSelected() && tmpTree.selectedItems().count() < 1) {
-                item->setSelected(true);
-            }
-            item->setExpanded(ui->treeWidgetKey->topLevelItem(0)->isExpanded());
-            hashItem.insert(((PrimaPubKeyItem*) ui->treeWidgetKey->topLevelItem(0))->getFpr(), item);
-        }
-        delete ui->treeWidgetKey->topLevelItem(0);
+    MyThread* th = new MyThread(this, ui->treeWidgetKey, m_model);
+    connect(th, &MyThread::deleteTopItem, this, &MainWindow::deleteTopItem);
+    connect(th, &QThread::finished, this, &MainWindow::unlockTreeWidgetMutex);
+    connect(th, &MyThread::addTopItem, this, &MainWindow::addTopItem);
+    th->start();
+}
+
+void MainWindow::unlockTreeWidgetMutex() {
+    m_treeWidgetMutex.unlock();
+}
+
+void MainWindow::addTopItem(PrimaPubKeyItem* newItem, QList<QString>* listFpr) {
+    ui->treeWidgetKey->addTopLevelItem(newItem);
+    newItem->setExpanded(listFpr->contains(newItem->getFpr()));
+    for (int i = 0; i < newItem->childCount(); ++i) {
+        GpgItem* child = (GpgItem*) newItem->child(i);
+        child->setExpanded(listFpr->contains(child->getFpr()));
     }
-    for (PrimaPubKey* pub : pubKeys) {
-        PrimaPubKeyItem* newItem = new PrimaPubKeyItem(pub);
-        ui->treeWidgetKey->addTopLevelItem(newItem);
-        if (hashItem.contains(pub->getFpr())) {
-            QTreeWidgetItem* item = hashItem.value(pub->getFpr());
-            newItem->setExpanded(item->isExpanded());
-            newItem->setSelected(item->isSelected());
-            for (int i = 0; i < item->childCount() && i < newItem->childCount(); ++i) {
-                newItem->child(i)->setExpanded(item->child(i)->isExpanded());
-                newItem->child(i)->setSelected(item->child(i)->isSelected());
-                for (int j = 0; j < newItem->child(i)->childCount() && j < item->child(i)->childCount(); ++j) {
-                    newItem->child(i)->child(j)->setSelected(item->child(i)->child(j)->isSelected());
-                }
-            }
-        }
-    }
-    tmpTree.clear();
+    delete listFpr;
+}
+
+void MainWindow::deleteTopItem(int i) {
+    delete ui->treeWidgetKey->topLevelItem(i);
 }
 
 void MainWindow::on_actionImporter_triggered()

@@ -8,6 +8,9 @@
 #include <QTreeWidget>
 #include "../Keys/subseckey.h"
 #include "../GPG/gpgmanager.h"
+#include "GpgItems/primapubkeyitem.h"
+#include <QMutex>
+
 
 #define ICON_BIG_BROTHER_SIZE QSize(16, 16)
 #define ICON_BIG_BROTHER_LOAD_PATH "Icones/chargement.gif"
@@ -73,6 +76,10 @@ private slots:
 
         void on_actionEditeur_triggered();
 
+        void addTopItem(PrimaPubKeyItem* newItem, QList<QString> *listFpr);
+        void deleteTopItem(int i);
+        void unlockTreeWidgetMutex();
+
     protected:
      void closeEvent(QCloseEvent *event);
 
@@ -84,7 +91,7 @@ private:
         int currentBigBrotherHeight;
         int m_bigBrotherCmdMaxWidht = 0;
         int NB_CMD = 0;
-
+        QMutex m_treeWidgetMutex;
 };
 
 #endif // MAINWINDOW_H

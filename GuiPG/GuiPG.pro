@@ -53,7 +53,8 @@ HEADERS += \
     src/View/editor.h \
     src/View/filesigneditor.h \
     src/View/fileencryptioneditor.h \
-    src/View/filedecryptionandverifyeditor.h
+    src/View/filedecryptionandverifyeditor.h \
+    src/View/mythread.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -107,7 +108,8 @@ SOURCES += \
     src/View/editor.cpp \
     src/View/filesigneditor.cpp \
     src/View/fileencryptioneditor.cpp \
-    src/View/filedecryptionandverifyeditor.cpp
+    src/View/filedecryptionandverifyeditor.cpp \
+    src/View/mythread.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
