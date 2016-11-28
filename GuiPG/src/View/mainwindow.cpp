@@ -159,6 +159,7 @@ void MainWindow::on_action_Import_Toolbar_triggered() {
 }
 
 void MainWindow::buildTree() {
+    ui->action_Refresh_Toolbar->setDisabled(true);
     if (!m_treeWidgetMutex.tryLock()) {
         return;
     }
@@ -171,6 +172,7 @@ void MainWindow::buildTree() {
 
 void MainWindow::unlockTreeWidgetMutex() {
     m_treeWidgetMutex.unlock();
+    ui->action_Refresh_Toolbar->setEnabled(true);
 }
 
 void MainWindow::addTopItem(PrimaPubKeyItem* newItem, QList<QString>* listFpr) {
