@@ -166,7 +166,8 @@ void FileSign::on_okButton_clicked()
     opt << "--command-fd=0"
         << "--status-fd=1"
         << "-a"
-        << "--default-key " + name;
+        << "--default-key "
+        << ui->tableWidgetRecipient->item(rowIndexes[0], 4)->text();
     QString cmd = "--detach-sign";
     QStringList arg;
     arg << ui->sourceFileEdit->text();
