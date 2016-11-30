@@ -17,6 +17,7 @@
 #define ICON_BIG_BROTHER_SIZE QSize(16, 16)
 #define ICON_BIG_BROTHER_LOAD_PATH "Icones/chargement.gif"
 #define DATE_BIG_BROTHER_FORMAT "hh:mm:ss.z"
+#define ICON_BIG_REFRESH_LOAD_PATH "Icones/refresh.gif"
 
 class MainWindowModel;
 
@@ -81,6 +82,7 @@ private slots:
         void addTopItem(PrimaPubKeyItem* newItem, QList<QString> *listFpr);
         void deleteTopItem(int i);
         void unlockTreeWidgetMutex();
+        void setRefreshIcon();
 
     protected:
      void closeEvent(QCloseEvent *event);
@@ -95,7 +97,6 @@ private:
         int m_bigBrotherCmdMaxWidht = 0;
         int NB_CMD = 0;
         QMutex m_treeWidgetMutex;
-        QLabel* m_refreshLoadingLabel;
         QMovie* m_refreshLoadingMovie;
 };
 

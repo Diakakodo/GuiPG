@@ -59,11 +59,9 @@ MainWindow::MainWindow(MainWindowModel* model)
     ui->bigBrother->setColumnWidth(0, ICON_BIG_BROTHER_SIZE.width() * 3);
     ui->bigBrother->setHeaderLabels(QStringList() << "" << "Commandes" << "Début" << "Fin");
 
-    this->m_refreshLoadingLabel = new QLabel("plop", this);
-    this->m_refreshLoadingMovie = new QMovie(":/icones/res/" "Icones/chargement.gif");
-    this->m_refreshLoadingMovie->setScaledSize(ICON_BIG_BROTHER_SIZE);
-    this->m_refreshLoadingLabel->setMovie(this->m_refreshLoadingMovie);
-    ui->toolBar->insertWidget(ui->action_Refresh_Toolbar, this->m_refreshLoadingLabel);
+    this->m_refreshLoadingMovie = new QMovie(":/icones/res/" ICON_BIG_REFRESH_LOAD_PATH);
+    this->m_refreshLoadingMovie->setSpeed(1000);
+    connect(this->m_refreshLoadingMovie, &QMovie::frameChanged, this, &MainWindow::setRefreshIcon);
     this->refreshLoadingView(true);
 
     model->initKeyManager(this);
@@ -108,7 +106,6 @@ MainWindow::~MainWindow() {
     delete ui;
     delete m_model;
     delete m_refreshLoadingMovie;
-    delete m_refreshLoadingLabel;
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
@@ -168,14 +165,16 @@ void MainWindow::on_action_Import_Toolbar_triggered() {
     keyImportGui.exec();
 }
 
+void MainWindow::setRefreshIcon() {
+    ui->action_Refresh_Toolbar->setIcon(QIcon(this->m_refreshLoadingMovie->currentPixmap()));
+}
+
 void MainWindow::refreshLoadingView(bool loading) {
-    QAction* action = ui->toolBar->actions().at(0);
-    loading ?
-                this->m_refreshLoadingMovie->start()
-              :
-                this->m_refreshLoadingMovie->stop();
-    ui->action_Refresh_Toolbar->setVisible(!loading);
-    action->setVisible(loading);
+    if (loading) {
+        this->m_refreshLoadingMovie->start();
+    } else {
+        this->m_refreshLoadingMovie->stop();
+    }
 }
 
 void MainWindow::buildTree() {
