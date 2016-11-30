@@ -58,11 +58,18 @@ MainWindow::MainWindow(MainWindowModel* model)
 
     ui->bigBrother->setColumnWidth(0, ICON_BIG_BROTHER_SIZE.width() * 3);
     ui->bigBrother->setHeaderLabels(QStringList() << "" << "Commandes" << "Début" << "Fin");
+
+    this->m_refreshLoadingLabel = new QLabel("plop", this);
+    this->m_refreshLoadingMovie = new QMovie(":/icones/res/" "Icones/chargement.gif");
+    this->m_refreshLoadingMovie->setScaledSize(ICON_BIG_BROTHER_SIZE);
+    this->m_refreshLoadingLabel->setMovie(this->m_refreshLoadingMovie);
+    ui->toolBar->insertWidget(ui->action_Refresh_Toolbar, this->m_refreshLoadingLabel);
+    this->refreshLoadingView(true);
+
     model->initKeyManager(this);
     ui->treeWidgetKey->setKeyManager(model->getKeyManager());
     ui->treeWidgetKey->setProfile(m_model->getProfile());
     ui->treeWidgetKey->sortByColumn(GpgItem::COL_NAME, Qt::AscendingOrder);
-
 }
 
 void MainWindow::addTab(QString name, QString content) {
@@ -100,6 +107,8 @@ MainWindowModel* MainWindow::getModel() const {
 MainWindow::~MainWindow() {
     delete ui;
     delete m_model;
+    delete m_refreshLoadingMovie;
+    delete m_refreshLoadingLabel;
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
@@ -150,12 +159,23 @@ void MainWindow::on_action_GenKey_Toolbar_triggered() {
 
 void MainWindow::on_action_Refresh_Toolbar_triggered() {
     getModel()->getKeyManager()->load();
+    this->refreshLoadingView(true);
 }
 
 void MainWindow::on_action_Import_Toolbar_triggered() {
     KeyImport keyImportGui(this);
     keyImportGui.show();
     keyImportGui.exec();
+}
+
+void MainWindow::refreshLoadingView(bool loading) {
+    QAction* action = ui->toolBar->actions().at(0);
+    loading ?
+                this->m_refreshLoadingMovie->start()
+              :
+                this->m_refreshLoadingMovie->stop();
+    ui->action_Refresh_Toolbar->setVisible(!loading);
+    action->setVisible(loading);
 }
 
 void MainWindow::buildTree() {
@@ -173,6 +193,7 @@ void MainWindow::buildTree() {
 void MainWindow::unlockTreeWidgetMutex() {
     m_treeWidgetMutex.unlock();
     ui->action_Refresh_Toolbar->setEnabled(true);
+    this->refreshLoadingView(false);
 }
 
 void MainWindow::addTopItem(PrimaPubKeyItem* newItem, QList<QString>* listFpr) {

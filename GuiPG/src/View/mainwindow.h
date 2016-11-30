@@ -10,6 +10,8 @@
 #include "../GPG/gpgmanager.h"
 #include "GpgItems/primapubkeyitem.h"
 #include <QMutex>
+#include <QMovie>
+#include <QLabel>
 
 
 #define ICON_BIG_BROTHER_SIZE QSize(16, 16)
@@ -85,6 +87,7 @@ private slots:
 
 private:
         void setItemColor(QTreeWidgetItem* item, const QColor& color);
+        void refreshLoadingView(bool loading);
 
         Ui::MainWindow* ui;
         MainWindowModel* m_model;
@@ -92,6 +95,8 @@ private:
         int m_bigBrotherCmdMaxWidht = 0;
         int NB_CMD = 0;
         QMutex m_treeWidgetMutex;
+        QLabel* m_refreshLoadingLabel;
+        QMovie* m_refreshLoadingMovie;
 };
 
 #endif // MAINWINDOW_H
