@@ -39,27 +39,24 @@ void MyThread::run() {
         }
     }
     for (int i = 0; i < count; ++i) emit deleteTopItem(0);
+    GpgTreeWidget* tmp = new GpgTreeWidget();
     for (PrimaPubKey* pub : pubKeys) {
-        QList<QString>* fprExtended = new QList<QString>();
-        //QList<QString>* fprSelected = new QList<QString>();
         PrimaPubKeyItem* newItem = new PrimaPubKeyItem(pub);
+        tmp->addTopLevelItem(newItem);
         if (hashItem.contains(pub->getFpr())) {
             QTreeWidgetItem* item = hashItem.value(pub->getFpr());
-            //newItem->setExpanded(item->isExpanded());
-            if (item->isExpanded())
-                fprExtended->append(newItem->getFpr());
+            newItem->setExpanded(item->isExpanded());
             newItem->setSelected(item->isSelected());
             for (int i = 0; i < item->childCount() && i < newItem->childCount(); ++i) {
-                //newItem->child(i)->setExpanded(item->child(i)->isExpanded());
-                if (item->child(i)->isExpanded())
-                    fprExtended->append(((GpgItem*) newItem->child(i))->getFpr());
+                newItem->child(i)->setExpanded(item->child(i)->isExpanded());
                 newItem->child(i)->setSelected(item->child(i)->isSelected());
                 for (int j = 0; j < newItem->child(i)->childCount() && j < item->child(i)->childCount(); ++j) {
                     newItem->child(i)->child(j)->setSelected(item->child(i)->child(j)->isSelected());
                 }
             }
         }
-        emit addTopItem(newItem, fprExtended);
+        emit addTopItem(newItem);
     }
     tmpTree.clear();
+    //TODO delete tmp !
 }

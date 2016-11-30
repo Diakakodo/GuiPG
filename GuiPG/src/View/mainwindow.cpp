@@ -202,16 +202,20 @@ void MainWindow::unlockTreeWidgetMutex() {
     this->refreshLoadingView(false);
 }
 
-void MainWindow::addTopItem(PrimaPubKeyItem* item, QList<QString>* listFpr) {
+void MainWindow::addTopItem(PrimaPubKeyItem* item) {
     PrimaPubKeyItem* newItem = new PrimaPubKeyItem(item->getPrimaPubKey());
     ui->treeWidgetKey->addTopLevelItem(newItem);
-    newItem->setExpanded(listFpr->contains(newItem->getFpr()));
-    for (int i = 0; i < newItem->childCount(); ++i) {
-        GpgItem* child = (GpgItem*) newItem->child(i);
-        child->setExpanded(listFpr->contains(child->getFpr()));
+
+    newItem->setExpanded(item->isExpanded());
+    newItem->setSelected(item->isSelected());
+    for (int i = 0; i < item->childCount() && i < newItem->childCount(); ++i) {
+        newItem->child(i)->setExpanded(item->child(i)->isExpanded());
+        newItem->child(i)->setSelected(item->child(i)->isSelected());
+        for (int j = 0; j < newItem->child(i)->childCount() && j < item->child(i)->childCount(); ++j) {
+            newItem->child(i)->child(j)->setSelected(item->child(i)->child(j)->isSelected());
+        }
     }
     delete item;
-    delete listFpr;
 }
 
 void MainWindow::deleteTopItem(int i) {

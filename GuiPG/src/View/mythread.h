@@ -21,7 +21,7 @@ private:
 
 signals:
     void deleteTopItem(int i);
-    void addTopItem(PrimaPubKeyItem* newItem, QList<QString>* list);
+    void addTopItem(PrimaPubKeyItem* newItem);
 
 public slots:
 };
