@@ -18,5 +18,6 @@
         <file>res/Icones/own_uid.png</file>
         <file>res/Icones/refresh.png</file>
         <file>res/Icones/single_subkey.png</file>
+        <file>res/Icones/refresh.gif</file>
     </qresource>
 </RCC>
