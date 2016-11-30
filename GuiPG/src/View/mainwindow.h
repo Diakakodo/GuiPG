@@ -98,6 +98,8 @@ private:
         int NB_CMD = 0;
         QMutex m_treeWidgetMutex;
         QMovie* m_refreshLoadingMovie;
+        int m_verticalScrollRemeber;
+        int m_horizontalScrollRemeber;
 };
 
 #endif // MAINWINDOW_H

@@ -20,6 +20,7 @@
 #include <QLineEdit>
 #include <QMovie>
 #include <QDebug>
+#include <QScrollBar>
 #include "mythread.h"
 
 
@@ -172,8 +173,14 @@ void MainWindow::setRefreshIcon() {
 void MainWindow::refreshLoadingView(bool loading) {
     if (loading) {
         this->m_refreshLoadingMovie->start();
+        this->m_verticalScrollRemeber = ui->treeWidgetKey->verticalScrollBar()->value();
+        this->m_horizontalScrollRemeber = ui->treeWidgetKey->horizontalScrollBar()->value();
     } else {
         this->m_refreshLoadingMovie->stop();
+        ui->treeWidgetKey->verticalScrollBar()->setValue(this->m_verticalScrollRemeber);
+        ui->treeWidgetKey->verticalScrollBar()->scroll(0, this->m_verticalScrollRemeber);
+        ui->treeWidgetKey->horizontalScrollBar()->setValue(this->m_horizontalScrollRemeber);
+        ui->treeWidgetKey->horizontalScrollBar()->scroll(0, this->m_horizontalScrollRemeber);
     }
     ui->action_Refresh_Toolbar->setDisabled(loading);
 }
