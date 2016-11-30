@@ -175,10 +175,11 @@ void MainWindow::refreshLoadingView(bool loading) {
     } else {
         this->m_refreshLoadingMovie->stop();
     }
+    ui->action_Refresh_Toolbar->setDisabled(loading);
 }
 
 void MainWindow::buildTree() {
-    ui->action_Refresh_Toolbar->setDisabled(true);
+    this->refreshLoadingView(true);
     if (!m_treeWidgetMutex.tryLock()) {
         return;
     }
@@ -191,17 +192,18 @@ void MainWindow::buildTree() {
 
 void MainWindow::unlockTreeWidgetMutex() {
     m_treeWidgetMutex.unlock();
-    ui->action_Refresh_Toolbar->setEnabled(true);
     this->refreshLoadingView(false);
 }
 
-void MainWindow::addTopItem(PrimaPubKeyItem* newItem, QList<QString>* listFpr) {
+void MainWindow::addTopItem(PrimaPubKeyItem* item, QList<QString>* listFpr) {
+    PrimaPubKeyItem* newItem = new PrimaPubKeyItem(item->getPrimaPubKey());
     ui->treeWidgetKey->addTopLevelItem(newItem);
     newItem->setExpanded(listFpr->contains(newItem->getFpr()));
     for (int i = 0; i < newItem->childCount(); ++i) {
         GpgItem* child = (GpgItem*) newItem->child(i);
         child->setExpanded(listFpr->contains(child->getFpr()));
     }
+    delete item;
     delete listFpr;
 }
 

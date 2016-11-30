@@ -207,7 +207,7 @@ void PrimaPubKeyItem::setPossibleTrustValue(int s, QString output) {
     m_possibleTrustValue.clear();
     disconnect(m_gpg, &GPGManager::finished, this, &PrimaPubKeyItem::getPossibleTrustValue);
     delete m_gpg;
-    if (s) {
+    if (s == EXIT_SUCCESS) {
         QStringList l = output.split("\n", QString::SkipEmptyParts);
         for (QString line : l) {
             if (line.length() > 5 && line.at(4) == '=') {
