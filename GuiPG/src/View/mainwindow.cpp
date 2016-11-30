@@ -69,7 +69,62 @@ MainWindow::MainWindow(MainWindowModel* model)
     ui->treeWidgetKey->setKeyManager(model->getKeyManager());
     ui->treeWidgetKey->setProfile(m_model->getProfile());
     ui->treeWidgetKey->sortByColumn(GpgItem::COL_NAME, Qt::AscendingOrder);
+
+    this->m_search = new QLineEdit();
+    this->m_search->setPlaceholderText("search");
+    ui->toolBar->addWidget(this->m_search);
+    connect(this->m_search, &QLineEdit::textChanged, this, &MainWindow::searchTextChanged);
+
 }
+
+
+void MainWindow::searchTextChanged(const QString& search) {
+    if (search.isEmpty()) {
+        for (int i = 0; i < ui->treeWidgetKey->topLevelItemCount(); ++i) {
+            ui->treeWidgetKey->topLevelItem(i)->setHidden(false);
+            ui->treeWidgetKey->topLevelItem(i)->setExpanded(false);
+        }
+        return;
+    }
+    QList<QTreeWidgetItem*> list;
+    for (int i = 0; i < ui->treeWidgetKey->columnCount(); ++i) {
+        list += ui->treeWidgetKey->findItems(search, Qt::MatchContains | Qt::MatchRecursive, i);
+    }
+    // suppression des items en double
+    int count = list.count();
+    for (int i = 0; i < count; ++i) {
+        for (int j = i+1; j < count; ++j) {
+            if (list.at(i) == list.at(j)) {
+                list.removeAt(j);
+                --j;
+                --count;
+            }
+        }
+    }
+    QList<QTreeWidgetItem*> topLevelItems;
+    for (QTreeWidgetItem* item : list) {
+        item->setExpanded(true);
+        //item->setBackgroundColor(4, QColor::fromRgb(55,55,80));
+        QTreeWidgetItem* parent = item;
+        while (parent->parent() != nullptr) {
+            parent = parent->parent();
+        }
+        if (!topLevelItems.contains(parent)) {
+            topLevelItems.append(parent);
+        }
+    }
+    for (int i = 0; i < ui->treeWidgetKey->topLevelItemCount(); ++i) {
+        bool in = topLevelItems.contains(ui->treeWidgetKey->topLevelItem(i));
+        ui->treeWidgetKey->topLevelItem(i)->setHidden(!in);
+        ui->treeWidgetKey->topLevelItem(i)->setExpanded(in);
+    }
+    for (QTreeWidgetItem* item : list) {
+        if (item->parent() == nullptr) {
+            item->setExpanded(true);
+        }
+    }
+}
+
 
 void MainWindow::addTab(QString name, QString content) {
 

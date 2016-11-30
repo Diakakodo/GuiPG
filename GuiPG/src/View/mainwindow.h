@@ -83,6 +83,7 @@ private slots:
         void deleteTopItem(int i);
         void unlockTreeWidgetMutex();
         void setRefreshIcon();
+        void searchTextChanged(const QString& search);
 
     protected:
      void closeEvent(QCloseEvent *event);
@@ -100,6 +101,7 @@ private:
         QMovie* m_refreshLoadingMovie;
         int m_verticalScrollRemeber;
         int m_horizontalScrollRemeber;
+        QLineEdit* m_search;
 };
 
 #endif // MAINWINDOW_H
