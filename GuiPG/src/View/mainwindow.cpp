@@ -79,11 +79,14 @@ MainWindow::MainWindow(MainWindowModel* model)
 
 
 void MainWindow::searchTextChanged(const QString& search) {
-    if (search.isEmpty()) {
-        for (int i = 0; i < ui->treeWidgetKey->topLevelItemCount(); ++i) {
-            ui->treeWidgetKey->topLevelItem(i)->setHidden(false);
-            ui->treeWidgetKey->topLevelItem(i)->setExpanded(false);
+    for (int i = 0; i < ui->treeWidgetKey->topLevelItemCount(); ++i) {
+        ui->treeWidgetKey->topLevelItem(i)->setHidden(false);
+        for (int j = 0; j < ui->treeWidgetKey->topLevelItem(i)->childCount(); ++j) {
+            ui->treeWidgetKey->topLevelItem(i)->child(j)->setExpanded(false);
         }
+        ui->treeWidgetKey->topLevelItem(i)->setExpanded(false);
+    }
+    if (search.isEmpty()) {
         return;
     }
     QList<QTreeWidgetItem*> list;
@@ -103,11 +106,11 @@ void MainWindow::searchTextChanged(const QString& search) {
     }
     QList<QTreeWidgetItem*> topLevelItems;
     for (QTreeWidgetItem* item : list) {
-        item->setExpanded(true);
         //item->setBackgroundColor(4, QColor::fromRgb(55,55,80));
         QTreeWidgetItem* parent = item;
         while (parent->parent() != nullptr) {
             parent = parent->parent();
+            parent->setExpanded(true);
         }
         if (!topLevelItems.contains(parent)) {
             topLevelItems.append(parent);
@@ -116,12 +119,6 @@ void MainWindow::searchTextChanged(const QString& search) {
     for (int i = 0; i < ui->treeWidgetKey->topLevelItemCount(); ++i) {
         bool in = topLevelItems.contains(ui->treeWidgetKey->topLevelItem(i));
         ui->treeWidgetKey->topLevelItem(i)->setHidden(!in);
-        ui->treeWidgetKey->topLevelItem(i)->setExpanded(in);
-    }
-    for (QTreeWidgetItem* item : list) {
-        if (item->parent() == nullptr) {
-            item->setExpanded(true);
-        }
     }
 }
 
@@ -257,10 +254,12 @@ void MainWindow::unlockTreeWidgetMutex() {
     this->refreshLoadingView(false);
 }
 
-void MainWindow::addTopItem(PrimaPubKeyItem* item) {
+void MainWindow::addTopItem(QTreeWidget* tree, PrimaPubKeyItem* item) {
     PrimaPubKeyItem* newItem = new PrimaPubKeyItem(item->getPrimaPubKey());
     ui->treeWidgetKey->addTopLevelItem(newItem);
+    qDebug() << ui->treeWidgetKey->topLevelItemCount();
 
+    newItem->setHidden(item->isHidden());
     newItem->setExpanded(item->isExpanded());
     newItem->setSelected(item->isSelected());
     for (int i = 0; i < item->childCount() && i < newItem->childCount(); ++i) {
@@ -271,6 +270,7 @@ void MainWindow::addTopItem(PrimaPubKeyItem* item) {
         }
     }
     delete item;
+    tree->deleteLater();
 }
 
 void MainWindow::deleteTopItem(int i) {

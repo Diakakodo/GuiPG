@@ -21,7 +21,7 @@ private:
 
 signals:
     void deleteTopItem(int i);
-    void addTopItem(PrimaPubKeyItem* newItem);
+    void addTopItem(QTreeWidget* tree, PrimaPubKeyItem* newItem);
 
 public slots:
 };

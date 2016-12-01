@@ -35,16 +35,18 @@ void MyThread::run() {
                 item->setSelected(true);
             }
             item->setExpanded(m_tree->topLevelItem(i)->isExpanded());
+            item->setHidden(m_tree->topLevelItem(i)->isHidden());
             hashItem.insert(((PrimaPubKeyItem*) m_tree->topLevelItem(i))->getFpr(), item);
         }
     }
     for (int i = 0; i < count; ++i) emit deleteTopItem(0);
-    GpgTreeWidget* tmp = new GpgTreeWidget();
     for (PrimaPubKey* pub : pubKeys) {
+        QTreeWidget* tmp = new QTreeWidget();
         PrimaPubKeyItem* newItem = new PrimaPubKeyItem(pub);
         tmp->addTopLevelItem(newItem);
         if (hashItem.contains(pub->getFpr())) {
             QTreeWidgetItem* item = hashItem.value(pub->getFpr());
+            newItem->setHidden(item->isHidden());
             newItem->setExpanded(item->isExpanded());
             newItem->setSelected(item->isSelected());
             for (int i = 0; i < item->childCount() && i < newItem->childCount(); ++i) {
@@ -55,8 +57,7 @@ void MyThread::run() {
                 }
             }
         }
-        emit addTopItem(newItem);
+        emit addTopItem(tmp, newItem);
     }
     tmpTree.clear();
-    //TODO delete tmp !
 }

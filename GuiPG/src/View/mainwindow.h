@@ -79,7 +79,7 @@ private slots:
 
         void on_actionEditeur_triggered();
 
-        void addTopItem(PrimaPubKeyItem* newItem);
+        void addTopItem(QTreeWidget* tree, PrimaPubKeyItem* newItem);
         void deleteTopItem(int i);
         void unlockTreeWidgetMutex();
         void setRefreshIcon();
