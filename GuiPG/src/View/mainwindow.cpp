@@ -257,7 +257,6 @@ void MainWindow::unlockTreeWidgetMutex() {
 void MainWindow::addTopItem(QTreeWidget* tree, PrimaPubKeyItem* item) {
     PrimaPubKeyItem* newItem = new PrimaPubKeyItem(item->getPrimaPubKey());
     ui->treeWidgetKey->addTopLevelItem(newItem);
-    qDebug() << ui->treeWidgetKey->topLevelItemCount();
 
     newItem->setHidden(item->isHidden());
     newItem->setExpanded(item->isExpanded());
