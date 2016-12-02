@@ -54,7 +54,8 @@ HEADERS += \
     src/View/filesigneditor.h \
     src/View/fileencryptioneditor.h \
     src/View/filedecryptionandverifyeditor.h \
-    src/View/mythread.h
+    src/View/mythread.h \
+    src/View/secretkeywidget.h
 
 SOURCES += \
     src/Configuration/configuration.cpp \
@@ -109,7 +110,8 @@ SOURCES += \
     src/View/filesigneditor.cpp \
     src/View/fileencryptioneditor.cpp \
     src/View/filedecryptionandverifyeditor.cpp \
-    src/View/mythread.cpp
+    src/View/mythread.cpp \
+    src/View/secretkeywidget.cpp
 
 FORMS += \
     src/View/mainwindow.ui \
@@ -130,7 +132,8 @@ FORMS += \
     src/View/editor.ui \
     src/View/filesigneditor.ui \
     src/View/fileencryptioneditor.ui \
-    src/View/filedecryptionandverifyeditor.ui
+    src/View/filedecryptionandverifyeditor.ui \
+    src/View/secretkeywidget.ui
 
 RESOURCES += \
     icones.qrc
