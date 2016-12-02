@@ -27,7 +27,7 @@ class PrimaSecKey : public SubSecKey {
         void addUid(Uid *uid);
         void addSubSecKey(SubSecKey* subSecKey);
         void setPrimaryPubKey(PrimaPubKey* pub);
-        PrimaPubKey* getPrimarySecKey();
+        PrimaPubKey* getPrimaryPubKey();
         bool hasPrimaSecKey();
 
     private:

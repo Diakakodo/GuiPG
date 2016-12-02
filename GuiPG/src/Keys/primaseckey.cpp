@@ -27,7 +27,7 @@ void PrimaSecKey::setPrimaryPubKey(PrimaPubKey* pub) {
     m_pub = pub;
 }
 
-PrimaPubKey* PrimaSecKey::getPrimarySecKey() {
+PrimaPubKey* PrimaSecKey::getPrimaryPubKey() {
     return m_pub;
 }
 
