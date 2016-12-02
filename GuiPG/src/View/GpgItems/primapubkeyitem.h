@@ -7,6 +7,7 @@
 #include "../adduiddialog.h"
 #include "../deleteuiddialog.h"
 #include "../deletesubkeydialog.h"
+#include "../secretkeywidget.h"
 
 #define ICON_SINGLE_KEY_PATH "/Icones/single_key.png"
 #define ICON_DOUBLE_KEY_PATH "/Icones/double_keys.png"
@@ -41,7 +42,7 @@ class PrimaPubKeyItem : public PubKeyItem
         PrimaPubKey* getPrimaPubKey() const;
 
     public slots:
-        void sign();
+        void sign(QString fpr);
         void setPossibleTrustValue(int s, QString output);
         void trust(int value);
         void addUid();
@@ -51,6 +52,7 @@ class PrimaPubKeyItem : public PubKeyItem
         void addSubKey();
         void delOrRevUid();
         void delOrRevSubKey();
+        void selectSecretKey();
 
     private slots:
         void onAddSubKeyFinished(int result);
@@ -66,6 +68,7 @@ class PrimaPubKeyItem : public PubKeyItem
         DeleteUidDialog* m_delUidView = nullptr;
         DeleteSubKeyDialog* m_delSubKeyView = nullptr;
         void getPossibleTrustValue();
+        SecretKeyWidget* m_secretKeyWidget;
 
 
 };

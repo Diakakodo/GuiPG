@@ -65,11 +65,13 @@ PrimaPubKeyItem::PrimaPubKeyItem(PrimaPubKey *pub) : PubKeyItem(pub)
     } else {
         setIcon(COL_NAME, QIcon(":/icones/res/" ICON_SINGLE_KEY_PATH));
     }
+    GpgTreeWidget* tree = (GpgTreeWidget*) treeWidget();
+    //this->m_secretKeyWidget = new SecretKeyWidget(tree->getKeyManager()->getSecKeys());
 }
 
 PrimaPubKeyItem::~PrimaPubKeyItem()
 {
-
+    //delete this->m_secretKeyWidget;
 }
 
 void PrimaPubKeyItem::showMenu(const QPoint &pos) {
@@ -85,10 +87,12 @@ void PrimaPubKeyItem::showMenu(const QPoint &pos) {
         m_menu->addAction("Ajouter une sous-clé", this, SLOT(addSubKey()));
         m_menu->addAction("Supprimer/Révoquer une sous-clé", this, SLOT(delOrRevSubKey()));
     }
-    m_menu->addAction("Signer", this, SLOT(sign()));
+    //m_menu->addAction("Signer", this, SLOT(sign()));
+    m_menu->addAction("Signer", this, SLOT(selectSecretKey()));
     m_menu->addAction("Supprimer", this, SLOT(deleteKey()));
     getPossibleTrustValue();
 }
+
 
 void PrimaPubKeyItem::addSubKey() {
     GpgTreeWidget* tree = (GpgTreeWidget*) treeWidget();
@@ -110,8 +114,16 @@ void PrimaPubKeyItem::onAddUidFinished() {
     delete m_addUidView;
 }
 
-
-void PrimaPubKeyItem::sign() {
+void PrimaPubKeyItem::selectSecretKey() {
+    GpgTreeWidget* tree = (GpgTreeWidget*) treeWidget();
+    this->m_secretKeyWidget = new SecretKeyWidget(tree->getKeyManager()->getSecKeys());
+    connect(this->m_secretKeyWidget, &SecretKeyWidget::selectedSecretKey, this, &PrimaPubKeyItem::sign);
+    this->m_secretKeyWidget->show();
+}
+#include <QDebug>
+void PrimaPubKeyItem::sign(QString fpr) {
+    qDebug() << fpr;
+    return;
     QString infos = "Voulez vous vraiment signer cette clef ?\n\n";
     infos += "Empreinte : " + m_pub->getFpr() + "\n";
     infos += "Date de création : " + m_pub->getCreationDate().toString() + "\n";
