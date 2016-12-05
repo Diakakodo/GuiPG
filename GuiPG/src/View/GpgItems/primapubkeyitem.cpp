@@ -65,8 +65,6 @@ PrimaPubKeyItem::PrimaPubKeyItem(PrimaPubKey *pub) : PubKeyItem(pub)
     } else {
         setIcon(COL_NAME, QIcon(":/icones/res/" ICON_SINGLE_KEY_PATH));
     }
-    GpgTreeWidget* tree = (GpgTreeWidget*) treeWidget();
-    //this->m_secretKeyWidget = new SecretKeyWidget(tree->getKeyManager()->getSecKeys());
 }
 
 PrimaPubKeyItem::~PrimaPubKeyItem()
@@ -120,10 +118,8 @@ void PrimaPubKeyItem::selectSecretKey() {
     connect(this->m_secretKeyWidget, &SecretKeyWidget::selectedSecretKey, this, &PrimaPubKeyItem::sign);
     this->m_secretKeyWidget->show();
 }
-#include <QDebug>
+
 void PrimaPubKeyItem::sign(QString fpr) {
-    qDebug() << fpr;
-    return;
     QString infos = "Voulez vous vraiment signer cette clef ?\n\n";
     infos += "Empreinte : " + m_pub->getFpr() + "\n";
     infos += "Date de création : " + m_pub->getCreationDate().toString() + "\n";
@@ -142,9 +138,9 @@ void PrimaPubKeyItem::sign(QString fpr) {
 
         QStringList opt;
         opt << "--status-fd=1"
-            << "--command-fd=0";
-            //<< "--default-key"
-            //<< "" // TODO récupérer le keyId de la clé privée avec laquelle on veut signer.
+            << "--command-fd=0"
+            << "--default-key"
+            << fpr;
         QStringList interactions;
         interactions << "y";
         interactions << "y";
