@@ -1,14 +1,16 @@
 #ifndef SECRETKEYWIDGET_H
 #define SECRETKEYWIDGET_H
 
+#include <QDialog>
 #include <QWidget>
 #include "../Keys/primaseckey.h"
+#include <QTableWidgetItem>
 
 namespace Ui {
 class SecretKeyWidget;
 }
 
-class SecretKeyWidget : public QWidget
+class SecretKeyWidget : public QDialog
 {
     Q_OBJECT
 

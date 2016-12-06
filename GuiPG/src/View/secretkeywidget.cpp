@@ -6,11 +6,12 @@
 #include "../Configuration/configuration.h"
 
 SecretKeyWidget::SecretKeyWidget(QList<PrimaSecKey*> keys, QWidget *parent) :
-    QWidget(parent),
+    QDialog(parent),
     ui(new Ui::SecretKeyWidget)
 {
     setAttribute( Qt::WA_DeleteOnClose );
     ui->setupUi(this);
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidget->verticalHeader()->setVisible(false);
     QStringList tableHeader;
     tableHeader   <<"Nom"
@@ -44,12 +45,15 @@ SecretKeyWidget::SecretKeyWidget(QList<PrimaSecKey*> keys, QWidget *parent) :
         ui->tableWidget->item(i, 5)->setBackgroundColor(Configuration::getDefaultValidityColor(pub->getValidity()));
         ui->tableWidget->item(i, 6)->setBackgroundColor(Configuration::getDefaultValidityColor(pub->getTrust()));
     }
+    ui->tableWidget->resizeColumnsToContents();
+    ui->tableWidget->resizeRowsToContents();
     if (keys.count() > 0) ui->tableWidget->selectRow(0);
+    this->setFixedSize(ui->tableWidget->horizontalHeader()->length() + 40, ui->tableWidget->verticalHeader()->length() + 100);
+    ui->tableWidget->setShowGrid(false);
 }
-#include <QDebug>
+
 SecretKeyWidget::~SecretKeyWidget()
 {
-    qDebug() << "close";
     delete ui;
 }
 

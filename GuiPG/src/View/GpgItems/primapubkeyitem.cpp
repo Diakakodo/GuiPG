@@ -116,7 +116,7 @@ void PrimaPubKeyItem::selectSecretKey() {
     GpgTreeWidget* tree = (GpgTreeWidget*) treeWidget();
     this->m_secretKeyWidget = new SecretKeyWidget(tree->getKeyManager()->getSecKeys());
     connect(this->m_secretKeyWidget, &SecretKeyWidget::selectedSecretKey, this, &PrimaPubKeyItem::sign);
-    this->m_secretKeyWidget->show();
+    this->m_secretKeyWidget->exec();
 }
 
 void PrimaPubKeyItem::sign(QString fpr) {
